@@ -1,0 +1,31 @@
+* {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    * {
+        font-size: 16px;
+    }
+}
+
+.box-shadow { 
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); 
+}
+
+header {
+    max-width: 600px;
+}
+  
+.card-deck .card {
+    min-width: 220px;
+}
+  
+.border-top-gray { 
+    border-top-color: gray; 
+}
+  
+
+  
+.lh-condensed { 
+    line-height: 1.25;
+}
