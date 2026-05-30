@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>chug2k</title>
+<style>
+:root {
+  --bg: #f5f1e8;
+  --paper: #faf7f0;
+  --ink: #1a1816;
+  --muted: #6b655c;
+  --rule: #d9d2c3;
+  --accent: #cc5429;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Charter", "Georgia", serif;
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--bg);
+}
+.wrap { max-width: 720px; margin: 0 auto; padding: 64px 24px; }
+.eyebrow {
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 18px;
+}
+h1 {
+  font-family: "Inter", sans-serif;
+  font-size: 44px;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 18px;
+}
+p { margin: 0 0 18px; }
+.section-card {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 24px 28px;
+  margin: 32px 0;
+  text-decoration: none;
+  color: var(--ink);
+  display: block;
+}
+.section-card h2 {
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  margin: 0 0 8px;
+}
+.section-card p { margin: 0; color: var(--muted); font-size: 15px; }
+.section-card:hover { border-color: var(--accent); }
+footer {
+  margin-top: 96px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  color: var(--muted);
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">chug2k.github.io</div>
+  <h1>Charles Lee</h1>
+  <p>This is a placeholder for the eventual blog. For now, it's a directory.</p>
+
+  <a class="section-card" href="/v/">
+    <h2>Video summaries →</h2>
+    <p>Curated field notes from talks, lectures, and webinars. Each one is a single-page distillation with transcripts, screenshots at key moments, and pull quotes.</p>
+  </a>
+
+  <footer>
+    Built with Claude Code. Source at <a href="https://github.com/chug2k/chug2k.github.io">github.com/chug2k/chug2k.github.io</a>.
+  </footer>
+</div>
+</body>
+</html>
