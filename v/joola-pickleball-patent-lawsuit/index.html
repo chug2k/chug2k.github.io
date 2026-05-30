@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The JOOLA Pickleball Lawsuit, Decoded: What the Patents Actually Claim</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Johnkew Pickleball · Patent breakdown</div>
+<h1>The JOOLA Pickleball Lawsuit, Decoded: What the Patents Actually Claim</h1>
+<p class="lede">Everyone assumes JOOLA&#x27;s big pickleball lawsuit is about &quot;Gen 3&quot; paddles or banned shapes. Reading the actual patent claims — with a stack of dissected paddles for show-and-tell — Johnkew argues it&#x27;s really about one specific construction detail that shows up in every accused paddle, and that the whole case may turn on prior art.</p>
+<div class="byline"><span><strong>Creator:</strong> Johnkew Pickleball</span><span><strong>Runtime:</strong> 10 min</span><span><strong>Video published:</strong> April 13, 2026</span><span><strong>24.4K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=_jvbm_JJMSM" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>The 60-second version</h2><ol><li>The popular take — that the lawsuit is about 'Gen 3' paddles or 'diving board' shapes — misses the point. As a patent attorney told him: only the claims matter, and the claims describe a specific construction.</li><li>JOOLA filed an ITC complaint (Section 337, aimed at blocking imports, not just damages) against 11 companies, on two patents: 826 (the key one) and 891.</li><li>Patent 826 requires a layered build: a core, then a gap with TWO fillers — an inner foam (e.g., an EVA 'horseshoe') and an outer hollow carbon-fiber 'frame'/'sushi roll' that can be filled with anything, even air. Every accused paddle shares it.</li><li>What's NOT accused: paddles with a single filler running to the edge (no frame), like the Selkirk Era — and none of it hinges on whether the core 'floats.' Patent 891 is separate: internal core gaps, likely protecting the Pro 4 neck-foam inserts.</li><li>The wildcard that could decide the case: prior art — if defendants show the construction was already known, used, published, or obvious, the patents can be invalidated.</li></ol></div>
+<section id="complaint"><h2 class="section">01 · The lawsuit isn&#x27;t what you think</h2><h3 class="heading">Read the claims, not the headlines</h3><p>The caveat up front: he's an engineer, not an attorney. But the best advice he got from a patent attorney frames the whole video — "only focus on the claims, nothing else matters." And the claims don't say what most people assume.</p>
+<figure><img src="screenshots/complaint.jpg" alt=""><figcaption><span>JOOLA's ITC complaint, filed under Section 337 — designed to <em>block imports</em>, not just collect damages — naming 11 companies on two patents: the 826 and the 891.</span><span class="ts">00:00:42</span></figcaption></figure>
+<blockquote>Everybody thinks this JOOLA lawsuit is about Gen 3 paddles, but the actual patents say something completely different.<cite>— Johnkew</cite></blockquote></section><section id="generations"><h2 class="section">02 · Show and tell</h2><h3 class="heading">The paddle generations, sliced open</h3><p>Having dissected paddles for years, he walks the cross-sections. <strong>Gen 1</strong> (the original Franklin Ben Johns) is just one slab of honeycomb polypropylene, edge to edge — no foam. <strong>Gen 2</strong> adds the "sushi roll" around the perimeter: a carbon-fiber tube filled with expanding edge foam.</p>
+<figure><img src="screenshots/generations.jpg" alt=""><figcaption><span>The reveal is in the cross-section: a plain honeycomb core vs. a core ringed by a foam-filled frame.</span><span class="ts">00:02:37</span></figcaption></figure></section><section id="patent826"><h2 class="section">03 · Patent 826</h2><h3 class="heading">The two-filler &quot;sushi roll&quot; structure</h3><p>The key patent describes, from center out: a core, a gap, then an outer frame. The Gen 3 crux is a <em>second</em> filler — a white EVA-foam "horseshoe" between the core and the frame. So the claimed structure is <strong>core → first filler → second filler (the hollow frame)</strong>.</p>
+<figure><img src="screenshots/patent826.jpg" alt=""><figcaption><span>Pointing out the layers on a Gen 3: core, the EVA-foam horseshoe, then the carbon-fiber frame.</span><span class="ts">00:03:37</span></figcaption></figure>
+<div class="callout"><span class="label">The detail nobody&#x27;s discussing</span>You need <em>both</em> layers of filler to match the claims — and the frame doesn't have to contain anything specific. Even pressurized air is covered. The core also needn't be honeycomb; it "can be anything."</div></section><section id="crux"><h2 class="section">04 · What&#x27;s in — and what&#x27;s out</h2><h3 class="heading">Single filler ≠ infringement</h3><p>Every paddle in the complaint shares that two-filler pattern. Paddles with just a <em>single</em> filler extending to the edge — no frame — don't appear.</p>
+<figure><img src="screenshots/crux.jpg" alt=""><figcaption><span>The Selkirk Era (left) has one softer EVA layer running core-to-edge, no expanding-foam frame — a different structure from the accused paddles.</span><span class="ts">00:04:37</span></figcaption></figure>
+<p>And, he stresses, none of this has to do with whether the core is "fully floating" — a common misconception.</p></section><section id="patent891"><h2 class="section">05 · Patent 891</h2><h3 class="heading">The core gaps and the neck-foam inserts</h3><p>The second patent is different and more confusing: it's about modifying the <em>inside</em> of the core — creating gaps and filling or leaving them empty. His read: it's really protecting the Pro 4's neck-foam inserts (later branded "TFP foam inserts"), which depend on a specific ordering — the edge foam tucking <em>inside</em>, between the core and the neck foam.</p>
+<figure><img src="screenshots/patent891.jpg" alt=""><figcaption><span>The 891 patent figure (red arrows added): the sequence of foams around the neck is the crux of what it protects.</span><span class="ts">00:08:23</span></figcaption></figure></section><section id="priorart"><h2 class="section">06 · The wildcard</h2><h3 class="heading">Prior art could undo it all</h3><p>Even valid-looking patents can be knocked out. If defendants show the construction was already known, used, published, or simply obvious from existing technology, the claims can be invalidated.</p>
+<figure><img src="screenshots/priorart.jpg" alt=""><figcaption><span>Prior art — the factor he thinks could ultimately decide whether JOOLA's patents are enforceable at all.</span><span class="ts">00:09:28</span></figcaption></figure>
+<blockquote>Even if JOOLA's patents are valid on paper, they can still be invalidated by the defendants if they can prove that the technology already existed.<cite>— Johnkew</cite></blockquote></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=_jvbm_JJMSM" target="_blank" rel="noopener">The JOOLA Pickleball Lawsuit, Decoded: What the Patents Actually Claim</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>
