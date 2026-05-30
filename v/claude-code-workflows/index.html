@@ -133,6 +133,7 @@ footer p { margin-bottom: 6px; }
 <section id="intro">
   <h2 class="section">01 · The drop</h2>
   <h3 class="heading">The quietly bigger announcement</h3>
+  <aside class="alin-player"><div class="alin-label">Hear it read to you</div><audio src="audio/intro.mp3" preload="none" controls></audio></aside>
 
   <p>Workflows officially shipped alongside Opus 4.8 — and the creator's take is that Workflows, not the new model, are the most valuable part of the announcement. The whole feature rests on one prerequisite concept: the sub-agent. So the video starts there.</p>
 </section>
@@ -141,6 +142,7 @@ footer p { margin-bottom: 6px; }
 <section id="problem">
   <h2 class="section">02 · The problem</h2>
   <h3 class="heading">Context is a container that fills from the top down</h3>
+  <aside class="alin-player"><div class="alin-label">Hear it read to you</div><audio src="audio/problem.mp3" preload="none" controls></audio></aside>
 
   <p>A normal Claude Code session accumulates everything — tool calls, MCP responses, long reasoning, file reads — until the context window is bloated. Even a 1M ceiling fills with junk, and compaction is <em>lossy by design</em>: earlier detail gets summarized, not recovered.</p>
 
@@ -156,6 +158,7 @@ footer p { margin-bottom: 6px; }
 <section id="shift">
   <h2 class="section">03 · The shift</h2>
   <h3 class="heading">The script becomes the manager</h3>
+  <aside class="alin-player"><div class="alin-label">Hear it read to you</div><audio src="audio/shift.mp3" preload="none" controls></audio></aside>
 
   <p>Sub-agents alone don't solve everything. When Claude itself is the orchestrator, it has to hold intermediate state, make routing decisions turn by turn, and track every agent — which breaks down at scale. The Workflow's insight: move the manager into a script.</p>
 
@@ -174,6 +177,7 @@ footer p { margin-bottom: 6px; }
 <section id="runtime">
   <h2 class="section">04 · Under the hood</h2>
   <h3 class="heading">The runtime, the journal, and the hard limits</h3>
+  <aside class="alin-player"><div class="alin-label">Hear it read to you</div><audio src="audio/runtime.mp3" preload="none" controls></audio></aside>
 
   <p>At runtime, <code>workflow.js</code> runs as a separate process that loads the JavaScript, spawns sub-agents, and tracks everything in a <strong>journal</strong> — which is what makes pause/resume work (completed agents return cached results).</p>
 
@@ -195,6 +199,7 @@ footer p { margin-bottom: 6px; }
 <section id="demo">
   <h2 class="section">05 · Live demo</h2>
   <h3 class="heading">Deep research — five phases, and a sobering token bill</h3>
+  <aside class="alin-player"><div class="alin-label">Hear it read to you</div><audio src="audio/demo.mp3" preload="none" controls></audio></aside>
 
   <p>The built-in <code>deep-research</code> skill is a Workflow. Asked to research the benefits of vitamin C, it runs five phases:</p>
 
@@ -235,6 +240,7 @@ footer p { margin-bottom: 6px; }
 <section id="beyond">
   <h2 class="section">06 · Beyond code</h2>
   <h3 class="heading">It's not just for developers — the patterns generalize</h3>
+  <aside class="alin-player"><div class="alin-label">Hear it read to you</div><audio src="audio/beyond.mp3" preload="none" controls></audio></aside>
 
   <p>Asked to show off, Claude built a "startup forge" Workflow that maps cleanly onto the reusable orchestration primitives:</p>
 
@@ -257,6 +263,7 @@ footer p { margin-bottom: 6px; }
 <section id="models">
   <h2 class="section">07 · Model tiering</h2>
   <h3 class="heading">Different model per phase</h3>
+  <aside class="alin-player"><div class="alin-label">Hear it read to you</div><audio src="audio/models.mp3" preload="none" controls></audio></aside>
 
   <p>You don't have to run everything on Opus. The model is set per <code>agent()</code> call — and you can tier them by task difficulty. The "brand foundry" demo does exactly this:</p>
 
@@ -275,6 +282,7 @@ footer p { margin-bottom: 6px; }
 <section id="control">
   <h2 class="section">08 · Control</h2>
   <h3 class="heading">Three levels of control — and every off switch</h3>
+  <aside class="alin-player"><div class="alin-label">Hear it read to you</div><audio src="audio/control.mp3" preload="none" controls></audio></aside>
 
   <p>You're not handing over the keys blindly. There are three levels of intervention, from loosest to tightest:</p>
 
@@ -295,6 +303,7 @@ footer p { margin-bottom: 6px; }
 <section id="when">
   <h2 class="section">09 · The verdict</h2>
   <h3 class="heading">When to actually reach for a Workflow</h3>
+  <aside class="alin-player"><div class="alin-label">Hear it read to you</div><audio src="audio/when.mp3" preload="none" controls></audio></aside>
 
   <figure>
     <img src="screenshots/15-when-to-use.jpg" alt="When to use a workflow vs a skill or chat, from the docs">
