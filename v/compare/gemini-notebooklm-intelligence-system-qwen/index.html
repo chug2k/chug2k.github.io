@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>This Gemini/NotebookLM System Will Make You SO Smart It Feels Illegal</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Field Notes · AI Systems</div>
+<h1>This Gemini/NotebookLM System Will Make You SO Smart It Feels Illegal</h1>
+<p class="lede">Most people rely on AI for writing—and weaken their own thinking. The real edge isn&#x27;t the tool; it&#x27;s the system you build. A four-floor architecture using NotebookLM, Gemini, and Google Workspace turns scattered information into structured expertise.</p>
+<div class="byline"><span><strong>Runtime:</strong> 13 min</span><span><strong>Video published:</strong> April 16, 2026</span><span><strong>849.1K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=oXmofS-sjwI" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>TL;DR</h2><ol><li><strong>Machine fog weakens your thinking</strong> — an MIT Media Lab study found people relying on AI for writing showed the weakest brain connectivity and recall.</li><li><strong>Ground first, explore next</strong> — NotebookLM anchors you in your own documents before Gemini's massive context engine starts exploring.</li><li><strong>Layer specialists on top</strong> — Gems let you organize behavior around recurring themes, not just files.</li><li><strong>Integrate into your workflow</strong> — Google Workspace turns AI insights into tangible work without context-switching.</li></ol></div>
+<section id="grounding"><h2 class="section">01 · Ground yourself in evidence</h2><h3 class="heading">Four floors of human intelligence</h3><p>An MIT Media Lab study found that people relying on AI for writing showed the <strong>weakest brain connectivity and recall</strong>. The speaker calls this <em>"machine fog"</em> — most people are building on sand with no blueprint, no foundation, no floors.</p>
+<p>The alternative is a four-floor intelligence architecture. The <strong>ground floor is grounding</strong>: NotebookLM works only from the material you give it — your documents, notes, transcripts, data. It doesn't give you just a response; it gives you the <strong>receipt</strong>. Upload a 500-page textbook, six months of meeting transcripts, a pile of PDFs — NotebookLM takes it all, then lets you investigate, ask questions, and find patterns. You're anchored in reality, not artificial incompetence.</p>
+<figure><img src="screenshots/grounding.jpg" alt=""><figcaption><span>The four-floor system: Grounding → Frontier Model → Specialists → Tools.</span><span class="ts">00:01:20</span></figcaption></figure></section><section id="frontier"><h2 class="section">02 · Explore with a frontier model</h2><h3 class="heading">Massive context, multimodal</h3><p>The second floor is your <strong>frontier model</strong> — Gemini. It holds an enormous amount of data and context in one session: <strong>2 million tokens</strong> of active memory. That's nearly the entire Harry Potter series plus the entire Lord of the Rings trilogy, with room to spare.</p>
+<p>Feed it a decade of your company's financial history and thousands of customer call transcripts, and it identifies patterns a human eye would take months to spot. It doesn't just find the needle in the haystack — it understands the entire harvesting season.</p>
+<p>Gemini offers three concrete advantages:</p>
+<div class="pills"><div class="pill"><h5><strong>Learns from your past chats</strong></h5><p>Starts to understand your preferences, goals, tone, and how you think.</p></div><div class="pill"><h5><strong>Reads and generates multimodal content</strong></h5><p>Docs, audio, charts, images, video, even music — all in one session.</p></div><div class="pill"><h5><strong>Deep research inside the prompt</strong></h5><p>Understands the question, plans research, searches the web, evaluates findings, returns a report with citations.</p></div></div>
+<figure><img src="screenshots/frontier.jpg" alt=""><figcaption><span>Gemini's frontier capabilities: massive context, multimodal processing, built-in research.</span><span class="ts">00:02:23</span></figcaption></figure></section><section id="gems"><h2 class="section">03 · Build a staff of specialists</h2><h3 class="heading">Gems organize behavior, not files</h3><p>Raw capacity alone isn't enough — you need to steer it. The speaker shares the <strong>AIM framework</strong> for prompting Gemini effectively:</p>
+<ol class="steps"><li><b><strong>A — Actor</strong>: Tell the model who it's acting as ("You're the world's most sought-after resume editor.")</b><span></span></li><li><b><strong>I — Input</strong>: Feed it all the context it needs (resume, job description, interview notes, company research).</b><span></span></li><li><b><strong>M — Mission</strong>: Be precise about the outcome ("Give me five specific ways to improve clarity and increase my odds of getting an interview at NVIDIA.")</b><span></span></li></ol>
+<p>But the real power multiplier is <strong>Gems</strong> — your specialists. Give a Gem a role, a tone, a clear objective, and a knowledge base, and it remembers everything across the entire arc of your work. Not across one chat. <strong>Across everything.</strong></p>
+<figure><img src="screenshots/gems.jpg" alt=""><figcaption><span>All four floors active: NotebookLM grounds, Gemini explores, Gems specialize, Workspace executes.</span><span class="ts">00:04:03</span></figcaption></figure>
+<div class="callout"><span class="label">Key distinction</span>A folder remembers where your files are. A <strong>gem remembers who you are, what you care about, and how you think</strong>.</div>
+<p>Build a writing coach, a coding partner, a research analyst, a brand consultant, a chief of staff — or a devil's advocate. Gems are not folders because folders organize information. <strong>Gems organize behavior.</strong></p></section><section id="workspace"><h2 class="section">04 · Turn insight into work</h2><h3 class="heading">Workspace integration</h3><p>The final problem is <strong>fragmentation</strong>: too many tools, too many tabs, too many disconnected islands. Research suggests context switching eats up to <strong>40% of productivity time</strong>.</p>
+<p>Gemini inside Google Workspace solves this. It's no longer a genie trapped in a chat window — it's in Docs, Gmail, Drive, Calendar, Sheets, and Meet. They stop acting like isolated islands and start behaving like one connected environment.</p>
+<p>The speaker shares a personal example: joining a Google Meet five minutes late. As soon as he connected, Google Meet AI asked if he wanted to catch up. He clicked yes, and it showed <strong>three bullet points of what he'd missed</strong> — no need to interrupt the room.</p>
+<figure><img src="screenshots/workspace.jpg" alt=""><figcaption><span>Google Meet AI catches you up when you join late — three bullet points, no interruption needed.</span><span class="ts">00:11:20</span></figcaption></figure>
+<p>Gemini relieves three big work pressures:</p>
+<div class="pills"><div class="pill"><h5><strong>Friction</strong></h5><p>Your story is scattered across resume, job descriptions, interview notes, recruiter emails. Ask Drive AI "What are the biggest gaps in my fit?" and refine your entire narrative.</p></div><div class="pill"><h5><strong>Focus</strong></h5><p>Missed a meeting? AI catches you up in bullet points. No rewinding, no awkward pauses.</p></div><div class="pill"><h5><strong>Flavor</strong></h5><p>AI learns from the files in your Drive — it sees how you write and think. It's no longer AI writing for you; it's AI writing with you.</p></div></div>
+<div class="callout"><span class="label">The deeper point</span>Every job has two functions: <strong>mechanics</strong> and <strong>meaning</strong>. AI may change the mechanics. It doesn't automatically change or eliminate the meaning. That's what humans are for.</div></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=oXmofS-sjwI" target="_blank" rel="noopener">This Gemini/NotebookLM System Will Make You SO Smart It Feels Illegal</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>

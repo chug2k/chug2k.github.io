@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A.I. and Our Economic Future</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Stanford economist Chad Jones on two extremes — AI-driven explosion vs. business as usual</div>
+<h1>A.I. and Our Economic Future</h1>
+<p class="lede">A Stanford economist models whether AI will dramatically accelerate economic growth or continue the 150-year trend of steady 2% annual growth — and why the answer depends on &quot;weak links.</p>
+<div class="byline"><span><strong>Runtime:</strong> 61 min</span><span><strong>Video published:</strong> May 21, 2026</span><span><strong>146K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=xBpGn3BDcOY" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>TL;DR</h2><ol><li>AI could exponentially accelerate growth, but probably not as fast as Silicon Valley hopes</li><li>Weak links" — the hardest-to-automate tasks — bottleneck the entire economy</li><li>History shows transformative technologies sustain 2% growth for ~50 years, not bend it overnight</li><li>Automating 75% of a job can raise workers' wages by making remaining tasks scarcer</li><li>Downside risks (bad actors, fragility) may arrive sooner than the upside</li></ol></div>
+<section id="intro"><h2 class="section">01 · The question</h2><h3 class="heading">Intro</h3><p>Professor Chad Jones, a Stanford economist who has spent 15+ years studying economic growth, frames his talk around a fundamental question: <strong>what if AI can perform every task a human can do?</strong> He presents two extreme scenarios and then a "weak links" framework to locate where the truth probably lies between them.</p>
+<figure><img src="screenshots/intro.jpg" alt=""><figcaption><span>The talk opens at the Stanford Business School reunion.</span><span class="ts">00:00:05</span></figcaption></figure></section><section id="foom"><h2 class="section">02 · The FOOM scenario</h2><h3 class="heading">AI explodes growth</h3><p>The first scenario is the one Silicon Valley most excited about: AI triggers a self-reinforcing flywheel. AI automates software engineering → AI researchers build better algorithms → virtual remote workers scale to millions of GPUs → billions of AI assistants discover new ideas → robots automate physical tasks → growth explodes.</p>
+<div class="callout"><span class="label">The flywheel</span>AI agents automate coding, which lets them do AI research, which builds better agents. Scale them across millions of GPUs and you've got a "country of geniuses in a data center."</div>
+<p>This is plausible. Dario Amodei, Sam Altman, Demis Hassabis, and Geoff Hinton have been saying for a decade that these things are coming. The first stage — AI automating software engineering — is already underway.</p></section><section id="steady"><h2 class="section">03 · The 2% straight line</h2><h3 class="heading">Business as usual</h3><p>The second scenario: AI is just the latest in a line of transformative technologies — electricity, transistors, IT, the internet — that transformed living standards but never bent the growth curve.</p>
+<figure><img src="screenshots/steady.jpg" alt=""><figcaption><span>Average living standards in the U.S. over 150 years have risen at a remarkably steady 2% per year, despite every major transformative technology entering the economy.</span><span class="ts">00:07:02</span></figcaption></figure>
+<p>Each new technology (steam → electricity → internal combustion → semiconductors → IT → internet) prevented growth from slowing, letting the 2% line continue for another 50 years. The pessimistic take: AI might be the latest technology that lets 2% growth continue for another 50.</p></section><section id="weaklinks"><h2 class="section">04 · Weak links</h2><h3 class="heading">The chain metaphor</h3><p>Jones' key insight: a chain is only as strong as its weakest link. Business success requires completing many tasks successfully — if any one fails, the whole thing falls apart. This has a critical implication for AI.</p>
+<div class="callout"><span class="label">Key insight</span>Computers have 100 million times more transistors in your pocket than you had in the 1970s — but you're not 100 million times more productive at research. The weak links (figuring out what to put in those matrices, what questions to ask) haven't changed.</div>
+<p>Even if you automate one task perfectly, the other weak links bottleneck you. <strong>Infinite amounts of any single task raises GDP by only that task's share of GDP</strong> — software is ~2% of GDP, so infinite software would make us only 2% richer. You have to keep automating the weak links, and that takes a long time.</p>
+<p>Weak links are also <strong>the source of scarcity</strong> — what is the scarce factor determines who gets paid. When computers became plentiful, their share of GDP fell from 4.5% to 3% despite having 100 million times more transistors.</p></section><section id="growth"><h2 class="section">05 · Simulation results</h2><h3 class="heading">What the model says</h3><p>Jones' model features ideas as the source of growth (à la Paul Romer), with weak links in both goods and idea production. Calibrated to U.S. data back to the 1950s, the simulations show:</p>
+<figure><img src="screenshots/growth.jpg" alt=""><figcaption><span>Growth rate simulations over time. Purple (full automation) goes to infinity. Green (incomplete automation) is bottlenecked by the 3% of tasks only humans can do. Blue (baseline) accelerates slowly from 2% to 50% per year over centuries.</span><span class="ts">00:25:13</span></figcaption></figure>
+<p>In the <strong>baseline scenario</strong>, growth accelerates from 2% but settles at 50% per year over centuries — by 2050, we're growing at 2.3% (4% richer than we would have been). In the <strong>aggressive Moore's Law everywhere</strong> scenario, growth hits 25%+ by 2050, but the full explosion still takes 30 years.</p>
+<div class="callout"><span class="label">The takeaway</span>Even in the aggressive scenario, the explosion takes 30 years — not 5. Weak links slow everything down.</div></section><section id="moore"><h2 class="section">06 · Moore&#x27;s Law everywhere</h2><h3 class="heading">How fast could it go?</h3><p>What if AI is different — not just a continuation of historical automation, but a break with the past? Jones runs an aggressive scenario: the entire economy gets automated at Moore's Law rates (10%/year instead of the historical 3%).</p>
+<figure><img src="screenshots/moore.jpg" alt=""><figcaption><span>Under Moore's Law everywhere, economic growth explodes — hitting 25%+ by 2050 and accelerating past that. But even in this extreme case, the full transition takes 30 years.</span><span class="ts">00:28:39</span></figcaption></figure>
+<p>By 2050, the economy grows at 25%+ per year. But crucially: even in this extreme case, the explosion takes 30 years to complete. Weak links are doing their work.</p></section><section id="conclusion"><h2 class="section">07 · Closing thought</h2><h3 class="heading">The downside</h3><p>Jones ends with a sobering observation: the weak links framework means the system is <strong>slow to improve but fragile on the downside</strong>. A single broken link destroys all value.</p>
+<figure><img src="screenshots/conclusion.jpg" alt=""><figcaption><span>"How many internets is AI worth?" Jones concludes that AI may be more transformative than anything we've seen, but will take longer than we think — while downside risks arrive sooner.</span><span class="ts">00:41:03</span></figcaption></figure>
+<div class="pills"><div class="pill"><h5><strong>Bad actors</strong>: If a jailbroken model can do anything the smartest human can do, it can design a virus, hack the grid, or crash the financial system. Billions of people with access to the "red button" is a real problem.</h5><p></p></div><div class="pill"><h5><strong>Distribution</strong>: The world where AI changes everything is a world of abundance — plenty to go around. Rich countries already redistribute.</h5><p></p></div><div class="pill"><h5><strong>Timing</strong>: The upside takes decades; the downside may arrive in three years. We should use the intervening time to prepare.</h5><p></p></div></div>
+<div class="callout"><span class="label">Final thought</span>"Just because it takes 30 years instead of 5 years doesn't mean the effects won't ultimately be huge and transformative. But the downside risks can come sooner."</div></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=xBpGn3BDcOY" target="_blank" rel="noopener">A.I. and Our Economic Future</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>
