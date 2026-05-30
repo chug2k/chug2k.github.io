@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Claude Code Workflows, explained — Field Notes</title>
+<style>
+:root {
+  --bg: #f5f1e8;
+  --paper: #faf7f0;
+  --ink: #1a1816;
+  --muted: #6b655c;
+  --rule: #d9d2c3;
+  --accent: #cc5429;
+  --accent-soft: #f4d8c5;
+  --code-bg: #2b2723;
+  --code-ink: #f0e6d6;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: "Charter", "Georgia", "Iowan Old Style", serif;
+  font-size: 18px; line-height: 1.55; color: var(--ink); background: var(--bg);
+}
+.sans { font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
+.wrap { max-width: 880px; margin: 0 auto; padding: 48px 24px 96px; }
+
+header.hero { border-bottom: 1px solid var(--rule); padding-bottom: 36px; margin-bottom: 40px; }
+.eyebrow { font-family: "Inter", sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
+h1 { font-family: "Inter", sans-serif; font-size: 44px; line-height: 1.1; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 18px; }
+.lede { font-size: 21px; line-height: 1.5; margin: 0 0 24px; max-width: 660px; }
+.byline { font-family: "Inter", sans-serif; font-size: 14px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 8px 18px; margin-bottom: 22px; }
+.byline strong { color: var(--ink); font-weight: 600; }
+.watch {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: "Inter", sans-serif; font-size: 14px; font-weight: 600;
+  color: #fff; background: var(--accent); text-decoration: none;
+  padding: 10px 18px; border-radius: 8px;
+}
+.watch:hover { background: #b3461f; }
+.watch::before { content: "▶"; font-size: 11px; }
+
+.back { font-family: "Inter", sans-serif; font-size: 13px; color: var(--muted); text-decoration: none; display: inline-block; margin-bottom: 28px; }
+.back:hover { color: var(--accent); }
+
+.tldr { background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 28px 32px; margin: 0 0 48px; }
+.tldr-label { font-family: "Inter", sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+.tldr h2 { font-family: "Inter", sans-serif; font-size: 22px; margin: 0 0 14px; line-height: 1.3; }
+.tldr ol { margin: 14px 0 0; padding-left: 22px; font-size: 17px; }
+.tldr ol li { margin-bottom: 8px; }
+.tldr ol li b { color: var(--accent); font-weight: 600; }
+
+section { margin-bottom: 56px; }
+h2.section { font-family: "Inter", sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin: 0 0 8px; }
+h3.heading { font-family: "Inter", sans-serif; font-size: 30px; font-weight: 700; letter-spacing: -0.015em; line-height: 1.15; margin: 0 0 18px; }
+h4.sub { font-family: "Inter", sans-serif; font-size: 20px; font-weight: 600; margin: 32px 0 12px; }
+p { margin: 0 0 18px; }
+
+figure { margin: 26px 0 30px; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; background: #000; }
+figure img { display: block; width: 100%; height: auto; }
+figcaption { font-family: "Inter", sans-serif; font-size: 13px; color: var(--muted); padding: 12px 16px; background: var(--paper); border-top: 1px solid var(--rule); display: flex; justify-content: space-between; gap: 16px; }
+figcaption .ts { font-feature-settings: "tnum"; background: var(--ink); color: var(--paper); padding: 2px 8px; border-radius: 3px; font-size: 11px; letter-spacing: 0.04em; flex-shrink: 0; }
+
+blockquote { margin: 30px 0; padding: 4px 0 4px 24px; border-left: 3px solid var(--accent); font-size: 22px; line-height: 1.4; font-style: italic; }
+blockquote cite { display: block; margin-top: 12px; font-family: "Inter", sans-serif; font-size: 13px; font-style: normal; color: var(--muted); }
+
+.callout { margin: 26px 0; padding: 20px 24px; background: var(--accent-soft); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; font-family: "Inter", sans-serif; font-size: 16px; line-height: 1.5; }
+.callout .label { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 8px; }
+
+.steps { counter-reset: stepc; margin: 22px 0; padding: 0; list-style: none; }
+.steps li { counter-increment: stepc; font-family: "Inter", sans-serif; padding: 14px 0 14px 52px; position: relative; border-bottom: 1px solid var(--rule); }
+.steps li:last-child { border-bottom: none; }
+.steps li::before { content: counter(stepc, decimal-leading-zero); position: absolute; left: 0; top: 16px; font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; }
+.steps li b { font-size: 16px; display: block; margin-bottom: 4px; }
+.steps li span { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+.prompt { background: var(--code-bg); color: var(--code-ink); border-radius: 6px; padding: 14px 18px; font-family: "JetBrains Mono", "SF Mono", "Menlo", monospace; font-size: 14px; line-height: 1.55; margin: 18px 0; white-space: pre-wrap; overflow-x: auto; }
+code { font-family: "JetBrains Mono", "SF Mono", "Menlo", monospace; font-size: 0.88em; background: #ece4d5; padding: 1px 5px; border-radius: 3px; }
+
+.alin-player { background: linear-gradient(135deg, #faf7f0 0%, #f4e6d6 100%); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 18px; margin: 8px 0 26px; display: flex; flex-direction: column; gap: 8px; }
+.alin-label { font-family: "Inter", sans-serif; font-size: 13px; font-weight: 600; color: var(--accent); display: flex; align-items: center; gap: 8px; }
+.alin-label::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(204,84,41,0.18); }
+.alin-player audio { width: 100%; height: 34px; }
+
+.pills { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin: 24px 0 8px; }
+.pill { background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 18px; }
+.pill h5 { font-family: "Inter", sans-serif; font-size: 16px; font-weight: 600; margin: 0 0 8px; }
+.pill p { font-family: "Inter", sans-serif; font-size: 14px; line-height: 1.45; color: var(--muted); margin: 0; }
+
+footer { border-top: 1px solid var(--rule); padding-top: 28px; margin-top: 56px; font-family: "Inter", sans-serif; font-size: 13px; color: var(--muted); }
+footer p { margin-bottom: 6px; }
+
+@media (max-width: 600px) {
+  .wrap { padding: 32px 18px 64px; }
+  h1 { font-size: 30px; }
+  .lede { font-size: 18px; }
+  h3.heading { font-size: 23px; }
+  blockquote { font-size: 18px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="/v/">← all video summaries</a>
+
+<header class="hero">
+  <div class="eyebrow">Field Notes · Claude Code</div>
+  <h1>Claude Code just shipped Workflows. Here's what they actually are.</h1>
+  <p class="lede">Opus 4.8 grabbed the headlines, but Workflows may be the more important drop. A 16-minute walkthrough, distilled: the mental model, the live demos, the token reality, and exactly when to reach for one.</p>
+  <div class="byline">
+    <span><strong>Creator:</strong> Mansel Scheffel</span>
+    <span><strong>Runtime:</strong> 16 min</span>
+    <span><strong>Published:</strong> May 2026</span>
+  </div>
+  <a class="watch" href="https://www.youtube.com/watch?v=ua2YA7TiLEk" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+
+<div class="tldr">
+  <div class="tldr-label">TL;DR — five things to take away</div>
+  <h2>A Workflow moves the orchestrator out of Claude's head and into a script.</h2>
+  <ol>
+    <li><b>The shift</b> — instead of Claude juggling sub-agents in its own context, a <code>workflow.js</code> script becomes the manager. State lives in variables, loops are deterministic, only final answers return to chat.</li>
+    <li><b>Sub-agents, scaled</b> — same isolated-context sub-agents you already had, but now coordinated programmatically. 16 concurrent, up to 1,000 per run.</li>
+    <li><b>It is expensive</b> — one "vitamin C" deep-research run burned <b>3 million tokens across 105 agents</b>. This is not your everyday tool.</li>
+    <li><b>Model tiering</b> — set a different model per phase: Haiku for fan-out, Sonnet for scoring, Opus for synthesis.</li>
+    <li><b>When to use it</b> — reach for a Workflow when work fans out across many similar items or needs deterministic, resumable loops. Otherwise use a skill or just chat.</li>
+  </ol>
+</div>
+
+<!-- 1. WHAT DROPPED -->
+<section id="intro">
+  <h2 class="section">01 · The drop</h2>
+  <h3 class="heading">The quietly bigger announcement</h3>
+
+  <p>Workflows officially shipped alongside Opus 4.8 — and the creator's take is that Workflows, not the new model, are the most valuable part of the announcement. The whole feature rests on one prerequisite concept: the sub-agent. So the video starts there.</p>
+</section>
+
+<!-- 2. THE PROBLEM -->
+<section id="problem">
+  <h2 class="section">02 · The problem</h2>
+  <h3 class="heading">Context is a container that fills from the top down</h3>
+
+  <p>A normal Claude Code session accumulates everything — tool calls, MCP responses, long reasoning, file reads — until the context window is bloated. Even a 1M ceiling fills with junk, and compaction is <em>lossy by design</em>: earlier detail gets summarized, not recovered.</p>
+
+  <figure>
+    <img src="screenshots/01-subagent-diagram.jpg" alt="Diagram: Claude Code conversation as a container filling top-down">
+    <figcaption><span>The core problem. Work expands to fill the context window, no matter how big the ceiling.</span><span class="ts">00:48</span></figcaption>
+  </figure>
+
+  <p><strong>Sub-agents</strong> are the existing fix: spawn a fresh Claude Code session with its own isolated context to do one task, and return only the answer. A 60,000-token job done in a sub-agent returns ~500 tokens to your main session — no bloat, no compaction.</p>
+</section>
+
+<!-- 3. THE SHIFT -->
+<section id="shift">
+  <h2 class="section">03 · The shift</h2>
+  <h3 class="heading">The script becomes the manager</h3>
+
+  <p>Sub-agents alone don't solve everything. When Claude itself is the orchestrator, it has to hold intermediate state, make routing decisions turn by turn, and track every agent — which breaks down at scale. The Workflow's insight: move the manager into a script.</p>
+
+  <figure>
+    <img src="screenshots/03-manager-to-script.jpg" alt="Before/After diagram: Claude is the manager vs the script is the manager">
+    <figcaption><span>The whole idea in one frame. The sub-agents are the same — the orchestrator changed.</span><span class="ts">02:58</span></figcaption>
+  </figure>
+
+  <blockquote>
+    "We no longer have this overburdened main context window. We have a <code>workflow.js</code> script that holds the state inside variables. It has deterministic loops, and only the final answers return to our main context."
+    <cite>— Mansel Scheffel</cite>
+  </blockquote>
+</section>
+
+<!-- 4. RUNTIME -->
+<section id="runtime">
+  <h2 class="section">04 · Under the hood</h2>
+  <h3 class="heading">The runtime, the journal, and the hard limits</h3>
+
+  <p>At runtime, <code>workflow.js</code> runs as a separate process that loads the JavaScript, spawns sub-agents, and tracks everything in a <strong>journal</strong> — which is what makes pause/resume work (completed agents return cached results).</p>
+
+  <figure>
+    <img src="screenshots/04-runtime-architecture.jpg" alt="Diagram: runtime process, the journal, and hard runtime limits">
+    <figcaption><span>Runtime + journal + the three hard limits, all in one slide.</span><span class="ts">03:22</span></figcaption>
+  </figure>
+
+  <div class="pills">
+    <div class="pill"><h5>No FS / shell from the script</h5><p>The script can't touch the filesystem or shell directly — the agents do that.</p></div>
+    <div class="pill"><h5>16 concurrent agents max</h5><p>The rest queue and start as slots free up.</p></div>
+    <div class="pill"><h5>1,000 agents total per run</h5><p>A runaway-loop backstop. You can still field a massive swarm.</p></div>
+  </div>
+
+  <div class="callout"><span class="label">Setup gotcha</span>Workflows only run in the Claude desktop app or the IDE terminal — <strong>not</strong> the VS Code extension. No mid-run user input; only agent permission prompts can pause a run.</div>
+</section>
+
+<!-- 5. DEMO -->
+<section id="demo">
+  <h2 class="section">05 · Live demo</h2>
+  <h3 class="heading">Deep research — five phases, and a sobering token bill</h3>
+
+  <p>The built-in <code>deep-research</code> skill is a Workflow. Asked to research the benefits of vitamin C, it runs five phases:</p>
+
+  <ol class="steps">
+    <li><b>Scope</b><span>Break the question into 5 search angles.</span></li>
+    <li><b>Search</b><span>5 parallel web searches, one per angle.</span></li>
+    <li><b>Fetch</b><span>Dedupe URLs, pull the top ~15 sources, extract falsifiable claims.</span></li>
+    <li><b>Verify</b><span>Adversarial 3-vote fact-checking on each claim — a claim needs 2 of 3 refutes to be killed. This is where the agents explode.</span></li>
+    <li><b>Synthesize</b><span>Merge duplicates, rank by confidence, write a cited report.</span></li>
+  </ol>
+
+  <figure>
+    <img src="screenshots/06-deepresearch-stages.jpg" alt="Deep research workflow running with five phases listed">
+    <figcaption><span>The five phases, with the background-tasks panel tracking live agent count and tokens.</span><span class="ts">05:18</span></figcaption>
+  </figure>
+
+  <figure>
+    <img src="screenshots/08-phases-panel.jpg" alt="Per-agent token breakdown in the Fetch phase">
+    <figcaption><span>The Fetch phase fanned out: each agent ~33k tokens. This is how the bill adds up.</span><span class="ts">06:18</span></figcaption>
+  </figure>
+
+  <p>The numbers are the headline. One minute in: 27 agents, 682k tokens. By the end: <strong>105 agents, 3 million tokens, 15 minutes</strong> — for a vitamin C summary.</p>
+
+  <figure>
+    <img src="screenshots/12-vitaminc-done.jpg" alt="Agent breakdown table: scope 1, search 5, fetch 23, verify 75, synthesize 1">
+    <figcaption><span>Where the 105 agents went. Verify is "the big one" — 25 top claims × 3 independent verifiers.</span><span class="ts">13:05</span></figcaption>
+  </figure>
+
+  <blockquote>
+    "Just because we've isolated this to separate sub-agents doesn't mean we're magically going to get perfect usage. We are still using this much."
+    <cite>— Mansel Scheffel</cite>
+  </blockquote>
+
+  <div class="callout"><span class="label">When it's worth it</span>Not for everyday research. Reserve it for one genuinely hard, specific problem — interpreting confusing blood work, deep competitor research — where fanning out from every angle actually pays for itself.</div>
+</section>
+
+<!-- 6. BEYOND CODE -->
+<section id="beyond">
+  <h2 class="section">06 · Beyond code</h2>
+  <h3 class="heading">It's not just for developers — the patterns generalize</h3>
+
+  <p>Asked to show off, Claude built a "startup forge" Workflow that maps cleanly onto the reusable orchestration primitives:</p>
+
+  <figure>
+    <img src="screenshots/09-startup-forge.jpg" alt="Table mapping workflow phases to patterns: pipeline, schema, parallel barrier, synthesize">
+    <figcaption><span>The primitives in practice: <code>pipeline()</code> with no barrier, schema-validated judges, <code>parallel()</code> adversarial stress-test, single-agent synthesis.</span><span class="ts">06:48</span></figcaption>
+  </figure>
+
+  <div class="pills">
+    <div class="pill"><h5>pipeline()</h5><p>Ideas get judged the moment each is generated — no barrier waiting for all four.</p></div>
+    <div class="pill"><h5>structured output</h5><p>Judges return validated schema (novelty, market, feasibility) — zero text parsing.</p></div>
+    <div class="pill"><h5>parallel() + verify</h5><p>The top idea is attacked by 3 skeptics, each with a distinct lens, hunting for a fatal flaw.</p></div>
+    <div class="pill"><h5>synthesize</h5><p>One agent writes an honest investor pitch that must confront every objection.</p></div>
+  </div>
+
+  <p>Other fits the creator names: code reviews, PR trawling, audits, lead-gen fan-out (replacing brittle skill-chaining), and codebase-wide bug sweeps.</p>
+</section>
+
+<!-- 7. MODELS -->
+<section id="models">
+  <h2 class="section">07 · Model tiering</h2>
+  <h3 class="heading">Different model per phase</h3>
+
+  <p>You don't have to run everything on Opus. The model is set per <code>agent()</code> call — and you can tier them by task difficulty. The "brand foundry" demo does exactly this:</p>
+
+  <figure>
+    <img src="screenshots/11-model-per-phase.jpg" alt="Model tiering: Haiku generates, Sonnet critiques, Opus synthesizes; permission prompt visible">
+    <figcaption><span>Haiku for high-volume generation, Sonnet for critique, Opus for synthesis — plus the cost-warning permission prompt.</span><span class="ts">09:48</span></figcaption>
+  </figure>
+
+  <blockquote>
+    "The more clarity that we provide the system up front, the better the output down the line. Come to it with a very specific request."
+    <cite>— Mansel Scheffel</cite>
+  </blockquote>
+</section>
+
+<!-- 8. CONTROL -->
+<section id="control">
+  <h2 class="section">08 · Control</h2>
+  <h3 class="heading">Three levels of control — and every off switch</h3>
+
+  <p>You're not handing over the keys blindly. There are three levels of intervention, from loosest to tightest:</p>
+
+  <figure>
+    <img src="screenshots/13-levels-control.jpg" alt="Three levels of control: prompt, inspect before run, edit the file">
+    <figcaption><span>Level 1: steer in plain English. Level 2: inspect the generated <code>.js</code> before approving (<code>Ctrl+G</code>). Level 3: edit the file like any code.</span><span class="ts">13:50</span></figcaption>
+  </figure>
+
+  <p>By default a Workflow runs with edit-accept permissions — it won't bypass permissions unless you tell it to. And there are four ways to trigger one, three ways to switch it off.</p>
+
+  <figure>
+    <img src="screenshots/14-enabling-config.jpg" alt="Triggers and off switches: type workflow, ultracode, saved, deep-research; config, settings.json, env var">
+    <figcaption><span>The full control surface. Note: Max/Team plans have this on by default; Pro and orgs are off (for budget-protection reasons).</span><span class="ts">14:42</span></figcaption>
+  </figure>
+</section>
+
+<!-- 9. WHEN -->
+<section id="when">
+  <h2 class="section">09 · The verdict</h2>
+  <h3 class="heading">When to actually reach for a Workflow</h3>
+
+  <figure>
+    <img src="screenshots/15-when-to-use.jpg" alt="When to use a workflow vs a skill or chat, from the docs">
+    <figcaption><span>Anthropic's own criteria, verbatim: workflows are "more agents than one conversation can coordinate," orchestration "codified as a script you can read and rerun."</span><span class="ts">15:18</span></figcaption>
+  </figure>
+
+  <div class="pills">
+    <div class="pill"><h5>Use a Workflow when…</h5><p>Work fans out across many similar items · you want deterministic loops · you need resumability mid-run · the orchestration itself should be repeatable.</p></div>
+    <div class="pill"><h5>Use a skill or just chat when…</h5><p>Claude's turn-by-turn judgment is the value · a single conversation handles the scope · you want repeatable instructions, not orchestration · one-off tasks.</p></div>
+  </div>
+
+  <p>The creator's bottom line: <strong>skills for the daily, repeatable business work; Workflows for the specific, fan-out-heavy jobs</strong> — bug sweeps, large migrations, cross-checked research. Just remember it's still in research preview, and the token bill is real.</p>
+</section>
+
+<footer>
+  <p>Summary generated from the video transcript (local MLX Whisper) with screenshots pulled at the referenced moments. Narration via Gemini 3.1 TTS.</p>
+  <p>Source: <a href="https://www.youtube.com/watch?v=ua2YA7TiLEk" target="_blank" rel="noopener">"Claude Code Just Dropped Workflows (An Actual Game Changer)" — Mansel Scheffel</a></p>
+</footer>
+
+</div>
+</body>
+</html>
