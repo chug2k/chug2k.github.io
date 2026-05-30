@@ -5,5 +5,10 @@
   "kind": "Explainer",
   "duration_minutes": 16,
   "date": "2026-05-30",
-  "slug": "claude-code-workflows"
+  "slug": "claude-code-workflows",
+  "tags": [
+    "ai",
+    "claude-code",
+    "anthropic"
+  ]
 }

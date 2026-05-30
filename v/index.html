@@ -52,8 +52,53 @@ h1 {
 .lede {
   font-size: 19px;
   color: var(--muted);
-  margin: 0 0 48px;
+  margin: 0 0 36px;
   max-width: 560px;
+}
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  font-family: "Inter", sans-serif;
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--rule);
+}
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+.chip:hover { border-color: var(--accent); color: var(--accent); }
+.chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.chip .count { opacity: 0.6; margin-left: 5px; font-weight: 400; }
+.sort {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.sort select {
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 5px 8px;
+  cursor: pointer;
 }
 .entry {
   display: block;
@@ -80,8 +125,20 @@ h1 {
   text-transform: uppercase;
   margin-bottom: 8px;
 }
-.entry p { margin: 0; font-size: 15px; color: var(--muted); }
-.empty {
+.entry p { margin: 0 0 12px; font-size: 15px; color: var(--muted); }
+.entry .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.entry .tag {
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 2px 9px;
+}
+.empty, .noresults {
   font-family: "Inter", sans-serif;
   color: var(--muted);
   font-size: 15px;
@@ -90,6 +147,7 @@ h1 {
   border-radius: 10px;
   text-align: center;
 }
+.noresults { display: none; }
 </style>
 </head>
 <body>
@@ -98,16 +156,77 @@ h1 {
   <div class="eyebrow">Video summaries</div>
   <h1>Field notes from talks I watched</h1>
   <p class="lede">Each page distills a video into a teach-quickly format: TL;DR, sections with screenshots at key moments, pull quotes, and Q&amp;A highlights.</p>
-  <a class="entry" href="/v/claude-code-workflows/">
+  <div class="controls">
+    <div class="chips"><button class="chip active" data-tag="">All</button><button class="chip" data-tag="ai">ai<span class="count">3</span></button><button class="chip" data-tag="anthropic">anthropic<span class="count">2</span></button><button class="chip" data-tag="claude-code">claude-code<span class="count">1</span></button><button class="chip" data-tag="deepmind">deepmind<span class="count">1</span></button><button class="chip" data-tag="sales">sales<span class="count">1</span></button><button class="chip" data-tag="science">science<span class="count">1</span></button></div>
+    <div class="sort"><label for="sort">Sort</label><select id="sort"><option value="date-desc">Newest</option><option value="date-asc">Oldest</option><option value="dur-desc">Longest</option><option value="dur-asc">Shortest</option><option value="title">Title A–Z</option></select></div>
+  </div>
+  <div id="grid">
+  <a class="entry" href="/v/demis-hassabis-hardest-problem/" data-tags="ai deepmind science" data-date="2026-05-31" data-duration="65" data-title="the hardest problem ai ever solved: demis hassabis on what he&#x27;s really building">
+    <div class="meta">Interview · 65 min · 2026</div>
+    <h2>The Hardest Problem AI Ever Solved: Demis Hassabis on What He&#x27;s Really Building</h2>
+    <p>A distilled walkthrough of Cleo Abram&#x27;s interview with Google DeepMind CEO Demis Hassabis — AlphaFold and the protein problem, in-silico drug discovery, AlphaGenome, AlphaGo&#x27;s &quot;move 37,&quot; AI safety, and the abundance future he believes is ~50 years out.</p>
+    <div class="tags"><span class="tag">ai</span><span class="tag">deepmind</span><span class="tag">science</span></div>
+  </a>
+  <a class="entry" href="/v/claude-code-workflows/" data-tags="ai claude-code anthropic" data-date="2026-05-30" data-duration="16" data-title="claude code just shipped workflows. here&#x27;s what they actually are.">
     <div class="meta">Explainer · 16 min · 2026</div>
     <h2>Claude Code just shipped Workflows. Here&#x27;s what they actually are.</h2>
     <p>A 16-min walkthrough distilled: the script-as-orchestrator mental model, the deep-research demo, the 3-million-token reality, and exactly when to reach for a Workflow.</p>
+    <div class="tags"><span class="tag">ai</span><span class="tag">claude-code</span><span class="tag">anthropic</span></div>
   </a>
-  <a class="entry" href="/v/anthropic-cowork-notes/">
+  <a class="entry" href="/v/anthropic-cowork-notes/" data-tags="ai anthropic sales" data-date="2026-05-28" data-duration="58" data-title="how anthropic&#x27;s sales team actually uses cowork">
     <div class="meta">Webinar · 58 min · 2026</div>
     <h2>How Anthropic&#x27;s sales team actually uses Cowork</h2>
     <p>Travis Bryant and Brittney Tong demo the morning digest, the forecast updater, the manager roll-up, and a 4,000-account overnight scoring run.</p>
+    <div class="tags"><span class="tag">ai</span><span class="tag">anthropic</span><span class="tag">sales</span></div>
   </a>
+  </div>
+  <div class="noresults" id="noresults">No summaries match that filter.</div>
 </div>
+<script>
+(function () {
+  var grid = document.getElementById("grid");
+  var cards = Array.prototype.slice.call(grid.querySelectorAll(".entry"));
+  var chips = Array.prototype.slice.call(document.querySelectorAll(".chip"));
+  var noresults = document.getElementById("noresults");
+  var sortSel = document.getElementById("sort");
+  var activeTag = "";  // "" = all
+
+  function applyFilter() {
+    var shown = 0;
+    cards.forEach(function (c) {
+      var tags = (c.getAttribute("data-tags") || "").split(" ");
+      var ok = !activeTag || tags.indexOf(activeTag) !== -1;
+      c.style.display = ok ? "" : "none";
+      if (ok) shown++;
+    });
+    noresults.style.display = shown ? "none" : "block";
+  }
+
+  function applySort() {
+    var mode = sortSel.value;
+    var sorted = cards.slice().sort(function (a, b) {
+      if (mode === "date-desc") return b.dataset.date.localeCompare(a.dataset.date);
+      if (mode === "date-asc")  return a.dataset.date.localeCompare(b.dataset.date);
+      if (mode === "dur-desc")  return (+b.dataset.duration) - (+a.dataset.duration);
+      if (mode === "dur-asc")   return (+a.dataset.duration) - (+b.dataset.duration);
+      if (mode === "title")     return a.dataset.title.localeCompare(b.dataset.title);
+      return 0;
+    });
+    sorted.forEach(function (c) { grid.appendChild(c); });
+  }
+
+  chips.forEach(function (chip) {
+    chip.addEventListener("click", function () {
+      var tag = chip.getAttribute("data-tag");
+      activeTag = (tag === activeTag) ? "" : tag;
+      chips.forEach(function (c) {
+        c.classList.toggle("active", c.getAttribute("data-tag") === activeTag);
+      });
+      applyFilter();
+    });
+  });
+  sortSel.addEventListener("change", applySort);
+})();
+</script>
 </body>
 </html>

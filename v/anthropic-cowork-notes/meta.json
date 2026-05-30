@@ -5,5 +5,10 @@
   "kind": "Webinar",
   "duration_minutes": 58,
   "date": "2026-05-28",
-  "slug": "anthropic-cowork-notes"
+  "slug": "anthropic-cowork-notes",
+  "tags": [
+    "ai",
+    "anthropic",
+    "sales"
+  ]
 }
