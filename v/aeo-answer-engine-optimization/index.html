@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Ultimate Guide to AEO: How to Get ChatGPT to Recommend Your Product</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Lenny&#x27;s Podcast · Ethan Smith (Graphite)</div>
+<h1>The Ultimate Guide to AEO: How to Get ChatGPT to Recommend Your Product</h1>
+<p class="lede">SEO veteran Ethan Smith (CEO of Graphite) breaks down answer engine optimization — getting your product to show up when people ask ChatGPT, Gemini, or Perplexity for recommendations. It&#x27;s intensely tactical, occasionally counterintuitive, and (good news) more an evolution of SEO than a reinvention.</p>
+<div class="byline"><span><strong>Creator:</strong> Ethan Smith</span><span><strong>Runtime:</strong> 72 min</span><span><strong>Video published:</strong> September 14, 2025</span><span><strong>162.8K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=iT7kq-R3Gjc" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>The tactical version</h2><ol><li>AEO (answer engine optimization) means getting your product into LLM answers. Ethan calls it the second-biggest shift in SEO's history — an evolution, not a reinvention — and stresses Google isn't dying: the pie just gets bigger.</li><li>The core difference from SEO: LLMs summarize many citations, so you win by being mentioned the most, not by ranking #1 — which means even brand-new companies can win fast (a Reddit thread or YouTube video can get you cited tomorrow).</li><li>The payoff is real: Webflow saw ~6x higher conversion from LLM traffic than Google search, and ~8% of its signups now come from LLMs.</li><li>The playbook: find the questions, track your 'share of voice,' answer every follow-up on-site, earn citations off-site (YouTube, authentic Reddit, affiliates like Dotdash), and run real test/control experiments — because most 'best practices' are wrong.</li><li>Pure AI-generated content doesn't work (and risks 'model collapse' — everything converging to 'only vanilla'); the sleeper tactic is help-center optimization for the long tail of 'does your product do X?' questions.</li></ol></div>
+<section id="shift"><h2 class="section">01 · The shift</h2><h3 class="heading">AEO is the second-biggest change in SEO — not a reinvention</h3><p>People are moving from Google to ChatGPT, Claude, Gemini, and Perplexity to get answers — and Google itself is bolting on AI Overviews and AI Mode. That gives rise to <strong>AEO</strong> (answer engine optimization): SEO for chatbots. But Ethan — 18 years in SEO — frames it carefully: this is the <em>second</em>-biggest change he's seen (the 2007 anti-spam Panda era was bigger), and it's fundamentally "a summarization of search with new inputs," not a clean break.</p>
+<figure><img src="screenshots/shift.jpg" alt=""><figcaption><span>Ethan Smith (Graphite) with Lenny Rachitsky. His reframe: everything that works in SEO still works in AEO — there's just <em>more</em> on top.</span><span class="ts">00:09:24</span></figcaption></figure>
+<div class="callout"><span class="label">The myth he kills early</span>"Google's slice of the pie stays the same. The pie gets bigger." Every couple of years something is declared the Google killer (TikTok, Instagram, now AEO) — but these add new channels rather than subtract from search.</div></section><section id="rule"><h2 class="section">02 · The new rule</h2><h3 class="heading">Get mentioned the most, not ranked #1</h3><p>Here's the counterintuitive core. In Google, the #1 blue link wins. In an LLM, the answer is a <em>summary of many citations</em> — so the product mentioned <strong>most often</strong> across those citations wins, even if no single page ranks first.</p>
+<figure><img src="screenshots/rule.jpg" alt=""><figcaption><span>"You can get mentioned by a citation tomorrow and start showing up immediately." Early-stage companies can win — fast.</span><span class="ts">00:00:36</span></figcaption></figure>
+<p>That flips the usual SEO advice. Ethan normally tells startups <em>not</em> to do SEO early (you lack domain authority for months). AEO is the opposite: a Reddit thread, a YouTube video, or a launch blog can get you cited tomorrow. And the "tail" — long, specific questions people would never have typed into Google — is much larger in chat, full of questions never asked before that you can win.</p></section><section id="value"><h2 class="section">03 · Why it matters</h2><h3 class="heading">The traffic converts ~6x better</h3><p>This isn't a vanity channel. The leads are dramatically more qualified — because by the time someone clicks through, they've had a multi-turn conversation that built real intent.</p>
+<figure><img src="screenshots/value.jpg" alt=""><figcaption><span>Webflow's data: LLM traffic converted at roughly <strong>6x</strong> the rate of Google search traffic.</span><span class="ts">00:00:48</span></figcaption></figure>
+<blockquote>Web Flow saw a 6x conversion rate difference between LLM traffic and Google search traffic.<cite>— Ethan Smith</cite></blockquote>
+<p>And it's not small: Webflow now gets ~8% of signups from LLMs — a top channel, and growing.</p></section><section id="citations"><h2 class="section">04 · Where citations come from</h2><h3 class="heading">On-site, off-site, and Dotdash</h3><p>Split the work in two. <strong>On-site</strong> is traditional SEO plus answering the long tail — every follow-up about your features, integrations, use cases, languages. <strong>Off-site</strong> is earning citations, and they cluster into groups, each needing its own strategy.</p>
+<figure><img src="screenshots/citations.jpg" alt=""><figcaption><span>The citation sources: your own pages, video (YouTube/Vimeo), UGC (Reddit/Quora), and affiliates.</span><span class="ts">00:00:20</span></figcaption></figure>
+<div class="pills"><div class="pill"><h5><strong>Video</strong></h5><p>YouTube/Vimeo — easy to control, and a real opening for un-glamorous-but-high-value B2B topics nobody makes videos about.</p></div><div class="pill"><h5><strong>UGC</strong></h5><p>Reddit and Quora, heavily cited and heavily policed (see next section).</p></div><div class="pill"><h5><strong>Affiliates</strong></h5><p>pay-to-play and controllable — "want to be the best credit card? Pay Forbes." Dotdash Meredith (Investopedia, Good Housekeeping, All Recipes) is the most-cited of all.</p></div><div class="pill"><h5><strong>Citations differ by vertical</strong></h5><p>B2B leans Tech Radar; commerce leans Glamour/Cosmopolitan; marketplaces lean Yelp/Eater/TripAdvisor.</p></div></div></section><section id="reddit"><h2 class="section">05 · Reddit, done right</h2><h3 class="heading">Be a real person, not a spam farm</h3><p>Reddit is one of the most-cited sources in LLMs, and the #1 thing clients ask about. The obvious growth move — hundreds of fake accounts, automated comments — <em>doesn't work</em>; those accounts get banned and comments deleted. Reddit polices itself, and ChatGPT trusts it <em>because</em> it's policed.</p>
+<figure><img src="screenshots/reddit.jpg" alt=""><figcaption><span>The strategy that works is almost boringly honest.</span><span class="ts">00:00:32</span></figcaption></figure>
+<blockquote>Find a thread… say who you are, say where you work, and then give a useful piece of information. And that works really well… you don't actually need 10,000 comments. Even five could be great.<cite>— Ethan Smith</cite></blockquote></section><section id="playbook"><h2 class="section">06 · The playbook</h2><h3 class="heading">Find questions, track, earn citations, and experiment</h3><p>The actionable loop: (1) turn your and competitors' paid-search money terms into questions (ChatGPT will convert them for you); (2) put them in an answer tracker and watch your <strong>"share of voice"</strong> — answers vary run to run, so you measure a distribution, not a single result; (3) see who's cited and build a strategy per group; (4) build landing pages matching the page types that show up, answering <em>every</em> follow-up.</p>
+<figure><img src="screenshots/playbook.jpg" alt=""><figcaption><span>On tooling: pick the cheapest answer tracker that does the job — there are ~60 and they're basically the same.</span><span class="ts">00:23:58</span></figcaption></figure>
+<div class="callout"><span class="label">The part most people skip</span>Run real experiments: 100 control questions you don't touch, 100 test questions you intervene on, compare against the control, then <em>reproduce</em> it. "Most best practices, most blog posts are not correct." Ethan's academic-research background shows here — reproducibility over folklore.</div></section><section id="aicontent"><h2 class="section">07 · The AI-content trap</h2><h3 class="heading">Pure-AI fails, and risks &quot;model collapse&quot;</h3><p>A rigorous study (using a validated AI detector against pre-ChatGPT common-crawl content) found only ~10–12% of content in Google and ChatGPT results is fully AI-generated — and that purely automated, no-human-in-the-loop content <strong>does not work</strong>. AI-<em>assisted</em>, human-edited content is clearly the future.</p>
+<figure><img src="screenshots/aicontent.jpg" alt=""><figcaption><span>Why pure-AI is self-defeating: if it worked, everyone would scrape, and the engine would just become a search engine for its own derivatives.</span><span class="ts">00:52:00</span></figcaption></figure>
+<blockquote>If you ask what's the best flavor of ice cream, it will eventually say it's vanilla and it's only vanilla and there's no other flavor of ice cream.<cite>— Ethan Smith</cite></blockquote>
+<p>That's "model collapse": feed derivatives back in and the wisdom-of-the-crowd that makes summaries good shrinks to a single, impoverished opinion.</p></section><section id="helpcenter"><h2 class="section">08 · The sleeper tactic</h2><h3 class="heading">Optimize your help center</h3><p>Ethan's most under-discussed tip: chat users constantly ask "does your product do X / integrate with Y?" — exactly what a <strong>help center</strong> answers, and exactly what SEO teams ignore. Three fixes: move it from a subdomain to a subdirectory, cross-link the articles, and fill in the <em>tail</em> (obscure use cases nobody else covers — so you become the only citation).</p>
+<figure><img src="screenshots/helpcenter.jpg" alt=""><figcaption><span>Open it to the community so they fill the long tail of questions for you.</span><span class="ts">01:00:30</span></figcaption></figure>
+<p>His example: "which meeting-transcription tool integrates with Looker?" — none directly, but Otter via Zapier → BigQuery → Looker. No one had written that up; whoever does wins that question.</p></section><section id="myths"><h2 class="section">09 · Myths &amp; the honest truth</h2><h3 class="heading">Misinformation, attribution, and playing the game</h3><p>The space is unusually full of misinformation — partly because "everything is new and different" sells tools. Reality: SEO and AEO overlap heavily, Google traffic to publishers is flat-to-up (not dying), and attribution is genuinely murky (people see you in an answer, then open a new tab and type your brand into Google — so it looks like branded search or direct traffic).</p>
+<figure><img src="screenshots/myths.jpg" alt=""><figcaption><span>Headlines like this recur every couple of years. They're usually wrong.</span><span class="ts">00:01:00</span></figcaption></figure>
+<blockquote>It's not your choice whether to play the game. You are playing the game whether you want to or not.<cite>— Ethan Smith</cite></blockquote>
+<p>So you can block LLMs from <em>training</em> on your content (robots.txt, separate user agents) — but blocking <em>indexing</em> entirely just hands the citations to your competitors.</p></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=iT7kq-R3Gjc" target="_blank" rel="noopener">The Ultimate Guide to AEO: How to Get ChatGPT to Recommend Your Product</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>

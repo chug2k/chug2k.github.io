@@ -1,14 +1,16 @@
 {
   "tags": {
-    "ai": 3,
+    "ai": 4,
     "anthropic": 1,
     "deepmind": 1,
     "google": 1,
+    "marketing": 1,
     "pickleball": 1,
     "productivity": 1,
     "sales": 1,
     "science": 1,
+    "seo": 1,
     "sports": 1
   },
-  "entries": 5
+  "entries": 6
 }
