@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI and Our Economic Future: Why Growth Explodes — But Slowly</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Stanford GSB · Prof. Chad Jones</div>
+<h1>AI and Our Economic Future: Why Growth Explodes — But Slowly</h1>
+<p class="lede">Stanford growth economist Chad Jones takes the two loudest stories about AI — Silicon Valley&#x27;s &quot;growth explodes&quot; and the skeptics&#x27; &quot;it&#x27;s just another normal technology&quot; — and runs them through real growth models. His unifying idea is &quot;weak links,&quot; and it leads somewhere surprising: growth probably does explode, but far more slowly than the hype, while the downside risks arrive sooner.</p>
+<div class="byline"><span><strong>Creator:</strong> Chad Jones</span><span><strong>Runtime:</strong> 60 min</span><span><strong>Video published:</strong> May 21, 2026</span><span><strong>145.8K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=xBpGn3BDcOY" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>The economist&#x27;s take</h2><ol><li>Jones weighs two extremes: Silicon Valley's FOOM (AI automates everything and growth explodes) vs business-as-usual (AI is just the next normal technology, like electricity, and 2% growth continues).</li><li>His unifying framework is weak links: a chain is only as strong as its weakest link, so automating most tasks barely helps — there's always a new bottleneck. You carry 100 million times the transistors of the 1970s, yet you aren't 100 million times more productive.</li><li>His models say growth does eventually explode — but slowly. Even an aggressive 'Moore's Law everywhere' scenario takes ~30 years, not the 3–5 the AI-2027 crowd predicts.</li><li>On jobs: roles are bundles of tasks, so automating 75% of them can raise wages (there are more radiologists now, better paid, post-AI) — though some jobs go, and it all takes longer than headlines claim.</li><li>He's genuinely worried about catastrophic risk: weak-link systems improve slowly but are fragile on the downside — a bad actor with a jailbroken model hacking the grid or designing a pathogen is, he thinks, plausible within ~3 years.</li></ol></div>
+<section id="scenarios"><h2 class="section">01 · Two scenarios</h2><h3 class="heading">FOOM vs. business as usual</h3><p>Jones frames the debate as two caricatured extremes. <strong>Scenario 1 (FOOM):</strong> AI automates software, then AI research, then becomes "a country of geniuses in a data center," then runs robots — and in the growth models he teaches, automating both cognitive and physical work makes growth <em>explode</em>. <strong>Scenario 2:</strong> AI is just the latest normal technology, like electricity or the internet.</p>
+<figure><img src="screenshots/scenarios.jpg" alt=""><figcaption><span>Chad Jones, whose 15+ years of research is on economic growth, laying out the two extremes — neither of which is likely exactly right.</span><span class="ts">00:02:00</span></figcaption></figure></section><section id="puzzle"><h2 class="section">02 · The 150-year puzzle</h2><h3 class="heading">Transformative tech, yet always 2%</h3><p>US living standards have grown ~2% a year for 150 years — a near-straight line on a log scale — <em>through</em> electricity, cars, antibiotics, semiconductors, and the internet. How can technologies be wildly transformative yet growth never accelerate?</p>
+<figure><img src="screenshots/puzzle.jpg" alt=""><figcaption><span>The "business as usual" case: within any technology class, ideas get harder to find — each new technology mostly <em>kept</em> 2% growth from slowing, rather than accelerating it.</span><span class="ts">00:06:49</span></figcaption></figure>
+<div class="callout"><span class="label">The historian&#x27;s caution</span>These transitions take decades — going from steam to electric motors meant physically reorganizing the factory. The pessimistic read: maybe AI is just the next great idea that lets 2% growth run another 50 years.</div></section><section id="weaklinks"><h2 class="section">03 · Weak links</h2><h3 class="heading">A chain is only as strong as its weakest link</h3><p>This is the heart of the talk. Business success requires completing <em>many</em> tasks; make 17 of 20 chain links super strong and the chain is still only as strong as the remaining weak ones. The Challenger exploded over a $25 O-ring.</p>
+<figure><img src="screenshots/weaklinks.jpg" alt=""><figcaption><span>The illustration he keeps returning to: you have ~100 million times the transistors in your pocket as the 1970s equivalent — and you're maybe 2–3x more productive, not 100 million times. The weak links bottleneck you.</span><span class="ts">00:16:34</span></figcaption></figure>
+<blockquote>Weak links are the source of scarcity… What is the scarce factor? What is the weak link? is a question we should always be asking.<cite>— Chad Jones</cite></blockquote>
+<p>A telling data point: computers are everywhere, yet their share of GDP <em>fell</em> from ~4.5% (2000) to ~3% — they got so plentiful and cheap that humans, being scarce, capture more. Exactly what a weak-link model predicts.</p></section><section id="model"><h2 class="section">04 · The model</h2><h3 class="heading">Infinite software would make us… 2% richer</h3><p>Jones builds a model where ideas drive growth (Romer), production has weak links, and automation chips away at them over time. A clean thought experiment: if you had <em>infinite</em> software, how much richer would you be?</p>
+<figure><img src="screenshots/model.jpg" alt=""><figcaption><span>Calibrated to US data and run forward: three scenarios for capital's share of income — full automation (capital → 100%), a human-reserved slice (labor → 100%), and a stable baseline.</span><span class="ts">00:23:15</span></figcaption></figure>
+<div class="callout"><span class="label">The elegant result</span>Because of weak links, infinite amounts of one task raises GDP by <em>that task's share of GDP</em>. Software is ~2% of GDP — so infinite software makes us only ~2% richer. Automating one thing brilliantly isn't enough; you have to keep automating the weak links.</div></section><section id="simulations"><h2 class="section">05 · What the simulations show</h2><h3 class="heading">Growth explodes — but agonizingly slowly</h3><p>Run the model forward and growth <em>does</em> eventually take off as the flywheel (automation → ideas → more automation) wins. But weak links throttle it for a long time.</p>
+<figure><img src="screenshots/simulations.jpg" alt=""><figcaption><span>Full automation (purple) explodes to infinity; the baseline creeps 2.0 → 2.3 → 2.6 → 3.0% — look at the axis: that's over <em>centuries</em>. By 2050 we'd be ~4% richer; by 2075, ~15%.</span><span class="ts">00:25:55</span></figcaption></figure>
+<blockquote>All the scenarios I run say growth explodes over the next 50 or 100 years… but the explosion is not nearly as fast as you would have thought when I said the word 'explosion.'<cite>— Chad Jones</cite></blockquote></section><section id="aggressive"><h2 class="section">06 · The aggressive case</h2><h3 class="heading">Even &quot;Moore&#x27;s Law everywhere&quot; takes 30 years</h3><p>To steelman Silicon Valley, Jones runs a deliberately aggressive calibration: the <em>entire</em> economy starts improving 10% a year, like Moore's Law, today.</p>
+<figure><img src="screenshots/aggressive.jpg" alt=""><figcaption><span>Now growth really moves — past 25%/year by 2050, ~50% richer by 2030. And yet the explosion still isn't "complete" until ~2060. Even here, it takes ~30 years, not the 3–5 of AI 2027. Why? Weak links again.</span><span class="ts">00:28:25</span></figcaption></figure></section><section id="jobs"><h2 class="section">07 · Jobs</h2><h3 class="heading">Automating 75% of your tasks can *raise* your wage</h3><p>In 2016 Geoff Hinton said to stop training radiologists. Instead there are <em>more</em> radiologists today, paid <em>more</em>. Jones's lens: jobs are bundles of tasks; automate most of them and the remaining tasks become the scarce, high-return weak links.</p>
+<figure><img src="screenshots/jobs.jpg" alt=""><figcaption><span>The flip side: some jobs do go (Uber drivers, eventually, to Waymo) — but even self-driving took 20+ years from the 2004 DARPA challenge. Things take longer than the headlines say.</span><span class="ts">00:31:00</span></figcaption></figure></section><section id="inequality"><h2 class="section">08 · Inequality &amp; meaning</h2><h3 class="heading">Abundance, and what we&#x27;ll do all day</h3><p>A world where AI changes everything is a world of enormous GDP — abundance, with plenty to redistribute (keep current US programs and the bottom 10%'s consumption rises). Notably, AI is hitting <em>cognitive/creative</em> work first — so the electrician's wage may rise while the economist's doesn't, which could <em>narrow</em> inequality short-term.</p>
+<figure><img src="screenshots/inequality.jpg" alt=""><figcaption><span>On meaning: when his own growth models get written better by AI, Jones reaches for the retirement analogy — pottery, songs, "getting together with my growth friends and having the AI teach us the latest growth model."</span><span class="ts">00:34:00</span></figcaption></figure></section><section id="risks"><h2 class="section">09 · The risk he can&#x27;t shake</h2><h3 class="heading">Slow to improve, fragile on the downside</h3><p>Jones is not a pure optimist — he's "very nervous." Weak links cut both ways: benefits come slowly (you must strengthen every link), but one broken link destroys the value — and the catastrophic risks arrive <em>sooner</em> than the upside.</p>
+<figure><img src="screenshots/risks.jpg" alt=""><figcaption><span>Two flavors of catastrophe: a bad actor with a jailbroken model, and "alien intelligence." Anthropic's "Mythos" already found thousands of bugs in 25-year-old software no human caught.</span><span class="ts">00:40:48</span></figcaption></figure>
+<blockquote>How do we retain power over entities more powerful than us forever?<cite>— Chad Jones (citing Stuart Russell)</cite></blockquote>
+<p>His close: AI is worth "multiple internets," more transformative than anything we've seen — it'll just take ~30 years, not five. Use the intervening time to prepare for the labor, inequality, and catastrophic risks. (And, only half-joking: "I'll be automated in two years. You guys are safe for another 15 — own shares of the S&amp;P 500.")</p></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=xBpGn3BDcOY" target="_blank" rel="noopener">AI and Our Economic Future: Why Growth Explodes — But Slowly</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>
