@@ -21,6 +21,31 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 V_DIR = ROOT / "v"
 
+_MONTHS = ["", "January", "February", "March", "April", "May", "June", "July",
+           "August", "September", "October", "November", "December"]
+
+
+def fmt_date(value) -> str:
+    """'2026-05-24' -> 'May 24, 2026'."""
+    digits = str(value or "").strip().replace("-", "")
+    if len(digits) == 8 and digits.isdigit():
+        y, m, dd = int(digits[:4]), int(digits[4:6]), int(digits[6:8])
+        if 1 <= m <= 12:
+            return f"{_MONTHS[m]} {dd}, {y}"
+    return str(value or "")
+
+
+def fmt_views(n) -> str:
+    try:
+        n = int(n)
+    except (TypeError, ValueError):
+        return ""
+    if n >= 1_000_000:
+        return f"{n/1_000_000:.1f}M".replace(".0M", "M")
+    if n >= 1_000:
+        return f"{n/1_000:.1f}K".replace(".0K", "K")
+    return str(n)
+
 TEMPLATE_HEAD = """<!doctype html>
 <html lang="en">
 <head>
@@ -238,8 +263,10 @@ def render_entry(meta: dict, slug: str) -> str:
     kind = html.escape(meta.get("kind", "Talk"))
     duration = meta.get("duration_minutes")
     duration_part = f"· {duration} min " if duration else ""
-    date = meta.get("date", "")
-    year = date.split("-")[0] if date else ""
+    disp_date = meta.get("video_date") or meta.get("date", "")
+    date_str = fmt_date(disp_date)
+    views = meta.get("views")
+    views_part = f" · {fmt_views(views)} views" if fmt_views(views) else ""
     title = html.escape(meta.get("title", slug))
     desc = html.escape(meta.get("description", ""))
     tags = meta.get("tags") or []
@@ -250,9 +277,9 @@ def render_entry(meta: dict, slug: str) -> str:
         tags_html = f'    <div class="tags">{chips}</div>\n'
     return (
         f'  <a class="entry" href="/v/{html.escape(slug)}/"'
-        f' data-tags="{data_tags}" data-date="{html.escape(date)}"'
+        f' data-tags="{data_tags}" data-date="{html.escape(disp_date)}"'
         f' data-duration="{duration or 0}" data-title="{html.escape(meta.get("title", slug).lower())}">\n'
-        f'    <div class="meta">{kind} {duration_part}· {html.escape(year)}</div>\n'
+        f'    <div class="meta">{kind} {duration_part}· {html.escape(date_str)}{html.escape(views_part)}</div>\n'
         f'    <h2>{title}</h2>\n'
         f'    <p>{desc}</p>\n'
         f'{tags_html}'
