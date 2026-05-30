@@ -1,4 +1,22 @@
-<!doctype html>
+#!/usr/bin/env python3
+"""Regenerate v/index.html from v/*/meta.json.
+
+Each summary in v/<slug>/ ships a meta.json. This script reads all of them,
+sorts by date (newest first), and renders the index. Style matches the
+existing magazine-warm aesthetic of the blog.
+
+Usage:
+    python3 _scripts/regen-v-index.py
+"""
+from __future__ import annotations
+import json
+import html
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+V_DIR = ROOT / "v"
+
+TEMPLATE_HEAD = """<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -98,11 +116,59 @@ h1 {
   <div class="eyebrow">Video summaries</div>
   <h1>Field notes from talks I watched</h1>
   <p class="lede">Each page distills a video into a teach-quickly format: TL;DR, sections with screenshots at key moments, pull quotes, and Q&amp;A highlights.</p>
-  <a class="entry" href="/v/anthropic-cowork-notes/">
-    <div class="meta">Webinar · 58 min · 2026</div>
-    <h2>How Anthropic&#x27;s sales team actually uses Cowork</h2>
-    <p>Travis Bryant and Brittney Tong demo the morning digest, the forecast updater, the manager roll-up, and a 4,000-account overnight scoring run.</p>
-  </a>
-</div>
+"""
+
+TEMPLATE_TAIL = """</div>
 </body>
 </html>
+"""
+
+
+def render_entry(meta: dict, slug: str) -> str:
+    kind = html.escape(meta.get("kind", "Talk"))
+    duration = meta.get("duration_minutes")
+    duration_part = f"· {duration} min " if duration else ""
+    date = meta.get("date", "")
+    year = date.split("-")[0] if date else ""
+    title = html.escape(meta.get("title", slug))
+    desc = html.escape(meta.get("description", ""))
+    return (
+        f'  <a class="entry" href="/v/{html.escape(slug)}/">\n'
+        f'    <div class="meta">{kind} {duration_part}· {html.escape(year)}</div>\n'
+        f'    <h2>{title}</h2>\n'
+        f'    <p>{desc}</p>\n'
+        f'  </a>\n'
+    )
+
+
+def main() -> int:
+    entries = []
+    for sub in V_DIR.iterdir():
+        if not sub.is_dir():
+            continue
+        meta_path = sub / "meta.json"
+        if not meta_path.exists():
+            print(f"skip {sub.name}: no meta.json")
+            continue
+        try:
+            meta = json.loads(meta_path.read_text())
+        except json.JSONDecodeError as e:
+            print(f"skip {sub.name}: bad meta.json ({e})")
+            continue
+        meta["_slug"] = sub.name
+        entries.append(meta)
+
+    entries.sort(key=lambda m: m.get("date", ""), reverse=True)
+
+    body = "".join(render_entry(m, m["_slug"]) for m in entries)
+    if not entries:
+        body = '  <div class="empty">No summaries yet. Run the youtube-summary skill to generate one.</div>\n'
+
+    out = V_DIR / "index.html"
+    out.write_text(TEMPLATE_HEAD + body + TEMPLATE_TAIL)
+    print(f"wrote {out} ({len(entries)} entries)")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
