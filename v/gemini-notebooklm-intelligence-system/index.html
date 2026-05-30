@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The 4-Floor &#x27;Intelligence System&#x27;: How to Actually Use Gemini + NotebookLM</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">theMITmonk · AI workflow</div>
+<h1>The 4-Floor &#x27;Intelligence System&#x27;: How to Actually Use Gemini + NotebookLM</h1>
+<p class="lede">While everyone fixates on ChatGPT, theMITmonk argues the real edge comes from a system, not a tool — a four-floor &quot;human intelligence architecture&quot; built on Google&#x27;s NotebookLM and Gemini. Here&#x27;s the whole blueprint: grounding, a frontier engine, specialists, and execution, plus the prompt framework that makes it steerable.</p>
+<div class="byline"><span><strong>Creator:</strong> theMITmonk</span><span><strong>Runtime:</strong> 13 min</span><span><strong>Video published:</strong> April 16, 2026</span><span><strong>849.1K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=oXmofS-sjwI" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>The 60-second version</h2><ol><li>The premise: the edge is never the tool, it's the system you build around it — and over-relying on AI to think for you creates 'machine fog' (an MIT Media Lab study tied AI-for-writing to weaker recall).</li><li>The architecture has four floors — NotebookLM (grounding in your own material), Gemini (the frontier engine), Gems (reusable specialists), and Workspace (execution).</li><li>NotebookLM only answers from sources you give it — it 'gives you the receipt' — and turns those sources into podcasts/overviews so you learn in focus and diffuse mode.</li><li>Gemini's huge context plus the AIM framework — Actor, Input, Mission — turns raw capacity into steerable, specific output.</li><li>Gems 'organize behavior, not information'; Gemini-in-Workspace kills the context-switching that can eat ~40% of productivity. The deeper point: AI changes the mechanics of work, not its meaning.</li></ol></div>
+<section id="system"><h2 class="section">01 · The premise</h2><h3 class="heading">The edge is the system, not the tool</h3><p>Everyone's obsessing over ChatGPT; almost nobody builds a real system with Gemini and NotebookLM. The host's framing, from 20 years as a CEO: the tool is never the advantage — the <em>architecture</em> is. Lean on AI to do your thinking and you get "machine fog" (he cites an MIT Media Lab finding that heavy AI-writing use correlated with the weakest brain connectivity and recall).</p>
+<figure><img src="screenshots/system.jpg" alt=""><figcaption><span>The blueprint: a four-floor "intelligence system," each floor a different job, built on bedrock instead of sand.</span><span class="ts">00:00:29</span></figcaption></figure>
+<blockquote>The edge is never the tool. It's the system you build.<cite>— theMITmonk</cite></blockquote>
+<ol class="steps"><li><b><strong>Floor 1 — Grounding</strong></b><span>NotebookLM, anchored only in your own material.</span></li><li><b><strong>Floor 2 — Frontier engine</strong></b><span>Gemini, for exploration across massive context.</span></li><li><b><strong>Floor 3 — Specialists</strong></b><span>Gems that remember who they are and who you are.</span></li><li><b><strong>Floor 4 — Execution</strong></b><span>Workspace, where insight turns into actual work.</span></li></ol></section><section id="notebooklm"><h2 class="section">02 · Floor 1 — NotebookLM</h2><h3 class="heading">Grounding: it gives you the receipt</h3><p>AI's dangerous habit is sounding convincing without being accurate — "a brilliant lawyer who argues beautifully while fabricating the evidence." NotebookLM fixes this by working <em>only</em> from material you give it: documents, notes, transcripts, a 500-page textbook, six months of meeting transcripts.</p>
+<figure><img src="screenshots/notebooklm.jpg" alt=""><figcaption><span>A NotebookLM notebook: answers come with citations back to your uploaded sources.</span><span class="ts">00:01:34</span></figcaption></figure>
+<blockquote>NotebookLM does not give you just a response. It gives you the receipt.<cite>— theMITmonk</cite></blockquote></section><section id="learning"><h2 class="section">03 · Learn the way memory works</h2><h3 class="heading">Focus mode, diffuse mode, and podcasts</h3><p>Mastery doesn't come from consuming more — working memory is tiny ("squeezing a mountain through a straw"). Real learning is moving material into long-term memory via two modes: <strong>focus</strong> (actively investigating your sources) and <strong>diffuse</strong> (away from the desk). NotebookLM serves both — it can turn your research into interactive podcasts or debates.</p>
+<figure><img src="screenshots/learning.jpg" alt=""><figcaption><span>NotebookLM can reshape one set of sources into an Audio Overview, Video Overview, Mind Map, or report — learn in the format your brain prefers.</span><span class="ts">00:06:00</span></figcaption></figure>
+<div class="callout"><span class="label">When to reach for it</span>Three triggers: when you're drowning in material, when "close enough" isn't good enough (you need precision with citations), and when you want knowledge to move across formats — audio on a walk, flashcards, an infographic.</div></section><section id="aim"><h2 class="section">04 · Floor 2 — Gemini</h2><h3 class="heading">The frontier engine, steered by AIM</h3><p>Gemini holds an enormous context — up to ~2 million tokens at once (roughly all of Harry Potter <em>plus</em> the Lord of the Rings trilogy, with room to spare) — so it can surface patterns across a decade of financials or thousands of call transcripts. But raw power without steering just gets you lost faster. His fix is the <strong>AIM</strong> micro-framework.</p>
+<figure><img src="screenshots/aim.jpg" alt=""><figcaption><span>AIM in action: attach the Input (resume, job description, interview notes, company research), then give a precise Mission.</span><span class="ts">00:08:02</span></figcaption></figure>
+<div class="pills"><div class="pill"><h5><strong>A — Actor</strong></h5><p>tell it who to be ("you're the world's most sought-after resume editor").</p></div><div class="pill"><h5><strong>I — Input</strong></h5><p>feed the real context, not just "fix my resume."</p></div><div class="pill"><h5><strong>M — Mission</strong></h5><p>name the exact outcome ("five specific ways to improve clarity and impact… to get an interview at Nvidia").</p></div></div></section><section id="gems"><h2 class="section">05 · Floor 3 — Gems</h2><h3 class="heading">A staff of specialists that remembers you</h3><p>Generic AI is like talking to a stranger at a train station with no context about you. A <strong>Gem</strong> fixes that: give it a role, a tone, an objective, and a knowledge base, and it remembers across the whole arc of your work — a writing coach, research analyst, devil's advocate, chief of staff.</p>
+<figure><img src="screenshots/gems.jpg" alt=""><figcaption><span>The reframe: stop organizing documents, start organizing expertise.</span><span class="ts">00:08:39</span></figcaption></figure>
+<blockquote>Gems are not folders. A folder remembers where your files are. A gem remembers who you are, what you care about, and how you think.<cite>— theMITmonk</cite></blockquote></section><section id="workspace"><h2 class="section">06 · Floor 4 — Workspace</h2><h3 class="heading">Kill the fragmentation</h3><p>The last problem is scatter — writing in one place, storing in a second, analyzing in a third. Context-switching can eat ~40% of your productive time. Gemini inside Google Workspace makes Docs, Gmail, Drive, Calendar, Sheets, and Meet behave like one connected environment.</p>
+<figure><img src="screenshots/workspace.jpg" alt=""><figcaption><span>Gemini stops being "a genie trapped in a chat window" and connects the whole Workspace.</span><span class="ts">00:10:31</span></figcaption></figure>
+<p>It relieves three pressures: <strong>friction</strong> (ask Drive "what are the biggest gaps in my fit?" instead of digging through a file cabinet), <strong>focus</strong> (join a Meet late and get a three-bullet catch-up without interrupting), and <strong>flavor</strong> — because it learns from your files, it writes <em>with</em> you, not <em>for</em> you.</p></section><section id="close"><h2 class="section">07 · Why it matters</h2><h3 class="heading">Mechanics vs. meaning</h3><p>The deeper point lands past productivity. AI will eliminate some jobs, create many, and reshape almost all — but every job has two functions: mechanics and meaning.</p>
+<figure><img src="screenshots/close.jpg" alt=""><figcaption><span>AI may change the mechanics. It doesn't automatically change the meaning — that's what humans are for.</span><span class="ts">00:12:55</span></figcaption></figure>
+<p>So the system isn't only about building an edge; it's about building yourself — using the freed-up time to make something real. As he closes, borrowing from Maya Angelou: your worth isn't a number that has to keep growing to prove you matter — <strong>you alone are enough.</strong></p></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=oXmofS-sjwI" target="_blank" rel="noopener">The 4-Floor &#x27;Intelligence System&#x27;: How to Actually Use Gemini + NotebookLM</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>
