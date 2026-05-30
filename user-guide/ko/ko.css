@@ -1,0 +1,32 @@
+/* Korean typography override — swap Source Serif 4 for Noto Serif KR */
+body {
+    font-family: 'Noto Serif KR', serif;
+}
+
+h1 {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 3.2rem;
+}
+
+.hero-sub {
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+.lead-text {
+    font-size: 1.15rem;
+    line-height: 1.9;
+}
+
+.section-body p,
+.raw-list li,
+.trust-col ul li,
+.growth-list li,
+.stress-desc,
+.stress-pattern p {
+    line-height: 1.8;
+}
+
+.callout-quote {
+    font-style: normal;
+}
