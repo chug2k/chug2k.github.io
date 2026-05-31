@@ -202,8 +202,8 @@ h1 {
 <div class="wrap">
   <a class="back" href="/">← chug2k</a>
   <div class="eyebrow">Video summaries</div>
-  <h1>Field notes from talks I watched</h1>
-  <p class="lede">Each page distills a video into a teach-quickly format: TL;DR, sections with screenshots at key moments, pull quotes, and Q&amp;A highlights.</p>
+  <h1>I hate watching videos</h1>
+  <p class="lede">So these are AI summaries of them — TL;DR, key-moment screenshots, and pull quotes.</p>
 """
 
 TEMPLATE_TAIL = """  <div class="noresults" id="noresults">No summaries match that filter.</div>
@@ -252,6 +252,7 @@ TEMPLATE_TAIL = """  <div class="noresults" id="noresults">No summaries match th
     });
   });
   sortSel.addEventListener("change", applySort);
+  applySort();  // enforce the default ("Newest") on load, not just on change
 })();
 </script>
 </body>
@@ -323,7 +324,9 @@ def main() -> int:
         meta["_slug"] = sub.name
         entries.append(meta)
 
-    entries.sort(key=lambda m: m.get("date", ""), reverse=True)
+    # initial DOM order must match the default "Newest" sort, which the JS
+    # computes from data-date (= video_date or date). Sort by the same key.
+    entries.sort(key=lambda m: (m.get("video_date") or m.get("date") or ""), reverse=True)
 
     tag_counts: Counter = Counter()
     for m in entries:
