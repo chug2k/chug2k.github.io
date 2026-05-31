@@ -7,9 +7,9 @@
     "pickleball": 6,
     "startups": 5,
     "anthropic": 4,
+    "chess": 4,
     "research": 4,
     "science": 4,
-    "chess": 3,
     "economics": 2,
     "physics": 2,
     "product": 2,
@@ -23,5 +23,5 @@
     "sales": 1,
     "semiconductors": 1
   },
-  "entries": 37
+  "entries": 38
 }
