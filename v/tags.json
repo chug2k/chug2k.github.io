@@ -1,8 +1,8 @@
 {
   "tags": {
-    "ai": 11,
-    "agents": 3,
-    "productivity": 3,
+    "ai": 12,
+    "agents": 4,
+    "productivity": 4,
     "anthropic": 2,
     "pickleball": 2,
     "product": 2,
@@ -19,5 +19,5 @@
     "science": 1,
     "stanford": 1
   },
-  "entries": 14
+  "entries": 15
 }
