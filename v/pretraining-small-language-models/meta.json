@@ -1,0 +1,16 @@
+{
+  "title": "Lessons from pre-training small models",
+  "description": "Liquid AI's head of pre-training walks through what changes when you train language models for phones and cars \u2014 embedding-layer bloat, short convolutions, 28T-token scaling, and how to kill repetition loops with DPO and RL.",
+  "source_url": "https://www.youtube.com/watch?v=fLUtUkqYHnQ",
+  "kind": "talk",
+  "duration_minutes": "19",
+  "date": "2026-05-31",
+  "published": "2026-05-31T17:42:10Z",
+  "slug": "pretraining-small-language-models",
+  "video_date": "2026-04-29",
+  "views": 101897,
+  "tags": [
+    "ai",
+    "research"
+  ]
+}

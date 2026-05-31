@@ -1,12 +1,12 @@
 {
   "tags": {
-    "ai": 21,
+    "ai": 22,
     "agents": 9,
     "productivity": 6,
     "startups": 5,
     "anthropic": 4,
+    "research": 4,
     "science": 4,
-    "research": 3,
     "economics": 2,
     "physics": 2,
     "pickleball": 2,
@@ -22,5 +22,5 @@
     "sales": 1,
     "semiconductors": 1
   },
-  "entries": 27
+  "entries": 28
 }
