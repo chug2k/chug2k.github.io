@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Introduction to the Hedgehog</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Chess lecture</div>
+<h1>Introduction to the Hedgehog</h1>
+<p class="lede">IM John Bartholomew teaches the Hedgehog — not the animal, the chess setup. Three games walk through what the structure is, the maneuvers that give it teeth, and how it loses when White plays the right antidote.</p>
+<div class="byline"><span><strong>Creator:</strong> John Bartholomew</span><span><strong>Runtime:</strong> 109 min</span><span><strong>Video published:</strong> May 22, 2018</span><span><strong>78.1K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=z1IfAUOLp1Q" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>The lesson in five points</h2><ol><li>The Hedgehog is a setup, not an opening — pawns on e6, d6, b6, a6 covering every square on the fifth rank. You reach it most reliably through a Sicilian Kan.</li><li>The pieces have fixed homes — knight to d7 (not c6, which blocks the bishop), light bishop fianchettoed to b7, one rook to c8, the other to e8, queen tucked back to b8.</li><li>Two attacking ideas give the spines teeth — the Samisch maneuver (Bd8-c7, adding the bishop to the long diagonal) and an h-pawn charge to soften White's king.</li><li>The d5 break is the payoff — usually a pawn sacrifice to open lines, not a trade. Bartholomew's first game is a model of riding the initiative instead of grabbing material back.</li><li>It is double-edged, not bulletproof — Fischer crushed Andersson from the White side with Kh1-Rg1-g4, and the Nb3 plan with a4-a5 beat Bartholomew when his own queenside fell apart.</li></ol></div>
+<section id="intro"><h2 class="section">01 · The setup</h2><h3 class="heading">Not the animal, the chess setup</h3><p>A teaching stream, three games, one structure played from both colors. Bartholomew has more experience on the Black side, so that is where the lesson lives. He is careful with the label: the Hedgehog is not a concrete opening you can force, it is a setup your opponent has to let you reach. The most reliable road in is a Sicilian against e4 — and when his Manhattan Open opponent answered the Sicilian with c4 instead of d4, he already knew the Hedgehog was coming.</p>
+<figure><img src="screenshots/intro.jpg" alt=""><figcaption><span>Game one, before a move is played. Three games on the menu: two of Bartholomew's own and Fischer-Andersson, Siegen 1970.</span><span class="ts">00:04:30</span></figcaption></figure>
+<div class="callout"><span class="label">What it is</span>A setup, not an opening. You can play it as White or Black, but you usually back into it as Black, and only if the opponent cooperates — you can't force a Hedgehog every game.</div></section><section id="structure"><h2 class="section">02 · The structure</h2><h3 class="heading">Pawns on the sixth rank, spines on the fifth</h3><p>The name does the explaining. Pawns on e6, d6, b6, and a6 sit like quills, controlling every square on the fifth rank and keeping the enemy knights out of the squares they want — c5, d5, b5. That is the minimum, and every pawn is load-bearing: move one out of place and White gets a permanent square. The animal looks purely defensive, but the structure stores energy, and many players have been burned overextending against it.</p>
+<figure><img src="screenshots/structure.jpg" alt=""><figcaption><span>The quills, highlighted: a6, b6, d6, e6. Take this snapshot — this exact formation is the Hedgehog.</span><span class="ts">00:08:03</span></figcaption></figure>
+<blockquote>Even though the Hedgehog looks purely defensive at the moment, it does contain a lot of kinetic energy.<cite>— John Bartholomew</cite></blockquote></section><section id="pieces"><h2 class="section">03 · Piece placement</h2><h3 class="heading">Every piece has a home</h3><p>The pawns are an investment; the pieces are where the play is. The knight goes to d7, not c6 — on c6 it blocks the bishop and invites trouble down the c-file. The light-squared bishop is best fianchettoed on b7, eyeing e4 and the long diagonal. One rook comes to c8 where the action usually is; the other goes to e8 — a strange-looking square while the file is closed, but the right one for when d5 finally opens it. And the queen retreats to b8, off the c-file so a future d5 or b5 break doesn't run into White's rook.</p>
+<figure><img src="screenshots/pieces.jpg" alt=""><figcaption><span>The b7-bishop's diagonal — the inherent potential behind the cramped position. Pieces on the queenside, designs on the king.</span><span class="ts">00:09:53</span></figcaption></figure>
+<div class="pills"><div class="pill"><h5><strong>Knight to d7</strong></h5><p>keeps the bishop's diagonal clear; supports f6.</p></div><div class="pill"><h5><strong>Bishop to b7</strong></h5><p>fianchettoed, hitting e4 and the long diagonal.</p></div><div class="pill"><h5><strong>Rooks to c8 and e8</strong></h5><p>c8 for the action, e8 ready for the d5 break.</p></div><div class="pill"><h5><strong>Queen to b8</strong></h5><p>tucked off the c-file before any pawn break.</p></div></div></section><section id="samisch"><h2 class="section">04 · The Samisch maneuver</h2><h3 class="heading">Bishop back to add a spine</h3><p>Once the queen is on b8 and there's no White pressure on d6, the dark-squared bishop reroutes: Bd8, then Bc7. Named for Fritz Samisch, who first showed the point — even blocked in by its own pawns, the bishop now leans on the long diagonal toward h2, adding real weight to an eventual d5. The chat guessed Qa8 instead; Bartholomew explains why it's rarely played — the c7-h2 diagonal is the more promising one once the position opens, and Qa8 loses sight of the d-pawn.</p>
+<figure><img src="screenshots/samisch.jpg" alt=""><figcaption><span>The bishop heading back to d8 — first step of the Samisch maneuver, on its way to c7.</span><span class="ts">00:20:01</span></figcaption></figure>
+<div class="callout"><span class="label">Timing</span>Do it when White has no pressure on d6 — here the knight still blocks White's rook, so Black can briefly weaken d6 to reroute the bishop.</div></section><section id="hpawn"><h2 class="section">05 · The h-pawn push</h2><h3 class="heading">A spine that leaves the body</h3><p>Then a move that seems to come out of left field: h5, with the idea of running the pawn all the way to h3. Since White doesn't want to touch the kingside pawns — every pawn move there opens his king — Black can throw the h-pawn down the board to pry open the diagonal and weaken f3 and g2. It loosens Black's own king slightly, but the dynamics favor the side doing the attacking.</p>
+<figure><img src="screenshots/hpawn.jpg" alt=""><figcaption><span>h5 on the board — the h-pawn starting its march down the flank where White can't comfortably react.</span><span class="ts">00:24:34</span></figcaption></figure>
+<blockquote>Already this little bishop maneuver, the Samisch maneuver, snaking over here, and suddenly an h-pawn push that comes out of nowhere.<cite>— John Bartholomew</cite></blockquote></section><section id="d5break"><h2 class="section">06 · The d5 break</h2><h3 class="heading">The payoff, usually a sacrifice</h3><p>d5 is the principal Hedgehog break, and the lesson's headline point: you don't play it to trade everything off, you play it to unleash the pieces — often sacrificing a pawn for the initiative. In game one Bartholomew goes down two, then three pawns after the bishop grabs b6, and gets one-way traffic in return: doubled isolated h-pawns for White, a loose king, and a queen-and-bishop battery aimed at h2. He keeps choosing the attacking move over winning material back — Nxd5, Be3 as an interference shot — until a quiet Rd8 ends it.</p>
+<figure><img src="screenshots/d5break.jpg" alt=""><figcaption><span>The d5 break — the lever Black has been preparing all game, here played as a pawn sacrifice to open lines.</span><span class="ts">00:30:24</span></figcaption></figure>
+<div class="callout"><span class="label">The principle</span>When you're attacking and you've invested material, the pull to recoup it is strong — but selling out cheap throws away the initiative. Keep making threats.</div></section><section id="fischer"><h2 class="section">07 · Fischer&#x27;s antidote</h2><h3 class="heading">Kh1, Rg1, g4 from the White side</h3><p>Game two: Fischer plays the Hedgehog with White against Ulf Andersson, Siegen Olympiad 1970. The teaching point is Andersson's structure — he plays an early d5 and ends up without a pawn on c5, which Bartholomew flags as the difference that quietly hurts Black, costing the queenside counterplay the Hedgehog needs. Then Fischer shows his signature plan: Kh1, Rg1, g4, doubling rooks on the g-file and marching the kingside pawns at the enemy king. Andersson's position looks logical and the engine even calls it level — but it has no plan, and Fischer makes it look easy.</p>
+<figure><img src="screenshots/fischer.jpg" alt=""><figcaption><span>Fischer (White, board flipped) pushing g4 — the Kh1-Rg1-g4 plan, lining up the heavy pieces on the g-file.</span><span class="ts">01:03:50</span></figcaption></figure>
+<blockquote>The Hedgehog is such a flexible setup, I sometimes feel like playing against it you lack a clear direction.<cite>— John Bartholomew</cite></blockquote></section><section id="antidote"><h2 class="section">08 · The Nb3 antidote</h2><h3 class="heading">How Bartholomew got beaten</h3><p>The game he lost — Black against Scott Riester, Minnesota Closed Championship, 2013 — is the most instructive. Riester knew the setup and met it correctly: Nb3, a quiet multipurpose move that eyes d6, frees the bishop to pester b6, and above all supports a4-a5, a queenside pawn storm that arrives faster than Black's kingside ideas. With the knight off c3, the Samisch maneuver loses its sting — Bf4 hits d6 and forces awkward defense. Bartholomew ends up with a rook on c6 and no plan, and once White's a5 break lands and c5 follows, the structure collapses. He resigns down a rook.</p>
+<figure><img src="screenshots/antidote.jpg" alt=""><figcaption><span>The antidote demonstrated: after Nb3, the Bf4 idea hits d6 and a4-a5 is coming. Black has no good answer.</span><span class="ts">01:24:27</span></figcaption></figure>
+<div class="callout"><span class="label">The dark side</span>Give up this much space and when things go wrong, they go really wrong — you get suffocated, the position opens badly, and you wonder how your opponent killed you.</div></section><section id="wrapup"><h2 class="section">09 · When to play it</h2><h3 class="heading">Get the c-pawn, and try the English</h3><p>The closing advice cuts both ways. If you're fighting the Hedgehog, don't trade your d-pawn for the c-pawn — that's the door Black walks through. And keep your pawn on c4: it gives you the queenside play Andersson lacked. If you want to reach a Hedgehog as Black, you can't force it, but the symmetrical English is a fertile source — a fianchetto setup, then White's d4 break trades the c- and d-pawns and Black sets up the spines right away.</p>
+<figure><img src="screenshots/wrapup.jpg" alt=""><figcaption><span>The "English Hedgehog" — d4 is the break (arrowed) that trades the c- and d-pawns and lets Black build the structure.</span><span class="ts">01:46:33</span></figcaption></figure>
+<div class="callout"><span class="label">The verdict</span>Double-edged and a lot of fun if you know the standard plans — but by no means bulletproof.</div></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=z1IfAUOLp1Q" target="_blank" rel="noopener">Introduction to the Hedgehog</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>

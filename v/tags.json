@@ -2,8 +2,8 @@
   "tags": {
     "ai": 24,
     "agents": 11,
+    "chess": 8,
     "productivity": 8,
-    "chess": 7,
     "sports": 7,
     "pickleball": 6,
     "startups": 5,
@@ -23,5 +23,5 @@
     "sales": 1,
     "semiconductors": 1
   },
-  "entries": 41
+  "entries": 42
 }
