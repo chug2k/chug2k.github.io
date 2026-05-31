@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>It Ain&#x27;t Broke — Why Software Fundamentals Matter More Than Ever</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">AI Engineer Europe</div>
+<h1>It Ain&#x27;t Broke — Why Software Fundamentals Matter More Than Ever</h1>
+<p class="lede">Matt Pocock spent a course&#x27;s worth of curriculum testing the specs-to-code dream, watched it produce worse code every iteration, and went back to twenty-year-old books to figure out why.</p>
+<div class="byline"><span><strong>Creator:</strong> Matt Pocock</span><span><strong>Runtime:</strong> 18 min</span><span><strong>Video published:</strong> April 23, 2026</span><span><strong>807.3K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=v4F1gFy-hqg" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>The five-minute version</h2><ol><li>Specs-to-code — keep regenerating from the spec, never read the code — is vibe coding by another name. Run the compiler again and you get worse code each time.</li><li>Code is not cheap. Bad code is the most expensive it has ever been, because a hard-to-change codebase is one AI can't help you with.</li><li>The fixes are not new. Ousterhout's deep modules, Evans' ubiquitous language, Beck's "invest in design daily," and TDD all map directly onto the failure modes.</li><li>Pocock packages each fix as a Claude Code skill — /grill-me (forces a shared design concept), /ubiquitous-language, improve-codebase-architecture.</li><li>Treat AI as the tactical programmer on the ground. You're the strategist above it — which still takes the fundamentals.</li></ol></div>
+<section id="intro"><h2 class="section">01 · AI Engineer Europe</h2><h3 class="heading">Software fundamentals matter more, not less</h3><p>Pocock opens with a message he hopes is comforting for anyone who thinks their skill set is now worthless: software fundamentals matter more than they ever have. He's been teaching a course — provocatively titled "Claude Code for Real Engineers" — and building its curriculum forced him to confront the specs-to-code movement: write a specification, let AI turn it into code, and when something breaks, you never look at the code. You change the spec, run the compiler again, get more code.</p>
+<p>He tried it. He tried not to look at the code, then looked anyway.</p>
+<figure><img src="screenshots/intro.jpg" alt=""><figcaption><span>The talk's thesis up front: it ain't broke. The fundamentals still hold.</span><span class="ts">00:00:20</span></figcaption></figure>
+<blockquote>I would get code out, and then I would run it, I would get worse code. I did it again, I got even worse code. I kept running the compiler, and I would just end up with garbage.<cite>— Matt Pocock</cite></blockquote></section><section id="cheap"><h2 class="section">02 · Code is cheap</h2><h3 class="heading">The cheapest claim in the room is wrong</h3><p>The idea propping up specs-to-code is that code is cheap — so why read it. Pocock disagrees. He reaches for two old books to explain what he was watching happen. Ousterhout's <em>A Philosophy of Software Design</em> defines complexity as anything in a system's structure that makes it hard to understand and change; a bad codebase is one you can't change without causing bugs. <em>The Pragmatic Programmer</em> has a chapter on software entropy: change a codebase while thinking only about the change, not the design of the whole system, and it gets worse and worse. That was exactly the specs-to-code loop.</p>
+<figure><img src="screenshots/cheap.jpg" alt=""><figcaption><span>The correction, on one slide.</span><span class="ts">00:04:01</span></figcaption></figure>
+<div class="callout"><span class="label">Why it matters now</span>A hard-to-change codebase can't absorb what AI offers — and AI does genuinely well inside a good one. So good codebases matter more than ever, which means software fundamentals do too.</div></section><section id="grill"><h2 class="section">03 · Failure mode 1</h2><h3 class="heading">The AI built the wrong thing</h3><p>First failure: you had a good idea in your head and the AI built something else. The Pragmatic Programmer's line is that no one knows exactly what they want — there's a communication barrier, and talking to the AI is really the AI gathering requirements. Frederick P. Brooks' <em>The Design of Design</em> names the thing floating between two designers: the design concept, the invisible theory of what you're building. It isn't an asset. You can't put it in a markdown file. Pocock and the AI didn't share one.</p>
+<p>So he wrote a skill. Three lines that tell the AI to interview you relentlessly, walking down each branch of the design tree, resolving dependencies between decisions one at a time.</p>
+<figure><img src="screenshots/grill.jpg" alt=""><figcaption><span>/grill-me — the repo went viral; people had the AI ask them 100 questions before it was satisfied.</span><span class="ts">00:05:46</span></figcaption></figure>
+<blockquote>Don't at me on this, but I personally believe this is better than the default plan mode. Plan mode is extremely eager to create an asset — it really wants to create a plan and start working. It's a lot nicer to reach a shared design concept first.<cite>— Matt Pocock</cite></blockquote></section><section id="ubiq"><h2 class="section">04 · Failure mode 2</h2><h3 class="heading">The AI is too verbose</h3><p>Second failure: you and the AI talk at cross-purposes, it uses too many words, you're not speaking the same language. Pocock recognizes this from working with domain experts — build something on microchips you don't understand, and you end up translating their terms into code neither of you really follows. The answer comes from domain-driven design and its idea of a ubiquitous language.</p>
+<figure><img src="screenshots/ubiq.jpg" alt=""><figcaption><span>Eric Evans, Domain-Driven Design: developers, the code, and domain experts all derive from the same domain model.</span><span class="ts">00:08:49</span></figcaption></figure>
+<p>In practice it's a markdown file of terms you and the AI hold in common — a /ubiquitous-language skill scans the codebase, pulls the terminology, and writes the tables. Pocock keeps it open while planning. Reading the AI's thinking traces, he found it not only improved planning but let the AI think less verbosely, so the implementation lined up with the plan.</p>
+<div class="callout"><span class="label">Tip 2</span>Create a shared language with the AI before you create code.</div></section><section id="shallow"><h2 class="section">05 · Failure mode 3</h2><h3 class="heading">It built the right thing, but it doesn&#x27;t work</h3><p>Third failure: aligned, correct, still broken. The obvious move is feedback loops — static types (if you're building front-end and not handing the LLM browser access, you need to), automated tests. But the LLM doesn't use feedback loops the way a veteran does. It does too much at once, dumps a huge amount of code, then thinks to type-check. The Pragmatic Programmer calls this outrunning your headlights: the rate of feedback is your speed limit.</p>
+<p>That points at TDD — write the test first, make it pass, refactor. But testing is hard because every test is a stack of dependent decisions: how big a unit, what to mock, which behaviors. And those decisions get easier when the codebase is good. Ousterhout's prescription: few large, deep modules with simple interfaces, not many shallow ones.</p>
+<figure><img src="screenshots/shallow.jpg" alt=""><figcaption><span>Deep vs shallow: lots of functionality behind a simple interface, versus little functionality behind a complex one.</span><span class="ts">00:13:00</span></figcaption></figure>
+<div class="pills"><div class="pill"><h5><strong>Deep module</strong></h5><p>lots of functionality, simple interface, hides complexity — you can look inside, but you don't need to.</p></div><div class="pill"><h5><strong>Shallow module</strong></h5><p>not much functionality, complex interface, surfaces complexity — and AI loves generating these.</p></div></div></section><section id="deep"><h2 class="section">06 · Deep modules</h2><h3 class="heading">Same code, drawn inside boundaries</h3><p>A codebase of shallow modules is a field of tiny blobs the AI has to walk through and navigate. It tries to explore, can't find the right module in time, misses the dependencies, and ends up not understanding your code. The same code restructured into deep modules looks different: boundaries, with interfaces on top.</p>
+<figure><img src="screenshots/deep.jpg" alt=""><figcaption><span>Deep modules — design the interfaces tightly, leave the implementation inside to the AI.</span><span class="ts">00:14:06</span></figcaption></figure>
+<p>Pocock has a skill for the conversion — improve-codebase-architecture — a reusable set of steps that hunts for related code and wraps it in a deep module. The payoff is testability: the boundaries are simple, so you test at the interface and verify at the interface. It's a codebase that rewards TDD.</p>
+<div class="callout"><span class="label">Design vs delegate</span>Control and design the interfaces well — that's where AI can wreck things. The implementation inside, on less-critical modules, you can leave to the AI.</div></section><section id="graybox"><h2 class="section">07 · Failure mode 6</h2><h3 class="heading">You&#x27;re shipping more than your brain can hold</h3><p>Last failure: the loops work, you ship more code than ever, and you're more tired than you've ever been. A shallow-module codebase makes it worse — you, not just the AI, have to keep all of it in your head. Deep modules let you treat each one as a gray box: design the interface, don't review every line inside. Not for finance or anything critical — but for most modules, if the boundary is testable and you understand the purpose, you can design it from the outside and let the AI handle the blob.</p>
+<figure><img src="screenshots/graybox.jpg" alt=""><figcaption><span>The thing that exhausts you: a codebase of shallow blobs you and the AI both have to navigate.</span><span class="ts">00:15:34</span></figcaption></figure>
+<p>This is why modules have to live in your ubiquitous language and your planning skills — Pocock's write-a-PRD skill is specific about which modules and interfaces change. It traces back to Kent Beck: invest in the design of the system every day. Specs-to-code does the opposite — it divests from design. Think of AI as a great tactical programmer, a sergeant making changes on the ground. You're the strategist above it, and that takes the fundamentals we've used for twenty years.</p>
+<blockquote>Code is not cheap. That's the message I want you to take away. Code is important.<cite>— Matt Pocock</cite></blockquote></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=v4F1gFy-hqg" target="_blank" rel="noopener">It Ain&#x27;t Broke — Why Software Fundamentals Matter More Than Ever</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>

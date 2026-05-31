@@ -1,8 +1,8 @@
 {
   "tags": {
-    "ai": 23,
-    "agents": 10,
-    "productivity": 7,
+    "ai": 24,
+    "agents": 11,
+    "productivity": 8,
     "startups": 5,
     "anthropic": 4,
     "research": 4,
@@ -22,5 +22,5 @@
     "sales": 1,
     "semiconductors": 1
   },
-  "entries": 29
+  "entries": 30
 }

@@ -1,0 +1,17 @@
+{
+  "title": "It Ain't Broke \u2014 Why Software Fundamentals Matter More Than Ever",
+  "description": "A conference talk arguing that AI makes software fundamentals matter more, not less \u2014 five failure modes of AI coding, each answered with an old idea (deep modules, ubiquitous language, TDD) turned into a reusable Claude Code skill.",
+  "source_url": "https://www.youtube.com/watch?v=v4F1gFy-hqg",
+  "kind": "talk",
+  "duration_minutes": 18,
+  "date": "2026-05-31",
+  "published": "2026-05-31 17:55:57+00:00",
+  "slug": "software-fundamentals-matter-more-ai-coding",
+  "video_date": "2026-04-23",
+  "views": 807307,
+  "tags": [
+    "ai",
+    "agents",
+    "productivity"
+  ]
+}
