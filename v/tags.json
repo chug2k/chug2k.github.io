@@ -3,10 +3,11 @@
     "ai": 12,
     "agents": 4,
     "productivity": 4,
+    "science": 3,
     "anthropic": 2,
+    "physics": 2,
     "pickleball": 2,
     "product": 2,
-    "science": 2,
     "seo": 2,
     "sports": 2,
     "startups": 2,
@@ -16,9 +17,8 @@
     "google": 1,
     "marketing": 1,
     "patents": 1,
-    "physics": 1,
     "sales": 1,
     "stanford": 1
   },
-  "entries": 16
+  "entries": 17
 }
