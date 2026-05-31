@@ -1,19 +1,19 @@
 {
   "tags": {
-    "ai": 5,
+    "ai": 6,
+    "anthropic": 2,
     "pickleball": 2,
+    "productivity": 2,
     "sports": 2,
-    "anthropic": 1,
     "deepmind": 1,
     "economics": 1,
     "google": 1,
     "marketing": 1,
     "patents": 1,
-    "productivity": 1,
     "sales": 1,
     "science": 1,
     "seo": 1,
     "stanford": 1
   },
-  "entries": 8
+  "entries": 9
 }
