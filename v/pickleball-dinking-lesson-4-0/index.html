@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A Full 4.0 Pickleball Lesson, Dink by Dink</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Pickleball coaching</div>
+<h1>A Full 4.0 Pickleball Lesson, Dink by Dink</h1>
+<p class="lede">A 35-minute on-court lesson built around one idea — win the kitchen by keeping every dink shallow, taking balls out of the air, and never drifting wide.</p>
+<div class="byline"><span><strong>Creator:</strong> Josh J Pickleball</span><span><strong>Runtime:</strong> 35 min</span><span><strong>Video published:</strong> October 19, 2024</span><span><strong>31.7K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=plKF-YzPYI8" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>The lesson in five reps</h2><ol><li>Contact the ball at its apex with an open paddle face — start the paddle below the ball and push forward with the shoulder, don't manipulate it up with your spine.</li><li>Keep dinks shallow. A deep dink past the kitchen line ends the rally; a shallow one nobody can poach.</li><li>Take dinks out of the air when you can — it steals reaction time, lets you hit at a higher point, and keeps you anchored at the kitchen.</li><li>On the backhand, concede the kitchen: paddle head down, step back, push with the shoulder, then return to ready.</li><li>Pinch the middle instead of drifting wide on crosscourt dinks — width takes away your positional pressure and leaves the middle open.</li></ol></div>
+<section id="intro"><h2 class="section">01 · The lesson</h2><h3 class="heading">Win the kitchen, one dink at a time</h3><p>Bobby's been playing about a year and a half — call it a 4.0. He gets to the net fine; the trouble is holding position at the kitchen and finishing points once he's there. So the plan is a dinking drill: warm up, then fix what's leaking.</p>
+<figure><img src="screenshots/intro.jpg" alt=""><figcaption><span>A full pickleball lesson for 4.0 players — meeting Bobby at the net before the first warm-up dink.</span><span class="ts">00:00:27</span></figcaption></figure></section><section id="apex"><h2 class="section">02 · The journey of a ball</h2><h3 class="heading">Hit it at the apex</h3><p>Every ball has a life: it lands, you can catch the short hop in the first couple inches, then it ascends to its apex, then it descends. The apex — the highest point — is where the ball is easiest to maneuver. Hit it there and you put less loft on it, which makes it easier to drop into the opponent's court.</p>
+<figure><img src="screenshots/apex.jpg" alt=""><figcaption><span>Stop the ball at its apex — the highest point is where you have the most control.</span><span class="ts">00:01:49</span></figcaption></figure>
+<div class="callout"><span class="label">Why it matters</span>Hitting at the apex means less loft on the ball. The flatter, shallower path is harder for your opponent to attack and keeps the rally going.</div></section><section id="scooper"><h2 class="section">03 · The scooper drill</h2><h3 class="heading">Get the paddle below the ball</h3><p>You dink because the ball is at or below the level of the net, so you have to swing up. The mistake is manipulating the ball up with the spine and shoulder. Instead, start the paddle below the ball and push forward. The drill: bounce the ball, let it reach its apex, and catch it from underneath — first with a pool-noodle scooper, then with the paddle itself.</p>
+<figure><img src="screenshots/scooper.jpg" alt=""><figcaption><span>The scooper mimics getting the paddle head below the ball at its highest point — catch it, don't lift it.</span><span class="ts">00:03:03</span></figcaption></figure>
+<blockquote>A lot of bounces means you didn't catch it at the apex. It's okay.<cite>— Josh</cite></blockquote></section><section id="target"><h2 class="section">04 · Keep it shallow</h2><h3 class="heading">Land it on the yellow line</h3><p>Bobby's been keeping dinks at or below a fake yellow line on the court — good. The balls that travel deep, into the green past the kitchen, end rallies fast. Drill it with targets: a "military" left-right-left, alternating blue and gold, so the dinks stay shallow and stop drifting to one side.</p>
+<figure><img src="screenshots/target.jpg" alt=""><figcaption><span>None going past the kitchen — keeping every dink shallow, on or before the yellow line.</span><span class="ts">00:06:13</span></figcaption></figure>
+<div class="callout"><span class="label">The rule</span>Below the net level, on the yellow line: nobody can poach that. Travel into the green and you've handed over the rally.</div></section><section id="outofair"><h2 class="section">05 · Out of the air</h2><h3 class="heading">Steal their time</h3><p>Same principle in the air: paddle head open, get below the level of the ball, let the paddle do the work. Taking the ball out of the air takes reaction time away from the opponent, lets you hit at a higher point, and — most importantly — keeps you up at the kitchen instead of getting pulled back.</p>
+<figure><img src="screenshots/outofair.jpg" alt=""><figcaption><span>Reaching up to take the dink out of the air with an open paddle face, staying anchored at the kitchen.</span><span class="ts">00:08:17</span></figcaption></figure>
+<blockquote>The whole purpose of pickleball, to play winning pickleball, is get up to the kitchen so we can hit winners.<cite>— Josh</cite></blockquote></section><section id="stance"><h2 class="section">06 · Body position</h2><h3 class="heading">Reach out, don&#x27;t reach up</h3><p>The goal is to hit the ball in a comfortable outstretched position — the farther from your body, the higher and easier the shot. Bobby's a little stiff and straight up, so the fix is mechanical: widen the stance, splay the toes slightly, get the shoulders over the knees and the knees over the toes. Then you just reach out instead of leaning and hoping.</p>
+<figure><img src="screenshots/stance.jpg" alt=""><figcaption><span>Lean in and shift — getting low and wide so the ball can be taken out in front instead of stabbed at.</span><span class="ts">00:10:14</span></figcaption></figure>
+<div class="pills"><div class="pill"><h5><strong>Wider stance</strong></h5><p>feet apart, toes slightly splayed out.</p></div><div class="pill"><h5><strong>Stack the joints</strong></h5><p>shoulders over knees, knees over toes.</p></div><div class="pill"><h5><strong>Reach, don't lift</strong></h5><p>take the ball outstretched in front, not stiff and upright.</p></div></div></section><section id="backhand"><h2 class="section">07 · The backhand</h2><h3 class="heading">Concede the kitchen</h3><p>The backhand is where Bobby gets attacked. On a good drop to the backhand, the mentality is to concede the kitchen — let them have it — rather than forcing an aggressive shot. Mechanically: get the paddle head down, keep the wrist firm, take a step back, and push with the shoulder. Then get right back to ready.</p>
+<figure><img src="screenshots/backhand.jpg" alt=""><figcaption><span>Paddle head down, step back, push with the shoulder — the backhand dink under pressure.</span><span class="ts">00:15:36</span></figcaption></figure>
+<ol class="steps"><li><b><strong>Paddle head down</strong></b><span>drop it below the level of the ball, wrist firm.</span></li><li><b><strong>Step back</strong></b><span>create room when the ball lands near your feet.</span></li><li><b><strong>Push with the shoulder</strong></b><span>use the ball's momentum, don't muscle it.</span></li><li><b><strong>Return to ready</strong></b><span>don't live back there — recover the position every time.</span></li></ol></section><section id="shovel"><h2 class="section">08 · Open the face</h2><h3 class="heading">Make the paddle face your face</h3><p>A pickleball paddle has no strings, the ball is cold plastic, and there's a net in the way — so you can't scoop under and hope. The fix is to start with the face open: make the back of the paddle face your face, keep your spine angle constant, and shovel forward with a shift of weight. No lifting the spine, no flicking the wrist open mid-stroke.</p>
+<figure><img src="screenshots/shovel.jpg" alt=""><figcaption><span>Make the paddle face your face — setting the open face before the stroke instead of flicking it open late.</span><span class="ts">00:18:50</span></figcaption></figure>
+<blockquote>We can't be scooping under and trying to hope the strings, the bracket, catch the ball. We've got to be locked down here to the target.<cite>— Josh</cite></blockquote></section><section id="middle"><h2 class="section">09 · Plug the middle</h2><h3 class="heading">Don&#x27;t drift wide</h3><p>With a partner, middle coverage follows the ball: whoever's crosscourt to the ball pinches in to cover the middle. The prevailing habit should be to condense the middle and take that option away. The biggest mistake on crosscourt dinks is drifting to the sideline for accuracy — it feels safer, but it surrenders positional pressure and leaves the middle wide open.</p>
+<figure><img src="screenshots/middle.jpg" alt=""><figcaption><span>Pinch slightly more middle on the crosscourt dink — drifting wide gives the opponent an easy return and an open lane.</span><span class="ts">00:28:20</span></figcaption></figure>
+<div class="callout"><span class="label">The trade-off</span>A perfect crosscourt dink from way out wide still hands your opponent an open lane. A merely good dink from a pinched middle position keeps the pressure on.</div></section><section id="block"><h2 class="section">10 · Track and block</h2><h3 class="heading">Let the hard ones go</h3><p>Final layer: the outer edge of the paddle tracks the ball like a laser pointer, keeping you neutral but strong to reach either the backhand or forehand. From there you only defend a segment of the court — block anything hit hard down the middle, but let the hard balls at your outer hip and shoulder go out. By the end, Bobby's stacking it all: out of the air, shallow, middle plugged.</p>
+<figure><img src="screenshots/block.jpg" alt=""><figcaption><span>Neutral and low — block the hard ball down the middle, let the one at the outer hip sail.</span><span class="ts">00:32:40</span></figcaption></figure>
+<blockquote>That was like five things he wasn't doing before he got here, doing now.<cite>— Josh</cite></blockquote></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=plKF-YzPYI8" target="_blank" rel="noopener">A Full 4.0 Pickleball Lesson, Dink by Dink</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>

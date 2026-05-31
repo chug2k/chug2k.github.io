@@ -3,12 +3,12 @@
     "ai": 24,
     "agents": 11,
     "productivity": 8,
+    "pickleball": 5,
+    "sports": 5,
     "startups": 5,
     "anthropic": 4,
-    "pickleball": 4,
     "research": 4,
     "science": 4,
-    "sports": 4,
     "economics": 2,
     "physics": 2,
     "product": 2,
@@ -22,5 +22,5 @@
     "sales": 1,
     "semiconductors": 1
   },
-  "entries": 32
+  "entries": 33
 }
