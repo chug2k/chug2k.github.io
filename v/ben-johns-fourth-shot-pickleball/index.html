@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ben Johns on the fourth shot — twelve ways to attack, one wrist mistake</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Pickleball technique</div>
+<h1>Ben Johns on the fourth shot — twelve ways to attack, one wrist mistake</h1>
+<p class="lede">World</p>
+<div class="byline"><span><strong>Creator:</strong> Josh J Pickleball</span><span><strong>Runtime:</strong> 17 min</span><span><strong>Video published:</strong> January 13, 2025</span><span><strong>278.3K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=lkqjG9IP054" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>The short version</h2><ol><li>Stop dropping the paddle head on the backhand roll — keep the paddle horizontal and swing up from there. It is a flick for power from above the net, not a low-ball motion.</li><li>Make contact out in front, not to the side. The more Continental your grip, the harder that is — so consciously tilt the face forward and slide laterally to meet the ball at your one good extension point.</li><li>To hit more topspin, change the swing path, not the wrist. Finish over the right shoulder instead of the left. Flicking the wrist up is how the ball sails.</li><li>On a ball too high to roll but too low to smash, close the face and whip across your body — the "Chariot whip." Turn the wrist down enough and it will never go out, so you can unload.</li><li>The fourth shot is a decision, not a stroke: at least six options out of the air, more off the bounce. Read how fast the opponent is closing and pick a spot.</li></ol></div>
+<section id="intro"><h2 class="section">01 · The premise</h2><h3 class="heading">A dozen shots wearing one name</h3><p>The fourth shot is what you hit when your drop comes back and you are stepping in to drive. Josh can win points and get to the kitchen; what he does not do is punish the ball that floats up at him. So he hands the paddle problem to Ben Johns, the world #1, and asks to be told what is wrong.</p>
+<figure><img src="screenshots/intro.jpg" alt=""><figcaption><span>Josh (left) and Ben Johns set up the session at the net.</span><span class="ts">00:00:34</span></figcaption></figure>
+<p>The framing Ben lands on right away: this is one of the easiest things to improve because it hands you free points — but "easiest to improve" is not the same as "easy."</p>
+<blockquote>I'm glad you said easiest to improve. I thought you were going to say easiest, and I was like, that's not that easy for me.<cite>— Ben Johns</cite></blockquote></section><section id="backhandroll"><h2 class="section">02 · The backhand roll</h2><h3 class="heading">Don&#x27;t drop the paddle head</h3><p>First fault Ben spots: Josh drops the paddle head on the backhand roll. That motion is a flick for generating power from <em>above</em> the level of the net. Below the net it is just hard to time.</p>
+<figure><img src="screenshots/backhandroll.jpg" alt=""><figcaption><span>Josh rolls a backhand — Ben wants the paddle kept horizontal, then driven up from there.</span><span class="ts">00:01:40</span></figcaption></figure>
+<div class="callout"><span class="label">The fix</span>Keep the paddle horizontal and go up from there — the classic backhand roll. You get more topspin that way and you miss less.</div></section><section id="contact"><h2 class="section">03 · Contact point</h2><h3 class="heading">Out in front, not to the side</h3><p>Josh's forehand contacts too far to the side of his body. Part of that is grip: the more Continental you are, the harder it is to turn the face forward enough to meet the ball out front. Ben demonstrates by taking a severe Continental grip and stretching out — the reach forward shrinks the more extreme the grip gets.</p>
+<figure><img src="screenshots/contact.jpg" alt=""><figcaption><span>Ben sets the contact point out in front of the body — maximum extension forward, not outward.</span><span class="ts">00:02:47</span></figcaption></figure>
+<p>The answer is not bigger movement so much as a smaller target zone. Find the one spot — for Ben it is just off the right foot — where his extension is best, then slide laterally to bring every ball to that same point.</p>
+<blockquote>What you really don't want is when I drop straight to the center of your body. You're never going to get a good attacking ball from there.<cite>— Ben Johns</cite></blockquote></section><section id="wristpath"><h2 class="section">04 · Swing path</h2><h3 class="heading">Change the path, not the wrist</h3><p>When players reach full extension they tend to open the wrist, and the ball goes up instead of over with topspin. On a higher ball they flick the wrist up to compensate. Both are wrong.</p>
+<figure><img src="screenshots/wristpath.jpg" alt=""><figcaption><span>Josh swings through with a forward-flexed wrist at full extension.</span><span class="ts">00:04:11</span></figcaption></figure>
+<div class="callout"><span class="label">The rule</span>If you need to hit more severe, change the swing path, not the wrist — finish above your right shoulder instead of your left. That gets you more spin too.</div>
+<p>When the ball sits near the level of the net and you want real power, the engine is hip and shoulder rotation, not the arm — but stay low enough that your eyes are down near the contact point.</p></section><section id="chariot"><h2 class="section">05 · The Chariot whip</h2><h3 class="heading">The in-between ball</h3><p>The awkward ball is the one too high to roll but not high enough to smash. Most players go straight through it and, afraid of sending it long, hold back. Ben's answer: close the paddle face, still swing up, but finish across your body in what he calls the Chariot whip.</p>
+<figure><img src="screenshots/chariot.jpg" alt=""><figcaption><span>Ben demonstrates the Chariot whip — paddle face closed, finishing across the body.</span><span class="ts">00:06:03</span></figcaption></figure>
+<blockquote>You can get a ton of pace and a ton of spin, and it's never going to go out.<cite>— Ben Johns</cite></blockquote>
+<p>Ben credits the shot to Tyson — one of his best. As a righty it also throws sidespin that kicks the ball off to the right after it lands.</p></section><section id="backhand"><h2 class="section">06 · The high backhand</h2><h3 class="heading">Rotate and snap</h3><p>The shoulder-height backhand is the least intuitive ball in the set. The wrist alone cannot generate power there, so the move is rotational: get the paddle horizontal, turn the face down so the ball does not fly, then rotate and snap — like loading a spring.</p>
+<figure><img src="screenshots/backhand.jpg" alt=""><figcaption><span>Josh attacks a high backhand — Ben wants the wrist back, snapping only at the end, never rolling over.</span><span class="ts">00:08:18</span></figcaption></figure>
+<p>The error Josh keeps making is rolling the wrist over across the body. Keep the wrist back; it snaps at the end but never rolls. Turn the wrist down enough and the ball lands short in the kitchen — which is the signal that you have free license to unload.</p>
+<div class="callout"><span class="label">Why trust it</span>What people do wrong is not trusting the ball will go in, so they don't swing fully. Turn the wrist down enough and it always goes in.</div></section><section id="reading"><h2 class="section">07 · Reading the opponent</h2><h3 class="heading">The shot is a decision</h3><p>All the mechanics are the easy part. The hard part is choosing among the options — at least six out of the air, more off the bounce — based on what the other player is doing. Contact the ball way out in front and you can see, with your peripheral vision, where the opponent is and how fast they are closing.</p>
+<figure><img src="screenshots/reading.jpg" alt=""><figcaption><span>Josh drives a fourth out of the air, fully extended at the net.</span><span class="ts">00:13:11</span></figcaption></figure>
+<p>Against someone sprinting to the line, Ben takes pace off and dives the ball at their feet for an awkward midcourt half-volley. Against someone hesitant, he has free license to do whatever he wants. The closing chore Ben hands Josh by the end:</p>
+<div class="pills"><div class="pill"><h5><strong>Be aggressive</strong></h5><p>look to get to your forehand and put them under pressure.</p></div><div class="pill"><h5><strong>Read both opponents</strong></h5><p>pick your spot from where they actually are.</p></div><div class="pill"><h5><strong>Find a good contact point</strong></h5><p>one repeatable spot, out in front.</p></div><div class="pill"><h5><strong>Move laterally</strong></h5><p>slide to bring the ball to that point — very important.</p></div></div>
+<blockquote>If they can't score against you, you have all the time in the world to do your own scoring.<cite>— Ben Johns</cite></blockquote></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=lkqjG9IP054" target="_blank" rel="noopener">Ben Johns on the fourth shot — twelve ways to attack, one wrist mistake</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>
