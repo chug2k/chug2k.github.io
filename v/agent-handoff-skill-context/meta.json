@@ -1,0 +1,17 @@
+{
+  "title": "The handoff skill \u2014 passing context between agent sessions",
+  "description": "Matt Pocock walks through the handoff skill from his ~100k-star skills repo \u2014 why context windows have a smart zone and a dumb zone, where /compact falls short, and how a markdown handoff lets you run independent sessions or build a DIY sub-agent.",
+  "source_url": "https://www.youtube.com/watch?v=dtAJ2dOd3ko",
+  "kind": "video",
+  "duration_minutes": "12",
+  "date": "2026-05-30",
+  "published": "2026-05-31T17:48:20Z",
+  "slug": "agent-handoff-skill-context",
+  "video_date": "2026-05-21",
+  "views": 222279,
+  "tags": [
+    "ai",
+    "agents",
+    "productivity"
+  ]
+}
