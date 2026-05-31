@@ -3,8 +3,8 @@
     "ai": 24,
     "agents": 11,
     "productivity": 8,
+    "chess": 7,
     "sports": 7,
-    "chess": 6,
     "pickleball": 6,
     "startups": 5,
     "anthropic": 4,
@@ -23,5 +23,5 @@
     "sales": 1,
     "semiconductors": 1
   },
-  "entries": 40
+  "entries": 41
 }
