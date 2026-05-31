@@ -2,7 +2,7 @@
   "tags": {
     "ai": 24,
     "agents": 12,
-    "chess": 8,
+    "chess": 9,
     "productivity": 8,
     "sports": 7,
     "pickleball": 6,
@@ -15,14 +15,14 @@
     "product": 2,
     "seo": 2,
     "stanford": 2,
+    "wild": 2,
     "deepmind": 1,
     "design": 1,
     "google": 1,
     "marketing": 1,
     "patents": 1,
     "sales": 1,
-    "semiconductors": 1,
-    "wild": 1
+    "semiconductors": 1
   },
-  "entries": 43
+  "entries": 44
 }

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>10 Middlegame Rules That Decide the Game</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Chess strategy</div>
+<h1>10 Middlegame Rules That Decide the Game</h1>
+<p class="lede">You finish the opening, both sides have castled, and now you stare at a board full of plausible moves. Ten rules for picking the right one — when to activate a rook, when to refuse a trade, and why strong players never just react.</p>
+<div class="byline"><span><strong>Creator:</strong> Remote Chess Academy (GM Igor Smirnov)</span><span><strong>Runtime:</strong> 13 min</span><span><strong>Video published:</strong> May 27, 2026</span><span><strong>24.9K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=211JAnRqaZI" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>The ten rules</h2><ol><li>Find your laziest piece and make a plan to activate it — that's usually the right move.</li><li>Stopping your opponent from castling can be enough to win on its own.</li><li>Attacking moves happen on your opponent's half of the board; force play there instead of reacting.</li><li>Don't trade off your own active piece, and don't weaken a pawn chain for a one-move threat.</li><li>When your opponent attacks on the flank, strike back in the center.</li></ol></div>
+<section id="victorylap"><h2 class="section">01 · Improve your least active piece</h2><h3 class="heading">The victory lap</h3><p>Both sides have developed and castled, and there are five reasonable moves on the board. The way to choose: look at which pieces are already working — here the queen and both bishops are pressing — and find the ones that are dozing. The two rooks are doing nothing. Now ask how to wake them up. The plan is to get the king off the f-file with g3 and Kg2 so f4 can come, the f-file opens, and the rooks pour in.</p>
+<figure><img src="screenshots/victorylap.jpg" alt=""><figcaption><span>The active pieces press; the two back-rank rooks are idle. The whole move sequence is built around activating them.</span><span class="ts">00:00:42</span></figcaption></figure>
+<div class="callout"><span class="label">The rule</span>Pick the move that activates your worst-placed piece. Active pieces win games; lazy pieces lose them.</div></section><section id="nocastle"><h2 class="section">02 · Prevent your opponent from castling</h2><h3 class="heading">King stuck in the center</h3><p>Most players here castle, push e5, or pin with Bg5. The strong move is Ba3 — taking away the opponent's right to castle. People have heard of this idea but underestimate it. If the enemy king is stranded in the center, you keep attacking it and there is often nothing to be done.</p>
+<figure><img src="screenshots/nocastle.jpg" alt=""><figcaption><span>The bishop on a3 rakes the long diagonal toward the king's escape squares; the king can no longer cross to safety.</span><span class="ts">00:01:46</span></figcaption></figure>
+<blockquote>If your opponent's king stays in the middle of the board, you can keep attacking it and there's nothing really that your opponent can do to stop your attack.<cite>— GM Igor Smirnov</cite></blockquote></section><section id="pawnchain"><h2 class="section">03 · Don&#x27;t weaken your pawns for a one-move attack</h2><h3 class="heading">Permanent damage</h3><p>Common below 1000: shoving a pawn to make a single threat. The attacked piece simply steps away — and the weakness you created stays for the rest of the game. Here Black moved a pawn from c7, where it was nicely protected, to c5, and now both that pawn and the squares around it are permanently weak, with no good way to defend them.</p>
+<figure><img src="screenshots/pawnchain.jpg" alt=""><figcaption><span>White targets the weak d6 pawn; the hole Black volunteered isn't going away.</span><span class="ts">00:03:12</span></figcaption></figure></section><section id="theirhalf"><h2 class="section">04 · Attack on your opponent&#x27;s half of the board</h2><h3 class="heading">Forcing moves only</h3><p>This is one of the biggest dividers between strong players and the rest. Attacking moves occur on your opponent's half of the board. Instead of castling or trading, look at the far side and ask: how do I make a forcing move there — a check, a capture, a real threat? In the example both players were rated around 1000 and both missed a queen capture that was checkmate in one, because neither was looking at the right half of the board.</p>
+<figure><img src="screenshots/theirhalf.jpg" alt=""><figcaption><span>The board splits in two — your moves should be landing on the far side, not shuffling pieces at home.</span><span class="ts">00:03:57</span></figcaption></figure>
+<div class="callout"><span class="label">How to use it</span>Before you move, scan your opponent's half. If there's a forcing capture or check there, that's almost always the move.</div></section><section id="ownplan"><h2 class="section">05 · Pursue your own plan — don&#x27;t react</h2><h3 class="heading">Relentless</h3><p>A player whose bishop is attacked usually just retreats it or trades — reacting to the last move. Strong players are relentless about their own plan. Here, instead of saving the bishop, White keeps disrupting Black's pawn chain, and even when a knight ends up hanging, the answer isn't to rescue it — it's to bring a third attacker against the exposed king.</p>
+<figure><img src="screenshots/ownplan.jpg" alt=""><figcaption><span>Queen to h5 with check; three white pieces converge on a single exposed king. The hanging knight is irrelevant.</span><span class="ts">00:06:30</span></figcaption></figure>
+<blockquote>The pony saved is a pony earned, right? And they'll move the knight somewhere. And guess what happens next?<cite>— GM Igor Smirnov</cite></blockquote></section><section id="activepiece"><h2 class="section">06 · To take is a mistake</h2><h3 class="heading">Trade the right piece</h3><p>The classic "to take is a mistake." Capturing on d4 here is the most-played move and it's wrong. You can only trade off your active piece — your passive pieces are too far away to swap. Worse, your active piece is gone while the opponent's active piece is replaced by another, so his stays. You hand him a positional edge. Same logic with pawns: if you trade, be sure you're paid.</p>
+<figure><img src="screenshots/activepiece.jpg" alt=""><figcaption><span>The only capture available trades away your active piece while the opponent's is simply replaced.</span><span class="ts">00:07:12</span></figcaption></figure></section><section id="counterpin"><h2 class="section">07 · Counter the pin aggressively</h2><h3 class="heading">Ignore it and push</h3><p>When a knight is pinned, most players settle for passive defense. There are usually far more active answers — sometimes you ignore the pin entirely, sometimes you hit the weak squares the pin created. Here Black pushes the pawn, carries on his own plan, and is even willing to give up the queen, following up with a bishop check that leaves Black up a piece in a winning endgame.</p>
+<figure><img src="screenshots/counterpin.jpg" alt=""><figcaption><span>Rather than unpinning, Black drives forward with a bishop check — the pin is countered brutally.</span><span class="ts">00:08:57</span></figcaption></figure></section><section id="strikecenter"><h2 class="section">08 · Counter a flank attack in the center</h2><h3 class="heading">Strike back</h3><p>Counterintuitive, and almost never used below the strong level: when your opponent attacks on the flank, strike back in the center. The instinct is to defend the threatened wing with something like h3. Instead, force yourself to look at the four central squares and find a break there — even a pawn sacrifice — to open lines and launch your own play.</p>
+<figure><img src="screenshots/strikecenter.jpg" alt=""><figcaption><span>The four central squares are the target. A break here defuses the wing attack without ever defending it directly.</span><span class="ts">00:09:42</span></figcaption></figure>
+<div class="callout"><span class="label">The rule</span>Flank attack means central counterstrike. Opening the center cuts the legs out from under a wing assault.</div></section><section id="tradeup"><h2 class="section">09 · When you&#x27;re up material, trade pieces</h2><h3 class="heading">Simplify to win</h3><p>A cliché, but here you watch Gukesh trade rooks and then bishops against Ding Liren to cash in. Trading when ahead does two things: it removes risk — once the pieces are off, there's nothing left to blunder — and it leaves a clean winning plan, in this case promoting a pawn with the king's support and mating with the extra queen.</p>
+<figure><img src="screenshots/tradeup.jpg" alt=""><figcaption><span>With the heavy pieces traded, the path is mechanical: walk the pawn up and promote.</span><span class="ts">00:10:52</span></figcaption></figure></section><section id="fianchetto"><h2 class="section">10 · Fianchetto for the sniper bishop</h2><h3 class="heading">The Catalan idea</h3><p>Strong players fianchetto far more than the rest. A bishop tucked on the long diagonal sits in ambush like a sniper, and opponents forget about it. It can't be easily attacked — it's deep in your own territory — yet it applies long-term pressure and shields your king. It's why Carlsen, Caruana, and the elite reach so often for the Catalan instead of casual developing moves.</p>
+<figure><img src="screenshots/fianchetto.jpg" alt=""><figcaption><span>The fianchettoed bishop rakes the full diagonal — safe at home, pressing all game.</span><span class="ts">00:11:58</span></figcaption></figure>
+<div class="pills"><div class="pill"><h5><strong>Defense</strong></h5><p>A king fianchetto shelters the king and makes a black attack much harder to generate.</p></div><div class="pill"><h5><strong>Pressure</strong></h5><p>The long-diagonal bishop applies quiet, lasting pressure across the board.</p></div><div class="pill"><h5><strong>Safety</strong></h5><p>Tucked deep in your own territory, the bishop is almost impossible to attack.</p></div></div></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=211JAnRqaZI" target="_blank" rel="noopener">10 Middlegame Rules That Decide the Game</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>
