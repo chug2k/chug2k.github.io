@@ -1,0 +1,17 @@
+{
+  "title": "Claude Code Dynamic Workflows: When the Parallel-Agent Feature Is Worth the Bill",
+  "description": "A walkthrough of Claude Code's new dynamic workflows feature \u2014 what it is, how it differs from skills, sub-agents, agent teams, and /goal, what it costs, and the one question that tells you whether you actually need it.",
+  "source_url": "https://www.youtube.com/watch?v=jZgcWCzxh1I",
+  "kind": "video",
+  "duration_minutes": 16,
+  "date": "2026-05-31",
+  "published": "2026-05-31 19:32:18+00:00",
+  "slug": "claude-code-dynamic-workflows",
+  "video_date": "2026-05-30",
+  "views": 31780,
+  "tags": [
+    "wild",
+    "agents",
+    "anthropic"
+  ]
+}
