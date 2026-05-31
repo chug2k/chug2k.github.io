@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mass Is Trapped Light — Where Mass and Time Come From</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">The origin of mass and time</div>
+<h1>Mass Is Trapped Light — Where Mass and Time Come From</h1>
+<p class="lede">Mass isn&#x27;t a fundamental property of matter — it emerges from massless particles bouncing around at the speed of light. Trapped energy is mass. Time is a property of the ensemble, not the parts.</p>
+<div class="byline"><span><strong>Creator:</strong> PBS Space Time</span><span><strong>Runtime:</strong> 10 min</span><span><strong>Video published:</strong> January 6, 2016</span><span><strong>1.8M views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=gSKzgpt4HBU" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>TL;DR</h2><ol><li>Mass is trapped, confined energy — E=mc² isn't just about conversion, it's about identity</li><li>A box of massless photons has mass because light bouncing inside resists acceleration</li><li>99% of a proton's mass comes from quark motion and gluon binding, not the quarks themselves</li><li>Inertial mass and gravitational mass are identical via the equivalence principle</li><li>Individual photons experience no time; time emerges when massless particles form an ensemble</li></ol></div>
+<section id="format"><h2 class="section">01 · Eyebrow</h2><h3 class="heading">The photon-box thought experiment</h3><p>Einstein showed that matter, mass, and the flow of time are intrinsically connected — but are these concepts real, or emergent? Mass itself may be an illusion of confinement.</p>
+<figure><img src="screenshots/format.jpg" alt=""><figcaption><span>Matter and time: are they fundamental, or do they emerge from deeper physics?</span><span class="ts">00:00:40</span></figcaption></figure></section><section id="energy"><h2 class="section">02 · What is energy?</h2><h3 class="heading">Mass as resistance</h3><p>Rather than defining energy abstractly, let's look at what mass <em>does</em>: it resists acceleration. This is inertial mass — the degree to which an object pushes back when you try to change its speed. The deeper question is what physical mechanism creates this resistance.</p>
+<figure><img src="screenshots/energy.jpg" alt=""><figcaption><span>Mass is the property that makes it harder to accelerate an object.</span><span class="ts">00:01:20</span></figcaption></figure></section><section id="photon"><h2 class="section">03 · The photon box</h2><h3 class="heading">Trapped light gains inertia</h3><p>Imagine a massive box with mirrored walls, filled with massless photons bouncing in all directions. When you push the box, photons hitting the back wall feel more pressure than those at the front — a pressure gradient that <em>looks exactly like</em> inertia. The photons transfer momentum to the box as it accelerates, and the box resists. The box has mass even though its components don't.</p>
+<figure><img src="screenshots/photon.jpg" alt=""><figcaption><span>Photons bouncing inside a mirrored box create a pressure gradient that manifests as inertia.</span><span class="ts">00:02:00</span></figcaption></figure>
+<blockquote>The photon box has mass, even though its components — neither the photons nor the walls — have mass.<cite>— Narrator</cite></blockquote></section><section id="spring"><h2 class="section">04 · The compressed spring</h2><h3 class="heading">Same cause, same formula</h3><p>A compressed spring contains more energy than a relaxed one — and therefore has more mass. Pushing it requires a greater initial impulse because the spring resists being compressed further. The density wave travels through the spring at the speed of light (electromagnetic interactions between atoms), and that speed-of-light constraint is the <em>same underlying cause</em> as the photon box.</p>
+<figure><img src="screenshots/spring.jpg" alt=""><figcaption><span>A compressed spring is harder to accelerate — it genuinely has more mass.</span><span class="ts">00:04:00</span></figcaption></figure>
+<div class="callout"><span class="label">Key insight</span>Both the photon box and the compressed spring obey E = mc² because the interactions that transmit forces are constrained by the speed of light.</div></section><section id="quarks"><h2 class="section">05 · The proton</h2><h3 class="heading">Where your mass comes from</h3><p>99% of a proton's mass is quark oscillation energy plus the binding energy of the gluon field — not the intrinsic mass of the quarks themselves. The proton is essentially a combination of the photon box (quarks bouncing) and the compressed spring (the gluon field as confinement). Even the tiny intrinsic masses of quarks and electrons come from confinement via the Higgs field.</p>
+<figure><img src="screenshots/quarks.jpg" alt=""><figcaption><span>Quarks confined by gluon fields inside a proton — most mass is trapped energy.</span><span class="ts">00:05:00</span></figcaption></figure>
+<blockquote>Anything with mass is composed of a combination of intrinsically massless, photonic particles that flow freely through the universe.<cite>— Narrator</cite></blockquote></section><section id="gravity"><h2 class="section">06 · Gravity</h2><h3 class="heading">Trapped energy curves spacetime</h3><p>The equivalence principle tells us that inertial mass and gravitational mass are one and the same. The photon box feels gravity not because its photons have mass, but because trapped energy — including momentum and pressure — curves spacetime. Individual photons affect spacetime, and trapping them in a box produces a real gravitational field.</p>
+<figure><img src="screenshots/gravity.jpg" alt=""><figcaption><span>Energy flow and pressure curve spacetime — trapped light produces gravity.</span><span class="ts">00:07:00</span></figcaption></figure>
+<div class="callout"><span class="label">The equivalence principle</span>An object's gravitational mass and inertial mass are identical. Holding the photon box aloft is as difficult as accelerating it at 1g in empty space.</div></section><section id="time"><h2 class="section">07 · Time</h2><h3 class="heading">When does time emerge?</h3><p>An individual photon experiences no passage of time — its clock is frozen. But the photon box has mass, so it <em>must</em> feel time. When and where does time emerge? The individual particles don't have it during transit, and the walls don't add it on bounce. Time seems to be a property of the ensemble, not the parts.</p>
+<figure><img src="screenshots/time.jpg" alt=""><figcaption><span>Massless particles confined in a box — their collective behavior gives rise to both mass and time.</span><span class="ts">00:07:57</span></figcaption></figure></section><section id="higgs"><h2 class="section">08 · The Higgs field</h2><h3 class="heading">Clearing up the misconceptions</h3><p>The Higgs field doesn't slow particles down like molasses — it gives them inertia, a resistance to acceleration. Without the Higgs field, elementary particles would be massless and travel at the speed of light. The field acquired its non-zero value through spontaneous symmetry breaking a fraction of a second after the Big Bang, which separated the weak nuclear force from electromagnetism.</p>
+<div class="callout"><span class="label">Fun fact</span>At extreme temperatures right after the Big Bang, the Higgs field was zero everywhere — the weak force and electromagnetism were the same force, and every particle was massless.</div></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=gSKzgpt4HBU" target="_blank" rel="noopener">Mass Is Trapped Light — Where Mass and Time Come From</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>
