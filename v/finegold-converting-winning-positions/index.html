@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Converting Winning Positions — Ben Feingold</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Chess lecture</div>
+<h1>Converting Winning Positions — Ben Feingold</h1>
+<p class="lede">Grandmaster Ben Feingold walks through five of his own games from the 1980s and 90s to show what to actually do once you already know you&#x27;re winning — and why the answer is almost never &quot;relax.&quot;</p>
+<div class="byline"><span><strong>Creator:</strong> Ben Feingold</span><span><strong>Runtime:</strong> 54 min</span><span><strong>Video published:</strong> April 18, 2022</span><span><strong>154.8K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=rK9W7ycNOpY" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>The short version</h2><ol><li>When you're winning you have three options — keep playing normally, play extra-cautious, or relax and wait for a resignation. The third is the worst; Feingold picks extra-cautious.</li><li>Know <em>why</em> you're winning. Up material is one reason; a bad enemy king is another. If you're winning on the attack, keep attacking — don't drift into a slow material grind.</li><li>Stop your opponent's counter-play. In every game the loser went "wild and crazy" looking for tricks while Feingold quietly denied them play.</li><li>Don't auto-trade when ahead. Whether a queen trade helps depends on whose king is safer, not on the material count.</li><li>Don't get into time trouble. Feingold calls a dead clock the number-one reason players fail to convert a won position.</li></ol></div>
+<section id="intro"><h2 class="section">01 · The framework</h2><h3 class="heading">Three things you can do when winning</h3><p>Feingold sets up the whole lecture before touching a board: once you <em>know</em> you're winning — your opponent just hung a piece — you have exactly three options. Keep playing chess the way you were. Get very cautious and refuse to let any trick happen. Or relax and assume they'll resign. He's blunt that the third is the worst, and that he personally goes extra-cautious: hunt for the opponent's counter-play harder than before, and never sacrifice for a "mate in seven" you might miscount when you're already up a piece.</p>
+<figure><img src="screenshots/intro.jpg" alt=""><figcaption><span>The lecture's title card — "Converting Winning Positions," recorded March 23, 2022. The games that follow are all Feingold's own, deliberately drawn from the 80s and 90s.</span><span class="ts">00:00:08</span></figcaption></figure>
+<blockquote>I play extra cautious when I'm completely winning, and occasionally — and by occasionally I mean too often — I fall into the trap of like, oh, I'm winning, I'm the greatest, and then you mess up.<cite>— Ben Feingold</cite></blockquote>
+<div class="callout"><span class="label">Why old games</span>He notes he can't easily demonstrate good technique with recent games: as a grandmaster, his opponents resign the moment the engine hits +6. The 80s and 90s opponents played on, so you actually get to see the conversion.</div></section><section id="game1"><h2 class="section">02 · Michigan Open 1984</h2><h3 class="heading">Sacrifice to win the queen, then keep attacking</h3><p>The first game, from the Michigan Open the weekend he turned 15, is an attack against a weaker king. Feingold sacrifices a knight to set up a pin that wins his opponent's queen, ending up with queen and pawn against rook and bishop. His point is that he didn't switch into a slow technical grind — he was winning for <em>two</em> reasons (the material, and the exposed enemy king), so he kept piling pieces toward the king. He even admits the human move he chose at the end was objectively worse than the fastest mate, but it won faster because his opponent's reply was worse still.</p>
+<figure><img src="screenshots/game1.jpg" alt=""><figcaption><span>The finish (chyron: "MI Open 1984"). Feingold has kept his pieces aimed at the enemy king the whole way; his opponent's knight fork of the queen and rook walks into an immediate mate.</span><span class="ts">00:11:50</span></figcaption></figure>
+<blockquote>Computers are like, why'd you play that bad move? And the answer is, my opponent's move was even worse, so I won even more quickly.<cite>— Ben Feingold</cite></blockquote>
+<div class="callout"><span class="label">The lesson</span>Know which of your advantages is doing the work. Here it was the enemy king, so the plan was "keep attacking the king," not "convert the extra material in 30 moves."</div></section><section id="game2"><h2 class="section">03 · Midwest Masters 1986</h2><h3 class="heading">Opposite-colored bishops are not an automatic draw</h3><p>A rook-and-opposite-colored-bishop endgame that looks dead drawn — same pawn structure, blockaded passers. Feingold uses it to teach a personal rule: with rooks on, opposite-colored bishops favor the attacker, because you can create threats the defending bishop simply can't answer. His real edge is that his king can march up the board while his opponent's is trapped on the kingside. Eventually he sacrifices the exchange to spring a passed a-pawn on the far wing, which the cornered enemy king can't chase down. He won the tournament's best-endgame prize for it.</p>
+<figure><img src="screenshots/game2.jpg" alt=""><figcaption><span>The conversion (chyron: "Midwest Masters 1986"). The exchange sacrifice has been made; the passed a-pawn on the queenside decides because the enemy king is stuck far away.</span><span class="ts">00:19:42</span></figcaption></figure>
+<blockquote>The reason I'm winning here is I have a king and he doesn't — so I'm up a king. My king is doing stuff; his king is never, ever, ever gonna do stuff.<cite>— Ben Feingold</cite></blockquote>
+<div class="pills"><div class="pill"><h5><strong>Opposite bishops + rooks</strong></h5><p>Favors the attacker, not an automatic draw.</p></div><div class="pill"><h5><strong>Active king</strong></h5><p>His king walks up the board while the opponent's stays trapped.</p></div><div class="pill"><h5><strong>Sac the exchange</strong></h5><p>Give up the rook for a runaway passed pawn on the far side.</p></div></div></section><section id="game3"><h2 class="section">04 · Hastings 1988-89</h2><h3 class="heading">Bad technique vs. good technique, in one game</h3><p>This is the game Feingold frames as the whole lecture in miniature: against Romanian grandmaster Mihai Suba, <em>both</em> players were winning at different points. Suba was crushing him with a strong passed pawn but kept reaching for the flashiest continuation instead of shutting down Feingold's counter-play down the f-file. Once Feingold's defensive resources took over, the roles flipped — and now it was Feingold who played quiet, safe, only-chess moves to bring it home. Same board, two opposite styles of converting an edge.</p>
+<figure><img src="screenshots/game3.jpg" alt=""><figcaption><span>Mid-collapse for White (chyron: "Hastings 1988-89"). Feingold (Black) has wrested the initiative; the threat of a bishop mate forces concessions that cost White the game.</span><span class="ts">00:28:54</span></figcaption></figure>
+<blockquote>When I was winning, I did not play wild and crazy. He didn't look for my play — he played wild and crazy, and that was his downfall.<cite>— Ben Feingold</cite></blockquote>
+<div class="callout"><span class="label">The contrast</span>Suba was strong and didn't think much of Feingold, so he chased his own winning ideas and ignored the counter-play. The defender who <em>respects</em> the position is the one who converts.</div></section><section id="game4"><h2 class="section">05 · Dortmund 1990</h2><h3 class="heading">Play only chess — and calculate the forced line</h3><p>Against an East German grandmaster (the Berlin Wall having just come down), Feingold is up a rook and pawn for two pieces with the enemy knight pinned. His opponent, short on time, grabs a tempting rook-takes-g2 shot that "skewers and pins and forks" — and loses by force. The teaching point: there's exactly one move that wins for Feingold, a rook-takes-on-e7 check leading into a king-and-pawn ending with even pawns, and you have to play it <em>because there's no alternative that doesn't lose or draw</em>. He'd already calculated it before the position arose.</p>
+<figure><img src="screenshots/game4.jpg" alt=""><figcaption><span>The critical moment (chyron: "Dortmund 1990"). The arrow marks the forced rook-takes-e7 check; it transposes into a king-and-pawn ending Feingold had already worked out as winning.</span><span class="ts">00:34:34</span></figcaption></figure>
+<blockquote>Rook takes knight — that could win, lose, or draw. But if you don't calculate it, you have to play it anyway, because there's no alternative move.<cite>— Ben Feingold</cite></blockquote>
+<div class="callout"><span class="label">The lesson</span>When you're winning, keep it simple — but "simple" still means calculating the one forcing line to the end rather than guessing.</div></section><section id="game5"><h2 class="section">06 · Antwerp 1991</h2><h3 class="heading">Foot on the gas — don&#x27;t let the edge leak away</h3><p>Against his Dutch friend Eric Knopper, Feingold builds a winning position with all his pieces centralized and a safe king, then finishes with a rook sacrifice — a check-check-mate sequence his opponent never saw. He'd spotted his opponent's intended trick (a knight grab that would have led to a back-rank mate) and sidestepped it because his bishop already controlled the key square. The broader point lands here: a string of "still winning but not best" moves bleeds +2 down to +0.9, and then you're not winning at all.</p>
+<figure><img src="screenshots/game5.jpg" alt=""><figcaption><span>The rook sacrifice (chyron: "Antwerp 1991"). The arrow shows the rook lift into the mating net — a forced check-check-mate the opponent overlooked when he went for his own trick.</span><span class="ts">00:42:33</span></figcaption></figure>
+<blockquote>You've got to put your foot on the gas when you're winning. You have to be careful, but you have to take what's offered you.<cite>— Ben Feingold</cite></blockquote>
+<div class="callout"><span class="label">The leak</span>Plus two, then 1.7, then 1.5, then 0.9 — keep playing not-best moves and the advantage quietly evaporates. Convert decisively while you still can.</div></section><section id="game6"><h2 class="section">07 · Groningen 1992</h2><h3 class="heading">Don&#x27;t auto-trade, deny counter-play</h3><p>The last and, he says, most memorable game: a German FIDE master needed a draw in the final round for an IM norm and offered one on move 10. Feingold refused, squeezed, and won. He pointedly does <em>not</em> trade queens when ahead — the textbook "trade when winning" advice is wrong when it's your opponent's king that's exposed, not yours. He keeps the enemy knight permanently stuck defending a weak pawn, dominates with queen and knight, and finishes with a forcing tactic. His summary of the whole lecture is here: stay safe, keep doing what got you the advantage, and stay off the clock's edge.</p>
+<figure><img src="screenshots/game6.jpg" alt=""><figcaption><span>The winning tactic (chyron: "Groningen 1992"). The arrow marks the forcing check that wins the queen; the German FM's IM-norm hopes end with it.</span><span class="ts">00:52:01</span></figcaption></figure>
+<blockquote>The main issue with trading queens is whose king is safer. My king is safer — his king has an open seventh rank.<cite>— Ben Feingold</cite></blockquote>
+<ol class="steps"><li><b><strong>Stay safe</strong></b><span>Tuck the king away first; an open enemy king is your asset, not theirs.</span></li><li><b><strong>Keep doing what worked</strong></b><span>Don't abandon the plan that built the advantage.</span></li><li><b><strong>Off the clock's edge</strong></b><span>A dead clock is the number-one way to fail to convert a won game.</span></li></ol></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=rK9W7ycNOpY" target="_blank" rel="noopener">Converting Winning Positions — Ben Feingold</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>
