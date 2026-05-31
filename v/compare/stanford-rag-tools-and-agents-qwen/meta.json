@@ -1,0 +1,17 @@
+{
+  "title": "CME295 Lecture 7 \u2014 RAG, Tool Calling & Agentic Systems",
+  "description": "Covering retrieval-augmented generation (bi-encoders, cross-encoders, BM25, chunking, NDCG), function/tool calling (SFT, reasoning-based prompt generation), MCP standardization, ReAct agentic loops, and agent safety.",
+  "source_url": "https://www.youtube.com/watch?v=h-7S6HNq0Vg",
+  "kind": "lecture",
+  "duration_minutes": 109,
+  "date": "2026-05-31",
+  "published": "2026-05-31 17:16:21+00:00",
+  "slug": "stanford-rag-tool-calling-agents",
+  "video_date": "2025-11-18",
+  "views": 82480,
+  "tags": [
+    "ai",
+    "agents",
+    "stanford"
+  ]
+}
