@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How a Burned-Out Business YouTuber Accidentally Built a $1M SaaS</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Founder story</div>
+<h1>How a Burned-Out Business YouTuber Accidentally Built a $1M SaaS</h1>
+<p class="lede">Sebastian Ghiorghiu spent eight years monetizing his own face — drop shipping, YouTube, agencies, affiliate. Then he quit posting to find out if he could build a real business without it. The side project he wasn&#x27;t taking seriously became Atlas: a Shopify app at 10,000+ paying customers and the fastest app one investor had seen hit $1M ARR.</p>
+<div class="byline"><span><strong>Creator:</strong> Sebastian Ghiorghiu</span><span><strong>Runtime:</strong> 22 min</span><span><strong>Video published:</strong> October 23, 2025</span><span><strong>1.1M views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=I78h9HrSndE" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>The short version</h2><ol><li>Eight years of drop shipping, YouTube, agencies and affiliate marketing — all of it was monetizing one asset: his face on a screen.</li><li>He stopped posting entirely to answer one question: can I build something that doesn't collapse the second I step away?</li><li>Atlas started as a throwaway AI Shopify store-builder. People paid $14 for the bad version, so he kept charging more — $29, then monthly, then annual.</li><li>He spent over six figures to buy out his co-founder, hit a decline that nearly broke him, then rebuilt around a theme he'd actually use himself.</li><li>Today: 10,000+ paying customers, $250K+ MRR, $61M+ in user GMV, Privy founder Ben Jabbawy on the board — and customers who love it without knowing it's his.</li></ol></div>
+<section id="intro"><h2 class="section">01 · The setup</h2><h3 class="heading">Eight years monetizing one face</h3><p>Sebastian Ghiorghiu grew up broke — single mom, three siblings — and at 17 found he could make money online with drop shipping. When people started watching him talk about it, everything sped up. For eight years he jumped between drop shipping, YouTube, affiliate marketing, an agency, investing, even day trading.</p>
+<figure><img src="screenshots/intro.jpg" alt=""><figcaption><span>The video frames itself as a hero's journey — "I. The First Rise" — but the throughline is simpler: every business was a new way to extract money from the same asset.</span><span class="ts">00:00:43</span></figcaption></figure>
+<blockquote>I wasn't exactly building businesses. I was monetizing attention in different ways for the most part. Different ways to extract money from the same asset, which was my face.<cite>— Sebastian Ghiorghiu</cite></blockquote>
+<p>A jack of all trades, master of none — and one question that wouldn't leave: am I even capable of building something real, something that doesn't collapse the second I step away from it?</p></section><section id="app"><h2 class="section">02 · The pivot</h2><h3 class="heading">Quit posting, build in the dark</h3><p>At the height of it he stopped. No more Reels, no more YouTube videos. He had no idea where to start, so he did nothing — traveled, found a girl, spent down his savings. On the side he was quietly tinkering with a Shopify app: an AI store builder meant to help drop shippers spin up a store and product pages in one click.</p>
+<figure><img src="screenshots/app.jpg" alt=""><figcaption><span>He'd built an audience of nearly a million subscribers as "that business guy" — the exact thing he was now trying to prove he didn't need.</span><span class="ts">00:02:56</span></figcaption></figure>
+<p>The early version was rough — bad copy, bad theme, bad layouts, pure MVP. But he kept seeing more potential in it, and figured this side project might be the real business he was after.</p></section><section id="pricing"><h2 class="section">03 · The accident</h2><h3 class="heading">People kept paying for the bad version</h3><p>They shipped it to the Shopify App Store anyway, just to see. Day one, four or five people paid $14 each. He was confused — he knew it wasn't good. But the buying didn't stop, so he read the signal: the market actually wants this. Make it better and they'll pay more.</p>
+<figure><img src="screenshots/pricing.jpg" alt=""><figcaption><span>The pricing ladder that emerged: a one-time payment plus monthly Growth, Pro, and Expert tiers. Each move up the ladder, he assumed wouldn't work.</span><span class="ts">00:06:00</span></figcaption></figure>
+<ol class="steps"><li><b><strong>$14 to $29 one-time</strong></b><span>Raised the price as the product improved. People bought it right away.</span></li><li><b><strong>Monthly subscription</strong></b><span>A teammate suggested it; he called it "completely stupid." Building a store is a one-time thing. People subscribed anyway.</span></li><li><b><strong>Annual plan</strong></b><span>Discount for paying ~$600-700 upfront. He didn't think it'd work. It sold immediately.</span></li></ol>
+<div class="callout"><span class="label">The realization</span>Somewhere between $1-2K MRR he thought: "I have a SaaS company now, I guess. I don't know how I got here." The dream he'd never had a real idea for, he'd backed into.</div></section><section id="bet"><h2 class="section">04 · The bet</h2><h3 class="heading">A quarter million on himself</h3><p>At ~$20K MRR, he and his co-founder hit a breaking point — different work styles damaging the relationship. One of them had to go. The choice: walk away and let the dream die, or spend over six figures in cash to buy out the co-founder's equity. He'd already put in $50K and months of his life into a risky, faceless, brand-new business.</p>
+<figure><img src="screenshots/bet.jpg" alt=""><figcaption><span>The Shopify dashboard he was now living inside — the first business he was building where the product, not his face, had to carry it.</span><span class="ts">00:08:23</span></figcaption></figure>
+<blockquote>On January 6th, I bet everything on myself, in all caps. And with that out of the way, the path was clear and we locked in hard.<cite>— Sebastian Ghiorghiu</cite></blockquote>
+<p>He pushed all his chips in. Boats burned, back against the wall — swim or drown.</p></section><section id="gmv"><h2 class="section">05 · The dip and the rebuild</h2><h3 class="heading">Build something you&#x27;d use yourself</h3><p>January hit $35K MRR, then stalled and started dying — a slow decline that cost about 25% of monthly income. He was sure he wasn't cut out for it. But the way through was obvious: build something so good he'd use it himself. They asked what drop shippers actually care about and rebuilt around it — a high-converting theme, product-page sections, bundles, upsells — and shipped Atlas 2.0.</p>
+<figure><img src="screenshots/gmv.jpg" alt=""><figcaption><span>Then they started tracking customer revenue — GMV made on stores using Atlas. Within a week it crossed $1M, climbing $60-70K a day, on its way to the figures on screen.</span><span class="ts">00:12:06</span></figcaption></figure>
+<div class="callout"><span class="label">The number that mattered</span>At filming, Atlas users had generated over $61M in GMV — proof the product made money for the people paying for it, which is why they kept paying.</div></section><section id="ben"><h2 class="section">06 · The validation</h2><h3 class="heading">Privy&#x27;s founder believed in the CEO, not the clout</h3><p>Right before his wedding and a long stretch in Europe, he got connected to Ben Jabbawy — founder of Privy, one of the most popular apps in Shopify history, sold for over $100M. Ghiorghiu prepped like it was a dream scenario, because it was. Jabbawy loved the business and the energy — without knowing about the YouTube channel, the cars, or the followers.</p>
+<figure><img src="screenshots/ben.jpg" alt=""><figcaption><span>The wedding in Italy bookended the meeting — the personal high and the professional one landing in the same stretch.</span><span class="ts">00:13:23</span></figcaption></figure>
+<blockquote>This is insane and I believe in you guys. You guys are a rocket ship.<cite>— Ben Jabbawy, to Ghiorghiu</cite></blockquote>
+<p>For the first time someone believed in him as a CEO, not as a creator. It broke a wall of limiting beliefs. Jabbawy took an advisor seat and today sits on the Atlas board.</p></section><section id="euro"><h2 class="section">07 · The honeymoon</h2><h3 class="heading">Growth without him in the room</h3><p>He left for three months in Europe — Italy, Monaco for the F1, Barcelona, Paris, Switzerland, Vienna, Romania, London, New York on the way back — fully expecting the business to slow while he was away and working less.</p>
+<figure><img src="screenshots/euro.jpg" alt=""><figcaption><span>The Euro-summer texture: croissants, espresso, Lime scooters to the beach. He worked at night, but the team carried the weight.</span><span class="ts">00:16:34</span></figcaption></figure>
+<p>It did the opposite. Over the honeymoon, Atlas went from $100K MRR to over $250K — most of it while he was traveling. He credits the team he'd built: they knew what to do without him in the room, which was the whole point of the experiment.</p></section><section id="record"><h2 class="section">08 · The proof</h2><h3 class="heading">The product is the product now</h3><p>Back home, the CEO of Mantle told him Atlas may have set the record for the fastest Shopify app he'd seen reach $1M ARR.</p>
+<figure><img src="screenshots/record.jpg" alt=""><figcaption><span>$1,000,788 ARR, up 73.86% over the last 30 days — the dashboard that confirmed it. For once the win wasn't about being controversial enough to get views.</span><span class="ts">00:18:35</span></figcaption></figure>
+<blockquote>I'm no longer the product. The product is the product. And one of the most important parts is that they love it even though they don't know that I'm the one that built it.<cite>— Sebastian Ghiorghiu</cite></blockquote>
+<p>He runs into Atlas users at ecom events who have no idea it's his. The honest accounting at the end: still tons of bugs, feature requests, problems — and ~15 people on the team whose only job is making the product better. 10,000+ paying customers, $250K+ MRR. Not the biggest business in the world, but the one he'd always wanted to prove he could build. Chapter one.</p></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=I78h9HrSndE" target="_blank" rel="noopener">How a Burned-Out Business YouTuber Accidentally Built a $1M SaaS</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>
