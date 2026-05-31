@@ -1,0 +1,17 @@
+{
+  "title": "The Handoff Skill \u2014 Slicing Claude Code Work Across Sessions",
+  "description": "The handoff skill takes your current conversation context, writes it to a markdown file, and passes it to another agent session. It lets you run parallel workstreams without hitting the dumb zone.",
+  "source_url": "https://www.youtube.com/watch?v=dtAJ2dOd3ko",
+  "kind": "tutorial",
+  "duration_minutes": 12,
+  "date": "2026-06-01",
+  "published": "",
+  "slug": "claude-code-handoff-skill",
+  "video_date": "2026-05-21",
+  "views": 222279,
+  "tags": [
+    "ai",
+    "agents",
+    "productivity"
+  ]
+}

@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to Use Claude Better Than 99% of People</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">A practical guide to the Claude stack</div>
+<h1>How to Use Claude Better Than 99% of People</h1>
+<p class="lede">The gap between people who use AI and people who wield it isn&#x27;t about different tools — it&#x27;s about the same five tools working as a team.</p>
+<div class="byline"><span><strong>Creator:</strong> theMITmonk</span><span><strong>Runtime:</strong> 19 min</span><span><strong>Video published:</strong> May 22, 2026</span><span><strong>372.4K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=28TGfTZweqw" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>TL;DR</h2><ol><li>Claude is a stack of five tools — Chat, Projects, Co-Work, Code, Chrome — each designed for a different kind of work.</li><li>Stop pasting prompts and copying outputs. Use Claude as a thinking partner that pushes back on your ideas.</li><li>Claude Projects turns one-off chats into an ongoing relationship with memory, tone, and instructions.</li><li>Claude Code lets non-engineers build real tools in English — no CS degree required.</li><li>The PRIME framework (Purpose, Research, Interview, Mechanics, Examples) is the single gap between average and elite AI output.</li></ol></div>
+<section id="claude-stack"><h2 class="section">00 · The Stack</h2><h3 class="heading">Claude isn&#x27;t one tool — it&#x27;s five</h3><figure><img src="screenshots/claude-stack.jpg" alt=""><figcaption><span>Claude as a stack: five tools working as a team.</span><span class="ts">00:00:37</span></figcaption></figure>
+<p>Give Claude to two people. One will use it to build a better email. The other will use it to help build a hundred-million-dollar company. Same tool, different users.</p>
+<p>Claude isn't a chatbot. It's a stack of tools built for a fundamentally different kind of work environment:</p>
+<div class="pills"><div class="pill"><h5><strong>Chat</strong> — Think: bring a messy problem, work through it with a partner</h5><p></p></div><div class="pill"><h5><strong>Projects</strong> — Remember: give Claude your files, instructions, tone, ongoing work</h5><p></p></div><div class="pill"><h5><strong>Co-Work</strong> — Execute: give tasks, not questions, and finish on your desktop</h5><p></p></div><div class="pill"><h5><strong>Code</strong> — Build: write code in English, no computer science background needed</h5><p></p></div><div class="pill"><h5><strong>Chrome</strong> — Browse: let Claude see what you're looking at and act inside your workflow</h5><p></p></div></div>
+<div class="callout"><span class="label">Key insight</span>Once you understand how this team of agents works together, your output can change dramatically.</div></section><section id="aim-prompt"><h2 class="section">01 · Think</h2><h3 class="heading">Make Claude your thinking partner, not your copywriter</h3><figure><img src="screenshots/aim-prompt.jpg" alt=""><figcaption><span>The AIM framework: Actor, Input, Mission — structure your prompt so Claude knows who to be, what to work with, and what to deliver.</span><span class="ts">00:02:00</span></figcaption></figure>
+<p>Most people type "write me a LinkedIn post about leadership" and get back a polished paragraph that says nothing. The fix is simpler than you think:</p>
+<p><strong>Make Claude your thinking partner.</strong> Instead of asking it to do all the work, give it a role and ask it to push back:</p>
+<blockquote>
+<p>You are a business school professor. I am trying to explain why some leaders sound credible and others don't. I'm attaching my notion page with a rough idea. Your job is to push back on what's weak and sharpen what's real. Find me research that helps me create a strong insight and then we can write a LinkedIn post.</p>
+</blockquote>
+<p>Three power moves when Claude gives you garbage on the first try:</p>
+<div class="callout"><span class="label">Rich context</span>Connect Claude to your Google Drive, email, calendar, Notion. Attach files. Let it read them.</div>
+<div class="callout"><span class="label">Ground with research</span>Ask Claude to go out and verify what it found. Always ask one more time: "Is this verified?"</div>
+<div class="callout"><span class="label">Learn and do in parallel</span>Stuck on a financial concept? Open a new tab, ask Claude, then apply what you learned back in your main project.</div>
+<blockquote>You make Claude your thinking partner.<cite>— theMITmonk</cite></blockquote></section><section id="projects-ui"><h2 class="section">02 · Remember</h2><h3 class="heading">Turn one-off chat into an ongoing relationship</h3><figure><img src="screenshots/projects-ui.jpg" alt=""><figcaption><span>Claude Projects: files, instructions, and tone stored per-project so Claude remembers your context.</span><span class="ts">00:04:40</span></figcaption></figure>
+<p>The work doesn't end in one chat session. Claude Projects solves this by giving Claude memory:</p>
+<p>A project is where you give Claude your files, your instructions, your tone, your ongoing work. You're not starting from zero every time you open it.</p>
+<p>The key is project-level customization, not account-level. Using AI to plan your vacation is very different from using it to plan your retirement.</p>
+<blockquote>A project turns Claude from a one-off conversation into an ongoing relationship between you and your AI.<cite>— theMITmonk</cite></blockquote>
+<p>Write a project brief for someone you know very well — yourself. Set the role ("you're the world's most badass recruiter"), your voice ("I write in a direct, confident tone. I don't like corporate fillers"), and your rules ("when I ask you for feedback, be honest. Tell me what's weak.").</p></section><section id="cowork-task"><h2 class="section">03 · Execute</h2><h3 class="heading">Give tasks, not questions</h3><figure><img src="screenshots/cowork-task.jpg" alt=""><figcaption><span>Claude Co-Work: a desktop app where you give multi-step tasks and get local files back — not chat responses.</span><span class="ts">00:10:18</span></figcaption></figure>
+<p>Chat is where the work begins. Co-Work is where it gets done. It's a desktop application for Mac or Windows that takes multi-step tasks with local files as input and produces local files as output.</p>
+<p>You use Co-Work when you have assets on your hard drive, the task needs multiple steps, and the output needs to be a local file.</p>
+<p>Claude can reach other AI tools through <strong>MCP</strong> (Model Context Protocol) — think of it as giving Claude a set of keys to other tools. It can knock on their door, unlock their capabilities, and act through them.</p>
+<div class="callout"><span class="label">MCP in action</span>Connect Claude Co-Work to a creative AI tool like Hixiefield via MCP. Tell it "generate 20 beautiful ad creatives for my new lavender candle line" — the images and video land in your local folder without hiring an agency.</div>
+<div class="callout"><span class="label">Security note</span>Give Claude Co-Work permission to access only specific directories. Create a subfolder, move your files there — this is called sandboxing. The rest of your hard drive remains secure.</div></section><section id="code-editor"><h2 class="section">04 · Build</h2><h3 class="heading">Code without a CS degree</h3><figure><img src="screenshots/code-editor.jpg" alt=""><figcaption><span>Claude Code: the code editor where Claude generates and edits code based on your English prompts.</span><span class="ts">00:12:34</span></figcaption></figure>
+<p>This is the part that makes a lot of people nervous. The moment we hear "code," we assume it's only for engineers. That assumption is one of the biggest missed opportunities in AI right now.</p>
+<blockquote>If you can type in English, you don't need a computer science background to code and build something cool and useful.<cite>— theMITmonk</cite></blockquote>
+<p>Say you have a consulting business. Just go to Claude Code and type:</p>
+<blockquote>
+<p>I want a dashboard where I can drop in my sales pipeline and meeting notes and instantly see which deals are at risk, what's stuck, and what my next move should be.</p>
+</blockquote>
+<p>That's all you need. You don't need to think like an engineer. You just need to be clear about the problem you want to solve.</p></section><section id="browser-cb"><h2 class="section">05 · Browse</h2><h3 class="heading">Let Claude see what you see</h3><figure><img src="screenshots/browser-cb.jpg" alt=""><figcaption><span>Claude Chrome extension: Claude reads pages, pulls insights, and acts inside your browser workflow in real time.</span><span class="ts">00:13:33</span></figcaption></figure>
+<p>Claude has a Chrome extension that lets it see what you're looking at, help you process it, and act inside your workflow in real time.</p>
+<p>Most work happens inside the browser — files on Google Drive, emails, scheduling, research, filling out forms, making purchases, planning trips. Claude is right there with you for all of it.</p>
+<ul>
+<li>On a job listing site, Claude reads it and helps tailor your outreach.</li>
+<li>Reading a 40-page industry report, Claude pulls the three insights that matter.</li>
+</ul></section><section id="prime-diagram"><h2 class="section">06 · PRIME</h2><h3 class="heading">The framework that separates elite from average</h3><figure><img src="screenshots/prime-diagram.jpg" alt=""><figcaption><span>The PRIME framework: Purpose, Research, Interview, Mechanics, Examples. Any AI's results depend on you — this is how you direct Claude the way you would direct a smart person you just hired.</span><span class="ts">00:17:23</span></figcaption></figure>
+<p>Even with the full team of agents working for you, one gap can make all the difference between average and elite mode: <strong>how you direct Claude.</strong></p>
+<div class="pills"><div class="pill"><h5><strong>P — Purpose:</strong> Give a precise goal. "Help me turn this messy proposal into a five-part organized document that looks like a sharp client memo."</h5><p></p></div><div class="pill"><h5><strong>R — Research:</strong> Ask Claude to go fetch external data, then verify it. Supply your own raw material — notes, transcripts, files, examples.</h5><p></p></div><div class="pill"><h5><strong>I — Interview:</strong> Tell Claude to interview you before responding. It will ask questions that sharpen its scope.</h5><p></p></div><div class="pill"><h5><strong>M — Mechanics:</strong> Specify the output format. Bullets or paragraphs? Document or table? Concise or detailed? Strategic or conversational?</h5><p></p></div><div class="pill"><h5><strong>E — Examples:</strong> Show Claude what good looks like — a format you liked, a tone reference, an outline that worked before.</h5><p></p></div></div>
+<div class="callout"><span class="label">Why examples matter</span>Examples are one of the fastest ways to quality. Show Claude what good looks like, and it stops guessing.</div>
+<p>Run through an example: you have an important presentation tomorrow. Define the <strong>purpose</strong> (approval? alignment? resources?), provide <strong>research</strong> (audience, risks, data), tell Claude to <strong>interview</strong> you first, specify <strong>mechanics</strong> (10-slide deck + talking points), and attach an <strong>example</strong> (a past deck you liked).</p>
+<blockquote>Once you start doing that, AI stops being a tool and starts becoming your edge.<cite>— theMITmonk</cite></blockquote>
+<div class="callout">AI will give you a lot of things, but what AI can't give you is that innate curiosity that made you press play on this video. And you already have it. As one of the speaker's mentors used to say: "You were the one you've been waiting for."</div></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=28TGfTZweqw" target="_blank" rel="noopener">How to Use Claude Better Than 99% of People</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>

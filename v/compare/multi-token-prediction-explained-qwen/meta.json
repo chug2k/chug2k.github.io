@@ -1,0 +1,17 @@
+{
+  "title": "Multi-Token Prediction: The Free Performance Boost in LLMs",
+  "description": "How predicting multiple future tokens at once improves coding, reasoning, and speed in large language models, and why DeepSeek V3 quietly folded it into their architecture.",
+  "source_url": "https://www.youtube.com/watch?v=4BhZZYg2_J4",
+  "kind": "research-explainer",
+  "duration_minutes": "11",
+  "date": "2025-05-27",
+  "published": "2026-06-01T00:00:00Z",
+  "slug": "multi-token-prediction-deepseek-v3",
+  "video_date": "2025-05-27",
+  "views": 57173,
+  "tags": [
+    "ai",
+    "mtp",
+    "speculative-decoding"
+  ]
+}

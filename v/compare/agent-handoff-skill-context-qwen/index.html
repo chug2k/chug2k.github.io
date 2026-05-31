@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Handoff Skill — Slicing Claude Code Work Across Sessions</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">AI coding</div>
+<h1>The Handoff Skill — Slicing Claude Code Work Across Sessions</h1>
+<p class="lede">A skill that compresses a Claude Code session into a markdown handoff document — so you can slice off work to a fresh agent without clobbering your current context window.</p>
+<div class="byline"><span><strong>Runtime:</strong> 12 min</span><span><strong>Video published:</strong> May 21, 2026</span><span><strong>222.3K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=dtAJ2dOd3ko" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>TL;DR</h2><ol><li>Claude Code's context window has a smart zone (~120k tokens) and a dumb zone where quality degrades</li><li>Compaction recovers by summarizing your conversation into a new session, but you lose the ability to run work in parallel</li><li>The handoff skill writes a focused markdown document so you can slice off a task to a fresh session and keep your current one pure</li><li>A common pattern: grilling session → handoff to prototype → handoff back with learnings</li><li>Cross-agent handoff: markdown is the universal format — pass handoffs between Claude Code, Codex, Copilot CLI, etc.</li></ol></div>
+<section id="smart-zone"><h2 class="section">01 · Smart zone vs. dumb zone</h2><h3 class="heading">Context quality degrades</h3><p>Even with a 1-million-token context window in Claude Code, only the early portion is truly sharp. As tokens accumulate, attention relationships strain and responses degrade — the speaker calls the first ~120k tokens the "smart zone" and everything beyond it the "dumb zone."</p>
+<figure><img src="screenshots/smart-zone.jpg" alt=""><figcaption><span>The context window fills from left to right — work expands to fill the available window.</span><span class="ts">00:01:57</span></figcaption></figure>
+<p>The smart zone has strong attention relationships because there are fewer tokens to compute. Once you're deep in the dumb zone, the agent's ability to focus diffuses. This means for proper smart tasks, you only have about 120k tokens to work with.</p></section><section><h3 class="heading">02 · Compaction: the built-in recovery :: How it compresses a conversation</h3><p>When you're approaching the dumb zone, <code>/compact</code> takes your large conversation and summarizes it — dropping you back into the smart zone. Some harnesses even have an auto-compaction buffer that kicks in automatically near the context window's end.</p>
+<figure><img src="screenshots/compact.jpg" alt=""><figcaption><span>The compact bar fills from left to right, showing conversation compression.</span><span class="ts">00:03:42</span></figcaption></figure>
+<p>The summary typically includes referenced files, what was said, and the conversation's tone — injected as a nugget at the start of the new session. But compaction creates "sediment" from previous conversations and is really only useful for one long session, not parallel workstreams.</p></section><section><h3 class="heading">03 · The handoff skill :: Slicing work to a fresh session</h3><p>The handoff skill does something different: it writes a focused markdown document in the user's temp directory that captures exactly what the next session needs to do. This lets you run two workstreams in parallel — your current session stays pure, and the new session gets a clean context window.</p>
+<figure><img src="screenshots/grilling.jpg" alt=""><figcaption><span>The grilling interface with a handoff prompt panel — the conversation on the left, the handoff definition on the right.</span><span class="ts">00:06:30</span></figcaption></figure>
+<p>A common pattern: you're deep in a grilling session, spot a refactoring opportunity that's out of scope, and say <em>"hand off that task to a separate agent."</em> The skill sharpens your current session (the out-of-scope item collapses) and creates a focused handoff document.</p></section><section><h3 class="heading">04 · Handoff.md :: What goes inside</h3><p>A good handoff document isn't a dump — it's a focused brief for the receiving agent.</p>
+<figure><img src="screenshots/handoff.jpg" alt=""><figcaption><span>The handoff.md file: a structured brief for the next agent session.</span><span class="ts">00:06:41</span></figcaption></figure>
+<p>The document captures:
+- <strong>Reason</strong> — why you're handing off (what triggered the handoff)
+- <strong>Focus</strong> — what the next session should accomplish
+- <strong>Constraints</strong> — what's in scope, what's out of scope
+- <strong>Suggested skills</strong> — skills the receiving agent should invoke
+- <strong>Pointers</strong> — links to existing artifacts instead of duplicating content</p></section><section><h3 class="heading">05 · Handoff to prototype :: Grilling → prototype → back to grilling</h3><p>The most powerful pattern the speaker demonstrates: a grilling session identifies questions that need prototyping, hands off to a prototype session, then hands back the learnings.</p>
+<figure><img src="screenshots/prototype.jpg" alt=""><figcaption><span>Code editor with handoff workflow comments visible in the file.</span><span class="ts">00:08:15</span></figcaption></figure>
+<p>In one example, a grilling session at question 13 identified window communication and TLDR SDK integration as things that needed to be prototyped. The prototype session ran to 169k tokens — far beyond what would fit in the grilling session. Learnings were then handoff back to the original planner.</p>
+<p>This is essentially a DIY sub-agent pattern: use a context window for one specific task, compress learnings from that task, and pass them back to the parent.</p></section><section><h3 class="heading">06 · Design principles :: What makes handoff work</h3><p>The handoff skill encodes several design principles that make it practical:</p>
+<figure><img src="screenshots/principles.jpg" alt=""><figcaption><span>The handoff.md template with numbered principles (1-13) visible on screen.</span><span class="ts">00:10:05</span></figcaption></figure>
+<ul>
+<li><strong>Include suggested skills</strong> — the receiving agent knows what tools to invoke without guessing</li>
+<li><strong>Don't duplicate</strong> — use pointers to existing artifacts (GitHub issues, docs, PRDs)</li>
+<li><strong>Save to temp dir</strong> — handoff files are disposable, not codebase documentation</li>
+<li><strong>Redact sensitive info</strong> — no API keys, passwords, or PII in markdown</li>
+<li><strong>Tailor to the next session</strong> — the agent needs to know the purpose to write a good document</li>
+</ul>
+<p>Because handoff uses a plain markdown document, it's cross-agent universal: pass a Claude Code handoff to Codex, Copilot CLI, or any other agent for adversarial review or implementation.</p>
+<div class="callout"><span class="label">Key insight</span>Markdown is the universal handoff format. It lets any agent participate in a workflow regardless of their native tooling.</div></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=dtAJ2dOd3ko" target="_blank" rel="noopener">The Handoff Skill — Slicing Claude Code Work Across Sessions</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>

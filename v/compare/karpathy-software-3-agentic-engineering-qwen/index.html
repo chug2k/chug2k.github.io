@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Andre OpenAI on vibe coding, agentic engineering, and the software 3.0 transition</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Asianometry talks to Andre OpenAI on stage at AI Ascent</div>
+<h1>Andre OpenAI on vibe coding, agentic engineering, and the software 3.0 transition</h1>
+<p class="lede">If the coiner of &quot;vibe coding&quot; says he&#x27;s never felt more behind as a programmer, the ground is shifting under everyone&#x27;s feet.</p>
+<div class="byline"><span><strong>Creator:</strong> Andre OpenAI</span><span><strong>Runtime:</strong> 30 min</span><span><strong>Video published:</strong> April 29, 2026</span><span><strong>1.2M views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=96jN2OCOfLs" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>TL;DR</h2><ol><li>Andre felt the inflection in December: agentic tools stopped producing chunks that needed correction and started just working.</li><li>Software 3.0 turns programming into prompting — the context window is the lever over an interpreter that does the work.</li><li>Neural networks are becoming the host process; CPUs will become co-processors for deterministic tasks.</li><li>AI capabilities are "jagged" — strong in verifiable domains shaped by training data, weak in others. You need to know which circuits you're in.</li><li>Vibe coding raises the floor; agentic engineering preserves the quality bar. Human taste and judgment become the new scarcity as agents do more of the implementation.</li></ol></div>
+<section id="inflection"><h2 class="section">01 · Never felt more behind</h2><h3 class="heading">The inflection point</h3><p>A startling opener from Andre OpenAI: the person who coined "vibe coding" says he's never felt more behind as a programmer. Why? Because around December, agentic tools stopped being a helpful crutch and became something fundamentally different — a new computing paradigm.</p>
+<figure><img src="screenshots/format.jpg" alt=""><figcaption><span>The stage at AI Ascent — Asianometry opens with what feels like a contradiction.</span><span class="ts">00:10:03</span></figcaption></figure>
+<blockquote>I do think that it was a very stark transition. A lot of people experienced AI last year as ChatGPT adjacent thing, but you really had to look again because things have changed fundamentally — especially on this like agentic coherent workflow that really started to actually work.<cite>— Andre OpenAI</cite></blockquote>
+<div class="callout"><span class="label">The shift</span>Over the last year, agentic tools handled chunks of code that needed correction. In December, the chunks started coming out fine. And then you kept asking for more, and those came out fine too. The last time he corrected one? He can't remember.</div></section><section id="menugen"><h2 class="section">02 · Software 3.0</h2><h3 class="heading">The new paradigm</h3><p>Andre's framework: software 1.0 was explicit rules, software 2.0 was learned weights. Software 3.0 is a programmable interpreter inside the LLM — your programming becomes prompting, and the context window is your lever.</p>
+<figure><img src="screenshots/menugen.jpg" alt=""><figcaption><span>Andre walks through the Menugen example — a restaurant menu photo app that made him realize most of his code shouldn't exist.</span><span class="ts">00:18:43</span></figcaption></figure>
+<blockquote>Your neural network is doing more and more of the work, and your prompt or context is just the image, and the output is an image, and there's no need to have any of the app in between.</p>
+<p>It's not just about code. It's more general information processing that is automatable now.<cite>— Andre OpenAI</cite></blockquote>
+<div class="callout"><span class="label">OpenClaw installation</span>Traditional install scripts balloon across platforms. The software 3.0 version: copy-paste a block of text into your agent and let it figure out the rest. The programming is no longer precise instructions — it's instructions to an intelligent agent that looks at your environment.</div></section><section id="neural"><h2 class="section">03</h2><h3 class="heading">Neural computers || The host process flips</h3><p>Andre predicts a world where neural nets are the dominant process and CPUs become co-processors for deterministic tasks — the opposite of today's architecture.</p>
+<div class="callout"><span class="label">The inversion</span>Right now, neural nets run virtualized on classical computers. The inversion: neural nets do the heavy lifting, and tool use becomes a historical appendage for deterministic work. Intelligence compute is already shifting — the flops are moving.</div>
+<blockquote>You could imagine a device that takes raw video or audio into a neural net and uses diffusion to render a UI that's unique for that moment. The neural net becomes the host process. The CPUs become the co-processor.<cite>— Andre OpenAI</cite></blockquote></section><section id="verifiable"><h2 class="section">04</h2><h3 class="heading">Jagged intelligence || The verifiability framework</h3><p>Why are models so good at coding and chess but fail at "should I walk or drive to a car wash 50m away"? Andre's answer: the "jagged" shape of capabilities is shaped by what labs put into training data and what gets reinforcement learning environments.</p>
+<figure><img src="screenshots/verifiable.jpg" alt=""><figcaption><span>Andre explains the jagged intelligence concept — models peak in domains shaped by training data and reward functions, not by curiosity.</span><span class="ts">00:13:20</span></figcaption></figure>
+<blockquote>How is it possible that state-of-the-art models will simultaneously refactor a 100,000-line code base or find zero-day vulnerabilities and yet tell you to walk to this car wash?</p>
+<p>If you're in the circuits that were part of the RL, you fly. If you're in the circuits that are out of the data distribution, you're going to struggle.<cite>— Andre OpenAI</cite></blockquote>
+<div class="callout"><span class="label">The chess data point</span>Chess improved dramatically between GPT-3.5 and GPT-4 — not because of a general capability jump, but because a huge amount of chess data made it into the pre-training set. Someone at OpenAI decided to add it. The capability peaked. That's how much the data distribution matters.</div></section><section id="agentic"><h2 class="section">05</h2><h3 class="heading">Vibe coding vs agentic engineering || Raising the floor, keeping the bar</h3><p>Andre makes a clean distinction: vibe coding raises the floor for everyone; agentic engineering preserves the quality bar of professional software.</p>
+<figure><img src="screenshots/taste.jpg" alt=""><figcaption><span>The distinction between raising the floor and preserving quality — the two pillars of building with AI.</span><span class="ts">00:23:43</span></figcaption></figure>
+<blockquote>Vibe coding is about raising the floor for everyone in terms of what they can do in software. Agentic engineering is about preserving the quality bar of what existed before in professional software. You're not allowed to introduce vulnerabilities due to vibe coding.</p>
+<p>People used to talk about the 10x engineer. This is magnified a lot more. 10x is not the speed-up you gain.<cite>— Andre OpenAI</cite></blockquote>
+<div class="callout"><span class="label">What hiring should look like</span>The old paradigm — give candidates puzzles to solve — is obsolete. Andre: give them a big project, make it real, make it secure, then use agents to try to break it. That's how you see if someone is truly agentic-native.</div></section><section id="taste"><h2 class="section">06</h2><h3 class="heading">Taste as scarcity || The human ceiling keeps rising</h3><p>As agents handle the API details — tensor shapes, dtype promotions, the whole PyTorch-to-NumPy minefield — what becomes scarce? Taste, judgment, and the ability to design specs that are detailed enough to direct agents well.</p>
+<div class="callout"><span class="label">The new division of labor</span>Engineers still need to know fundamentals — tensor storage vs. views, when copying happens, when abstractions are brittle. But the API details are now handled by the "intern" — the agent with excellent recall. You're in charge of design, taste, and making sure the plan makes sense.</div>
+<blockquote>Agents are cataloging internal entities — email addresses, user IDs, payment systems. They'll try to match funds across services using email addresses that can be arbitrary. Someone has to be in charge of the spec, the plan, the taste.</p>
+<p>I still get a little bit of a heart attack because it's not super amazing code — it's very bloated, lots of copy-paste, awkward abstractions. It works but it's gross.<cite>— Andre OpenAI</cite></blockquote></section><section id="ghosts"><h2 class="section">07</h2><h3 class="heading">Summoning ghosts || Jagged AI is shaped by data, not curiosity</h3><p>Andre wrote about AI as "summoning ghosts" — jagged intelligences shaped by data and reward functions, not by intrinsic motivation or curiosity. This framing matters: you treat these things as tools, not animals. You explore what works, what doesn't, and you stay in the loop.</p>
+<figure><img src="screenshots/education.jpg" alt=""><figcaption><span>The closing exchange — what remains worth learning when intelligence gets cheap.</span><span class="ts">00:28:00</span></figcaption></figure>
+<blockquote>These things are not animal intelligences. If you yell at them, they're not going to work better or worse. They're statistical simulation circuits — the substrate is pre-training (statistics), and then RL is bolting on top.</p>
+<p>I'm just being suspicious of it and figuring it out over time.<cite>— Andre OpenAI</cite></blockquote></section><section id="education"><h2 class="section">08 · What&#x27;s worth learning deeply</h2><h3 class="heading">You can&#x27;t outsource understanding</h3><p>The closing insight: you can outsource your thinking, but you can't outsource your understanding. As intelligence becomes cheap, the bottleneck shifts to the one thing agents still can't do — truly understand what you're trying to build and why it's worth building.</p>
+<blockquote>You can outsource your thinking, but you can't outsource your understanding.</p>
+<p>I still have to somehow get information into my brain. I feel like I'm becoming a bottleneck of just knowing what we're trying to build, why it's worth doing, and how I direct my agents.</p>
+<p>These are tools to enhance understanding. You can't be a good director if you still don't understand.<cite>— Andre OpenAI</cite></blockquote>
+<div class="pills"><div class="pill"><h5><strong>The inflection</strong></h5><p>Agentic tools went from "helpful chunks" to "just works" around December — the last time Andre corrected one, he can't remember.</p></div><div class="pill"><h5><strong>Software 3.0</strong></h5><p>Programming becomes prompting. The context window is your lever over an interpreter that does the work.</p></div><div class="pill"><h5><strong>The flip</strong></h5><p>Neural nets will become the host process; CPUs become co-processors for deterministic tasks.</p></div><div class="pill"><h5><strong>Jagged intelligence</strong></h5><p>Models peak in verifiable domains shaped by training data, fail elsewhere. You need to know which circuits you're in.</p></div><div class="pill"><h5><strong>Taste</strong></h5><p>Vibe coding raises the floor; agentic engineering preserves the quality bar. Human judgment becomes the new scarcity.</p></div></div></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=96jN2OCOfLs" target="_blank" rel="noopener">Andre OpenAI on vibe coding, agentic engineering, and the software 3.0 transition</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>
