@@ -1,0 +1,17 @@
+{
+  "title": "How AI images and videos actually work: diffusion, CLIP, and guidance",
+  "description": "Welch Labs walks through how diffusion image and video models work \u2014 from the CLIP shared embedding space, through the DDPM and DDIM sampling algorithms and their physics roots, to classifier-free guidance, the trick that makes a prompted tree actually grow.",
+  "source_url": "https://www.youtube.com/watch?v=iv-5mZ_9CPY",
+  "kind": "video",
+  "duration_minutes": 37,
+  "date": "2025-07-25",
+  "published": "2026-05-31 19:51:10+00:00",
+  "slug": "how-ai-image-diffusion-works",
+  "video_date": "2025-07-25",
+  "views": 1880398,
+  "tags": [
+    "wild",
+    "ai",
+    "research"
+  ]
+}

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How AI images and videos actually work: diffusion, CLIP, and guidance</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Generative models</div>
+<h1>How AI images and videos actually work: diffusion, CLIP, and guidance</h1>
+<p class="lede">A text-to-video model starts from pure noise and a transformer sculpts it into a scene. The reason that works traces back to Brownian motion, a contrastive trick from 2021, and one more idea that makes prompts actually stick.</p>
+<div class="byline"><span><strong>Creator:</strong> Welch Labs (guest video on 3Blue1Brown)</span><span><strong>Runtime:</strong> 37 min</span><span><strong>Video published:</strong> July 25, 2025</span><span><strong>1.9M views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=iv-5mZ_9CPY" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>The short version</h2><ol><li>Diffusion = Brownian motion run backwards. A transformer turns random-noise pixels into video step by step, the time-reverse of particles diffusing in physics.</li><li>CLIP trains a text and an image encoder to land matching captions and pictures at the same point in a 512-dimensional space — so 'me with a hat' minus 'me' lands on the word hat.</li><li>DDPM works for two non-obvious reasons: it predicts the <em>total</em> noise added (not one step), and it re-injects random noise during generation. Remove that noise and you get a blurry average.</li><li>DDIM rewrites generation as a deterministic ODE (via Fokker-Planck), hitting the same final distribution in far fewer steps with no random kicks.</li><li>Classifier-free guidance subtracts the unconditioned vector field from the conditioned one and amplifies the difference — that's what makes a prompted tree actually appear and grow.</li></ol></div>
+<section id="intro"><h2 class="section">01 · Generative models</h2><h3 class="heading">Noise into video, one pass at a time</h3><p>Open up the source code of an open-source video model like Wan 2.1 and the first thing it does is call a random number generator: a video where every pixel intensity is chosen at random. That pure-noise clip goes into a transformer — the same architecture behind ChatGPT — but instead of text it outputs another video, still mostly noise with faint structure. Add that to the noise, pass it back in, repeat fifty times, and you get a sharp, realistic scene.</p>
+<figure><img src="screenshots/intro.jpg" alt=""><figcaption><span>Pure noise on the left, transformer in the middle, the first hints of structure on the right. Run the loop ~50 times and the noise resolves into video.</span><span class="ts">00:01:41</span></figcaption></figure>
+<div class="callout"><span class="label">The connection</span>This iterative denoising is mathematically equivalent to Brownian motion — particles diffusing — with time run backwards and in very high-dimensional space. The physics isn't a metaphor; it hands you real algorithms.</div></section><section id="clip"><h2 class="section">02 · CLIP</h2><h3 class="heading">Training text and images into one space</h3><p>In February 2021 OpenAI released CLIP, trained on 400 million image-caption pairs scraped from the internet. It's two models — one encodes text, one encodes images — and each emits a length-512 vector. The training objective: a picture and its caption should produce similar vectors. Across a batch, arrange image vectors as columns and text vectors as rows; the diagonal holds the matching pairs.</p>
+<figure><img src="screenshots/clip.jpg" alt=""><figcaption><span>A cat, a dog, and a man, each run through the image encoder; their captions run through the text encoder. Maximize similarity down the diagonal, minimize it everywhere off it.</span><span class="ts">00:04:26</span></figcaption></figure>
+<div class="callout"><span class="label">What the C stands for</span>Contrastive. The model learns by contrasting matching pairs against non-matching ones, measuring similarity as the cosine of the angle between vectors — same direction, score of one.</div></section><section id="embedding"><h2 class="section">03 · Embedding space</h2><h3 class="heading">Doing arithmetic on ideas</h3><p>The learned geometry has a strange property. Take a photo of yourself wearing a hat and one without, encode both, and subtract. Then search a few hundred common words for the text vector closest to that difference. The top match, at cosine similarity 0.165, is <em>hat</em> — followed by cap and helmet.</p>
+<figure><img src="screenshots/embedding.jpg" alt=""><figcaption><span>The difference vector between "me with a hat" and "me without" is a real direction in the embedding space — and it points at the word hat.</span><span class="ts">00:06:49</span></figcaption></figure>
+<blockquote>The learned geometry of CLIP's embedding space allows us to operate mathematically on the pure ideas or concepts in our images and text.<cite>— Welch Labs</cite></blockquote>
+<p>But CLIP only runs one direction: it maps images and text <em>into</em> the space. It can't generate anything from a vector. That's the missing half.</p></section><section id="ddpm"><h2 class="section">04 · DDPM</h2><h3 class="heading">The two things that surprised everyone</h3><p>A few weeks after the GPT-3 paper, a Berkeley team published Denoising Diffusion Probabilistic Models — DDPM — the first method to generate genuinely high-quality images by reversing a noising process. The intuitive version (train the model to undo one noise step at a time) does <em>not</em> work, and almost no modern model does it that way.</p>
+<figure><img src="screenshots/ddpm.jpg" alt=""><figcaption><span>The DDPM paper's generated faces. The algorithms behind them break two intuitions at once.</span><span class="ts">00:08:36</span></figcaption></figure>
+<ol class="steps"><li><b><strong>Predict the total noise</strong></b><span>The model isn't trained to reverse one step. It takes a clean image x0, adds scaled noise epsilon, and learns to predict all the noise at once — effectively jumping straight back to the original.</span></li><li><b><strong>Add noise <em>while generating</em></strong></b><span>At each generation step, after the network predicts a cleaner image, you add fresh random noise before feeding it back. Remove that one line of code and a prompt for a tree returns a tiny, sad, blurry tree.</span></li></ol></section><section id="spiral"><h2 class="section">05 · Vector fields</h2><h3 class="heading">The toy spiral that explains it</h3><p>Shrink images to two pixels and each one becomes a point on a scatter plot. Lay the training data out in a spiral. Adding noise to an image is a random step; adding lots of noise sends each point on a random walk away from the spiral — exactly the Brownian motion that gives diffusion models their name.</p>
+<figure><img src="screenshots/spiral.jpg" alt=""><figcaption><span>A cat being noised step by step, mapped onto a 2D toy dataset: each "+Noise" is a step in the random walk away from the spiral.</span><span class="ts">00:13:13</span></figcaption></figure>
+<p>Asking the model to reverse the walk means: given a point far from the spiral, point back toward it. Across many walks through the same neighborhood the random directions average out, and a clear signal — pointing home — remains.</p></section><section id="score"><h2 class="section">06 · Score function</h2><h3 class="heading">Why the random noise matters</h3><p>Training the model to predict the total noise (the vector straight back to x0) instead of a single step turns out to be mathematically equivalent — but with far lower variance, so the model learns much faster. What it learns, for every point and every noise level, is a direction pointing toward more likely, less noisy data: the score function.</p>
+<figure><img src="screenshots/score.jpg" alt=""><figcaption><span>The learned vector field. Every arrow points back toward the spiral; a single generated point follows it home.</span><span class="ts">00:18:14</span></figcaption></figure>
+<div class="callout"><span class="label">Why noise helps, not hurts</span>The model only learns the <em>mean</em> of the reverse distribution. To actually sample from that distribution you have to add back zero-mean Gaussian noise at each step — which is exactly what DDPM does. Skip it and every point collapses to the average of the data, and in image space, averages look blurry.</div></section><section id="ddim"><h2 class="section">07 · DDIM</h2><h3 class="heading">Deterministic, in far fewer steps</h3><p>DDPM's cost was the large number of steps, each a full pass through a big network. A pair of papers from Stanford and Google Brain showed you can drop the random noise entirely. Write the DDPM process as a stochastic differential equation, then use the Fokker-Planck equation from statistical mechanics to find an <em>ordinary</em> differential equation — no random term — that yields the same final distribution.</p>
+<figure><img src="screenshots/ddim.jpg" alt=""><figcaption><span>DDIM's deterministic trajectories: a cloud of points follows the vector field's contours and lands cleanly on the spiral, no random kicks.</span><span class="ts">00:24:16</span></figcaption></figure>
+<div class="callout"><span class="label">The catch and the win</span>DDIM doesn't change training at all, and produces high-quality images in far fewer steps, completely deterministically. The theory only promises the same <em>distribution</em> of outputs, not the same individual images. Wan uses a generalization of this called flow matching.</div></section><section id="cond"><h2 class="section">08 · Conditioning</h2><h3 class="heading">Reversing CLIP to obey a prompt</h3><p>CLIP and diffusion fit together. A diffusion model can invert the CLIP image encoder to generate images; the CLIP text encoder's output can steer that generation toward what you asked for. In 2022 OpenAI did exactly this — unCLIP, better known as DALL·E 2 — feeding the text vector in as an extra input so the model uses it to denoise more accurately.</p>
+<figure><img src="screenshots/cond.jpg" alt=""><figcaption><span>The unCLIP / DALL·E 2 paper. Feed the text vector in — via cross-attention, by appending it, or both — and the model learns to denoise with the prompt as context.</span><span class="ts">00:26:24</span></figcaption></figure>
+<p>But conditioning alone falls short. Prompt Stable Diffusion (the open-source contemporary from Heidelberg) for a tree in the desert with conditioning only, and you get a desert and a shadow — no tree.</p></section><section id="cfg"><h2 class="section">09 · Classifier-free guidance</h2><h3 class="heading">Making the tree actually grow</h3><p>The fix: train the model to sometimes see no class or text at all, so it can produce an <em>unconditioned</em> vector field pointing at the data in general. Subtract that from the conditioned field, and the difference isolates the direction toward what you asked for. Amplify it by a scaling factor alpha.</p>
+<figure><img src="screenshots/cfg.jpg" alt=""><figcaption><span>As the guidance scale alpha climbs from 1 to ~25, the prompted tree literally appears and grows in size and detail.</span><span class="ts">00:33:24</span></figcaption></figure>
+<blockquote>As we use guidance to point our model's vector field more in the direction of our prompt, our tree literally grows in size and detail in our images.<cite>— Welch Labs</cite></blockquote>
+<p>Wan pushes this further with a negative prompt — writing out the features it <em>doesn't</em> want (extra fingers, walking backwards), passed to the encoder in Chinese, then subtracted and amplified to steer away.</p></section><section id="outro"><h2 class="section">10 · The whole machine</h2><h3 class="heading">Three pieces that shouldn&#x27;t fit</h3><p>CLIP for a shared space of ideas, diffusion for generation, guidance to steer — three ideas from three groups, built largely from simple geometric intuitions that somehow survive into spaces of staggering dimension.</p>
+<figure><img src="screenshots/outro.jpg" alt=""><figcaption><span>The three pillars: CLIP, diffusion models, prompt guidance.</span><span class="ts">00:34:42</span></figcaption></figure>
+<blockquote>The resulting models feel like a fundamentally new class of machine. To create incredibly lifelike images and video, you no longer need a camera. All you need is language.<cite>— Welch Labs</cite></blockquote></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=iv-5mZ_9CPY" target="_blank" rel="noopener">How AI images and videos actually work: diffusion, CLIP, and guidance</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>
