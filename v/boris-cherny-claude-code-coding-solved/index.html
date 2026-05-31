@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Boris Cherny on Claude Code and the End of Hand-Written Code</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Fireside chat</div>
+<h1>Boris Cherny on Claude Code and the End of Hand-Written Code</h1>
+<p class="lede">The creator of Claude Code on why he hasn&#x27;t written a line of code in 2026, why coding is &quot;solved&quot; for him, and what a printing-press-scale shift does to teams, startups, and software itself.</p>
+<div class="byline"><span><strong>Creator:</strong> Sequoia (AI Ascent)</span><span><strong>Runtime:</strong> 24 min</span><span><strong>Video published:</strong> May 4, 2026</span><span><strong>380.9K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=SlGRN8jh2RI" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>The short version</h2><ol><li>Claude Code started as a pre-PMF bet inside Anthropic Labs, built for a model that didn't exist yet — and was barely usable for its first six months until Opus 4 in May.</li><li>The model now writes 100% of Boris's code; he ships dozens of PRs a day, hit 150 in one day, and does most of his work from his phone.</li><li>/loop" — Claude scheduling a recurring cron job to babysit PRs, keep CI healthy, or cluster feedback — is the part of his setup he reaches for most.</li><li>As writing code gets 10–100x cheaper, switching costs and process power fade as moats while network effects and scale economies hold; expect 10x more disruptive startups.</li><li>The closest historical parallel is the printing press: software is about to become a literacy anyone has, and the best person to build accounting software is a great accountant, not an engineer.</li></ol></div>
+<section id="origin"><h2 class="section">01 · Origin</h2><h3 class="heading">A pre-PMF bet on the next model</h3><p>Claude Code came out of Anthropic Labs, a small incubator team Boris joined in late 2024 — the same group that shipped MCP and the desktop app. The premise was a "product overhang": the model could already do things no product had captured. In late 2024 the state of the art in coding was type-ahead — open your IDE, press tab, complete one line. Sonnet 3.5 had just made that work. The bet was that the model was nearly ready to skip type-ahead entirely and write all the code itself.</p>
+<figure><img src="screenshots/origin.jpg" alt=""><figcaption><span>Boris Cherny, creator of Claude Code, at Sequoia's AI Ascent. The team built for a model that wouldn't exist for six months.</span><span class="ts">00:02:50</span></figcaption></figure>
+<blockquote>We were trying to build this thing that was pre-PMF, and we knew it wouldn't have PMF for six months because we were building for the next model.<cite>— Boris Cherny</cite></blockquote>
+<p>For the first six months it barely worked — Boris used it for maybe 10% of his code. Even at launch it wasn't a hit. The exponential growth started with Opus 4 in May, and re-inflected with every release after: 4.5, 4.6, 4.7.</p></section><section id="solved"><h2 class="section">02 · Coding is solved</h2><h3 class="heading">100% of the code, on distribution</h3><p>Boris's answer to "is coding solved" is unambiguous for himself: it's 100%. The model writes all of his code, and has since roughly October or November of last year. The Claude Code codebase — which leaked, so it's no secret — is just TypeScript and React. That choice was deliberate: early on, when the model was weaker, picking a language and framework "on distribution" mattered a lot. Today the model can pick up languages and frameworks it hasn't seen.</p>
+<figure><img src="screenshots/solved.jpg" alt=""><figcaption><span>"For me it's just solved." Boris ships a few dozen PRs a day — and once did 150 in a single day, just to see how far he could push it.</span><span class="ts">00:06:24</span></figcaption></figure>
+<div class="callout"><span class="label">The caveat</span>"Solved" is true for his codebase, not everywhere. Very large codebases and weirder languages the model isn't good at yet are still hard. The usual answer: wait for the next model.</div></section><section id="loop"><h2 class="section">03 · The setup</h2><h3 class="heading">Sessions, sub-agents, and /loop</h3><p>Most of Boris's work now happens on his phone, through the Claude app's code tab — typically five to ten sessions running at once, each with a batch of agents underneath. A few hundred agents during the day, a few thousand overnight doing deeper work.</p>
+<figure><img src="screenshots/loop.jpg" alt=""><figcaption><span>The piece he reaches for most isn't sub-agents — it's /loop.</span><span class="ts">00:08:00</span></figcaption></figure>
+<p>The tool he keeps coming back to is <code>/loop</code>: Claude uses cron to schedule a recurring job — every minute, every few minutes, every day. He runs dozens of them.</p>
+<div class="pills"><div class="pill"><h5><strong>Babysit PRs</strong></h5><p>One loop fixes CI and auto-rebases his open pull requests.</p></div><div class="pill"><h5><strong>Keep CI healthy</strong></h5><p>Another watches for flaky tests and goes and fixes them.</p></div><div class="pill"><h5><strong>Cluster feedback</strong></h5><p>A third pulls feedback off Twitter and clusters it for him every 30 minutes.</p></div></div>
+<blockquote>I sort of feel like loops are the future at this point.<cite>— Boris Cherny</cite></blockquote>
+<p>Anthropic also just launched routines — the same idea, but running on the server, so it keeps going after you close your laptop.</p></section><section id="teams"><h2 class="section">04 · Teams</h2><h3 class="heading">Everyone codes, across disciplines</h3><p>Boris's prediction for teams: many more generalists, and increasingly cross-disciplinary ones. Today a generalist usually still means an engineer who spans iOS, web, and server. What he sees coming is generalists who are strong in product engineering and design, or product and data science and engineering at once.</p>
+<figure><img src="screenshots/teams.jpg" alt=""><figcaption><span>On the Claude Code team, the engineering manager, PM, designers, data scientist, finance person, and user researcher all write code.</span><span class="ts">00:13:04</span></figcaption></figure>
+<div class="callout"><span class="label">On his own team</span>Everyone on the Claude Code team codes. They're each a specialist in something — but now everyone is also coding.</div></section><section id="saas"><h2 class="section">05 · The SaaS question</h2><h3 class="heading">Which moats survive</h3><p>Asked whether cheaper code means a "SaaS apocalypse," Boris reaches for the Acquired podcast's framing of Hamilton Helmer's seven powers. His read: AI weakens some moats and leaves others intact. Switching costs erode — you can use the model to port from one tool to another. Process power erodes too, because Claude is getting good at figuring out process; with 4.7 you can hand it a target and tell it to iterate until done.</p>
+<figure><img src="screenshots/saas.jpg" alt=""><figcaption><span>Boris with interviewer Lauren Reader. The older moats — network effects, scale economies, cornered resources — he thinks hold.</span><span class="ts">00:12:58</span></figcaption></figure>
+<p>The second shift: he expects the number of startups that "disrupt everything" to rise roughly 10x over the next decade. A tiny startup can now build something as valuable as a large company and compete head-to-head — because the incumbent has to evolve its processes, retrain its people, and fight internal resistance, while a fresh team can build AI-native from the ground up.</p>
+<blockquote>It's the best time to build. It's the best time to be a startup. There's so much disruption coming.<cite>— Boris Cherny</cite></blockquote></section><section id="press"><h2 class="section">06 · The printing press</h2><h3 class="heading">Software as literacy</h3><p>Boris's clearest historical parallel is the printing press in 1400s Europe. Before it, about 10% of Europeans were literate — often employed to read and write for kings and lords who couldn't. In the 50 years after the first press, more was published in Europe than in the prior thousand years, and the cost of a book fell roughly 100x. Literacy eventually climbed toward 70% globally — though it took a couple hundred years and required schools and governments.</p>
+<figure><img src="screenshots/press.jpg" alt=""><figcaption><span>"Software will be a thing that is fully democratized, that anyone can do" — and faster than 50 years.</span><span class="ts">00:15:40</span></figcaption></figure>
+<p>A corollary he draws: the best person to write accounting software is a great accountant, not an engineer — because the domain is the hard part and the coding is the easy part.</p>
+<blockquote>You don't need a degree in reading and writing to know how to read and write. Although still there are professional writers.<cite>— Boris Cherny</cite></blockquote></section><section id="intro"><h2 class="section">07 · Looking ahead</h2><h3 class="heading">What he&#x27;d build now</h3><p>Pressed for the shape of a product he'd build today that gets more interesting as models improve in 6–12 months, Boris points to Claude design — already decent, about to get much better — plus more Claude Code launches landing in the coming weeks, and the broader push around massively parallelizing agents through loop and batch. Computer use is the other one he keeps naming: slow today, but with 4.7 it can drive nearly any piece of software on your machine, and Anthropic believes it's well ahead there.</p>
+<figure><img src="screenshots/intro.jpg" alt=""><figcaption><span>A fireside chat at AI Ascent — and a window into how Anthropic already works internally: no manually written code anywhere, Claudes coordinating over Slack.</span><span class="ts">00:00:43</span></figcaption></figure>
+<div class="callout"><span class="label">The throughline</span>On local-vs-cloud, harness-vs-model, MCP-vs-computer-use — Boris keeps landing on the same answer: it won't be the engineer's decision much longer. The model will start the agents, build the environments, and pick the tools. To the model, it's all just tokens.</div></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=SlGRN8jh2RI" target="_blank" rel="noopener">Boris Cherny on Claude Code and the End of Hand-Written Code</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>

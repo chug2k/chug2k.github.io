@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How Josh Pigford ships five AI products at once</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Solo AI building</div>
+<h1>How Josh Pigford ships five AI products at once</h1>
+<p class="lede">Josh Pigford sold Baremetrics for $4M and now runs at least five AI products in parallel. He walks through the skills, worktrees, and adversarial review passes that let one person build like a team — and why he ships within 24 hours.</p>
+<div class="byline"><span><strong>Creator:</strong> Josh Pigford</span><span><strong>Runtime:</strong> 31 min</span><span><strong>Video published:</strong> May 31, 2026</span><span><strong>714 views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=GdxLaeyu33c" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>The short version</h2><ol><li>One open-source build skill drives every feature: research doc, then an implementation spec split into user-testable phases, each its own PR.</li><li>Each phase runs in a fresh Conductor worktree — clean context means fewer hallucinations, and worktrees double as rollback save points.</li><li>Opus does the bulk of the building; a GPT review pass and a "But For Real" skill each catch three to five bugs Opus missed.</li><li>A self-updating CLAUDE.md plus a learnings skill distill every "no, that didn't work" exchange into rules so the model stops repeating mistakes.</li><li>Build the whole product first, then write marketing copy from the real feature set. Launch within 24 hours. Landing-page email lists are a distraction.</li></ol></div>
+<section id="portfolio"><h2 class="section">01 · The portfolio</h2><h3 class="heading">Five products, all live</h3><p>Josh Pigford sold Baremetrics for $4M after seven years on one product. He's done with one product. He now runs at least five AI tools at once: Proxy User (synthetic users that drive real browsers to QA your app and screen-record what breaks), Rumored (catches LLMs hallucinating about your brand so you can fix the copy, blog posts, or schema), Reply Social, and a tool he built after his mom's stage-four cancer diagnosis to keep family synced on her medical documents.</p>
+<figure><img src="screenshots/portfolio.jpg" alt=""><figcaption><span>Rumored's landing page — one of at least five products Pigford has shipped, several within the last week.</span><span class="ts">00:01:34</span></figcaption></figure>
+<blockquote>I was tired of working on one thing for seven years. I'm desperate to constantly learn new things, and I find myself limited if I have to focus on one thing.<cite>— Josh Pigford</cite></blockquote></section><section id="buildskill"><h2 class="section">02 · The build skill</h2><h3 class="heading">Research first, then a spec</h3><p>Every feature runs through one open-source build skill with separate instruction sets for research, planning, and implementation. He starts by pointing it at a goal — "build this BotBlock implementation into Reply Social" — and the first output is a research document: it reads his old codebase, merges in the target codebase, and works out the high-level technical shape, the API calls, what to carry over and what to drop.</p>
+<figure><img src="screenshots/buildskill.jpg" alt=""><figcaption><span>The implementation plan generated inside Conductor — high-level research before any code gets written.</span><span class="ts">00:05:40</span></figcaption></figure>
+<div class="callout"><span class="label">The two artifacts</span>Research is the investigation. Implementation is the technical spec. Pigford only quick-scans the generated tasks — what he checks closely is the objectives.</div></section><section id="phases"><h2 class="section">03 · Phases</h2><h3 class="heading">Every chunk is a PR you can test</h3><p>The implementation doc breaks the work into phases — sometimes four, sometimes thirty-plus. Each phase is a separate branch and a separate pull request, deliberately small enough that Pigford can personally test it. "Build phase one" kicks off deeper work: web search for how competitors built the feature, fresh docs via Context7, a UI design pass on colors and components. A progress file records what got done and what the model learned, so later phases can reference earlier ones.</p>
+<figure><img src="screenshots/phases.jpg" alt=""><figcaption><span>A phase summary — the work split into contained, user-testable chunks rather than one massive pass.</span><span class="ts">00:06:38</span></figcaption></figure>
+<blockquote>I think of a worktree as a shippable thing. It needs to be self-contained — partly context, but a lot of it is rolling back. It gives me checkpoints I can roll back to.<cite>— Josh Pigford</cite></blockquote></section><section id="review"><h2 class="section">04 · Two reviewers</h2><h3 class="heading">Opus builds, GPT and &quot;But For Real&quot; tear it apart</h3><p>Opus does the bulk of everything — all the planning, the first pass. Then Pigford runs an adversarial review pass with a GPT model inside Conductor, which "invariably finds three to five bugs that Opus overlooked." It's the same logic as a second engineer reviewing a PR — another set of eyes that says "this isn't how I'd do it."</p>
+<figure><img src="screenshots/review.jpg" alt=""><figcaption><span>Conductor lets you set a separate review model — Pigford's pick for the adversarial pass.</span><span class="ts">00:11:38</span></figcaption></figure>
+<div class="callout"><span class="label">Why two models</span>Different model on review = different blind spots. The reviewer catches what the builder is too confident to question.</div></section><section id="butforreal"><h2 class="section">05 · Adversarial skills</h2><h3 class="heading">Bully the model into finding its own bugs</h3><p>Beyond the GPT pass, Pigford has a "But For Real" skill that he runs after the plan is implemented. It bullies the model — tells it that it almost certainly screwed something up and to go back over everything again. It finds another three to five bugs. A separate learnings skill reviews the whole worktree and the actual session, including every "no, that didn't work" he had to repeat, and distills it into rules added to a constantly-updated CLAUDE.md so the model stops repeating mistakes. He iterated the skill itself in Chops, his open-source Mac app for editing skill files.</p>
+<figure><img src="screenshots/butforreal.jpg" alt=""><figcaption><span>The "But For Real" skill open in Chops — instructions that push the model to re-check its own work.</span><span class="ts">00:18:44</span></figcaption></figure>
+<blockquote>It's shocking how good it is. And it kind of feels good — when you're really frustrated how it keeps breaking stuff. It's a machine, but I'll end up typing in all caps. Like it cares.<cite>— Josh Pigford</cite></blockquote></section><section id="design"><h2 class="section">06 · Design</h2><h3 class="heading">Name and logo before any code</h3><p>Pigford's design process starts outside the editor entirely. He needs a name first, then a logo — done 99% of the time by hand in Adobe Illustrator with the pen tool, cycling through a thousand fonts. The color scheme falls out of that. For Rumored, the concept was quotation marks — LLMs quoting your brand incorrectly — so he hunted for typefaces with interesting quote marks and landed on a deep orange. Only then does he hand the AI the colors and SVGs and jump into code. Marketing copy comes last, generated from the real feature set after the app is built.</p>
+<figure><img src="screenshots/design.jpg" alt=""><figcaption><span>The Rumored brand exploration in Illustrator — quote-mark logo, color swatches, favicon mockups, all before a line of code.</span><span class="ts">00:20:54</span></figcaption></figure>
+<blockquote>That's where I end up landing — and I've designed or built nothing. It's just brand stuff.<cite>— Josh Pigford</cite></blockquote></section><section id="launch"><h2 class="section">07 · Launch</h2><h3 class="heading">Build the whole thing, ship it same day</h3><p>Because building is cheap now, Pigford skips the validation theater. No landing-page email list to "translate into demand" — he calls it a distraction. He builds the entire product, ships it, and watches what happens. Some products land to silence, and that's fine: an itch only he has doesn't invalidate the itch, it just might not cover server costs. The real test is whether people pay enough to keep the servers on; if not, he refunds recent months and shuts it down.</p>
+<div class="callout"><span class="label">The launch rule</span>Spending months before you put something in front of real users is a bad idea. Pigford has launched within 24 hours — sometimes same day.</div>
+<blockquote>As humans we tend to delay by building a landing page where we collect email addresses and try to translate that into demand. It's a distraction. So I just suck it up, build the thing, and shove it out there.<cite>— Josh Pigford</cite></blockquote></section><section id="advice"><h2 class="section">08 · Advice</h2><h3 class="heading">Make mistakes as fast as you can</h3><p>For the wave of new builders without 25 years of scar tissue, Pigford's advice is to fail fast. "Vibe coding" gets used as a slur, but it's fantastic that anyone is building anything, and the only way to learn what not to do is to do it wrong. AI-assisted coding reduces mistakes — the idea that mistakes didn't exist pre-AI is insane. His edge isn't the tools; it's knowing the general shape of how things should work, so he gets to a shippable point fast.</p>
+<div class="pills"><div class="pill"><h5><strong>Fail fast</strong></h5><p>The only way to learn what not to do is to do it wrong — then recognize the mistake so you don't repeat it.</p></div><div class="pill"><h5><strong>Ship to learn</strong></h5><p>You build on your own assumption of the problem; you can't know how it's different for someone else until they're in there.</p></div><div class="pill"><h5><strong>Find him</strong></h5><p>Twitter @shpigford and his blog everydayisayear.ai.</p></div></div></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=GdxLaeyu33c" target="_blank" rel="noopener">How Josh Pigford ships five AI products at once</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>

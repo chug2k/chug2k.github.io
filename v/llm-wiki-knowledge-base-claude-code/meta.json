@@ -1,0 +1,17 @@
+{
+  "title": "Build a Compounding LLM Knowledge Base in 5 Minutes with Claude Code",
+  "description": "A hands-on build of Andrej Karpathy's \"LLM wiki\" pattern \u2014 a persistent, linked Markdown knowledge base maintained by Claude Code in Obsidian. Setup, ingestion, querying, and where it beats (and loses to) semantic-search RAG.",
+  "source_url": "https://www.youtube.com/watch?v=sboNwYmH3AY",
+  "kind": "tutorial",
+  "duration_minutes": 17,
+  "date": "2026-04",
+  "published": "2026-05-31 17:35:24+00:00",
+  "slug": "llm-wiki-knowledge-base-claude-code",
+  "video_date": "2026-04-05",
+  "views": 558808,
+  "tags": [
+    "ai",
+    "agents",
+    "productivity"
+  ]
+}

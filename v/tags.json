@@ -1,10 +1,12 @@
 {
   "tags": {
-    "ai": 14,
-    "agents": 5,
-    "productivity": 4,
+    "ai": 21,
+    "agents": 9,
+    "productivity": 6,
+    "startups": 5,
+    "anthropic": 4,
     "science": 4,
-    "anthropic": 2,
+    "research": 3,
     "economics": 2,
     "physics": 2,
     "pickleball": 2,
@@ -12,15 +14,13 @@
     "seo": 2,
     "sports": 2,
     "stanford": 2,
-    "startups": 2,
     "deepmind": 1,
     "design": 1,
     "google": 1,
     "marketing": 1,
     "patents": 1,
-    "research": 1,
     "sales": 1,
     "semiconductors": 1
   },
-  "entries": 20
+  "entries": 27
 }
