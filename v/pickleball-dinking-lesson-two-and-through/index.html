@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A Full Dinking Lesson, Taught to a Spikeball Champ</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Pickleball technique</div>
+<h1>A Full Dinking Lesson, Taught to a Spikeball Champ</h1>
+<p class="lede">Josh and Preston take a 4.5-ish player through soft-game fundamentals in one rapid-fire court session. The through-line is a single idea — &quot;two and through&quot; — and a string of feel cues to make it stick.</p>
+<div class="byline"><span><strong>Creator:</strong> Josh J Pickleball</span><span><strong>Runtime:</strong> 27 min</span><span><strong>Video published:</strong> August 12, 2024</span><span><strong>91.2K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=LJFV2Fq5L4E" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>The lesson in five cues</h2><ol><li>Every dink starts with the paddle below the ball, face open early — get under it before it bounces, then push through to a target. Don't scoop or lift late.</li><li>Two and through: set the paddle (the two), then push straight to a target. No curving, no manipulating the face mid-swing.</li><li>Condense to one athletic stance like a triangle. Reaching and lengthening your leg pulls your weight back off the ball; condensing keeps you engaged and on it.</li><li>Collin Johns' rule of three — two dinks should sum to three. Answer an aggressive dink (a two) with a soft one; answer a soft dink (a one) with a two. Never trade two-for-two.</li><li>On the half-volley there's no time, so go straight at it, head down, open face. When you do have time, then crank for spin.</li></ol></div>
+<section id="intro"><h2 class="section">01 · The setup</h2><h3 class="heading">A 4.5 player, a fresh set of eyes</h3><p>Josh and Preston pull in a player they've just met — Caleb, a former Spikeball standout and Josh's old doubles partner — and run a full soft-game lesson on him. He's been playing about a year and calls himself a 4 or 4.5. The plan is to dink with him, find the leaks, and fix them one cue at a time.</p>
+<figure><img src="screenshots/intro.jpg" alt=""><figcaption><span>Josh (@joshjpickleball) and Preston (@prestonbies) with Caleb before the first rally.</span><span class="ts">00:00:16</span></figcaption></figure>
+<div class="callout"><span class="label">The frame</span>Caleb's instinct is to "do a little too much wrist manipulation." It works on easy balls. The whole lesson is about what happens when the balls stop coming easy.</div></section><section id="twoandthrough"><h2 class="section">02 · Two and through</h2><h3 class="heading">Set the paddle, push to a target</h3><p>The spine of everything that follows. Get the paddle below the ball with the face open — that's the "two" — then push straight through to a target. No curving the ball, no opening the face through impact. Caleb's habit is to arrive late and try to open it on the way through; the fix is to be set and open <em>first</em>, then pull across.</p>
+<ol class="steps"><li><b><strong>Get to it</strong></b><span>arrive early, paddle already below the ball.</span></li><li><b><strong>Set early</strong></b><span>open face locked in, the "two."</span></li><li><b><strong>Through to target</strong></b><span>push to a spot, don't shape or curve it.</span></li></ol>
+<blockquote>The whole two process is literally getting to it, setting early, through to target.<cite>— Josh</cite></blockquote></section><section id="triangle"><h2 class="section">03 · Condense like a triangle</h2><h3 class="heading">Reaching pulls you off the ball</h3><p>When Caleb gets pulled wide he goes "down and wide and cutting" — he lengthens his leg, his hip drops back, his weight falls backwards, and he's late. The cue is to condense everything toward one peak athletic stance, like a triangle, so both legs stay engaged and he can spill and adjust into the ball instead of away from it.</p>
+<figure><img src="screenshots/triangle.jpg" alt=""><figcaption><span>Josh drops into the condensed athletic stance he wants Caleb to return to on every ball.</span><span class="ts">00:03:58</span></figcaption></figure>
+<div class="callout"><span class="label">Why it matters</span>"Locking here pulls me back and off the ball, versus to the ball." Reaching feels like effort, but it sacrifices reach forward and action under the ball.</div></section><section id="reset"><h2 class="section">04 · Reset your feet</h2><h3 class="heading">Hit the shot, then recover</h3><p>A second, related leak: Caleb hits and stays a beat behind, weight still back, so a ball into his left foot jams him. The fix is to hit the shot, reset the feet, and be already loaded for the next one — not re-engaging from a dead stance every time.</p>
+<figure><img src="screenshots/reset.jpg" alt=""><figcaption><span>A wide dink in the rally — the moment recovery footwork either keeps you in the point or leaves you a step late.</span><span class="ts">00:05:10</span></figcaption></figure>
+<blockquote>Go there, reset here, then I can move and take it. If your weight's still back, I have nothing to push off of.<cite>— Josh</cite></blockquote></section><section id="paddleface"><h2 class="section">05 · Set the face early</h2><h3 class="heading">It&#x27;s Spikeball, basically</h3><p>Caleb's Spikeball background is the teaching shortcut here. In Spikeball there's no string to grip the ball, so the paddle face has to be in the right position <em>before</em> contact and held there. Same in pickleball: get the head below the ball early, point the face at your own face, and you don't need to add loft on the way through — you just maintain the angle.</p>
+<figure><img src="screenshots/paddleface.jpg" alt=""><figcaption><span>"Make the paddle face your face" — Josh demonstrates the open, below-the-ball set.</span><span class="ts">00:08:05</span></figcaption></figure>
+<blockquote>By the time it bounces I should already be here, as if the ball is just going to bounce and hit my paddle.<cite>— Josh</cite></blockquote></section><section id="softhigh"><h2 class="section">06 · Soft and high beats sharp and low</h2><h3 class="heading">Buy yourself time</h3><p>When you get pulled out wide, the answer isn't a perfect knifing dink that barely clears the net — that gives you no time to recover. Soft and high does. Hitting it a little higher actually buys time to get back into position. Caleb's reflex is to answer a good dink with a <em>better</em> dink; that's playing low margins. The coaches play high.</p>
+<blockquote>You're trying to hit a good dink and you're trying to hit a better dink — eventually you're just playing low margins. I'm playing high margins.<cite>— Josh</cite></blockquote>
+<div class="callout"><span class="label">The wall</span>The best thing off an offensive dink is to "make a wall, bounce it on their side" — reset rather than escalate.</div></section><section id="ruleofthree"><h2 class="section">07 · The rule of three</h2><h3 class="heading">Two dinks should sum to three</h3><p>A framework Josh picked up teaching alongside Collin Johns: the sum of two dinks always equals three. An aggressive dink is a two; a soft, defensive dink is a one. So if your opponent hits a two, you can only look to hit a one back — you can't go two-plus-two. If they give you a soft one, that's when you take a two. There are 1.5s and everything in between; the point is to gauge whether the incoming ball causes distress or relief, and answer accordingly.</p>
+<figure><img src="screenshots/ruleofthree.jpg" alt=""><figcaption><span>Josh walks Caleb through reading the incoming ball before choosing his answer.</span><span class="ts">00:13:17</span></figcaption></figure>
+<blockquote>If I put something that causes you distress, put something that causes you relief.<cite>— Josh</cite></blockquote></section><section id="halfvolley"><h2 class="section">08 · The half-volley</h2><h3 class="heading">No time, so go straight at it</h3><p>The longest stretch of the lesson, and the hardest cue for Caleb to feel. On a short hop there's no time to shape anything, so the move is to stick the paddle head down, keep the face open, and go straight at it — "motorcycle," not up-and-down. Caleb keeps the head neutral and the ball dies into the court; opening the face and getting under it early is what lifts it over the net. Time, Josh says, is your best friend and your enemy: when you have it, crank for topspin; when you don't, just stick it.</p>
+<figure><img src="screenshots/halfvolley.jpg" alt=""><figcaption><span>Head down, open face, low to the half-volley — the "motorcycle" position.</span><span class="ts">00:19:42</span></figcaption></figure>
+<blockquote>Time's your best friend and enemy. If I have time I can crank over and create topspin. If I don't, I don't.<cite>— Josh</cite></blockquote>
+<div class="callout"><span class="label">Why it&#x27;s worth it</span>Cut the ball off early on the half-volley and you hold your position at the kitchen instead of getting jammed reaching for it.</div></section><section id="readyposition"><h2 class="section">09 · Ready position and less motion</h2><h3 class="heading">Point your opposite corner</h3><p>Two closers. First, ready position: laser-point your opposite-hand corner at the ball wherever it is. It strengthens the wrist for taking pace, preloads you toward the likely attack, and draws you closer to the ball. Second, the consistency fix — Caleb is "hooping and hopping," too many moving parts. The model is Ben Johns: tuck the shoulder, set everything, push the shoulder through. Fewer moving parts, more accuracy.</p>
+<figure><img src="screenshots/readyposition.jpg" alt=""><figcaption><span>Ready position — the opposite corner pointed at the ball, paddle set to take pace.</span><span class="ts">00:22:05</span></figcaption></figure>
+<figure><img src="screenshots/shoulder.jpg" alt=""><figcaption><span>The shoulder-driven backhand: set, then push the shoulder — not the whole arm.</span><span class="ts">00:26:08</span></figcaption></figure>
+<blockquote>The more moving parts, the less accuracy, the less consistency. Less movement is typically better movement in pickleball.<cite>— Josh</cite></blockquote></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=LJFV2Fq5L4E" target="_blank" rel="noopener">A Full Dinking Lesson, Taught to a Spikeball Champ</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>
