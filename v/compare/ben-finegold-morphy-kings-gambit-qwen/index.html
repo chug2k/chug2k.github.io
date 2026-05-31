@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Paul Morphy&#x27;s King&#x27;s Gambit — Lecture 1</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">GM Ben Finegold breaks down Morphy&#x27;s most aggressive opening</div>
+<h1>Paul Morphy&#x27;s King&#x27;s Gambit — Lecture 1</h1>
+<p class="lede">In the first of a four-part series, Grand Master Ben Finegold argues that Paul Morphy isn&#x27;t just the greatest player of his era — he&#x27;s in a league of his own, even by today&#x27;s standards.</p>
+<div class="byline"><span><strong>Creator:</strong> Grand Master Ben Finegold</span><span><strong>Runtime:</strong> 42 min</span><span><strong>Video published:</strong> April 25, 2023</span><span><strong>142.5K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=H-b3bJtQ39g" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>TL;DR</h2><ol><li>Morphy won 80–85% against the world's top players — Finegold ranks him ahead of Fischer and Kasparov in relative dominance</li><li>The only blemish in one-on-one play was a 2–2 draw with Lowenthal; every other match was a win</li><li>Morphy played the King's Gambit with both colors, often sacrificing material even when playing Black</li><li>His opponents didn't defend well in the 1850s — but Morphy punished their mistakes with calculation that feels modern</li><li>Two games feature brilliant tactical finishes: a smothered mate and a forced mate-in-two</li></ol></div>
+<section id="intro"><h2 class="section">01 · The Greatest Player Ever?</h2><h3 class="heading">Morphy&#x27;s dominance over contemporaries</h3><p>The case for Paul Morphy isn't made with engines — it's made by comparing him to the players who actually lived in his era. And on that measure, Finegold argues, Morphy doesn't just lead his century; he transcends it.</p>
+<figure><img src="screenshots/intro.jpg" alt=""><figcaption><span>Morphy's match record against the strongest players of the 1850s — Wins (W), Losses (L), and Draws (D) — reads like no other in chess history.</span><span class="ts">00:05:31</span></figcaption></figure>
+<p>The top players of all time are usually Fischer, Kasparov, or Carlsen. But none of them destroyed their contemporaries the way Morphy did. Finegold's analogy: imagine a world where everyone is rated 1200 and someone is 1350 — that gap would make Morphy look like a 2200 in that world.</p>
+<blockquote>When you judge players' strengths, the best way is to compare them to their contemporaries. Morphy was so good that it doesn't even make any sense.<cite>— GM Ben Finegold</cite></blockquote>
+<div class="callout"><span class="label">Key stats</span><ul>
+<li>Match record: 8 out of 11 against Adolf Anderssen, 5 out of 6 against Louis Paulsen</li>
+<li>Only one-person loss in one-on-one play: a 2–2 draw with Johann Lowenthal in a four-game match</li>
+<li>Match results typically read "1" — Morphy won</li>
+</ul></div></section><section id="g1-opening"><h2 class="section">02 · Game 1 — Morphy vs. Rousseau (White)</h2><h3 class="heading">Accepting the gambit</h3><p>The first game shows Morphy playing White in the King's Gambit. Black accepts the pawn sacrifice with 2...exf4 — what Fischer called "the way to refute the gambit." But Morphy takes it further.</p>
+<figure><img src="screenshots/g1-opening.jpg" alt=""><figcaption><span>The King's Gambit opening: White sacrifices the f4 pawn for initiative and rapid development.</span><span class="ts">00:09:22</span></figcaption></figure>
+<p>After 2. e4 e5 3. f4 exf4 4. Nf3 g5 5. h4 gxh4 6. Nxg5, Morphy plays the aggressive Knight to g5 — intentionally trapping it. He <em>knows</em> he's sacrificing a piece. After 6...h6 7. Qxg4, White has compensation for the knight and Morphy's attack begins.</p>
+<p>The theme of the game: Morphy didn't just use the pieces he had — he brought in reinforcements. Every piece enters the attack, and the opponent's king gets trapped with no defenders. The finish: Queen C7 checkmate.</p>
+<blockquote>Morphy attacked with all of his pieces. His opponent only had a king and a queen out for most of the game moving his king and his queen.<cite>— GM Ben Finegold</cite></blockquote></section><section id="g2-opening"><h2 class="section">03 · Game 2 — Morphy vs. His Father (White)</h2><h3 class="heading">The son beats dad</h3><p>In a game played when Morphy was young but already strong, he takes White against his own father, Alonso Morphy — no let-up.</p>
+<figure><img src="screenshots/g2-opening.jpg" alt=""><figcaption><span>Morphy vs. his father Alonso: the King's Gambit again, with Morphy playing White.</span><span class="ts">00:18:02</span></figcaption></figure>
+<p>Black's queen wanders early (Qh4+) and gets chased around with tempo by Nf3. Morphy develops every piece while his father makes one-move threats that White easily parries. By move 10, Morphy's position is completely winning — his queen ends up back on d8 where it started.</p>
+<div class="callout"><span class="label">Development contrast</span>White (Morphy): all pieces developed, rooks on the e-file, knight heading to g5 attacking f7
+Black (Alonso): queen-side pieces barely moved, king stuck in the center</div>
+<blockquote>Morphy's dad did better than the previous opponent because he actually got some of his pieces out and castled. That's pretty good.<cite>— GM Ben Finegold</cite></blockquote>
+<p>Alonso resigned rather than face Rook E8 check or loss of the queen — or what Finegold calls "double checkmate."</p></section><section id="g3-position"><h2 class="section">04 · Game 3 — Morphy vs. McConnell (Black)</h2><h3 class="heading">The smothered mate</h3><p>Now Morphy plays Black against James McConnell. He <em>accepts</em> the King's Gambit pawn, then plays like it's an Evans Gambit in reverse — attacking the bishop to gain time, building a big center with c6 and d5.</p>
+<figure><img src="screenshots/g3-position.jpg" alt=""><figcaption><span>A key middlegame position: Morphy has the initiative, McConnell's queen-side is bottled up.</span><span class="ts">00:23:59</span></figcaption></figure>
+<p>McConnell's position is passive and cramped. White's queen makes multiple moves only to end up on c2. Morphy's pawn chain on the queen-side thwarts White's bishop. The attack begins to build.</p>
+<p>Then comes the famous finish — the smothered mate:</p>
+<figure><img src="screenshots/smothered.jpg" alt=""><figcaption><span>The classic smothered mate pattern: the black king is surrounded by its own pieces, and the knight delivers checkmate.</span><span class="ts">00:27:24</span></figcaption></figure>
+<p>Knight H3 is double check. The king must move. Queen G1+ — you can't take the queen because the knight defends it. The king is smothered by its own pieces. Knight F2 checkmate.</p>
+<div class="callout"><span class="label">Historical context</span>In the 1850s, the smothered mate wasn't as well-known as it is today. There was no chess.com, no Chessable, no internet. This was a legitimate surprise for McConnell.</div></section><section id="matetwo"><h2 class="section">05 · Game 4 — Morphy vs. Schröder (Black)</h2><h3 class="heading">Mate in two</h3><p>The final game: Morphy plays the Falkbeer Counter-Gambit — declining White's gambit by sacrificing his own pawn on move two. By move six, Morphy is <em>two pawns down</em> but has seized the initiative, opened the e-file, and developed all his pieces.</p>
+<figure><img src="screenshots/matetwo.jpg" alt=""><figcaption><span>The final position: Black has mate in two. Pause the video and try to find it.</span><span class="ts">00:39:44</span></figcaption></figure>
+<p>White's king wanders (Kf1, Kf2) instead of castling. Morphy punishes with one of Finegold's favorite rules: "always sacrifice the exchange." The Knight to d4 can't be defended, and after a forced sequence of checks, the position reaches mate-in-two.</p>
+<p>Knight F5+ forces the king to g5. Queen H5 — mate. White never moved a single rook the entire game.</p>
+<blockquote>Morpheus seemed to find the fine line between playing super aggressive and somehow accurate. So very much like an engine.<cite>— GM Ben Finegold</cite></blockquote></section><section id="conclusion"><h2 class="section">06 · The Takeaway</h2><h3 class="heading">Standing on giants&#x27; shoulders</h3><p>Morphy's games feel modern not because they were studied — they weren't. In the 1850s there were no chess books you could really buy, no internet, no tournaments to get better at chess. He calculated and played like a modern player through sheer talent.</p>
+<div class="callout"><span class="label">Why Morphy matters</span><ul>
+<li>He invented the idea of active piece play — getting all your pieces into the game</li>
+<li>His calculating ability was super-GM-level even by today's standards</li>
+<li>His wins were typically 15–25 moves — short, aggressive, and crushing</li>
+<li>He dominated both in America and Europe, playing top players in simultaneous exhibitions and still winning</li>
+</ul></div>
+<blockquote>We stand on the shoulders of giants and we learn from this. His game made a lot of sense even to us now, whereas his opponents' some of their moves didn't make a lot of sense to us.<cite>— GM Ben Finegold</cite></blockquote>
+<div class="pills"><div class="pill"><h5><strong>Relative dominance</strong>: Morphy's gap over contemporaries exceeds Fischer's or Kasparov's</h5><p></p></div><div class="pill"><h5><strong>Both colors</strong>: Won with aggressive King's Gambit as White and as Black</h5><p></p></div><div class="pill"><h5><strong>Calculation</strong>: Played like an engine in the 1850s with no modern training resources</h5><p></p></div><div class="pill"><h5><strong>Tactical brilliance</strong>: Two of four games ended in forced checkmate patterns</h5><p></p></div></div></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=H-b3bJtQ39g" target="_blank" rel="noopener">Paul Morphy&#x27;s King&#x27;s Gambit — Lecture 1</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>
