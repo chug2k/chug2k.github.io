@@ -3,8 +3,8 @@
     "ai": 24,
     "agents": 11,
     "productivity": 8,
+    "sports": 7,
     "pickleball": 6,
-    "sports": 6,
     "startups": 5,
     "anthropic": 4,
     "research": 4,
@@ -14,6 +14,7 @@
     "product": 2,
     "seo": 2,
     "stanford": 2,
+    "chess": 1,
     "deepmind": 1,
     "design": 1,
     "google": 1,
@@ -22,5 +23,5 @@
     "sales": 1,
     "semiconductors": 1
   },
-  "entries": 34
+  "entries": 35
 }
