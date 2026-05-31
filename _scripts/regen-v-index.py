@@ -174,6 +174,13 @@ h1 {
   margin-bottom: 8px;
 }
 .entry p { margin: 0 0 12px; font-size: 15px; color: var(--muted); }
+.entry .added {
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  color: var(--muted);
+  opacity: 0.7;
+  margin-top: 10px;
+}
 .entry .tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .entry .tag {
   font-family: "Inter", sans-serif;
@@ -231,6 +238,8 @@ TEMPLATE_TAIL = """  <div class="noresults" id="noresults">No summaries match th
   function applySort() {
     var mode = sortSel.value;
     var sorted = cards.slice().sort(function (a, b) {
+      if (mode === "pub-desc")  return (b.dataset.published||"").localeCompare(a.dataset.published||"");
+      if (mode === "pub-asc")   return (a.dataset.published||"").localeCompare(b.dataset.published||"");
       if (mode === "date-desc") return b.dataset.date.localeCompare(a.dataset.date);
       if (mode === "date-asc")  return a.dataset.date.localeCompare(b.dataset.date);
       if (mode === "dur-desc")  return (+b.dataset.duration) - (+a.dataset.duration);
@@ -276,14 +285,18 @@ def render_entry(meta: dict, slug: str) -> str:
     if tags:
         chips = "".join(f'<span class="tag">{html.escape(t)}</span>' for t in tags)
         tags_html = f'    <div class="tags">{chips}</div>\n'
+    pub = meta.get("published") or meta.get("date") or ""
+    added_html = f'    <div class="added">Added {html.escape(fmt_date(pub))}</div>\n' if pub else ""
     return (
         f'  <a class="entry" href="/v/{html.escape(slug)}/"'
         f' data-tags="{data_tags}" data-date="{html.escape(disp_date)}"'
+        f' data-published="{html.escape(pub)}"'
         f' data-duration="{duration or 0}" data-title="{html.escape(meta.get("title", slug).lower())}">\n'
         f'    <div class="meta">{kind} {duration_part}· {html.escape(date_str)}{html.escape(views_part)}</div>\n'
         f'    <h2>{title}</h2>\n'
         f'    <p>{desc}</p>\n'
         f'{tags_html}'
+        f'{added_html}'
         f'  </a>\n'
     )
 
@@ -297,8 +310,10 @@ def render_controls(tag_counts: Counter) -> str:
     sort = (
         '<div class="sort"><label for="sort">Sort</label>'
         '<select id="sort">'
-        '<option value="date-desc">Newest</option>'
-        '<option value="date-asc">Oldest</option>'
+        '<option value="pub-desc">Recently added</option>'
+        '<option value="pub-asc">First added</option>'
+        '<option value="date-desc">Newest video</option>'
+        '<option value="date-asc">Oldest video</option>'
         '<option value="dur-desc">Longest</option>'
         '<option value="dur-asc">Shortest</option>'
         '<option value="title">Title A–Z</option>'
@@ -324,9 +339,9 @@ def main() -> int:
         meta["_slug"] = sub.name
         entries.append(meta)
 
-    # initial DOM order must match the default "Newest" sort, which the JS
-    # computes from data-date (= video_date or date). Sort by the same key.
-    entries.sort(key=lambda m: (m.get("video_date") or m.get("date") or ""), reverse=True)
+    # initial DOM order must match the default sort ("Recently added"), which
+    # the JS computes from data-published (= published or date). Same key here.
+    entries.sort(key=lambda m: (m.get("published") or m.get("date") or ""), reverse=True)
 
     tag_counts: Counter = Counter()
     for m in entries:

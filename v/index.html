@@ -126,6 +126,13 @@ h1 {
   margin-bottom: 8px;
 }
 .entry p { margin: 0 0 12px; font-size: 15px; color: var(--muted); }
+.entry .added {
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  color: var(--muted);
+  opacity: 0.7;
+  margin-top: 10px;
+}
 .entry .tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .entry .tag {
   font-family: "Inter", sans-serif;
@@ -158,115 +165,133 @@ h1 {
   <p class="lede">So these are AI summaries of them — TL;DR, key-moment screenshots, and pull quotes.</p>
   <div class="controls">
     <div class="chips"><button class="chip active" data-tag="">All</button><button class="chip" data-tag="ai">ai<span class="count">12</span></button><button class="chip" data-tag="agents">agents<span class="count">4</span></button><button class="chip" data-tag="productivity">productivity<span class="count">4</span></button><button class="chip" data-tag="science">science<span class="count">4</span></button><button class="chip" data-tag="anthropic">anthropic<span class="count">2</span></button><button class="chip" data-tag="economics">economics<span class="count">2</span></button><button class="chip" data-tag="physics">physics<span class="count">2</span></button><button class="chip" data-tag="pickleball">pickleball<span class="count">2</span></button><button class="chip" data-tag="product">product<span class="count">2</span></button><button class="chip" data-tag="seo">seo<span class="count">2</span></button><button class="chip" data-tag="sports">sports<span class="count">2</span></button><button class="chip" data-tag="startups">startups<span class="count">2</span></button><button class="chip" data-tag="deepmind">deepmind<span class="count">1</span></button><button class="chip" data-tag="design">design<span class="count">1</span></button><button class="chip" data-tag="google">google<span class="count">1</span></button><button class="chip" data-tag="marketing">marketing<span class="count">1</span></button><button class="chip" data-tag="patents">patents<span class="count">1</span></button><button class="chip" data-tag="sales">sales<span class="count">1</span></button><button class="chip" data-tag="semiconductors">semiconductors<span class="count">1</span></button><button class="chip" data-tag="stanford">stanford<span class="count">1</span></button></div>
-    <div class="sort"><label for="sort">Sort</label><select id="sort"><option value="date-desc">Newest</option><option value="date-asc">Oldest</option><option value="dur-desc">Longest</option><option value="dur-asc">Shortest</option><option value="title">Title A–Z</option></select></div>
+    <div class="sort"><label for="sort">Sort</label><select id="sort"><option value="pub-desc">Recently added</option><option value="pub-asc">First added</option><option value="date-desc">Newest video</option><option value="date-asc">Oldest video</option><option value="dur-desc">Longest</option><option value="dur-asc">Shortest</option><option value="title">Title A–Z</option></select></div>
   </div>
   <div id="grid">
-  <a class="entry" href="/v/claude-code-workflows/" data-tags="" data-date="2026-05-29" data-duration="16" data-title="claude code just shipped workflows. here&#x27;s what they actually are.">
-    <div class="meta">Explainer · 16 min · May 29, 2026 · 6.3K views</div>
-    <h2>Claude Code just shipped Workflows. Here&#x27;s what they actually are.</h2>
-    <p>A 16-min walkthrough distilled: the script-as-orchestrator model, the deep-research demo, the 3-million-token bill, and when to reach for a Workflow.</p>
-  </a>
-  <a class="entry" href="/v/anthropic-cowork-notes/" data-tags="ai anthropic sales" data-date="2026-05-28" data-duration="58" data-title="how anthropic&#x27;s sales team actually uses cowork">
-    <div class="meta">Webinar · 58 min · May 28, 2026</div>
-    <h2>How Anthropic&#x27;s sales team actually uses Cowork</h2>
-    <p>Travis Bryant and Brittney Tong demo the morning digest, the forecast updater, the manager roll-up, and a 4,000-account overnight scoring run.</p>
-    <div class="tags"><span class="tag">ai</span><span class="tag">anthropic</span><span class="tag">sales</span></div>
-  </a>
-  <a class="entry" href="/v/ben-johns-mlp-dallas/" data-tags="pickleball sports" data-date="2026-05-26" data-duration="15" data-title="mlp is back: the dallas recap, and the day ben johns silenced even his biggest critic">
-    <div class="meta">Pickleball recap · 15 min · May 26, 2026 · 31.5K views</div>
-    <h2>MLP Is Back: The Dallas Recap, and the Day Ben Johns Silenced Even His Biggest Critic</h2>
-    <p>A fast, visual recap of the first MLP event of the year in Dallas — the new round-robin format, who won, the league&#x27;s most questionable roster gamble, the new officiating fights, and Zane Navratil admitting he was wrong about Ben Johns.</p>
-    <div class="tags"><span class="tag">pickleball</span><span class="tag">sports</span></div>
-  </a>
-  <a class="entry" href="/v/ryan-carson-solo-founder-ai-agents/" data-tags="ai agents startups" data-date="2026-05-24" data-duration="39" data-title="how a 5x founder runs his startup solo with ai agents">
-    <div class="meta">Interview · 39 min · May 24, 2026 · 6.7K views</div>
-    <h2>How a 5x Founder Runs His Startup Solo with AI Agents</h2>
-    <p>Ryan Carson&#x27;s screen-share walkthrough of running a startup solo on agents — OpenClaw as a chief of staff (cron jobs plus markdown), cold-outreach automation, Devin for cloud engineering, a PR-driven &quot;code factory,&quot; and an automated content and ads machine.</p>
-    <div class="tags"><span class="tag">ai</span><span class="tag">agents</span><span class="tag">startups</span></div>
-  </a>
-  <a class="entry" href="/v/chad-jones-ai-economic-future/" data-tags="ai economics stanford" data-date="2026-05-21" data-duration="60" data-title="ai and our economic future: why growth explodes — but slowly">
-    <div class="meta">Lecture · 60 min · May 21, 2026 · 145.8K views</div>
-    <h2>AI and Our Economic Future: Why Growth Explodes — But Slowly</h2>
-    <p>A walkthrough of Chad Jones&#x27;s Stanford GSB lecture on AI and economic growth — the FOOM vs business-as-usual scenarios, the 150-year 2% puzzle, the weak-links framework, what his simulations show, the jobs picture, and why he&#x27;s nervous about catastrophic risk.</p>
-    <div class="tags"><span class="tag">ai</span><span class="tag">economics</span><span class="tag">stanford</span></div>
-  </a>
-  <a class="entry" href="/v/learn-ai-agents-in-13-minutes/" data-tags="ai agents productivity" data-date="2026-05-14" data-duration="13" data-title="you&#x27;re not behind (yet): learn ai agents in 13 minutes">
-    <div class="meta">Explainer · 13 min · May 14, 2026 · 943K views</div>
-    <h2>You&#x27;re Not Behind (Yet): Learn AI Agents in 13 Minutes</h2>
-    <p>theMITmonk&#x27;s crash course on AI agents: the ARR test for what belongs to an agent, the four workers under the hood, the OODA loop that lets an agent reroute, the GPS check before you automate, why narrow ownership wins, and why judgment becomes the scarce skill.</p>
-    <div class="tags"><span class="tag">ai</span><span class="tag">agents</span><span class="tag">productivity</span></div>
-  </a>
-  <a class="entry" href="/v/claude-cowork-system-jeff-su/" data-tags="ai productivity anthropic" data-date="2026-04-28" data-duration="21" data-title="a simple claude cowork system for normal people">
-    <div class="meta">Tutorial · 21 min · April 28, 2026 · 281.9K views</div>
-    <h2>A Simple Claude Cowork System for Normal People</h2>
-    <p>How Jeff Su builds his Claude Cowork system — the claude.md/memory.md files, the US-Constitution analogy for stacking rules, persistent memory, voice principles, universal vs dedicated workstations, and token-saving pro tips.</p>
-    <div class="tags"><span class="tag">ai</span><span class="tag">productivity</span><span class="tag">anthropic</span></div>
-  </a>
-  <a class="entry" href="/v/tibo-solo-founder-5-products/" data-tags="ai startups seo" data-date="2026-04-26" data-duration="44" data-title="how a solo founder bootstrapped 5 ai products to $1m+/month">
-    <div class="meta">Interview · 44 min · April 26, 2026 · 12.6K views</div>
-    <h2>How a Solo Founder Bootstrapped 5 AI Products to $1M+/Month</h2>
-    <p>Tibo Louis-Lucas on how he bootstrapped five AI products past $1M/month — why your job is to validate, not sell; the Typeframe-to-Rabbit pivot; SEO via per-tool landing pages; running it all lean; pricing premium to kill churn; and why shipping in quantity beats polishing one product.</p>
-    <div class="tags"><span class="tag">ai</span><span class="tag">startups</span><span class="tag">seo</span></div>
-  </a>
-  <a class="entry" href="/v/gemini-notebooklm-intelligence-system/" data-tags="ai productivity google" data-date="2026-04-16" data-duration="13" data-title="the 4-floor &#x27;intelligence system&#x27;: how to actually use gemini + notebooklm">
-    <div class="meta">Tutorial · 13 min · April 16, 2026 · 849.1K views</div>
-    <h2>The 4-Floor &#x27;Intelligence System&#x27;: How to Actually Use Gemini + NotebookLM</h2>
-    <p>A walkthrough of theMITmonk&#x27;s Gemini + NotebookLM &quot;intelligence system&quot;: the four floors (NotebookLM grounding, Gemini&#x27;s frontier engine, Gems, and Workspace), the AIM prompt framework, and why AI changes the mechanics of work but not its meaning.</p>
-    <div class="tags"><span class="tag">ai</span><span class="tag">productivity</span><span class="tag">google</span></div>
-  </a>
-  <a class="entry" href="/v/joola-pickleball-patent-lawsuit/" data-tags="pickleball sports patents" data-date="2026-04-13" data-duration="10" data-title="the joola pickleball lawsuit, decoded: what the patents actually claim">
-    <div class="meta">Explainer · 10 min · April 13, 2026 · 24.4K views</div>
-    <h2>The JOOLA Pickleball Lawsuit, Decoded: What the Patents Actually Claim</h2>
-    <p>An engineering read of JOOLA&#x27;s ITC pickleball-paddle lawsuit: what patents 826 and 891 actually claim, the two-filler &quot;sushi roll&quot; construction shared by every accused paddle, which paddles the complaint leaves out, and why prior art could be decisive.</p>
-    <div class="tags"><span class="tag">pickleball</span><span class="tag">sports</span><span class="tag">patents</span></div>
-  </a>
-  <a class="entry" href="/v/dylan-field-design-ai-era/" data-tags="ai design product" data-date="2026-04-12" data-duration="41" data-title="figma&#x27;s ceo on getting good at design in the ai era">
-    <div class="meta">Interview · 41 min · April 12, 2026 · 8.5K views</div>
-    <h2>Figma&#x27;s CEO on Getting Good at Design in the AI Era</h2>
-    <p>Dylan Field on design in the AI era — taste vs. craft vs. point of view, why a prompt&#x27;s output is clay and not a final result, the non-linear hop between ideation and production, the code↔canvas round trip, ~60% of Figma designs now made by non-designers, and the visual renaissance he&#x27;s hoping for.</p>
-    <div class="tags"><span class="tag">ai</span><span class="tag">design</span><span class="tag">product</span></div>
-  </a>
-  <a class="entry" href="/v/demis-hassabis-hardest-problem/" data-tags="ai deepmind science" data-date="2026-04-07" data-duration="65" data-title="the hardest problem ai ever solved: demis hassabis on what he&#x27;s really building">
+  <a class="entry" href="/v/demis-hassabis-hardest-problem/" data-tags="ai deepmind science" data-date="2026-04-07" data-published="2026-05-31" data-duration="65" data-title="the hardest problem ai ever solved: demis hassabis on what he&#x27;s really building">
     <div class="meta">Interview · 65 min · April 7, 2026 · 1.4M views</div>
     <h2>The Hardest Problem AI Ever Solved: Demis Hassabis on What He&#x27;s Really Building</h2>
     <p>Demis Hassabis on AlphaFold and the 50-year protein-folding problem, in-silico drug discovery at Isomorphic, AlphaGenome, AlphaGo&#x27;s move 37, the two AI risks he weights most, and the post-AGI future he sketches — in conversation with Cleo Abram.</p>
     <div class="tags"><span class="tag">ai</span><span class="tag">deepmind</span><span class="tag">science</span></div>
+    <div class="added">Added May 31, 2026</div>
   </a>
-  <a class="entry" href="/v/inside-ramp-ai-agents/" data-tags="ai agents product" data-date="2026-03-15" data-duration="44" data-title="inside ramp: how a $32b company runs on ai agents">
-    <div class="meta">Interview · 44 min · March 15, 2026 · 47.1K views</div>
-    <h2>Inside Ramp: How a $32B Company Runs on AI Agents</h2>
-    <p>Ramp CPO Jeff on running an AI-native company: 50% of code AI-built, the prompt-to-product workflow, the Voice-of-Customer and Ramp Research agents, the Inspect build tool, why the leader&#x27;s job is fixing the process, and how the PM role splits.</p>
-    <div class="tags"><span class="tag">ai</span><span class="tag">agents</span><span class="tag">product</span></div>
+  <a class="entry" href="/v/dylan-field-design-ai-era/" data-tags="ai design product" data-date="2026-04-12" data-published="2026-05-31" data-duration="41" data-title="figma&#x27;s ceo on getting good at design in the ai era">
+    <div class="meta">Interview · 41 min · April 12, 2026 · 8.5K views</div>
+    <h2>Figma&#x27;s CEO on Getting Good at Design in the AI Era</h2>
+    <p>Dylan Field on design in the AI era — taste vs. craft vs. point of view, why a prompt&#x27;s output is clay and not a final result, the non-linear hop between ideation and production, the code↔canvas round trip, ~60% of Figma designs now made by non-designers, and the visual renaissance he&#x27;s hoping for.</p>
+    <div class="tags"><span class="tag">ai</span><span class="tag">design</span><span class="tag">product</span></div>
+    <div class="added">Added May 31, 2026</div>
   </a>
-  <a class="entry" href="/v/aeo-answer-engine-optimization/" data-tags="ai seo marketing" data-date="2025-09-14" data-duration="72" data-title="the ultimate guide to aeo: how to get chatgpt to recommend your product">
-    <div class="meta">Podcast · 72 min · September 14, 2025 · 162.8K views</div>
-    <h2>The Ultimate Guide to AEO: How to Get ChatGPT to Recommend Your Product</h2>
-    <p>A tactical guide to AEO from Ethan Smith on Lenny&#x27;s Podcast — why mentions beat rankings, the 6x conversion edge, how to earn citations (Reddit, YouTube, affiliates), the test/control playbook, why pure-AI content fails, and help-center optimization for the long tail.</p>
-    <div class="tags"><span class="tag">ai</span><span class="tag">seo</span><span class="tag">marketing</span></div>
+  <a class="entry" href="/v/ryan-carson-solo-founder-ai-agents/" data-tags="ai agents startups" data-date="2026-05-24" data-published="2026-05-31" data-duration="39" data-title="how a 5x founder runs his startup solo with ai agents">
+    <div class="meta">Interview · 39 min · May 24, 2026 · 6.7K views</div>
+    <h2>How a 5x Founder Runs His Startup Solo with AI Agents</h2>
+    <p>Ryan Carson&#x27;s screen-share walkthrough of running a startup solo on agents — OpenClaw as a chief of staff (cron jobs plus markdown), cold-outreach automation, Devin for cloud engineering, a PR-driven &quot;code factory,&quot; and an automated content and ads machine.</p>
+    <div class="tags"><span class="tag">ai</span><span class="tag">agents</span><span class="tag">startups</span></div>
+    <div class="added">Added May 31, 2026</div>
   </a>
-  <a class="entry" href="/v/ai-agents-clearly-explained/" data-tags="ai agents productivity" data-date="2025-04-08" data-duration="10" data-title="ai agents, clearly explained (for non-technical people)">
-    <div class="meta">Explainer · 10 min · April 8, 2025 · 4.4M views</div>
-    <h2>AI Agents, Clearly Explained (for Non-Technical People)</h2>
-    <p>A walkthrough of Jeff Su&#x27;s &quot;AI Agents, Clearly Explained&quot; — the three levels (LLMs, AI workflows, AI agents), what RAG and ReAct mean, and the one change that turns a workflow into an agent.</p>
+  <a class="entry" href="/v/claude-cowork-system-jeff-su/" data-tags="ai productivity anthropic" data-date="2026-04-28" data-published="2026-05-31" data-duration="21" data-title="a simple claude cowork system for normal people">
+    <div class="meta">Tutorial · 21 min · April 28, 2026 · 281.9K views</div>
+    <h2>A Simple Claude Cowork System for Normal People</h2>
+    <p>How Jeff Su builds his Claude Cowork system — the claude.md/memory.md files, the US-Constitution analogy for stacking rules, persistent memory, voice principles, universal vs dedicated workstations, and token-saving pro tips.</p>
+    <div class="tags"><span class="tag">ai</span><span class="tag">productivity</span><span class="tag">anthropic</span></div>
+    <div class="added">Added May 31, 2026</div>
+  </a>
+  <a class="entry" href="/v/ben-johns-mlp-dallas/" data-tags="pickleball sports" data-date="2026-05-26" data-published="2026-05-31" data-duration="15" data-title="mlp is back: the dallas recap, and the day ben johns silenced even his biggest critic">
+    <div class="meta">Pickleball recap · 15 min · May 26, 2026 · 31.5K views</div>
+    <h2>MLP Is Back: The Dallas Recap, and the Day Ben Johns Silenced Even His Biggest Critic</h2>
+    <p>A fast, visual recap of the first MLP event of the year in Dallas — the new round-robin format, who won, the league&#x27;s most questionable roster gamble, the new officiating fights, and Zane Navratil admitting he was wrong about Ben Johns.</p>
+    <div class="tags"><span class="tag">pickleball</span><span class="tag">sports</span></div>
+    <div class="added">Added May 31, 2026</div>
+  </a>
+  <a class="entry" href="/v/joola-pickleball-patent-lawsuit/" data-tags="pickleball sports patents" data-date="2026-04-13" data-published="2026-05-31" data-duration="10" data-title="the joola pickleball lawsuit, decoded: what the patents actually claim">
+    <div class="meta">Explainer · 10 min · April 13, 2026 · 24.4K views</div>
+    <h2>The JOOLA Pickleball Lawsuit, Decoded: What the Patents Actually Claim</h2>
+    <p>An engineering read of JOOLA&#x27;s ITC pickleball-paddle lawsuit: what patents 826 and 891 actually claim, the two-filler &quot;sushi roll&quot; construction shared by every accused paddle, which paddles the complaint leaves out, and why prior art could be decisive.</p>
+    <div class="tags"><span class="tag">pickleball</span><span class="tag">sports</span><span class="tag">patents</span></div>
+    <div class="added">Added May 31, 2026</div>
+  </a>
+  <a class="entry" href="/v/learn-ai-agents-in-13-minutes/" data-tags="ai agents productivity" data-date="2026-05-14" data-published="2026-05-31" data-duration="13" data-title="you&#x27;re not behind (yet): learn ai agents in 13 minutes">
+    <div class="meta">Explainer · 13 min · May 14, 2026 · 943K views</div>
+    <h2>You&#x27;re Not Behind (Yet): Learn AI Agents in 13 Minutes</h2>
+    <p>theMITmonk&#x27;s crash course on AI agents: the ARR test for what belongs to an agent, the four workers under the hood, the OODA loop that lets an agent reroute, the GPS check before you automate, why narrow ownership wins, and why judgment becomes the scarce skill.</p>
     <div class="tags"><span class="tag">ai</span><span class="tag">agents</span><span class="tag">productivity</span></div>
+    <div class="added">Added May 31, 2026</div>
   </a>
-  <a class="entry" href="/v/silicon-photonics-next-revolution/" data-tags="semiconductors science economics" data-date="2022-06-16" data-duration="16" data-title="silicon photonics: the next silicon revolution?">
-    <div class="meta">video · 16 min · June 16, 2022 · 478K views</div>
-    <h2>Silicon Photonics: The Next Silicon Revolution?</h2>
-    <p>A guided tour of silicon photonics: why pure silicon can&#x27;t make or modulate light, the workarounds engineers built, Intel&#x27;s modulator milestones, and why the transceiver market may be too small to make this the next silicon revolution.</p>
-    <div class="tags"><span class="tag">semiconductors</span><span class="tag">science</span><span class="tag">economics</span></div>
-  </a>
-  <a class="entry" href="/v/how-laser-cooling-works/" data-tags="physics science" data-date="2016-03-30" data-duration="6" data-title="how laser cooling works">
+  <a class="entry" href="/v/how-laser-cooling-works/" data-tags="physics science" data-date="2016-03-30" data-published="2026-05-31" data-duration="6" data-title="how laser cooling works">
     <div class="meta">Physics explainer · 6 min · March 30, 2016 · 585.7K views</div>
     <h2>How Laser Cooling Works</h2>
     <p>Diana Cowern (Physics Girl) and Derek Muller (Veritasium) explain laser cooling — how photon momentum, a slightly detuned wavelength, and six crossed beams slow atoms to within microkelvins of absolute zero.</p>
     <div class="tags"><span class="tag">physics</span><span class="tag">science</span></div>
+    <div class="added">Added May 31, 2026</div>
   </a>
-  <a class="entry" href="/v/true-nature-of-matter-and-mass/" data-tags="science physics" data-date="2016-01-06" data-duration="11" data-title="the true nature of matter and mass">
+  <a class="entry" href="/v/gemini-notebooklm-intelligence-system/" data-tags="ai productivity google" data-date="2026-04-16" data-published="2026-05-31" data-duration="13" data-title="the 4-floor &#x27;intelligence system&#x27;: how to actually use gemini + notebooklm">
+    <div class="meta">Tutorial · 13 min · April 16, 2026 · 849.1K views</div>
+    <h2>The 4-Floor &#x27;Intelligence System&#x27;: How to Actually Use Gemini + NotebookLM</h2>
+    <p>A walkthrough of theMITmonk&#x27;s Gemini + NotebookLM &quot;intelligence system&quot;: the four floors (NotebookLM grounding, Gemini&#x27;s frontier engine, Gems, and Workspace), the AIM prompt framework, and why AI changes the mechanics of work but not its meaning.</p>
+    <div class="tags"><span class="tag">ai</span><span class="tag">productivity</span><span class="tag">google</span></div>
+    <div class="added">Added May 31, 2026</div>
+  </a>
+  <a class="entry" href="/v/chad-jones-ai-economic-future/" data-tags="ai economics stanford" data-date="2026-05-21" data-published="2026-05-31" data-duration="60" data-title="ai and our economic future: why growth explodes — but slowly">
+    <div class="meta">Lecture · 60 min · May 21, 2026 · 145.8K views</div>
+    <h2>AI and Our Economic Future: Why Growth Explodes — But Slowly</h2>
+    <p>A walkthrough of Chad Jones&#x27;s Stanford GSB lecture on AI and economic growth — the FOOM vs business-as-usual scenarios, the 150-year 2% puzzle, the weak-links framework, what his simulations show, the jobs picture, and why he&#x27;s nervous about catastrophic risk.</p>
+    <div class="tags"><span class="tag">ai</span><span class="tag">economics</span><span class="tag">stanford</span></div>
+    <div class="added">Added May 31, 2026</div>
+  </a>
+  <a class="entry" href="/v/true-nature-of-matter-and-mass/" data-tags="science physics" data-date="2016-01-06" data-published="2026-05-31" data-duration="11" data-title="the true nature of matter and mass">
     <div class="meta">video · 11 min · January 6, 2016 · 1.8M views</div>
     <h2>The True Nature of Matter and Mass</h2>
     <p>A walkthrough of PBS Space Time&#x27;s &quot;The True Nature of Matter and Mass&quot; — the photon-box thought experiment, why E=mc² follows from trapped energy, how protons get about 99% of their mass from quark oscillation and the gluon field, and why the equivalence principle makes inertial and gravitational mass one emergent thing.</p>
     <div class="tags"><span class="tag">science</span><span class="tag">physics</span></div>
+    <div class="added">Added May 31, 2026</div>
+  </a>
+  <a class="entry" href="/v/ai-agents-clearly-explained/" data-tags="ai agents productivity" data-date="2025-04-08" data-published="2026-05-31" data-duration="10" data-title="ai agents, clearly explained (for non-technical people)">
+    <div class="meta">Explainer · 10 min · April 8, 2025 · 4.4M views</div>
+    <h2>AI Agents, Clearly Explained (for Non-Technical People)</h2>
+    <p>A walkthrough of Jeff Su&#x27;s &quot;AI Agents, Clearly Explained&quot; — the three levels (LLMs, AI workflows, AI agents), what RAG and ReAct mean, and the one change that turns a workflow into an agent.</p>
+    <div class="tags"><span class="tag">ai</span><span class="tag">agents</span><span class="tag">productivity</span></div>
+    <div class="added">Added May 31, 2026</div>
+  </a>
+  <a class="entry" href="/v/silicon-photonics-next-revolution/" data-tags="semiconductors science economics" data-date="2022-06-16" data-published="2026-05-31" data-duration="16" data-title="silicon photonics: the next silicon revolution?">
+    <div class="meta">video · 16 min · June 16, 2022 · 478K views</div>
+    <h2>Silicon Photonics: The Next Silicon Revolution?</h2>
+    <p>A guided tour of silicon photonics: why pure silicon can&#x27;t make or modulate light, the workarounds engineers built, Intel&#x27;s modulator milestones, and why the transceiver market may be too small to make this the next silicon revolution.</p>
+    <div class="tags"><span class="tag">semiconductors</span><span class="tag">science</span><span class="tag">economics</span></div>
+    <div class="added">Added May 31, 2026</div>
+  </a>
+  <a class="entry" href="/v/tibo-solo-founder-5-products/" data-tags="ai startups seo" data-date="2026-04-26" data-published="2026-05-31" data-duration="44" data-title="how a solo founder bootstrapped 5 ai products to $1m+/month">
+    <div class="meta">Interview · 44 min · April 26, 2026 · 12.6K views</div>
+    <h2>How a Solo Founder Bootstrapped 5 AI Products to $1M+/Month</h2>
+    <p>Tibo Louis-Lucas on how he bootstrapped five AI products past $1M/month — why your job is to validate, not sell; the Typeframe-to-Rabbit pivot; SEO via per-tool landing pages; running it all lean; pricing premium to kill churn; and why shipping in quantity beats polishing one product.</p>
+    <div class="tags"><span class="tag">ai</span><span class="tag">startups</span><span class="tag">seo</span></div>
+    <div class="added">Added May 31, 2026</div>
+  </a>
+  <a class="entry" href="/v/aeo-answer-engine-optimization/" data-tags="ai seo marketing" data-date="2025-09-14" data-published="2026-05-31" data-duration="72" data-title="the ultimate guide to aeo: how to get chatgpt to recommend your product">
+    <div class="meta">Podcast · 72 min · September 14, 2025 · 162.8K views</div>
+    <h2>The Ultimate Guide to AEO: How to Get ChatGPT to Recommend Your Product</h2>
+    <p>A tactical guide to AEO from Ethan Smith on Lenny&#x27;s Podcast — why mentions beat rankings, the 6x conversion edge, how to earn citations (Reddit, YouTube, affiliates), the test/control playbook, why pure-AI content fails, and help-center optimization for the long tail.</p>
+    <div class="tags"><span class="tag">ai</span><span class="tag">seo</span><span class="tag">marketing</span></div>
+    <div class="added">Added May 31, 2026</div>
+  </a>
+  <a class="entry" href="/v/inside-ramp-ai-agents/" data-tags="ai agents product" data-date="2026-03-15" data-published="2026-05-31" data-duration="44" data-title="inside ramp: how a $32b company runs on ai agents">
+    <div class="meta">Interview · 44 min · March 15, 2026 · 47.1K views</div>
+    <h2>Inside Ramp: How a $32B Company Runs on AI Agents</h2>
+    <p>Ramp CPO Jeff on running an AI-native company: 50% of code AI-built, the prompt-to-product workflow, the Voice-of-Customer and Ramp Research agents, the Inspect build tool, why the leader&#x27;s job is fixing the process, and how the PM role splits.</p>
+    <div class="tags"><span class="tag">ai</span><span class="tag">agents</span><span class="tag">product</span></div>
+    <div class="added">Added May 31, 2026</div>
+  </a>
+  <a class="entry" href="/v/anthropic-cowork-notes/" data-tags="ai anthropic sales" data-date="2026-05-28" data-published="2026-05-30" data-duration="58" data-title="how anthropic&#x27;s sales team actually uses cowork">
+    <div class="meta">Webinar · 58 min · May 28, 2026</div>
+    <h2>How Anthropic&#x27;s sales team actually uses Cowork</h2>
+    <p>Travis Bryant and Brittney Tong demo the morning digest, the forecast updater, the manager roll-up, and a 4,000-account overnight scoring run.</p>
+    <div class="tags"><span class="tag">ai</span><span class="tag">anthropic</span><span class="tag">sales</span></div>
+    <div class="added">Added May 30, 2026</div>
+  </a>
+  <a class="entry" href="/v/claude-code-workflows/" data-tags="" data-date="2026-05-29" data-published="2026-05-30" data-duration="16" data-title="claude code just shipped workflows. here&#x27;s what they actually are.">
+    <div class="meta">Explainer · 16 min · May 29, 2026 · 6.3K views</div>
+    <h2>Claude Code just shipped Workflows. Here&#x27;s what they actually are.</h2>
+    <p>A 16-min walkthrough distilled: the script-as-orchestrator model, the deep-research demo, the 3-million-token bill, and when to reach for a Workflow.</p>
+    <div class="added">Added May 30, 2026</div>
   </a>
   </div>
   <div class="noresults" id="noresults">No summaries match that filter.</div>
@@ -294,6 +319,8 @@ h1 {
   function applySort() {
     var mode = sortSel.value;
     var sorted = cards.slice().sort(function (a, b) {
+      if (mode === "pub-desc")  return (b.dataset.published||"").localeCompare(a.dataset.published||"");
+      if (mode === "pub-asc")   return (a.dataset.published||"").localeCompare(b.dataset.published||"");
       if (mode === "date-desc") return b.dataset.date.localeCompare(a.dataset.date);
       if (mode === "date-asc")  return a.dataset.date.localeCompare(b.dataset.date);
       if (mode === "dur-desc")  return (+b.dataset.duration) - (+a.dataset.duration);
