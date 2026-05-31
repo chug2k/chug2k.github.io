@@ -1,0 +1,17 @@
+{
+  "title": "First YC Paper Club \u2014 SSD, DMPC, World Models, & Data-Efficient Training",
+  "description": "Five researchers present breakthrough work at YC's first Paper Club \u2014 from parallelizing LLM inference to diffusion-based robotics, from elegant world-model regularization to 5x data-efficiency scaling laws. A unique gathering of the AI talent density that makes the Bay Area special.",
+  "source_url": "https://www.youtube.com/watch?v=wE1ZgJdt4uM",
+  "kind": "talk",
+  "duration_minutes": 68,
+  "date": 2025,
+  "published": "2026-05-31T21:24:12Z",
+  "slug": "first-yc-paper-club",
+  "video_date": "2026-05-28",
+  "views": 48955,
+  "tags": [
+    "ai",
+    "research",
+    "agents"
+  ]
+}

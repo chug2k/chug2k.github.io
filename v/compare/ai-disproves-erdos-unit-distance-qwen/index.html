@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI just disproved a 80-year-old math conjecture</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">A math problem from 1946, finally cracked</div>
+<h1>AI just disproved a 80-year-old math conjecture</h1>
+<p class="lede">An OpenAI model disproved the Erdős unit-distance conjecture — a decades-old lower bound that every combinatorial geometer had thought about. It&#x27;s the first time AI has taken down a famous, well-studied problem.</p>
+<div class="byline"><span><strong>Creator:</strong> Dr. Trefor Bazett</span><span><strong>Runtime:</strong> 9 min</span><span><strong>Video published:</strong> May 22, 2026</span><span><strong>116K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=PD1N72OJa7U" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>TL;DR</h2><ol><li>AI broke a conjecture that stood since 1946 — Erdős's unit-distance lower bound</li><li>The new proof uses novel ideas in algebraic number theory</li><li>Fields Medalist Timothy Gowers calls it a milestone that would be accepted without hesitation</li><li>This isn't AI fiddling with an obscure problem; it's a famous, well-studied one</li><li>It raises big questions about what math looks like when AI can prove theorems</li></ol></div>
+<section id="format"><h2 class="section">01 · The unit distance problem</h2><h3 class="heading">Counting unit-distance pairs</h3><p>Put n points on a plane. Count how many pairs sit exactly one unit apart. The answer depends on how you arrange them.</p>
+<p>A sparse configuration gives you n − 1 edges. A square grid gives roughly 2n. But can you do better than that linear scaling?</p>
+<figure><img src="screenshots/format.jpg" alt=""><figcaption><span>A √n × √n grid — about 2n unit-distance edges, the baseline construction.</span><span class="ts">00:01:03</span></figcaption></figure></section><section id="erdos"><h2 class="section">02 · Erdős&#x27;s trick</h2><h3 class="heading">A denser lattice</h3><p>In 1946, Erdős had a clever idea: don't just count edges at distance one. Count edges at every distance in a square lattice, then pick the most-common distance and shrink the whole grid to make that distance equal to one.</p>
+<p>That single move bumps the edge count past linear — from 2n up toward n · log log n. The scaling improves, but only by a log-log factor.</p>
+<figure><img src="screenshots/erdos.jpg" alt=""><figcaption><span>Erdős's construction: count all distances, keep the largest class, rescale.</span><span class="ts">00:02:14</span></figcaption></figure></section><section id="conjecture"><h2 class="section">03 · The conjecture</h2><h3 class="heading">Sharp lower bound</h3><p>The conjecture was simple: that lower bound is sharp. You can't do asymptotically better than n^(1+c/log log n).</p>
+<figure><img src="screenshots/conjecture.jpg" alt=""><figcaption><span>The conjecture statement — n^(1+c/log log n) can't be beaten.</span><span class="ts">00:03:40</span></figcaption></figure>
+<p>It was proposed in 1946. For decades, mathematicians tried to find a better construction or prove the bound tight. Nobody succeeded.</p>
+<div class="callout"><span class="label">The claim</span>u(n) — the maximum number of unit-distance edges on n points — has a sharp lower bound of n^(1+c/log log n).</div></section><section id="breakthrough"><h2 class="section">04 · AI breaks it</h2><h3 class="heading">n^(1+δ)</h3><p>OpenAI's internal model found a completely new construction: n^(1+δ) for a fixed constant δ &gt; 0.</p>
+<figure><img src="screenshots/breakthrough.jpg" alt=""><figcaption><span>The new lattice construction — overlapping grids at irrational angles, far denser than any Erdős-style bound.</span><span class="ts">00:04:43</span></figcaption></figure>
+<p>That beats the conjecture for large enough n. Even a tiny δ eventually outpaces c/log log n, because log log n → ∞. The conjecture is dead.</p>
+<blockquote>This one's not [a small problem]. This is a famous, well-studied problem that many mathematicians have sunk their teeth into.<cite>— Dr. Trefor Bazett</cite></blockquote></section><section id="erdos-problems"><h2 class="section">05 · The Erdős problem list</h2><h3 class="heading">Where this fits</h3><p>This result belongs to a larger list of conjectures compiled from the work of Paul Erdős, the most prolific collaborator in mathematical history. AI has already proven a few theorems from that list — but this is different.</p>
+<figure><img src="screenshots/erdos-problems.jpg" alt=""><figcaption><span>The Erdős problem list — decades of open conjectures, one finally closed.</span><span class="ts">00:05:26</span></figcaption></figure>
+<p>Previous AI results could be dismissed as solving "obscure" or "niche" problems. This one was studied by generations of mathematicians who failed.</p></section><section id="reactions"><h2 class="section">06 · Reactions</h2><h3 class="heading">What mathematicians say</h3><p>A companion paper collected commentary from researchers in the field. The consensus: this is a big deal.</p>
+<figure><img src="screenshots/blog-post.jpg" alt=""><figcaption><span>OpenAI's blog post announcing the result, with companion paper links.</span><span class="ts">00:06:54</span></figcaption></figure>
+<p>Timothy Gowers (Fields Medalist): "There is no doubt that the solution to the unit distance problem is a milestone in AI mathematics, and if a human had written that paper, I would have recommended acceptance without any hesitation."</p>
+<p>Noga Alon: "Every mathematician working in combinatorial geometry has thought about this problem … the solution by the internal model is, in my opinion, an outstanding achievement in settling a long-standing open problem. The proof … goes into some novel ideas in algebraic number theory."</p>
+<div class="pills"><div class="pill"><h5><strong>New construction method</strong> — lattice constructions in high dimensions projected down to the plane</h5><p></p></div><div class="pill"><h5><strong>New math</strong> — novel ideas in algebraic number theory, not just combinatorics</h5><p></p></div><div class="pill"><h5><strong>New precedent</strong> — the first AI result on a famous, well-studied open problem</h5><p></p></div></div></section><section id="projection"><h2 class="section">07 · What&#x27;s next?</h2><h3 class="heading">The future of mathematics</h3><p>The proof hints at the technique: constructing lattices in very high dimensions, then projecting them down onto the plane at carefully chosen angles.</p>
+<figure><img src="screenshots/projection.jpg" alt=""><figcaption><span>Lattices offset by angles of 2π/3 — a glimpse of the projection method.</span><span class="ts">00:09:06</span></figcaption></figure>
+<p>It raises questions no one has firm answers for. What does a research mathematician look like in 5 or 10 years when these tools are standard? What does teaching mathematics look like?</p>
+<blockquote>What is mathematics going to look like in 5 or 10 years as a practicing mathematician who has these tools?<cite>— Dr. Trefor Bazett</cite></blockquote>
+<div class="callout"><span class="label">Meta note</span>ChatGPT helped write the Manim code for the animations in this video. The mathematician who made this video is himself using AI. The circle closes.</div>
+<p>:::</p></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=PD1N72OJa7U" target="_blank" rel="noopener">AI just disproved a 80-year-old math conjecture</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>

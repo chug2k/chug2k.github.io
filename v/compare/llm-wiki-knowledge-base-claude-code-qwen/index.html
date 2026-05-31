@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Andrej Karpathy Just 10x&#x27;d Everyone&#x27;s Claude Code</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Build a second brain in 5 minutes</div>
+<h1>Andrej Karpathy Just 10x&#x27;d Everyone&#x27;s Claude Code</h1>
+<p class="lede">Andrej Karpathy&#x27;s &quot;LLM wiki&quot; idea went viral because it solves a problem most people have — AI conversations disappear the moment they end. Instead of chasing vector databases and embedding pipelines, Karpathy showed that Claude Code can take raw documents and turn them into a structured knowledge base that organizes itself. Nate Herk walks through the full setup and shows why the approach is so much simpler than it sounds.</p>
+<div class="byline"><span><strong>Creator:</strong> Nate Herk | AI Automation</span><span><strong>Runtime:</strong> 18 min</span><span><strong>Video published:</strong> April 5, 2026</span><span><strong>558.8K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=sboNwYmH3AY" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>TL;DR</h2><ol><li>Claude Code ingests raw documents and auto-organizes them into a wiki with indexes, relationships, and summaries — no vector database or embeddings required</li><li>The vault is just markdown files in Obsidian: a raw folder for sources, a wiki folder for the organized output, plus an index, log, and Claude.md</li><li>Claude Code auto-maintains the wiki: it flags inconsistencies, fills data gaps, and suggests new article candidates during health checks</li><li>One user turned 383 scattered files and 100+ meeting transcripts into a compact wiki and dropped query token usage by 95%</li><li>Wiki graphs scale well to hundreds of pages; for millions of documents, traditional semantic search RAG is still the play</li></ol></div>
+<section id="intro"><h2 class="section">01 · Everything you&#x27;ve watched, now searchable</h2><h3 class="heading">The YouTube wiki</h3><p>Nate opens by showing his existing YouTube knowledge system — 36 recent videos organized into a graph where each video node carries tags, a link, a raw file reference, and an AI-generated explanation of takeaways. You can follow the backlinks between nodes to find every mention of Claude Code, the WAT framework, Perplexity, or any other tool he's covered.</p>
+<figure><img src="screenshots/intro.jpg" alt=""><figcaption><span>The graph view shows video nodes connected by the tools and concepts they reference.</span><span class="ts">00:00:00</span></figcaption></figure>
+<p>"As this continues to fill up, we can start to see patterns and relationships between every tool or every skill or every MCP server that I might have talked about in a YouTube video, and I can just query it in a really efficient way now that we have this actual system set up."</p>
+<p>The same vault also holds his personal "second brain" — stuff about Up-to-AI, his YouTube channel, employees, Q2 initiatives — and the two can live separate or combined, plugged into whatever AI agent needs context.</p></section><section id="karpathy-gist"><h2 class="section">02 · Karpathy&#x27;s viral idea</h2><h3 class="heading">LLMs that maintain their own wiki</h3><p>Karpathy's tweet about LLM knowledge bases blew up because the core insight is deceptively simple: you don't need a fancy RAG pipeline. You give Claude Code raw documents, it organizes them into a wiki with its own indexes and summaries, and you can query the result at any time.</p>
+<figure><img src="screenshots/karpathy-gist.jpg" alt=""><figcaption><span>Karpathy's tweet and follow-up gist explaining the approach.</span><span class="ts">00:05:45</span></figcaption></figure>
+<p>The system has two phases. First, <strong>data ingest</strong> — PDFs, transcripts, URLs dumped into a folder. Claude Code processes everything, auto-maintaining index files and brief summaries of all documents. At his current scale of ~100 articles and ~500k words, it "reads all the important related data fairly easily."</p>
+<p>The second phase is <strong>Q&amp;A</strong> — ask questions about the knowledge base and get answers pulled from the structured wiki, not a throwaway chat context.</p>
+<blockquote>
+<p>"I thought that I had to reach for fancy rag, but the LLM has been pretty good about auto maintaining index files and brief summaries of all documents, and it reads all the important related data fairly easily at this small scale."
+— Andrej Karpathy</p>
+</blockquote>
+<div class="callout"><span class="label">Why it went viral</span>Normal AI chats are ephemeral. This method makes knowledge compound like interest in a bank — a tireless colleague that actually remembers everything and stays organized.</div></section><section id="vault-structure"><h2 class="section">03 · The five-folder vault</h2><h3 class="heading">raw, wiki, index, log, Claude.md</h3><p>The entire knowledge system is just a folder of markdown files. No database, no embeddings, no infrastructure.</p>
+<figure><img src="screenshots/vault-structure.jpg" alt=""><figcaption><span>Claude Code creates the vault structure — raw and wiki folders, index, log, and Claude.md.</span><span class="ts">00:07:50</span></figcaption></figure>
+<pre><code>vault/
+├── raw/          ← drop in articles, PDFs, transcripts
+├── wiki/
+│   ├── concepts/   ← Claude Code files knowledge here
+│   ├── entities/
+│   ├── sources/
+│   ├── analyses/
+│   ├── index       ← clickable hub of all topics
+│   └── log         ← operation history (every ingest/update)
+├── Claude.md     ← instructions for how the project works
+└── hot.md        ← ~500-char cache of what's most recent
+</code></pre>
+<p>Claude Code splits into four default wiki subfolders — analysis, concepts, entities, sources — but Karpathy notes you can keep it flat with no subfolders depending on your needs. The <code>Claude.md</code> file is the key: it tells any Claude instance how to search, update, and navigate the vault.</p>
+<p><strong>Cost: near zero.</strong> Your only expense is the Claude API tokens for the ingestion step. No vector DB hosting, no embedding compute, no storage layer.</p>
+<blockquote>You don't need a fancy vector database, embeddings, or complex infrastructure. It's literally just a folder with markdown files. That's it.<cite>— Nate Herk</cite></blockquote></section><section id="obsidian-setup"><h2 class="section">04 · Five-minute walkthrough</h2><h3 class="heading">Obsidian + Claude Code</h3><p>The setup takes five minutes. Nate walks through it live:</p>
+<ol>
+<li>Download Obsidian from obsidian.md — free, just a markdown viewer</li>
+<li>Create a new vault (a folder on your machine)</li>
+<li>Open that folder in your code editor</li>
+<li>Paste Karpathy's gist prompt into Claude Code</li>
+<li>Tell Claude: <em>"You are now my LLM Wiki agent. Implement this exact idea file as my complete second brain."</em></li>
+</ol>
+<figure><img src="screenshots/obsidian-setup.jpg" alt=""><figcaption><span>Claude Code's instructions for querying, linting, and ingesting new sources into the vault.</span><span class="ts">00:08:35</span></figcaption></figure>
+<ol class="steps"><li><b><strong>Install</strong> — grab Obsidian, create a new vault folder</b><span></span></li><li><b><strong>Prompt</strong> — paste Karpathy's gist + a directive to Claude Code</b><span></span></li><li><b><strong>Ingest</strong> — drop an article into <code>raw/</code> (via Obsidian Web Clipper, paste, or URL fetch) and tell Claude to process it</b><span></span></li><li><b><strong>Watch</strong> — Claude Code creates ~25 wiki pages in ~10 minutes, building a growing knowledge graph in real time</b><span></span></li><li><b><strong>Query</strong> — ask anything; Claude searches the wiki, follows links, and cites sources</b><span></span></li></ol>
+<p>When Nate ingested the "AI 2027" article, Claude generated 23 wiki pages covering six people, five organizations, one AI system, plus technical, alignment, and geopolitical concepts. The graph view in Obsidian lets you watch nodes appear and connections form.</p></section><section id="graph-growing"><h2 class="section">05 · Query, integrate, and maintain</h2><h3 class="heading">Making it your own</h3><p>Once the wiki exists, the real value compounds. Nate shows two use cases from his own vaults:</p>
+<p><strong>The YouTube wiki</strong> — keep it as a research database. Point any Claude instance at the folder; it reads the index, follows backlinks, and queries structured content.</p>
+<p><strong>Herc Brain</strong> — his executive assistant vault. Claude.md includes a wiki path that lets the assistant read his business knowledge on demand: hot.md for recent context, the domain sub-index for structured queries, and the full wiki when needed.</p>
+<figure><img src="screenshots/graph-growing.jpg" alt=""><figcaption><span>The Obsidian graph view shows wiki nodes and connections forming as Claude Code ingests content.</span><span class="ts">00:11:15</span></figcaption></figure>
+<p>Claude Code also runs <strong>health checks</strong> (linting): it scans for inconsistent data, fills gaps using web searches, surfaces interesting connections as new article candidates, and can even ask you for more info when it's stuck.</p>
+<blockquote>
+<p>"One X user turned 383 scattered files and over 100 meeting transcripts into a compact wiki and dropped token usage by 95% when querying with Claude."</p>
+</blockquote></section><section id="rag-comparison"><h2 class="section">06 · Wiki graph vs. semantic search RAG</h2><h3 class="heading">When each wins</h3><p>Does the LLM wiki kill RAG? Kind of. It depends on your scale and goals.</p>
+<figure><img src="screenshots/rag-comparison.jpg" alt=""><figcaption><span>Wiki graph vs. RAG across retrieval quality, relationship awareness, cost, maintenance, and scale.</span><span class="ts">00:15:45</span></figcaption></figure>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Wiki Graph</th>
+<th>RAG</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Retrieval quality</td>
+<td>High — structured, relational</td>
+<td>Medium — similarity-based, flat</td>
+</tr>
+<tr>
+<td>Relationship awareness</td>
+<td>Built in</td>
+<td>Mostly lost</td>
+</tr>
+<tr>
+<td>Cost</td>
+<td>Near zero</td>
+<td>Embedding + vector DB</td>
+</tr>
+<tr>
+<td>Maintenance</td>
+<td>Requires curation</td>
+<td>Automatic but dumb</td>
+</tr>
+<tr>
+<td>Scales to</td>
+<td>Hundreds of pages (with good indexes)</td>
+<td>Millions of documents</td>
+</tr>
+</tbody>
+</table>
+<p>The wiki graph reads indexes and follows links for deeper understanding of relationships rather than just finding "similar" chunks. But at enterprise scale — hundreds of thousands to millions of documents — traditional RAG (knowledge graph, vector search) still wins on raw throughput.</p>
+<p>For personal knowledge management? Markdown wins. Always.</p></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=sboNwYmH3AY" target="_blank" rel="noopener">Andrej Karpathy Just 10x&#x27;d Everyone&#x27;s Claude Code</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>

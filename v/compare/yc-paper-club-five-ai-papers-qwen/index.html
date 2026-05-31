@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>First YC Paper Club — SSD, DMPC, World Models, &amp; Data-Efficient Training</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">AI Research</div>
+<h1>First YC Paper Club — SSD, DMPC, World Models, &amp; Data-Efficient Training</h1>
+<p class="lede">The first-ever YC Paper Club brings together researchers from DeepMind, Stanford, and YC startups to present five papers on speculative decoding, robotic control, world models, and data-efficient pre-training.</p>
+<div class="byline"><span><strong>Runtime:</strong> 68 min</span><span><strong>Video published:</strong> May 28, 2026</span><span><strong>49K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=wE1ZgJdt4uM" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>TL;DR</h2><ol><li>Inference is a capability lever, not just a cost — faster inference = higher peak intelligence</li><li>Speculative Speculative Decoding (SSD) parallelizes the inherently sequential draft/verify loop, hitting ~300 tok/s on Llama 3 70B</li><li>Diffusion Model Predictive Control (DMPC) uses diffusion for multi-step action proposals and dynamics modeling in robotics</li><li>Yanjun Liu's Lay World Model avoids representation collapse with a single regularizer (Sigg) instead of many tricks</li><li>When data is the bottleneck, aggressive regularization + ensembling beats one giant model — and gives 5x data efficiency</li></ol></div>
+<section id="intro"><h2 class="section">01 · Pioneer, again</h2><h3 class="heading">The first YC Paper Club</h3><p>Mike Weiss (GSB) kicks off the inaugural YC Paper Club at Pioneer in Palo Alto, curating a room of researchers and founders — 1,000+ applicants, ~100 seats. The room is packed: people with 10k+ citations, founders who've raised $50M+. The hidden mission: revive the Pioneer community and pull together the Bay Area's dispersed AI talent (Anthropic, OpenAI, Cursor, Google DeepMind, Tesla, xAI, Thinking Machines).</p>
+<figure><img src="screenshots/intro.jpg" alt=""><figcaption><span>GSB at Pioneer — pulling together AI researchers and founders who usually don't make the trek from Palo Alto to San Francisco.</span><span class="ts">00:03:08</span></figcaption></figure>
+<blockquote>The hidden mission is to make Pioneer great again.<cite>— GSB</cite></blockquote>
+<div class="callout"><span class="label">Context</span>YC's Winter '16 batch was legendary — 140 companies, 10–15 unicorns. OpenAI's founders (Sam, Greg Brockman) were sitting in that room at early stages.</div></section><section id="ssd-diagram"><h2 class="section">02 · Fast inference as capability</h2><h3 class="heading">Speculative Speculative Decoding</h3><p>Tanishk (Stanford grad student) presents <strong>SSD</strong> — a parallel speculative decoding algorithm that breaks the sequential bottleneck of vanilla speculative decoding. The core thesis: <em>inference should be thought of as a capability, not just a cost lever</em>. If a method's performance scales with the amount of thinking it does, then tokens/second is exactly the peak intelligence you can deliver.</p>
+<p>Vanilla speculative decoding uses a small "draft" model to guess tokens, then a large "target" model verifies them in parallel. SSD parallelizes the <em>drafting and verification</em> across rounds — the draft model anticipates verification outcomes and starts drafting the next round while verification is still running.</p>
+<figure><img src="screenshots/ssd-diagram.jpg" alt=""><figcaption><span>The speculative decoding schematic: a small draft model generates token guesses, a large target model verifies them in a single forward pass.</span><span class="ts">00:09:03</span></figcaption></figure>
+<div class="callout"><span class="label">Key insight</span>In speculative decoding, it is easier to <em>verify</em> than to <em>generate</em> — a fundamental property of the Transformer architecture. SSD exploits this by hiding the latency of drafting entirely.</div>
+<blockquote>In one, two, or three years inference is going to be seen as a capability.<cite>— Tanishk</cite></blockquote>
+<div class="callout"><span class="label">Result</span>SSD hits ~300 tokens/sec for Llama 3 70B on 4 H100s — faster than SGlang with speculative decoding, and faster than any open-source engine. It's the <em>algorithm</em>, not the system, that makes the difference.</div></section><section id="dmpc-robotics"><h2 class="section">03 · Robotics from video models</h2><h3 class="heading">Diffusion Model Predictive Control</h3><p>Stannis (research scientist, Google DeepMind) presents <strong>DMPC</strong> — using diffusion models to learn both multi-step action proposals and multi-step dynamics models for robotic control. The insight: diffusion models, originally designed for images and video, are powerful multi-modal distributions that can model complex action spaces without requiring expert demonstrations.</p>
+<p>DMPC factorizes the problem into an action proposal module and a dynamics model, then uses a simple sampling-based planner. This lets it adapt to <em>novel rewards</em> and <em>novel dynamics</em> at runtime — something joint-model approaches can't do.</p>
+<figure><img src="screenshots/dmpc-robotics.jpg" alt=""><figcaption><span>DMPC architecture: action proposal proposes future actions, dynamics model evolves them, a planner selects the best sequence.</span><span class="ts">00:20:21</span></figcaption></figure>
+<blockquote>We can just use a very simple sampling-based planner and we can already outperform a lot of the previous approaches.<cite>— Stannis</cite></blockquote>
+<div class="callout"><span class="label">Why it matters</span>The factorization between action proposal and dynamics model means you can re-adapt the dynamics model to new environments using just play data — no retraining the policy. A broken left ankle? Adapt and recover.</div></section><section id="model-free-vs-model"><h2 class="section">04 · One regularizer to rule them all</h2><h3 class="heading">The Lay World Model</h3><p>Isaac Ward presents work from Yanjun Liu's group on <strong>Lay World Model</strong>, which tackles representation collapse — the fundamental optimization problem in world-model training where the model learns that "every state is the same." The solution: a single regularization term called <strong>Sigg</strong> (Sketching as Isotropic Gaussian) that ensures latent embeddings stay in a healthy Gaussian distribution with one hyperparameter and one loss term.</p>
+<p>The paper compares model-free vs. model-based approaches to agent control. Lay World Model sits firmly in the model-based camp, using JEEP (Joint Embedding Predictive Architecture) to predict next-step latent embeddings in action-conditioned encoder spaces.</p>
+<figure><img src="screenshots/model-free-vs-model.jpg" alt=""><figcaption><span>The great debate: model-free policies map observations directly to actions, while model-based policies explicitly predict the future. Lay World Model takes the latter approach.</span><span class="ts">00:34:46</span></figcaption></figure>
+<div class="callout"><span class="label">Context</span>Yanjun Liu raised $1.03B in March 2025 — nearly a billion dollars specifically to train world models. This presentation helps explain what they're betting on.</div>
+<blockquote>Are we going to go with model-based or model-free? Are our agents going to have an internal model of the world or are they not? This is being fought out right now in both research and the startup community.<cite>— Isaac Ward</cite></blockquote>
+<ol class="steps"><li><b><strong>Sketch</strong> — take 1D slices across the high-dimensional latent space</b><span></span></li><li><b><strong>Test</strong> — check each slice is Gaussian-distributed</b><span></span></li><li><b><strong>Regularize</strong> — if all slices are Gaussian, the full distribution is healthy and non-collapsing</b><span></span></li></ol></section><section id="scaling-recipes"><h2 class="section">05 · When data is the bottleneck</h2><h3 class="heading">Scaling recipes for data-constrained pre-training</h3><p>Ku presents work on what to do when you have a <em>fixed</em> dataset and <em>infinite</em> compute — a regime that's approaching reality as internet text data grows ~3% per year while pre-training compute grows ~4–5x annually. The answer: revisit classical ML ideas.</p>
+<p>The paper shows that when you're data-constrained, aggressive regularization (weight decay ~30x standard) lets you keep scaling model size without overfitting. Even better: <strong>ensembling</strong> multiple smaller models beats one giant model at the same parameter count. Combining regularization + ensembling ("joint scaling") gives <strong>~5x data efficiency</strong> over the standard recipe.</p>
+<figure><img src="screenshots/scaling-recipes.jpg" alt=""><figcaption><span>Scaling recipes at 200M tokens: the standard recipe (red) eventually overfits and its loss climbs. Regularization (purple) and ensembling (blue) both decrease monotonically — ensembling wins.</span><span class="ts">00:56:54</span></figcaption></figure>
+<blockquote>The only way that we get improvements in learning efficiency is through inductive biases. The massive sample-efficiency gap between AI and humans means we might see massive gains in capability if we work on this problem.<cite>— Ku</cite></blockquote>
+<div class="callout"><span class="label">Key results</span><ul>
+<li>Regularization alone: clean power law with measurable asymptote</li>
+<li>Ensembling: even lower asymptote than regularization at same compute</li>
+<li>Joint scaling (regularization + ensembling): ~5x data efficiency win</li>
+<li>Distillation: compress an 8-model ensemble into a single small model retaining ~83% of the improvement</li>
+<li>Self-distillation: even a model distilling itself beats the regularized asymptote</li>
+</ul></div>
+<div class="callout"><span class="label">What else was here</span>Two additional papers rounded out the club: <strong>Ashe</strong> presented Andrew Gordon Wilson's work at QABs showing that PAC-Bayes theory demystifies overparameterization and benign overfitting; <strong>GSB</strong> closed the session with boba tea and an invitation to build the club together.</div>
+<p>:::</p></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=wE1ZgJdt4uM" target="_blank" rel="noopener">First YC Paper Club — SSD, DMPC, World Models, &amp; Data-Efficient Training</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>

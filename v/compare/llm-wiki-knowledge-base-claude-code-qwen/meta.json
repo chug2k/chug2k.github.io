@@ -1,0 +1,17 @@
+{
+  "title": "Andrej Karpathy Just 10x'd Everyone's Claude Code",
+  "description": "A walkthrough of Karpathy's LLM wiki method \u2014 give Claude Code raw data and watch it build a self-organizing knowledge graph in Obsidian, no RAG or vector DB needed.",
+  "source_url": "https://www.youtube.com/watch?v=sboNwYmH3AY",
+  "kind": "video",
+  "duration_minutes": 18,
+  "date": "2026-04-05",
+  "published": "2026-06-01T00:00:00Z",
+  "slug": "karpathy-llm-wiki",
+  "video_date": "2026-04-05",
+  "views": 558808,
+  "tags": [
+    "ai",
+    "agents",
+    "productivity"
+  ]
+}
