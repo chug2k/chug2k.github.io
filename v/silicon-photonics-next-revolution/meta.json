@@ -1,9 +1,9 @@
 {
   "title": "Silicon Photonics: The Next Silicon Revolution?",
-  "description": "A guided tour of silicon photonics: why silicon can't laze, how engineers worked around it, the Intel modulator breakthroughs, and why the transceiver market may be too small to make this the next silicon revolution.",
+  "description": "A guided tour of silicon photonics: why pure silicon can't make or modulate light, the workarounds engineers built, Intel's modulator milestones, and why the transceiver market may be too small to make this the next silicon revolution.",
   "source_url": "https://www.youtube.com/watch?v=29aTqLvRia8",
   "kind": "video",
-  "duration_minutes": "16",
+  "duration_minutes": 16,
   "date": "2026-05-31",
   "slug": "silicon-photonics-next-revolution",
   "video_date": "2022-06-16",
