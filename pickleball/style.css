@@ -109,6 +109,17 @@ blockquote.drill strong{color:var(--pickle-d)}
   font-family:"SF Mono",Menlo,Consolas,monospace; text-align:center}
 .content pre code{white-space:pre}
 
+/* svg court diagram */
+.court-fig{clear:both; margin:30px auto; max-width:330px; text-align:center}
+.court-fig svg{width:100%; height:auto; background:#efe6cc; border:1px solid #d8c9a3; border-radius:10px;
+  padding:10px; box-shadow:0 9px 22px rgba(40,30,10,.22)}
+.court-fig text{font-family:"Iowan Old Style",Palatino,Georgia,serif}
+.court-fig .cl-net{font-size:11px; letter-spacing:.14em; fill:#3a342a}
+.court-fig .cl-k{font-style:italic; font-size:11px; fill:#7a6f54}
+.court-fig .cl-p{font-size:12px; font-weight:700; fill:#2b261e}
+.court-fig .cl-s{font-size:9.5px; font-style:italic; fill:#9c4a1f}
+.court-fig figcaption{font-family:"Bradley Hand","Marker Felt",cursive; font-size:15px; color:var(--ink-soft); margin-top:10px}
+
 .content hr{border:none; text-align:center; margin:2.2em 0 1.2em; clear:both}
 .content hr::after{content:"🥒"; font-size:22px; opacity:.7}
 
