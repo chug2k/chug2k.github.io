@@ -7,12 +7,12 @@
     "anthropic": 4,
     "research": 4,
     "science": 4,
+    "pickleball": 3,
+    "sports": 3,
     "economics": 2,
     "physics": 2,
-    "pickleball": 2,
     "product": 2,
     "seo": 2,
-    "sports": 2,
     "stanford": 2,
     "deepmind": 1,
     "design": 1,
@@ -22,5 +22,5 @@
     "sales": 1,
     "semiconductors": 1
   },
-  "entries": 30
+  "entries": 31
 }
