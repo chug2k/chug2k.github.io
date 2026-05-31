@@ -1,0 +1,13 @@
+{
+  "title": "AI Agents, Clearly Explained",
+  "description": "Most explanations of AI agents are either too technical or too basic. This video builds up from first principles: large language models, AI workflows, and finally AI agents \u2014 using a single Google Calendar example to show exactly where the human stops deciding and the AI starts.",
+  "source_url": "https://www.youtube.com/watch?v=FwOTs4UxQS4",
+  "kind": "explainer",
+  "duration_minutes": "10",
+  "date": "2026-05-31",
+  "slug": "ai-agents-clearly-explained",
+  "tags": [
+    "ai",
+    "agents"
+  ]
+}
