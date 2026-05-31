@@ -3,8 +3,9 @@
     "ai": 12,
     "agents": 4,
     "productivity": 4,
-    "science": 3,
+    "science": 4,
     "anthropic": 2,
+    "economics": 2,
     "physics": 2,
     "pickleball": 2,
     "product": 2,
@@ -13,12 +14,12 @@
     "startups": 2,
     "deepmind": 1,
     "design": 1,
-    "economics": 1,
     "google": 1,
     "marketing": 1,
     "patents": 1,
     "sales": 1,
+    "semiconductors": 1,
     "stanford": 1
   },
-  "entries": 17
+  "entries": 18
 }
