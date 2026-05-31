@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ben Finegold: Practical Chess Advice for Intermediate Players</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Chess lecture</div>
+<h1>Ben Finegold: Practical Chess Advice for Intermediate Players</h1>
+<p class="lede">A weekly lecture on the one thing engines can&#x27;t teach you — playing the move that wins, not the move that&#x27;s best. Four Karpov games, two of Finegold&#x27;s own, and one principle he heard from Tony Miles 45 years ago and never forgot.</p>
+<div class="byline"><span><strong>Creator:</strong> GM Ben Finegold</span><span><strong>Runtime:</strong> 54 min</span><span><strong>Video published:</strong> May 6, 2025</span><span><strong>108K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=FoOIbYF6ZYM" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>The practical case</h2><ol><li>You can't play like an engine — it sees a thousand moves ahead, you see zero or one. Play the best move you can play, not the best move that exists.</li><li>Tony Miles on the bishop sac Karpov declined: it didn't matter if it was sound — he knew Karpov wouldn't play it, so he didn't waste clock calculating it.</li><li>Karpov declines speculative sacrifices but happily sacks when he's calculated it through — see Montreal '79 vs Timman and the '74 Dragon vs Korchnoi.</li><li>Improve your worst piece, put rooks on open files, take the two bishops — the small things grandmasters do every move and lower-rated players skip.</li><li>Stop your opponent's counterplay before you cash in your advantage. The opponent who calculates 'his attack doesn't work' instead of just defending is the one who loses.</li></ol></div>
+<section id="intro"><h2 class="section">01 · The thesis</h2><h3 class="heading">You can&#x27;t play like an engine</h3><p>This is the weekly lecture, and the topic is a little different than usual: practical chess advice for intermediate players. Finegold's pitch is that most improving players study the wrong way — 90% of their time spent running games through an engine, nodding along while it says "the engine doesn't like that." That doesn't make you better. It makes you try to play like an engine, which is impossible.</p>
+<p>The frame for the lecture: three Karpov games and three of his own, chosen because Karpov is, in Finegold's ranking, about the fifth-best player who ever lived — and a great <em>practical</em> player, not just a great calculator. First up, Karpov–Miles, European Team Championship 1980.</p>
+<figure><img src="screenshots/intro.jpg" alt=""><figcaption><span>Miles meets Karpov's 1.e4 with 1...a6 — the St. George (Finegold's father called it "the Birmingham," after where the game was played). The whole point of a6 is b5 and fianchettoing the bishop, dragging Karpov out of any preparation.</span><span class="ts">00:04:38</span></figcaption></figure>
+<div class="callout"><span class="label">The practical core</span>"The engine sees a thousand moves ahead and you guys see zero or one move ahead. So you can't play like an engine — and frankly you can't play like a super grandmaster either, because they understand and see a lot more than you do. You have to do the best that you can do."</div></section><section id="miles"><h2 class="section">02 · Karpov–Miles 1980</h2><h3 class="heading">Weird positions and the two bishops</h3><p>Miles doesn't play engine-approved openings — nobody in 1980 did — and other grandmasters scoffed at how he handled the opening. That's the point: chess is a practical game. Miles likes weird positions; Karpov likes stable, boring positions where he's simply better. So Miles builds a strange structure and dares Karpov to prove an edge.</p>
+<p>Finegold uses the middlegame to hand out the nuggets he keeps promising: when the opponent has a pawn on b5, play a4. Grandmasters (and engines) like the two bishops, because a bishop covers a lot of ground fast; lower-rated players cling to knights for the occasional fork. And every move, do the small thing — Rc1 to grab the open file, Rb8 to swing a dead rook onto an active one.</p>
+<figure><img src="screenshots/miles.jpg" alt=""><figcaption><span>The middlegame after the dust settles around move 18 — Miles has snagged the two bishops, Karpov has the development and the center. "White's position looks pretty nice. Black's position looks okay."</span><span class="ts">00:10:53</span></figcaption></figure>
+<blockquote>The rook on a8 isn't very good. The rook on b8 is fantastic. It's controlling a whole file and it's attacking something.<cite>— GM Ben Finegold</cite></blockquote></section><section id="sacprinciple"><h2 class="section">03 · The Miles principle</h2><h3 class="heading">It doesn&#x27;t matter if the sac is sound</h3><p>This game is the whole reason for showing the Miles game, and it's a story Finegold has carried for 45 years. A position arose where Karpov could have played the Greek-gift sacrifice, Bxh7+ — a line a generation of grandmasters had analyzed by hand (no engines yet) and concluded was very strong. Karpov instead played Ng5. Afterward someone asked Miles whether the bishop sac was good.</p>
+<figure><img src="screenshots/sacprinciple.jpg" alt=""><figcaption><span>The critical moment: Ng5 instead of the Bxh7+ sacrifice. Miles allowed the sac on purpose — he'd decided it wasn't worth a minute of his clock.</span><span class="ts">00:13:24</span></figcaption></figure>
+<blockquote>It doesn't matter if the sacrifice is good. I knew Karpov wouldn't play it.<cite>— Tony Miles, on whether Bxh7+ was sound</cite></blockquote>
+<p>That, Finegold argues, is the best practical answer he's ever heard — 100% practical, 0% engine-like. Miles didn't burn fifteen minutes calculating a speculative sac, because Karpov doesn't make speculative sacs. And the postscript matters: Karpov didn't lose because he declined the sacrifice. He lost because he later blundered a pawn — Miles traded rooks first, then took the poisoned b-pawn, and from there it was two bishops and an extra pawn into a lost ending Karpov couldn't hold.</p>
+<div class="callout"><span class="label">Why it isn&#x27;t all rosy</span>Even in a Karpov-centric lecture, Finegold opens with a Karpov loss. "Man, the truth hurts. I talk about Karpov, then I'm like, here's a game you lost. Good thing Karpov's not here. He'd slap me."</div></section><section id="timman"><h2 class="section">04 · Karpov–Timman, Montreal 1979</h2><h3 class="heading">Karpov sacs when he&#x27;s sure</h3><p>Now the counter-argument. Finegold was <em>at</em> Montreal '79 — nine years old, driven up from Detroit, watching a field that included Karpov, Tal, Spassky, Larsen, Timman. (He also met Edward Lasker there, a man who won famous games in the 1910s.) This is one of his favorite games from the tournament, and it refutes the idea that Karpov never speculates.</p>
+<p>Karpov, Black, gets a big pawn center against passive white pieces, swings the rook to b8, and then plays Nxh2 — a sacrifice. The difference from the Miles game is that Karpov saw all the way through it. Timman tried the in-between c5 to dodge the king-takes-knight / Qh4+ line, but Karpov had already seen Nxg3 — the move Timman admitted he missed — and the attack rolled on. Black sacked material, drove White's king up the board, and mated.</p>
+<figure><img src="screenshots/timman.jpg" alt=""><figcaption><span>Nxh2 — Karpov sacrifices into Timman's king. He'd calculated the alternatives, including the line Timman overlooked. "Karpov is not afraid to sacrifice. He just does it when he knows it's good."</span><span class="ts">00:29:59</span></figcaption></figure>
+<div class="callout"><span class="label">Practical advice</span>When you sacrifice a piece, look at the opponent declining it. Lower-rated players assume "he must take it, and then I have this forced win" — and they're often wrong about both halves.</div></section><section id="dragon"><h2 class="section">05 · Karpov–Korchnoi, Candidates Final 1974</h2><h3 class="heading">The de facto world championship</h3><p>The clincher. A Sicilian Dragon, Yugoslav Attack — the match Karpov won by a point to become world champion by default when Fischer wouldn't play. You'd expect positional, strategical Karpov. Instead he castles opposite, sacrifices the h- and g-pawns, and plays for mate, out-calculating Korchnoi the whole way. "What was Tony Miles talking about?"</p>
+<p>The instructive bit is the one moment it could have gone wrong. After exf6, Karpov <em>wanted</em> Nh5 leading to unstoppable mate — except Black had Re1+ and would mate first, because of Black's own ...exf6. Karpov saw it, didn't hang mate, and won with Qxh7+ and Qh8+ instead.</p>
+<figure><img src="screenshots/dragon.jpg" alt=""><figcaption><span>Deep in the attack: all four White pieces bearing down on Korchnoi's king while Black's queen sits offside on a5. "You want all your pieces to attack."</span><span class="ts">00:44:11</span></figcaption></figure>
+<blockquote>When you're thinking, you have to think about the whole chessboard. You can't think about what you're doing and forget what your opponent's doing.<cite>— GM Ben Finegold</cite></blockquote></section><section id="finegold"><h2 class="section">06 · Finegold–Kuznecov, Oakham 1986</h2><h3 class="heading">The opponent who calculated himself into a loss</h3><p>One of his own to close — a junior tournament in England, the one where he met Anand. Black (Finegold's opponent, Alex Kuznecov) was completely winning: up two pawns for nothing. The practical move was Be7, calmly stop White's attack, queen the passed pawns later. Instead Kuznecov calculated, decided the attack didn't work, and pushed the pawns — a3, a2, promoting with check.</p>
+<p>He was wrong. After the queen check, White had exactly one winning move at each step — h4, then Nf6, then king to h2 — and the cornered king escaped a stalemate that never existed because a pawn could always move. Finegold won a game he should have lost, because his opponent wasn't practical.</p>
+<figure><img src="screenshots/finegold.jpg" alt=""><figcaption><span>The finish: Nf6 threatening g5 mate, Black's king boxed in the corner. The opponent promoted instead of defending — and walked into the mate he'd calculated as harmless.</span><span class="ts">00:51:56</span></figcaption></figure>
+<div class="callout"><span class="label">The closing advice</span>Stop your opponent's counterplay, play simple moves, don't try to do too much. And if you want to never lose: stop playing. "Carlsen loses. Nakamura loses. Everybody loses. So go with the flow — if you lose, it's okay."</div></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=FoOIbYF6ZYM" target="_blank" rel="noopener">Ben Finegold: Practical Chess Advice for Intermediate Players</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>

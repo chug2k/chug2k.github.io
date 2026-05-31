@@ -5,9 +5,9 @@
     "productivity": 8,
     "sports": 7,
     "pickleball": 6,
+    "chess": 5,
     "startups": 5,
     "anthropic": 4,
-    "chess": 4,
     "research": 4,
     "science": 4,
     "economics": 2,
@@ -23,5 +23,5 @@
     "sales": 1,
     "semiconductors": 1
   },
-  "entries": 38
+  "entries": 39
 }
