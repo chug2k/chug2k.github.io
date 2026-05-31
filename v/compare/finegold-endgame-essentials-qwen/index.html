@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Endgame Essentials — Master Ben Finegold</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Chess · Endgame Theory</div>
+<h1>Endgame Essentials — Master Ben Finegold</h1>
+<p class="lede">Grandmaster Ben Finegold breaks down the endgame positions that decide the most club-level games — rook-and-pawn endings, king-and-pawn opposition, and the practical art of winning drawn positions and drawing lost ones.</p>
+<div class="byline"><span><strong>Creator:</strong> Ben Finegold</span><span><strong>Runtime:</strong> 60 min</span><span><strong>Video published:</strong> February 5, 2023</span><span><strong>188K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=_rPODSxV5yY" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>TL;DR</h2><ol><li>In endgames, rooks and kings grow stronger while minor pieces lose value. Activate your king early.</li><li>With a rook behind a passed pawn on the 7th, an <strong>f-pawn wins</strong> but g/h-pawns draw — this distinction decides real games.</li><li>The <strong>Lucena position</strong> (your king blocks the pawn) is won by "building a bridge" with your rook.</li><li>The <strong>Philadelphia defense</strong> (rook on the 3rd rank) is the go-to drawing method for rook-and-pawn endings.</li><li>Club players blunder drawn endgames under time pressure — knowing the theory prevents the worst mistakes.</li></ol></div>
+<section id="intro"><h2 class="section">01 · The endgame bonus</h2><h3 class="heading">Why rooks and kings get stronger</h3><p>Endgames are psychologically different from the rest of a game. Both sides are tired, expectations are set, and a result more favorable than anticipated often arrives precisely when the guard goes down. Finegold's practical advice: <em>win drawn endgames, draw lost ones.</em></p>
+<p>Most endgames are rook-and-pawn or king-and-pawn endings. The reason is structural — rooks start trapped in the corners and survive the piece trades of the opening and middlegame. Meanwhile, the rook and king are the two pieces that <em>gain</em> value in the endgame.</p>
+<figure><img src="screenshots/f_pawn.jpg" alt=""><figcaption><span>Rooks and kings grow stronger in endgames. The rook controls the entire board; the king can move in every direction and capture. In the opening, the king stays hidden — in the endgame, it marches forward.</span><span class="ts">00:13:54</span></figcaption></figure></section><section id="f-pawn"><h2 class="section">02 · The f-pawn wins — the g- and h-pawns don&#x27;t</h2><h3 class="heading">The Lolli-style position</h3><p>The most consequential distinction in rook-and-pawn endings: a rook behind a passed pawn on the 7th, with the defending king on the 2nd rank. With <strong>g- or h-pawns</strong> it is an easy draw — the rook oscillates on the file and the king stays put.</p>
+<p>But with an <strong>f-pawn</strong>, the attacker wins. The defending king has no safe squares — moving to the 3rd rank allows a check followed by promotion; blocking with the king allows a skewer (rook to the h-file, then the rook takes and checks).</p>
+<p>The practical lesson applies to pawn-majority positions: if you are attacking, you want to be left with an f-pawn. If you are defending, you must trade down to leave your opponent with a g- or h-pawn. This single-pawn distinction decides games at every level.</p></section><section id="lucena"><h2 class="section">03 · Building the bridge</h2><h3 class="heading">The Lucena position</h3><p>When your own king is blocking your passed pawn, you cannot simply push forward — your opponent's king will check you forever. The winning technique, known since the 1400s, is called "building a bridge."</p>
+<p>You check the opposing king away, then interpose your rook to block checks while your king escapes. The rook "bridges" across to shelter your king from further checks, allowing the pawn to promote. The key insight: you must force the opposing king far enough away that your rook can block from the side.</p>
+<figure><img src="screenshots/lucena.jpg" alt=""><figcaption><span>The Lucena position — your king on G7 blocks the G-pawn. The winning move is rook to H3, then king to H2, then king to H1. The rook "builds a bridge" to block checks while the king escapes.</span><span class="ts">00:27:48</span></figcaption></figure></section><section id="philadelphia"><h2 class="section">04 · Stop the king cold</h2><h3 class="heading">The Philadelphia defense</h3><p>When you are <em>defending</em> a rook-and-pawn ending and your king is cut off behind the pawn, there is one drawing move: <strong>place your rook on the 3rd rank</strong> (the Philadelphia position).</p>
+<p>The rook stops the enemy king from advancing. If the king checks from the side, the rook moves up or down the file. If the king advances the pawn to the 6th rank, retreat the rook to the back rank and check from behind — the opposing king now has nowhere to hide.</p>
+<figure><img src="screenshots/philadelphia.jpg" alt=""><figcaption><span>The Philadelphia defense — the black rook on the a-file stops the white king from advancing. Check the king from the side, retreat to the back rank if the pawn promotes, and check from behind.</span><span class="ts">00:26:00</span></figcaption></figure></section><section id="practical"><h2 class="section">05 · A practical win from Charlotte</h2><h3 class="heading">Time trouble exposes theory gaps</h3><p>Finegold shares a practical endgame from a Charlotte tournament where his opponent — rated 2060 and in time trouble — blundered a theoretically drawn rook-and-pawn ending.</p>
+<p>With two pawns against one, the position should be a draw. But Finegold set a trap: he let his opponent capture a pawn, creating a situation where <em>one</em> winning move (rook to d8) left Black with no legal moves that prevent mate. The lesson: even "drawn" positions have hidden resources, and time pressure magnifies theoretical gaps.</p>
+<figure><img src="screenshots/practical.jpg" alt=""><figcaption><span>A practical endgame from a Charlotte tournament. Black's king is trapped, the rook is overextended — one precise rook move creates a mating net.</span><span class="ts">00:35:10</span></figcaption></figure></section><section><h2 class="section">06 · King and pawn endings</h2><h3 class="heading">The opposition rule</h3><p>The core principle of king-and-pawn endings: <strong>both sides want their king in front of the pawn.</strong> When your king leads by two squares, you win — regardless of whose turn it is. When the opponent's king leads, it is a draw.</p>
+<p>The mechanism is <em>opposition</em> — when kings stand two squares apart on the same file or rank, the side to move loses the tempo and must yield ground. A subtler variant, the <em>distant opposition</em>, works the same way on the same rank with one square between the kings.</p>
+<div class="callout"><span class="label">The Finegold rule</span>Unless it's a side pawn (a or h file), which is almost always a draw: if your king is two squares in front of your pawn, you win.</div>
+<div class="callout"><span class="label">Stalemate watch</span>Even in known winning positions, always check for stalemate traps — especially with a, b, g, or h pawns in the corner. Play King A6 before B6 to keep the corner escape square open.</div>
+<div class="callout"><span class="label">Tablebase reality</span>Six- and seven-piece endgame tablebases solve positions instantly — engines know the answer before you finish calculating. The practical takeaway: learn the key theoretical positions (Lucena, Philadelphia, opposition) so you can recognize them early and avoid wasting time on positions with known outcomes.</div></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=_rPODSxV5yY" target="_blank" rel="noopener">Endgame Essentials — Master Ben Finegold</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>

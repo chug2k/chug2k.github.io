@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Practical Chess for Intermediate Players, with GM Ben Finegold</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">GM Ben Finegold</div>
+<h1>Practical Chess for Intermediate Players, with GM Ben Finegold</h1>
+<p class="lede">Engines tell you what to play. Opponents don&#x27;t care. A grandmaster explains why practical play — moves that create real problems for real people — beats engine-perfect chess every time, using Anatoly Karpov as his proof.</p>
+<div class="byline"><span><strong>Creator:</strong> GM Ben Finegold</span><span><strong>Runtime:</strong> 55 min</span><span><strong>Video published:</strong> May 6, 2025</span><span><strong>108K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=FoOIbYF6ZYM" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>What you&#x27;ll learn</h2><ol><li>Engine chess is a dead end — you'll never see a thousand moves ahead, so stop trying</li><li>The most practical move is often the one your opponent <em>won't</em> see coming</li><li>Karpov wasn't just positional — he sacrificed material and outcalculated world-class opponents</li><li>When you're up material, stop calculating and stop your opponent's counterplay</li></ol></div>
+<section id="practical-mindset"><h2 class="section">01 · Engine play is a trap</h2><h3 class="heading">Practical over perfect</h3><p>Engines see a thousand moves ahead. You see zero or one. Playing like an engine is impossible — and it's why a lot of intermediate players stall.</p>
+<p>Finegold's own opening repertoire with Black is "suspicious" by engine standards. He gets positions he understands, his opponents don't — and that's why he beat Shakhriyar Mamedyarov, the best player he ever beat.</p>
+<figure><img src="screenshots/format.jpg" alt=""><figcaption><span>Anatoly Karpov vs. Tony Miles, European Team Championship 1980 — the opening position. Miles was already playing outside engine-approved theory.</span><span class="ts">00:05:11</span></figcaption></figure>
+<div class="callout"><span class="label">Core thesis</span>If you spend 90% of your studying time looking at engine games and saying <em>the engine doesn't like that</em>, you're not going to improve your practical game.</div>
+<blockquote>You can't play like an engine and frankly, you can't play like a super grandmaster because they understand and see a lot more than you do. You have to do the best that you can do.<cite>GM Ben Finegold</cite></blockquote></section><section id="miles-practical"><h2 class="section">02 · Miles&#x27;s brutal shortcut</h2><h3 class="heading">Know your opponent&#x27;s habits</h3><p>In a 1980 game against Karpov, Miles faces a Greek Gift bishop sacrifice on h7. Grandmasters had exhaustively analyzed it and concluded it was winning for White. Karpov plays a safer alternative.</p>
+<p>After the game, they ask Miles: <em>Did you check the sacrifice?</em></p>
+<p>His answer is one of the most practical lines ever spoken at a chess board. He didn't spend fifteen minutes calculating a bishop sacrifice because he knew one thing: Karpov doesn't play speculative sacrifices.</p>
+<figure><img src="screenshots/miles-practical.jpg" alt=""><figcaption><span>The bishop-sacrifice position Karpov chose not to play. Miles knew it was strong — and knew Karpov wouldn't find it.</span><span class="ts">00:15:19</span></figcaption></figure>
+<blockquote>It doesn't matter if the sacrifice is good. I knew Karpov wouldn't play it.<cite>Tony Miles</cite></blockquote>
+<p>Miles saved clock time, avoided a losing line, and eventually won the game. Karpov blundered a pawn later — not because he missed the sacrifice, but because his queen drifted to d3. Miles took a rook on c1, then the b2 pawn, and converted two bishops and two extra pawns into a win.</p>
+<div class="callout"><span class="label">The lesson</span>Practical play isn't about finding the best move. It's about finding the move your opponent won't answer. If you know their habits, you can skip entire lines of analysis.</div></section><section id="timman-sac"><h2 class="section">03 · Karpov *does* sacrifice</h2><h3 class="heading">Montreal 79, knight on h2</h3><p>Finegold was nine years old when his family drove from Detroit to Montreal to watch the 1979 super-tournament. He saw Karpov, Tal, Tal, Timman, Larsen, Spassky — and Edward Lasker, in his 90s, playing chess like it was nothing.</p>
+<p>In this tournament, Karpov (playing Black) faces Jan Timman. The position gets sharp. Timman's pieces are passive, Karpov's pawns control the center. Then Karpov plays:</p>
+<ol class="steps"><li><b><strong>N×h2</strong> — knight sac on the h-pawn. Not speculative. He saw it all.</b><span></span></li><li><b><strong>…Nxg3</strong> — if White takes the knight, Black threatens Ne2+, winning the queen</b><span></span></li><li><b><strong>…Qh6</strong> — queen joins the attack. White's kingside is wrecked.</b><span></span></li><li><b><strong>…Rd8</strong> — the king has no safe square. Karpov wins.</b><span></span></li></ol>
+<figure><img src="screenshots/timman-sac.jpg" alt=""><figcaption><span>Karpov's knight lands on g4. Finegold's hand on his chin says it all — "Wait, Karpov just sacrificed?"</span><span class="ts">00:29:56</span></figcaption></figure>
+<p>Timman later admitted: <em>That's the move I missed.</em> Karpov had to see c5 — his defensive resource — before playing Nh2. Most lower-rated players who sacrifice think "he must take it, then I win." Karpov looks at the captures <em>and</em> the alternatives.</p>
+<p>This refutes Miles's claim directly. Karpov <em>did</em> sacrifice — and he <em>did</em> know what was happening.</p></section><section id="korchnoi-tactic"><h2 class="section">04 · Outcalculating Korchnoi</h2><h3 class="heading">Candidates Final 1974</h3><p>The de facto world championship match between Karpov and Korchnoi — Karpov won by one point. In this Sicilian Dragon with opposite-side castling, everyone expected positional play. They got tactics.</p>
+<p>Karpov sacrifices his h-pawn, then his g-pawn, then a rook on d5 (hanging to a knight and a rook). Each sacrifice has a concrete threat. Each forces his opponent into a worse position.</p>
+<figure><img src="screenshots/korchnoi-tactic.jpg" alt=""><figcaption><span>Karpov's rook on d5 — hanging to a knight and a rook, threatening the queen and rook simultaneously. Finegold's hand on his head: even he couldn't believe it.</span><span class="ts">00:41:37</span></figcaption></figure>
+<div class="callout"><span class="label">The key moment</span>Karpov played e5, stopping Black from sacrificing the queen for a rook, bishop, and pawn. Now it's Kh8 mate. If you don't like that mate, you like the one that wins a pawn instead.</div>
+<p>Korchnoi was on his heels the whole game. White made threats continuously; Black had one threat — and Karpov saw it.</p>
+<blockquote>Black got that one mate threat — black's only threat of the game. White was making threats the whole game.<cite>GM Ben Finegold</cite></blockquote></section><section id="fineold-game"><h2 class="section">05 · Don&#x27;t overcalculate when you&#x27;re winning</h2><h3 class="heading">Finegold vs. Kamsky, 1986</h3><p>Finegold shows a game from a 1986 junior tournament in England where his opponent was up two pawns and tried to calculate everything instead of playing practically.</p>
+<p>When you're up two pawns for nothing, you shouldn't have to figure it all out. The practical move is to stop your opponent's counterplay and promote your passers later. But his opponent couldn't wait. He played a3, sacrificing his bishop to promote his a-pawn with check.</p>
+<p>He was wrong. After Kh6, White has one winning move: h4, threatening hxg5. The game demonstrates the flip side of practical play — it's not just about creating problems for your opponent. It's about <em>stopping</em> their problems before they create new ones.</p>
+<figure><img src="screenshots/fineold-game.jpg" alt=""><figcaption><span>Finegold's own game. White to move. The knight on g5 is the only piece that matters.</span><span class="ts">00:50:47</span></figcaption></figure>
+<div class="callout"><span class="label">Practical checklist</span><ul>
+<li>Stop your opponent's counterplay <em>before</em> counting your own threats</li>
+<li>When you're up material, simple wins beat complicated wins</li>
+<li>Don't play like an engine — play like a person who wins by making their opponent miserable</li>
+</ul></div>
+<blockquote>Try to get rid of your opponent's counterplay. Try to play simple moves. Don't try to do too much and you'll see your results improve.<cite>GM Ben Finegold</cite></blockquote>
+<div class="pills"><div class="pill"><h5><strong>Know your opponent</strong> — Their habits are as useful as any opening theory</h5><p></p></div><div class="pill"><h5><strong>Skip "obviously" bad lines</strong> — If you're certain they won't play it, you don't need to calculate it</h5><p></p></div><div class="pill"><h5><strong>Stop counterplay</strong> — When you're up material, defense is your best friend</h5><p></p></div><div class="pill"><h5><strong>Simple wins beat complicated wins</strong> — Promote pawns, trade pieces, close the board</h5><p></p></div></div>
+<p>:::</p></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=FoOIbYF6ZYM" target="_blank" rel="noopener">Practical Chess for Intermediate Players, with GM Ben Finegold</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>
