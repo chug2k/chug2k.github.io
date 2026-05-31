@@ -1,7 +1,7 @@
 {
   "tags": {
-    "ai": 12,
-    "agents": 4,
+    "ai": 13,
+    "agents": 5,
     "productivity": 4,
     "science": 4,
     "anthropic": 2,
@@ -11,6 +11,7 @@
     "product": 2,
     "seo": 2,
     "sports": 2,
+    "stanford": 2,
     "startups": 2,
     "deepmind": 1,
     "design": 1,
@@ -18,8 +19,7 @@
     "marketing": 1,
     "patents": 1,
     "sales": 1,
-    "semiconductors": 1,
-    "stanford": 1
+    "semiconductors": 1
   },
-  "entries": 18
+  "entries": 19
 }

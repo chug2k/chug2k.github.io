@@ -1,0 +1,17 @@
+{
+  "title": "Agentic LLMs: RAG, Tool Calling, and Agents (Stanford CME295, Lecture 7)",
+  "description": "A walkthrough of Stanford CME295 Lecture 7 (Afshine & Shervine Amidi) on agentic LLMs \u2014 RAG (chunking, embeddings, two-stage retrieval, BM25, reranking, metrics), tool/function calling and how to teach it, tool selection and MCP, the ReAct agent loop, agent-to-agent communication, and safety.",
+  "source_url": "https://www.youtube.com/watch?v=h-7S6HNq0Vg",
+  "kind": "Lecture",
+  "duration_minutes": 109,
+  "date": "2026-05-31",
+  "published": "2026-05-31T15:58:02Z",
+  "slug": "stanford-rag-tools-and-agents",
+  "video_date": "2025-11-18",
+  "views": 82480,
+  "tags": [
+    "ai",
+    "agents",
+    "stanford"
+  ]
+}
