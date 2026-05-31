@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chess Fundamentals #3: The Mistakes That Keep You Under 1200</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Chess coaching</div>
+<h1>Chess Fundamentals #3: The Mistakes That Keep You Under 1200</h1>
+<p class="lede">IM John Bartholomew walks his student Zach through annotated games and three live blitz games, isolating the handful of habits that quietly lose games below 1200 — loose pieces, missed pawn breaks, and not thinking about squares.</p>
+<div class="byline"><span><strong>Creator:</strong> John Bartholomew</span><span><strong>Runtime:</strong> 93 min</span><span><strong>Video published:</strong> January 11, 2015</span><span><strong>710.4K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=I5o2d9slUCM" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>The short version</h2><ol><li>When you smell a winning combination, stop and check the opponent's reply first — Zach's queen sac missed that Black's recapture came with check.</li><li>Against a player shoving pawns everywhere, you build solidly and time a pawn break to cash in your development lead. Skipping the break ("no pawn break, no plan") leaves you with nothing to do.</li><li>Develop the knight behind the c-pawn, not in front of it — Knight c6 blocks the pawn that should be pressuring the center.</li><li>Learn to think in squares: c2-c4 permanently weakens d4, and a knight that can't be kicked off d4 is worth more than the bishop staring at it.</li><li>The live games show it all at once — undefended pieces, moving the same piece three times, and snap moves in time pressure that walk into mate.</li></ol></div>
+<section id="warmup"><h2 class="section">01 · The warm-up trap</h2><h3 class="heading">Check your opponent&#x27;s reply before you celebrate</h3><p>Bartholomew opens with what he calls a trick question, because the mistake in it isn't really a beginner's — it happens at every level up to world champion. White, smelling mate, sacrifices the queen on h6 expecting the rook to mop up. He'd predicted the whole line correctly except for one detail: Black's recapturing bishop hits with check, so Black answers a check with a check and the attack collapses.</p>
+<figure><img src="screenshots/warmup.jpg" alt=""><figcaption><span>The green arrow is the rook lift White was counting on. The flaw isn't the idea — it's that the queen sac hands Black a check first.</span><span class="ts">00:03:50</span></figcaption></figure>
+<p>The cleaner moves were quiet: Kf2 to sidestep the g-file before reloading the threat, or Rd7 piling a third attacker on the bishop.</p>
+<div class="callout"><span class="label">The habit to fix</span>Overlooking the opponent's threat while overrating your own. When you sense blood and the sharks are circling, that's exactly the moment to double- and triple-check for the in-between move.</div></section><section id="breaks"><h2 class="section">02 · Pawn breaks</h2><h3 class="heading">Beat a pawn-pusher by opening the position</h3><p>Game one: Zach plays a Scandinavian that transposes into a French, and his opponent does the thing you see constantly at this level — pushes nearly every pawn. The early errors are coordination ones: e6 locks in the light-square bishop that wanted f5 first, and Knight c6 blocks the c-pawn that should have gone to c5 to pressure d4.</p>
+<p>Zach gets it right with the f6 break, then loses the thread.</p>
+<figure><img src="screenshots/breaks.jpg" alt=""><figcaption><span>Black to move and win a pawn. fxe5, fxe5, then Nxe5 — and because the e3 bishop is undefended, taking the knight loses to Bxe3. The tactic only exists because Black played to open lines.</span><span class="ts">00:20:50</span></figcaption></figure>
+<p>Instead of opening it, Zach abruptly played f5, slamming the position shut and erasing his own development lead.</p>
+<blockquote>No pawn break, no plan.<cite>— John Bartholomew, quoting IM Axel Smith</cite></blockquote>
+<div class="callout"><span class="label">The takeaway</span>Against someone who pushes pawns to bother you, don't just develop and wait. Build solidly, time your break, and be ready to cash in. Close the position yourself and the development edge means nothing.</div></section><section id="squares"><h2 class="section">03 · Thinking in squares</h2><h3 class="heading">c4 weakens d4 forever</h3><p>Game two is a Sicilian where White avoids the open lines and plays c2-c4. Bartholomew uses it to push the bigger idea: stop thinking only about what your pieces attack and start thinking about squares. Both White pawns now bypass d4, so d4 can never again be challenged by a pawn — it's a permanent outpost for a Black knight.</p>
+<figure><img src="screenshots/squares.jpg" alt=""><figcaption><span>The arrow traces the knight's route toward d4. A knight planted there that can't be exchanged off dominates the board.</span><span class="ts">00:34:56</span></figcaption></figure>
+<p>He frames the strategic dream: trade off White's dark-square bishop, keep your own knight, and the d4 outpost becomes a lasting edge.</p>
+<div class="callout"><span class="label">The habit to build</span>In a closed position with no immediate tactics, evaluate the coming trades. Which piece do you want to keep, which to swap? Here, getting rid of the bishop that guards d4 is worth aiming at for many moves.</div></section><section id="smother"><h2 class="section">04 · Live game one</h2><h3 class="heading">Loose pieces and a smothered mate</h3><p>The second half is three unedited blitz games (10 minutes, 5-second increment) with Bartholomew commenting and Zach unable to hear him. The first is a disaster, and it's instructive precisely because Zach knows all this material and still does it under clock pressure.</p>
+<figure><img src="screenshots/smother.jpg" alt=""><figcaption><span>The knight that ends it sits next to Black's boxed-in king. An undefended knight on d5 became a magnet for tactics, the dark-square bishop never got out, and the king never castled.</span><span class="ts">00:51:30</span></figcaption></figure>
+<p>The collapse traces back to a loose bishop, the same piece moved repeatedly, and finally a knight retreat that allowed a textbook smothered mate in 15 moves.</p>
+<blockquote>I couldn't ever get that dark-square bishop out to castle.<cite>— Zach, afterward</cite></blockquote></section><section id="blunder"><h2 class="section">05 · Live game two</h2><h3 class="heading">A better game, undone by a snap move</h3><p>Game two is real progress — Zach develops cleanly, controls the center, and even wins a couple of pawns. But his king is exposed, and the bishop on b7 plus the enemy queen are quietly aiming at g2.</p>
+<figure><img src="screenshots/blunder.jpg" alt=""><figcaption><span>The arrows show the battery against g2. Zach's own knight was the only thing preventing mate — and he moved it.</span><span class="ts">01:08:52</span></figcaption></figure>
+<p>When the opponent dropped a piece with a strange-looking move, Zach grabbed it instantly instead of asking what it was for. It was a mating setup.</p>
+<div class="callout"><span class="label">The recurring lesson</span>When the opponent plays a weird move, slow down and ask what it threatens. The snap recapture here ignored a double attack on g2.</div></section><section id="bestgame"><h2 class="section">06 · Live game three</h2><h3 class="heading">His best game, lost on the clock</h3><p>The third game, a Queen's Gambit Declined, is night and day from the first. Zach develops the kingside first, castles by move seven, and even fixes an earlier habit by getting the pawn to c6 where it belongs. He works up a winning position — going up the exchange after a tactic on the undefended d3 bishop.</p>
+<figure><img src="screenshots/bestgame.jpg" alt=""><figcaption><span>A coherent, compact structure with only the b7 pawn slightly weak. The arrow marks the knight jump that wins material.</span><span class="ts">01:23:53</span></figcaption></figure>
+<p>Down to under two minutes, he rushed a combination that left him in a losing endgame. The result was the same as the other two, but the play wasn't.</p>
+<blockquote>The difference between how he played the first game versus this game is huge. If he keeps working on the undefended pieces, the coordination, the sense of danger — he's going to be over a thousand in blitz soon.<cite>— John Bartholomew</cite></blockquote></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=I5o2d9slUCM" target="_blank" rel="noopener">Chess Fundamentals #3: The Mistakes That Keep You Under 1200</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>
