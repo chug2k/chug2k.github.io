@@ -1,0 +1,16 @@
+{
+  "title": "Silicon Photonics \u2014 The Future of Light-Based Computing",
+  "description": "A comprehensive overview of silicon photonics \u2014 from the fundamental physics that makes silicon a poor light source, to the workarounds engineers built around it, to its growing role in data centers, LiDAR, and chiplet packaging. Why hasn't it gone mainstream yet?",
+  "source_url": "https://www.youtube.com/watch?v=29aTqLvRia8",
+  "kind": "deep-dive",
+  "duration_minutes": "15",
+  "date": "2026-05-31",
+  "slug": "silicon-photonics",
+  "video_date": "2022-06-16",
+  "views": 478036,
+  "tags": [
+    "semiconductors",
+    "science",
+    "physics"
+  ]
+}
