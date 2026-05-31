@@ -1,0 +1,16 @@
+{
+  "title": "Why Let LLMs Predict 4 Tokens at Once? Multi-Token Prediction Explained",
+  "description": "A deep-dive on multi-token prediction (MTP) \u2014 why next-token prediction is the core flaw, how MTP shotguns several tokens with a shared trunk and multiple heads, why joint training helps instead of hurting, and how DeepSeek V3 turns MTP into a training objective with sequential modules and speculative decoding.",
+  "source_url": "https://www.youtube.com/watch?v=4BhZZYg2_J4",
+  "kind": "Explainer",
+  "duration_minutes": 11,
+  "date": "2026-06-01",
+  "published": "2026-05-31T17:29:50Z",
+  "slug": "multi-token-prediction-explained",
+  "video_date": "2025-05-27",
+  "views": 57173,
+  "tags": [
+    "ai",
+    "research"
+  ]
+}

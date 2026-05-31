@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Why Let LLMs Predict 4 Tokens at Once? Multi-Token Prediction Explained</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">bycloud · AI research deep-dive</div>
+<h1>Why Let LLMs Predict 4 Tokens at Once? Multi-Token Prediction Explained</h1>
+<p class="lede">A non-reasoning model can&#x27;t tell you how many words its next sentence will have — because predicting one token at a time, left to right, makes it bad at seeing its own future. Multi-token prediction asks the model to call the next few tokens at once. It sounds like it should make things worse; it mostly makes them better, and it&#x27;s most of why DeepSeek V3 trains the way it does.</p>
+<div class="byline"><span><strong>Creator:</strong> bycloud</span><span><strong>Runtime:</strong> 11 min</span><span><strong>Video published:</strong> May 27, 2025</span><span><strong>57.2K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=4BhZZYg2_J4" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>MTP in one pass</h2><ol><li>Next-token prediction's core flaw: one token at a time, left to right, so the model can't foresee its own output — it can't even tell you how many words its next sentence will have.</li><li>Multi-token prediction (MTP) predicts t+1 through t+4 at once via a shared transformer trunk plus several output heads — up to 4x faster on paper.</li><li>Naively it hurts quality, but trained jointly it boosts structure and syntax: coding +1.7–4.5% on the largest model, the ARC benchmark improves the more tokens you predict, and you keep a 3–4x speedup. It works because models already build implicit foresight (one hidden state predicts t+2 at ~48% accuracy), and bigger models have more room for it.</li><li>DeepSeek V3's twist: use MTP as a training objective and discard it at inference, with sequential modules instead of parallel heads so the causal chain holds and the gradients enrich the shared trunk.</li><li>Payoff: across 15.7B and 228.7B-parameter models, MTP-trained beats baseline almost across the board with little overhead — and keeping one MTP module for speculative decoding gives a 1.8x speedup at an 85–90% acceptance rate.</li></ol></div>
+<section id="flaw"><h2 class="section">01 · The flaw in next-token prediction</h2><h3 class="heading">It can&#x27;t see its own future</h3><p>Ask a non-reasoning model how many words its next sentence will have and it'll usually miss — not because it can't count, but because predicting one token at a time, left to right, makes it bad at anticipating its own output. That's the core weakness of the next-token paradigm. There are alternatives — diffusion language models fill a whole window at once, so every token gets a say, not just the ones already on the left; BERT attends in both directions — but both are big architectural leaps, and next-token prediction is already so well engineered they struggle to catch up. So here's the cheaper question: what if you just predict the next two, three, or four tokens at once?</p>
+<figure><img src="screenshots/flaw.jpg" alt=""><figcaption><span>The setup: a model generating left to right can't tell you how many words the sentence it's about to write will have.</span><span class="ts">00:01:00</span></figcaption></figure></section><section id="mtp"><h2 class="section">02 · Multi-token prediction</h2><h3 class="heading">Shotgun the next few tokens</h3><p>MTP is what it sounds like: instead of only predicting token t+1 from the context up to t, also predict t+2, t+3, and t+4 simultaneously. The first version (proposed about a year ago) is architecturally boring in a good way — a standard transformer "trunk" processes the input into one hidden state, and instead of a single output head you add several independent heads, each predicting a future position in parallel off that same shared state.</p>
+<figure><img src="screenshots/mtp.jpg" alt=""><figcaption><span>A shared trunk feeds multiple output heads, each predicting a different future token. One pass shotguns four tokens — up to 4x faster on paper.</span><span class="ts">00:03:48</span></figcaption></figure></section><section id="weather"><h2 class="section">03 · Doesn&#x27;t that wreck precision?</h2><h3 class="heading">The weatherman fix</h3><p>Predicting four tokens blind sounds like it should make everything sloppier, and naively it does — the research says quality degrades badly. bycloud's framing: it's four weather forecasters each predicting a different day with no communication. But train them together and it's more like they all went through the same school, so their predictions don't drift far apart.</p>
+<figure><img src="screenshots/weather.jpg" alt=""><figcaption><span>The weatherman analogy: independent forecasters drift; jointly-trained ones stay coherent.</span><span class="ts">00:04:24</span></figcaption></figure>
+<div class="callout"><span class="label">What joint MTP training buys you</span>Structural and syntactic ability goes up. Coding improves 1.7–4.5% on the largest model across two benchmarks; the ARC abstract-reasoning benchmark gets <em>better</em> the more tokens you predict at once; and you still get a 3–4x generation speedup. As bycloud puts it, "it's actually so free."</div></section><section id="foresight"><h2 class="section">04 · Why it works</h2><h3 class="heading">Models already have foresight</h3><p>It's not a fluke. Researchers found that a single hidden state at position T already carries enough to approximate the t+2 token at about 48% accuracy. So even a model trained only on next-token prediction is implicitly building some foresight — MTP just makes it explicit and rewards it. That also explains why bigger models gain more from MTP: they have the internal room to build the foresight it promotes.</p>
+<figure><img src="screenshots/foresight.jpg" alt=""><figcaption><span>More internal space, more foresight — the bigger the model, the more MTP has to work with.</span><span class="ts">00:05:40</span></figcaption></figure>
+<blockquote>Even if a model is only trained to predict the next token, their internal hidden states would still implicitly force the model to develop some level of foresight.<cite>— bycloud</cite></blockquote></section><section id="deepseek"><h2 class="section">05 · DeepSeek V3&#x27;s twist</h2><h3 class="heading">MTP as a training objective</h3><p>So why haven't the big labs shipped it? They have — the current best open-source model, DeepSeek V3, just buried it under everything else it does. Its insight is to flip MTP from an inference-time prediction trick into a <em>training</em> objective, then drop it at inference (the deployed model does plain next-token prediction). And instead of the inconsistent parallel heads, it uses <strong>sequential MTP modules</strong> so information flows from the t+1 prediction into the t+2 one — one extra transformer block per extra token, reusing the main model's output head.</p>
+<figure><img src="screenshots/deepseek.jpg" alt=""><figcaption><span>Sequential modules: one token plus one extra equals two, with the causal chain preserved. Back to the weathermen — now the day-two forecaster can see what day one predicted.</span><span class="ts">00:07:43</span></figcaption></figure>
+<p>The key is that the gradients from the MTP modules don't just train the extra blocks; they flow back through the shared trunk and output head, forcing the core model to learn richer, longer-range representations.</p></section><section id="ablation"><h2 class="section">06 · Does it pay off?</h2><h3 class="heading">Ablations and a free speedup</h3><p>DeepSeek validated it carefully: 15.7B and 228.7B-parameter models, baseline next-token training versus the same models trained with one MTP objective (then discarded). The MTP-trained versions won almost across the board, with barely any added compute.</p>
+<figure><img src="screenshots/ablation.jpg" alt=""><figcaption><span>The ablation: MTP-trained beats the next-token baseline across both model sizes, nearly everywhere.</span><span class="ts">00:09:20</span></figcaption></figure>
+<p>The cherry on top: keep that one MTP module around at inference and use it for <strong>speculative decoding</strong> — predicting two tokens at once — and you get a 1.8x tokens-per-second speedup, with the second token accepted 85–90% of the time. It takes the best of multi-token prediction while sidestepping the parallel-head pitfalls.</p></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=4BhZZYg2_J4" target="_blank" rel="noopener">Why Let LLMs Predict 4 Tokens at Once? Multi-Token Prediction Explained</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>

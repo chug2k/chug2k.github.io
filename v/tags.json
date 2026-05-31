@@ -1,6 +1,6 @@
 {
   "tags": {
-    "ai": 13,
+    "ai": 14,
     "agents": 5,
     "productivity": 4,
     "science": 4,
@@ -18,8 +18,9 @@
     "google": 1,
     "marketing": 1,
     "patents": 1,
+    "research": 1,
     "sales": 1,
     "semiconductors": 1
   },
-  "entries": 19
+  "entries": 20
 }
