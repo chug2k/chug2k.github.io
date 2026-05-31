@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Build a Personal &quot;Claude OS&quot; — Your Own AI Co-worker Without Burning Rate Limits</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Field Notes</div>
+<h1>Build a Personal &quot;Claude OS&quot; — Your Own AI Co-worker Without Burning Rate Limits</h1>
+<p class="lede">A simple system of markdown files can turn Claude into a personal co-worker that remembers your context, follows your rules, and handles multi-step tasks across email, finances, and more — without hitting rate limits.</p>
+<div class="byline"><span><strong>Runtime:</strong> 21 min</span><span><strong>Video published:</strong> April 28, 2026</span><span><strong>282.1K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=0_dSWLOHKng" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+
+<section id="hook"><h2 class="section">01 · The hook</h2><h3 class="heading">A hung-over AI that still gets things done</h3><p>The video opens with a skit: the creator claims to be hung over and hands off a to-do list — finalize a workshop outline, write a newsletter, review expenses. The AI co-worker (Co-work) completes it all in seconds, drafting copy, pulling spending data, and flagging a questionable Bumble Premium charge. The creator's punchline: "All right, not bad. That was easy. I'm going back to bed."</p>
+<p>It's not actually a skit — the demo is real. Co-work is a folder-based system of markdown files that tells Claude how to behave, remember, and write in your voice.</p>
+<figure><img src="screenshots/hook.jpg" alt=""><figcaption><span>The opening demo: Co-work handles a full to-do list while the creator claims he's too hungover to work.</span><span class="ts">00:01:36</span></figcaption></figure></section><section id="hierarchy"><h2 class="section">02 · The hierarchy</h2><h3 class="heading">Three levels of rules, like a constitution</h3><p>Co-work uses a <strong>3-level hierarchy</strong> modeled on the US Constitution:</p>
+<figure><img src="screenshots/hierarchy.jpg" alt=""><figcaption><span>The three-level hierarchy of the Co-work workspace system.</span><span class="ts">00:03:40</span></figcaption></figure>
+<ul>
+<li><strong>Level 0 — Root</strong> (<code>claude.md</code>): The "Constitution." Applies to every task. Contains memory system rules, a routing map, and references to resource files.</li>
+<li><strong>Level 1 — Workstations</strong>: Subfolders (e.g., <code>Email HQ</code>, <code>Personal Finances</code>) with their own <code>claude.md</code>, <code>memory.md</code>, and <code>resources/</code> — adding domain-specific rules on top of the root.</li>
+<li><strong>Level 2 — Projects</strong>: Individual project folders inside workstations for one-off work (a workshop, a trip, a mortgage refinance).</li>
+</ul>
+<blockquote>claude.md is the instruction manual that tells Co-work how to behave.<cite>— Jeff</cite></blockquote></section><section id="memory"><h2 class="section">03 · Root setup</h2><h3 class="heading">memory, routing, and voice</h3><p>Every Co-work workspace starts with three files:</p>
+<ol>
+<li><strong><code>claude.md</code></strong> — Core rules: memory system (read <code>memory.md</code> every session; write to it on "remember this"), routing map (which workstation to load for which task), and references to resource files.</li>
+<li><strong><code>memory.md</code></strong> — A notepad. Stores active projects, recent memories, and progress. Claude auto-adds entries when prompted.</li>
+<li><strong><code>resources/voice-principles.md</code></strong> — Writing patterns extracted from your past emails or writing samples (greeting style, sign-offs, tone rules).</li>
+</ol>
+<figure><img src="screenshots/memory.jpg" alt=""><figcaption><span>The Memory System section of claude.md — the two rules that give Co-work persistent memory.</span><span class="ts">00:06:50</span></figcaption></figure>
+<p>Voice principles are extracted automatically: paste a prompt template into a new session (optionally with Gmail connected to analyze 30 sent emails), and Co-work builds your writing profile — warm, direct, professional, leads with transparency, no corporate jargon.</p></section><section id="workstation"><h2 class="section">04 · Workstations</h2><h3 class="heading">Universal and dedicated areas of your life</h3><p>Workstations are where the system scales. There are two types:</p>
+<figure><img src="screenshots/workstation.jpg" alt=""><figcaption><span>A dedicated workstation folder with its own claude.md, memory.md, and resources.</span><span class="ts">00:11:37</span></figcaption></figure>
+<p><strong>Universal workstations</strong> handle cross-cutting concerns:
+- <strong>Email HQ</strong> — Analyzes 4 weeks of sent emails to extract greeting, sign-off, and threading conventions. Stacks on top of root voice principles with email-specific rules (inbox zero workflow, 2-minute rule, label strategy).</p>
+<p><strong>Dedicated workstations</strong> handle one life area:
+- <strong>Personal Finances</strong> — Import 12 months of credit card statements; Co-work builds a spending tracker spreadsheet with categories, monthly/ yearly summaries, and a taxonomy you can correct and that persists.</p>
+<p>Both types are created from a single prompt template — Co-work generates the folder, files, and initial content automatically.</p></section><section id="use-cases"><h2 class="section">05 · Use cases</h2><h3 class="heading">From routing to cross-app automation</h3><p>Once set up, the system enables powerful cross-app workflows:</p>
+<ul>
+<li><strong>Save a framework</strong> — Paste a screenshot and say "figure it out." The routing map sends it to the right file automatically.</li>
+<li><strong>Draft a follow-up email</strong> — Say "I just finished a meeting." Co-work pulls the calendar event, reads the transcript, loads the right workstation, and drafts a follow-up that respects your email conventions.</li>
+<li><strong>Create a Notion project</strong> — "Set up a project in Notion for my Boston trip." Co-work fills every Notion property using your workspace's Notion conventions.</li>
+</ul>
+<figure><img src="screenshots/finances.jpg" alt=""><figcaption><span>The Personal Finances workstation auto-builds a spending tracker with categories, monthly summaries, and a taxonomy.</span><span class="ts">00:15:33</span></figcaption></figure></section><section id="tips"><h2 class="section">06 · Pro tips</h2><h3 class="heading">Don&#x27;t burn through rate limits</h3><p>Three rules to keep token costs low while getting great results:</p>
+<figure><img src="screenshots/audit.jpg" alt=""><figcaption><span>The session audit prompt: "Before we wrap, audit this session" — finds unsaved principles for next time.</span><span class="ts">00:19:37</span></figcaption></figure>
+<div class="pills"><div class="pill"><h5><strong>Keep root claude.md under 300 lines</strong> — It loads every session. Point to resource files only when needed, keep the root lean.</h5><p></p></div><div class="pill"><h5><strong>Don't repeat rules across files</strong> — Root voice principles set the tone; workstations layer only domain-specific exceptions (greeting, threading).</h5><p></p></div><div class="pill"><h5><strong>Default to Sonnet</strong> — 80% of tasks don't need Opus. Sonnet costs a fifth and is more than enough. Reserve Opus for tasks with three or more interdependent steps.</h5><p></p></div></div>
+<div class="callout"><span class="label">Key insight</span>The rules, the memory, the patterns compound every single session — start building your personal context system today.</div>
+<p>:::</p></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=0_dSWLOHKng" target="_blank" rel="noopener">Build a Personal &quot;Claude OS&quot; — Your Own AI Co-worker Without Burning Rate Limits</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>

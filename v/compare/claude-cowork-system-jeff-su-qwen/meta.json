@@ -1,0 +1,15 @@
+{
+  "title": "Build a Personal \"Claude OS\" \u2014 Your Own AI Co-worker Without Burning Rate Limits",
+  "description": "Jeff walks through his \"Co-work\" system: a workspace of claude.md, memory.md, and voice principles that stack rules across root-level and workstation-level folders, so Claude always knows how you work. He covers templates, workstations, pro tips, and how to keep token usage lean.",
+  "source_url": "https://www.youtube.com/watch?v=0_dSWLOHKng",
+  "kind": "tutorial",
+  "duration_minutes": "21",
+  "date": "2026-05-31",
+  "slug": "co-work-claude",
+  "video_date": "2026-04-28",
+  "views": 282060,
+  "tags": [
+    "ai",
+    "productivity"
+  ]
+}
