@@ -285,8 +285,9 @@ def render_entry(meta: dict, slug: str) -> str:
     if tags:
         chips = "".join(f'<span class="tag">{html.escape(t)}</span>' for t in tags)
         tags_html = f'    <div class="tags">{chips}</div>\n'
-    pub = meta.get("published") or meta.get("date") or ""
-    added_html = f'    <div class="added">Added {html.escape(fmt_date(pub))}</div>\n' if pub else ""
+    pub = str(meta.get("published") or meta.get("date") or "")
+    # `published` is a full ISO timestamp (for total-order sorting); show only the date.
+    added_html = f'    <div class="added">Added {html.escape(fmt_date(pub[:10]))}</div>\n' if pub else ""
     return (
         f'  <a class="entry" href="/v/{html.escape(slug)}/"'
         f' data-tags="{data_tags}" data-date="{html.escape(disp_date)}"'
