@@ -238,8 +238,8 @@ TEMPLATE_TAIL = """  <div class="noresults" id="noresults">No summaries match th
   function applySort() {
     var mode = sortSel.value;
     var sorted = cards.slice().sort(function (a, b) {
-      if (mode === "pub-desc")  return (b.dataset.published||"").localeCompare(a.dataset.published||"");
-      if (mode === "pub-asc")   return (a.dataset.published||"").localeCompare(b.dataset.published||"");
+      if (mode === "pub-desc")  return (Date.parse(b.dataset.published)||0) - (Date.parse(a.dataset.published)||0);
+      if (mode === "pub-asc")   return (Date.parse(a.dataset.published)||0) - (Date.parse(b.dataset.published)||0);
       if (mode === "date-desc") return b.dataset.date.localeCompare(a.dataset.date);
       if (mode === "date-asc")  return a.dataset.date.localeCompare(b.dataset.date);
       if (mode === "dur-desc")  return (+b.dataset.duration) - (+a.dataset.duration);
@@ -342,7 +342,14 @@ def main() -> int:
 
     # initial DOM order must match the default sort ("Recently added"), which
     # the JS computes from data-published (= published or date). Same key here.
-    entries.sort(key=lambda m: (m.get("published") or m.get("date") or ""), reverse=True)
+    def _pub_key(m):
+        import datetime
+        p = str(m.get("published") or m.get("date") or "")
+        try:
+            return datetime.datetime.fromisoformat(p.replace("Z", "+00:00")).astimezone(datetime.timezone.utc)
+        except Exception:
+            return datetime.datetime.min.replace(tzinfo=datetime.timezone.utc)
+    entries.sort(key=_pub_key, reverse=True)
 
     tag_counts: Counter = Counter()
     for m in entries:
