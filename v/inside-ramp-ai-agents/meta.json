@@ -1,9 +1,9 @@
 {
   "title": "Inside Ramp: How a $32B Company Runs on AI Agents",
-  "description": "A distilled walkthrough of Ramp CPO Jeff's interview on running an AI-native company \u2014 50% of code AI-built, the prompt\u2192product workflow, Voice-of-Customer and Ramp Research agents, the Inspect build tool, the leader's shift to fixing the process, and the future of the PM role.",
+  "description": "Ramp CPO Jeff on running an AI-native company: 50% of code AI-built, the prompt-to-product workflow, the Voice-of-Customer and Ramp Research agents, the Inspect build tool, why the leader's job is fixing the process, and how the PM role splits.",
   "source_url": "https://www.youtube.com/watch?v=RBqT2PHWdBg",
   "kind": "Interview",
-  "duration_minutes": 44,
+  "duration_minutes": "44",
   "date": "2026-05-31",
   "slug": "inside-ramp-ai-agents",
   "video_date": "2026-03-15",

@@ -1,6 +1,6 @@
 {
   "title": "You're Not Behind (Yet): Learn AI Agents in 13 Minutes",
-  "description": "A distilled walkthrough of theMITmonk's 'Learn AI Agents in 13 Minutes' \u2014 the ARR test for what belongs to an agent, the four workers under the hood, the OODA loop that lets agents reroute, the GPS check before you automate, why narrow ownership wins, and why judgment becomes the scarce skill.",
+  "description": "theMITmonk's crash course on AI agents: the ARR test for what belongs to an agent, the four workers under the hood, the OODA loop that lets an agent reroute, the GPS check before you automate, why narrow ownership wins, and why judgment becomes the scarce skill.",
   "source_url": "https://www.youtube.com/watch?v=P5sKKnWCvzk",
   "kind": "Explainer",
   "duration_minutes": 13,

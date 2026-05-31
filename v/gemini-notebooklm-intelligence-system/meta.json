@@ -1,6 +1,6 @@
 {
   "title": "The 4-Floor 'Intelligence System': How to Actually Use Gemini + NotebookLM",
-  "description": "A distilled walkthrough of theMITmonk's Gemini + NotebookLM \"intelligence system\" \u2014 the four floors (NotebookLM grounding, Gemini's frontier engine, Gems, and Workspace), the AIM prompt framework, and why the point is meaning, not just mechanics.",
+  "description": "A walkthrough of theMITmonk's Gemini + NotebookLM \"intelligence system\": the four floors (NotebookLM grounding, Gemini's frontier engine, Gems, and Workspace), the AIM prompt framework, and why AI changes the mechanics of work but not its meaning.",
   "source_url": "https://www.youtube.com/watch?v=oXmofS-sjwI",
   "kind": "Tutorial",
   "duration_minutes": "13",
