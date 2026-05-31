@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Patriquin &amp; Staksrud Ride the Wind Past Johns &amp; Tardio</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Pickleball</div>
+<h1>Patriquin &amp; Staksrud Ride the Wind Past Johns &amp; Tardio</h1>
+<p class="lede">Men&#x27;s doubles semifinal from the Jenius Bank Pickleball World Championships — the No. 3 seed of Hayden Patriquin and Federico Staksrud knocks out top seed Ben Johns and Gabe Tardio in straight games, in gusting wind that turned reading the air into a weapon.</p>
+<div class="byline"><span><strong>Creator:</strong> PPA Tour</span><span><strong>Runtime:</strong> 30 min</span><span><strong>Video published:</strong> November 9, 2025</span><span><strong>467.7K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=68geZh5crzw" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>The match in five</h2><ol><li>No. 3 Patriquin/Staksrud beat No. 1 Johns/Tardio in straight games to reach the final.</li><li>Patriquin/Staksrud had recently switched sides on the court — Patriquin to the left, Staksrud to the right — and the fix held up under pressure.</li><li>Wind built through the match (gusts up to ~14 mph) and Staksrud started using it on purpose, throwing balls into corners he knew would drop in.</li><li>Game one went 11-8; Patriquin/Staksrud closed game two 11-1 to finish the sweep.</li><li>It was the squad's sixth straight win as a pairing; Patriquin was the defending champ here with Riley Newman.</li></ol></div>
+<section id="intro"><h2 class="section">01 · The matchup</h2><h3 class="heading">Top seed against a team that just rebuilt itself</h3><p>Men's doubles semifinal at the Jenius Bank Pickleball World Championships. No. 1 Ben Johns and Gabe Tardio across the net from No. 3 Hayden Patriquin and Federico Staksrud — and there's miscommunication on the very first rally, both fellas leaving a ball in the left.</p>
+<figure><img src="screenshots/intro.jpg" alt=""><figcaption><span>Patriquin and Staksrud at the net before the first point, under the Carvana PPA Tour and Jenius Bank boards.</span><span class="ts">00:00:42</span></figcaption></figure>
+<p>Patriquin and Staksrud came in as a team that had recently changed locations on the court — and it's working. They barely snuck by Martinez Vic and Trunk 12-10, 12-10 in the round of 16, then handled the quarters five and two.</p>
+<div class="callout"><span class="label">Worth knowing</span>Patriquin is the defending champion here — he won this title last year with Riley Newman. He's back chasing it with a new partner.</div></section><section id="tactics"><h2 class="section">02 · The chess</h2><h3 class="heading">Why the men&#x27;s firefights look different</h3><p>A real tactical aside between points: why do the longer firefights show up more with the women than the men?</p>
+<figure><img src="screenshots/tactics.jpg" alt=""><figcaption><span>All four at the kitchen line — the position where the hands battles get decided.</span><span class="ts">00:05:46</span></figcaption></figure>
+<blockquote>I think it's the ability of the fellas to really punch from the chest with the backhand — and just a hint of extra power. And they're tighter to the line.<cite>— Color commentary</cite></blockquote>
+<div class="callout"><span class="label">The counter-take</span>The booth pushes back: the bigger factor is that the men hold the line harder. The women set up a couple feet off the kitchen, which buys time for more rat-a-tat exchanges.</div></section><section id="wind1"><h2 class="section">03 · The conditions</h2><h3 class="heading">Wind enters the match</h3><p>Through game one the air starts moving. "For the first time in five hours, I'm feeling wind in my face up here." Balls that used to sit are now drifting.</p>
+<figure><img src="screenshots/wind1.jpg" alt=""><figcaption><span>Farmers Branch, TX: 69 degrees, wind 7 mph, gusts already 14 — and climbing as a front comes in.</span><span class="ts">00:10:24</span></figcaption></figure>
+<p>Staksrud is leaning on a forehand dink slice off the bounce almost exclusively, and it's pulling errors out of Tardio. Patriquin, meanwhile, is covering the kitchen line so well that everything funnels to him to do his thing on both wings.</p>
+<blockquote>I am so jealous of that man's footwork. I think every player on tour is.<cite>— Color commentary</cite></blockquote></section><section id="game2"><h2 class="section">04 · Game two</h2><h3 class="heading">Down a game, conditions shifting</h3><p>Game one goes to Patriquin and Staksrud, 11-8. Johns and Tardio had dropped game one to a different pairing the day before and battled back, so the template exists — but the wind is now firmly in Patriquin and Staksrud's plan, not their face.</p>
+<figure><img src="screenshots/game2.jpg" alt=""><figcaption><span>End of game one: Patriquin/Staksrud 11, Johns/Tardio 8. No. 1 seed has to chase from behind again.</span><span class="ts">00:14:26</span></figcaption></figure>
+<div class="callout"><span class="label">The read</span>The concern for Johns/Tardio: with Patriquin parked in front of him, not much offense is going to come off Tardio's paddle from the kitchen — and Gabe doesn't have it in him to play passive.</div></section><section id="momentum"><h2 class="section">05 · The pull-away</h2><h3 class="heading">Staksrud on top of every counter</h3><p>Game two gets lopsided fast. Staksrud is on top of these counters — the whole key is getting the ball down, and he's done it the entire match, including five or six backhand counters that look like he's almost falling down.</p>
+<figure><img src="screenshots/momentum.jpg" alt=""><figcaption><span>Mid-firefight at the line in game two, where Patriquin/Staksrud kept winning the exchanges.</span><span class="ts">00:21:53</span></figcaption></figure>
+<blockquote>It doesn't look perfectly athletic, but it's perfectly amazing.<cite>— Color commentary</cite></blockquote>
+<p>The Ernie fakes pile up — Staksrud throwing 15 or 20 looks before Johns finally gives him the one. Johns and Tardio start gifting points back with overhits into the wind.</p></section><section id="close"><h2 class="section">06 · Riding the win</h2><h3 class="heading">Closing it out to Sunday</h3><p>The clincher is a wind read. Staksrud just throws a ball into the corner, knowing it'll land — "as smart a shot as you will ever see" — then smacks one through the middle.</p>
+<figure><img src="screenshots/close.jpg" alt=""><figcaption><span>Match point — the final exchange that sends Patriquin and Staksrud to Sunday.</span><span class="ts">00:29:51</span></figcaption></figure>
+<blockquote>And they've done it. They are riding the win to Sunday. Patriquin and Staksrud knock out the sixth-win-in-a-row squad.<cite>— Play-by-play</cite></blockquote>
+<div class="pills"><div class="pill"><h5><strong>Final</strong></h5><p>Patriquin/Staksrud over Johns/Tardio in straight games (11-8, then a runaway 11-1)</p></div><div class="pill"><h5><strong>Streak</strong></h5><p>Sixth straight win as a pairing</p></div><div class="pill"><h5><strong>Next</strong></h5><p>On to the final</p></div></div></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=68geZh5crzw" target="_blank" rel="noopener">Patriquin &amp; Staksrud Ride the Wind Past Johns &amp; Tardio</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>

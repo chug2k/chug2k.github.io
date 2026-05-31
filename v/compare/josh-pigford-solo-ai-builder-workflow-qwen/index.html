@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Building Five AI Products in Parallel</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Solo builder Josh Spigford ($4M Baremetrics exit) on shipping AI products as fast as possible</div>
+<h1>Building Five AI Products in Parallel</h1>
+<p class="lede">Peter chats with Josh Spigford — serial founder who sold Baremetrics for $4M and now builds five AI products simultaneously — about his research-to-PR workflow, adversarial AI review, and why he launches most things within 24 hours.</p>
+<div class="byline"><span><strong>Runtime:</strong> 31 min</span><span><strong>Video published:</strong> May 31, 2026</span><span><strong>714 views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=GdxLaeyu33c" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>In a nutshell</h2><ol><li>Launch within 24 hours when possible; spending months before showing anyone is a bad idea.</li><li>Use Opus for the bulk of work, then GPT for an adversarial review that finds 3-5 bugs Opus missed.</li><li>Work trees per phase give isolated, shippable checkpoints — you can roll back if something breaks.</li><li>The Chops app manages Claude skills; iterate them with AI until they're sharp.</li></ol></div>
+<section id="launch-anxiety"><h2 class="section">01 · The terror of launching</h2><h3 class="heading">Five products, one founder</h3><figure><img src="screenshots/proxy-ui.jpg" alt=""><figcaption><span>Proxy User's dark dashboard — synthetic users running real browser sessions to QA apps.</span><span class="ts">00:01:10</span></figcaption></figure>
+<blockquote>It's terrifying launching something. I've been doing it for 25 years, launched hundreds of different products, and like every single time it's just like, "God, what if zero people care?"<cite>— Josh Spigford</cite></blockquote>
+<p>Peter introduces Josh Spigford — sold Baremetrics for $4M, now building at least five AI products in parallel. Josh opens with what sounds like a confession: even after decades of shipping, the moment of launch still hits hard.</p>
+<p>The product lineup he's currently working on:</p>
+<ul>
+<li><strong>Proxy User</strong> — synthetic users that use actual browsers to QA your apps, with screen recordings of failures</li>
+<li><strong>Rumored</strong> — catches LLMs hallucinating about your brand; flags needed fixes to copy, blog posts, or schema</li>
+<li><strong>Reply Social</strong> — aggregates all mentions across social into one inbox</li>
+<li>A personal medical-docs tool — built after his mom's pancreatic cancer diagnosis, to help family coordinate care notes</li>
+</ul>
+<div class="callout"><span class="label">Product pattern</span>Each product solves a fragmented communication problem — AI noise, scattered mentions, medical chaos — that Josh encounters directly in his own workflow.</div>
+<blockquote>Josh is going to show us exactly how he builds with AI as a solo founder.<cite>— Peter</cite></blockquote></section><section><h2 class="section">02 · Feeding the beast</h2><h3 class="heading">Managing five products at once</h3><div class="pills"><div class="pill"><h5><strong>ADHD as infrastructure</strong> — "My brain naturally ping-pongs all over the place"</h5><p></p></div><div class="pill"><h5><strong>Context switching exhausts</strong> but also fulfills — he was "done" after 7 years on one product</h5><p></p></div><div class="pill"><h5><strong>Built from itch</strong> — each product starts as a tool he needs himself</h5><p></p></div><div class="pill"><h5><strong>No landing-page detour</strong> — email capture delays; just build and ship</h5><p></p></div></div>
+<figure><img src="screenshots/rumor-dashboard.jpg" alt=""><figcaption><span>Rumored's red dashboard — "AI is spreading rumors about your brand"</span><span class="ts">00:01:45</span></figcaption></figure>
+<blockquote>I'm desperate to constantly learn new things and I find myself limited if I have to sort of focus on one thing. Now, is that the best business move? I don't know. There's an argument that no, it's a terrible idea. But from a defining success perspective, I find much more fulfillment in having my hand in a lot of different things.<cite>— Josh Spigford</cite></blockquote>
+<p>Josh describes his ADHD not as a bug but as infrastructure — his brain naturally ping-pongs between interests. The difference now is he has AI tools to feed each creative thread in parallel. After seven years on Baremetrics (a single product), the idea of focusing on one thing again felt suffocating.</p>
+<div class="callout"><span class="label">On focus vs. fulfillment</span>If you want to grow something to be as profitable as possible — focus. If you want fulfillment through variety — build in parallel. You probably can't maximize both.</div>
+<blockquote>There's been stuff where I've launched within 24 hours, or even same day. The idea of spending months working on something before you put it out for other people to use, I think that's a real bad idea.<cite>— Josh Spigford</cite></blockquote></section><section><h2 class="section">03 · Research → Spec → PRs</h2><h3 class="heading">The build workflow</h3><figure><img src="screenshots/botblock-plan.jpg" alt=""><figcaption><span>BotBlock Implementation Plan — the research document generated by the build skill, outlining phases and technical decisions.</span><span class="ts">00:05:47</span></figcaption></figure>
+<blockquote>What the build skill does is it has research, planning, and implementation phases. Each phase has different instructions. The output of the research phase is a document — it takes your previous codebase, merges it with the new one, and does high-level research: different API calls you'd need, pros and cons, what can be ignored, what needs to come over.<cite>— Josh Spigford</cite></blockquote>
+<p>Josh's build process follows a strict three-stage pipeline:</p>
+<ol>
+<li><strong>Research doc</strong> — the build skill analyzes the codebase and generates a high-level technical spec with API considerations and pros/cons</li>
+<li><strong>Implementation phases</strong> — the spec breaks into 4+ user-testable phases, each becoming its own Git branch and PR</li>
+<li><strong>Work trees per phase</strong> — each phase gets a fresh, self-contained work tree with unique ports, copied env vars, and no context from previous phases</li>
+</ol>
+<div class="callout"><span class="label">Why work trees per phase?</span>"Context rot" causes LLMs to hallucinate less in fresh trees. Each tree is also a shippable save point — if a phase goes wrong, you can roll back to a known-good state.</div>
+<blockquote>I've told it to make phases that are user-testable. Sometimes implementation docs have 30-plus different phases because I want to be able to personally test each step. At the end of the day, I need to feel like it's right or notice when something loads slow or doesn't work as pictured.<cite>— Josh Spigford</cite></blockquote></section><section><h2 class="section">04 · Opus → GPT → But for Real</h2><h3 class="heading">The adversarial review loop</h3><figure><img src="screenshots/conductor-models.jpg" alt=""><figcaption><span>Conductor's Models panel — switching between Claude Opus (builder) and GPT 5.5 (reviewer) for adversarial code review.</span><span class="ts">00:11:38</span></figcaption></figure>
+<blockquote>I use Opus for the bulk of everything. It does all the planning, the first pass on everything. Then after it's built out the code in that work tree, I do a review pass using GPT 5.5. It does a sort of adversarial review and invariably finds three to five bugs that Opus overlooked.<cite>— Josh Spigford</cite></blockquote>
+<p>The review loop is Josh's quality gate — and it relies on having different models play opposing roles:</p>
+<ul>
+<li><strong>Claude Opus</strong> — does all the planning and implementation (the builder)</li>
+<li><strong>GPT 5.5</strong> — plays the skeptical reviewer, finding 3-5 bugs Opus missed</li>
+<li><strong>"But for Real" skill</strong> — a third pass that aggressively bullies the LLM back over its work; finds additional issues the GPT review missed</li>
+</ul>
+<div class="callout"><span class="label">The analogy</span>"In a typical team, you make a PR and another developer reviews it. They'll find something or suggest a better approach. This is the same — just having the AI play the reviewer's role instead of another human."</div>
+<blockquote>The But for Real skill is basically like kind of bullies the AI, the LLM, into like, 'You almost certainly screwed some stuff up. Go back over it again.' It'll find three to five bugs.<cite>— Josh Spigford</cite></blockquote></section><section><h2 class="section">05 · Chops and canvas</h2><h3 class="heading">Skills and brand</h3><figure><img src="screenshots/chops-skills.jpg" alt=""><figcaption><span>Chops — the Mac app Josh uses to manage his Claude skills, including "But for Real" and a dozen others.</span><span class="ts">00:18:16</span></figcaption></figure>
+<figure><img src="screenshots/rumored-typography.jpg" alt=""><figcaption><span>Rumored typography exploration in Illustrator — testing typefaces with quotation marks to match the brand concept.</span><span class="ts">00:20:15</span></figcaption></figure>
+<p>Josh's workflow extends beyond code:</p>
+<ul>
+<li><strong>Chops</strong> — a Mac app for managing Claude skill files. He's built about a dozen skills, each iterating with AI until sharp</li>
+<li><strong>The Learnings skill</strong> — after shipping a phase, it reviews the session and distills lessons into <code>.claude</code> rules so the same mistakes aren't repeated</li>
+<li><strong>Design</strong> — logos 99% in Illustrator with the pen tool, color schemes explored manually before touching code, then handed to AI for marketing copy</li>
+</ul>
+<blockquote>I haven't found a great way to shortcut the logo design part. The pen tool, going through a thousand different fonts — that's still something I do by hand. But for marketing pages, I build the app first, then generate the marketing site from the actual feature set.<cite>— Josh Spigford</cite></blockquote>
+<div class="callout"><span class="label">Design → code handoff</span>Brand work (logo, colors, textures) happens in Illustrator before any code. Once the brand is locked, the rest — layout, copy, features — goes to AI with brand guidelines in hand.</div>
+<blockquote>The AI has leveled the playing field. At the same time, I've got 25 years of boots-on-the-ground experience building things pre-AI. I know the general shape of how things should work, so I can quickly get to a shippable point and decide if this will hold up or become a real problem in a couple months.<cite>— Josh Spigford</cite></blockquote></section><section><h2 class="section">06 · Build first, figure out the rest</h2><h3 class="heading">Launch philosophy</h3><div class="callout"><span class="label">On failing fast</span>"The only way that [new builders] will ever figure out what not to do is by doing the thing incorrectly. Putting stuff out there. The idea of spending months working on something before you put it out for other people to use — that's a real bad idea."</div>
+<blockquote>You'll build something based on your own assumption of what the problem is. Maybe it solves the problem exactly for you, but what the problem is for somebody else is similar but looks a little different, and you can't know what that is until somebody else is in there. So you just need to get those other perspectives as fast as possible.<cite>— Josh Spigford</cite></blockquote>
+<p>Josh's core principle: ship fast, get users, learn from their actual use cases. Email capture lists and landing pages are "distractions" — they let you feel busy while avoiding the real work of shipping.</p>
+<div class="pills"><div class="pill"><h5><strong>Paid from day one</strong></h5><p>Anything with server costs needs to cover them; if nobody pays, you kill it</p></div><div class="pill"><h5><strong>Low-cost plans</strong></h5><p>Highest support overhead per customer — learned this the hard way</p></div><div class="pill"><h5><strong>Distribution</strong></h5><p>60K Twitter followers give new products an initial boost</p></div><div class="pill"><h5><strong>Where to find him</strong></h5><p>@shpigford on Twitter; everydayisayear.ai for his blog</p></div></div>
+<blockquote>What if zero people care? That sucks. As humans we tend to delay that stuff by having a landing page where we collect email addresses and try to translate that into demand. It's just not. So I just suck it up, build the thing, and shove it out there and see what happens.<cite>— Josh Spigford</cite></blockquote></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=GdxLaeyu33c" target="_blank" rel="noopener">Building Five AI Products in Parallel</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>

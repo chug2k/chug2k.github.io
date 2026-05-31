@@ -1,0 +1,17 @@
+{
+  "title": "Building Five AI Products in Parallel",
+  "description": "Josh Spigford walks through how he researches, builds, and ships multiple AI-powered products as a solo founder \u2014 using Conductor work trees, Claude skills, and an adversarial review loop between Claude Opus and GPT.",
+  "source_url": "https://www.youtube.com/watch?v=GdxLaeyu33c",
+  "kind": "interview",
+  "duration_minutes": 31,
+  "date": "2026-05-31",
+  "published": "2026-05-31T19:55:33Z",
+  "slug": "five-ai-products-parallel",
+  "video_date": "2026-05-31",
+  "views": 714,
+  "tags": [
+    "ai",
+    "agents",
+    "startups"
+  ]
+}

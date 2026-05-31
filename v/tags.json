@@ -4,13 +4,13 @@
     "agents": 12,
     "chess": 9,
     "productivity": 8,
-    "sports": 7,
-    "pickleball": 6,
+    "sports": 8,
+    "pickleball": 7,
     "startups": 6,
     "anthropic": 5,
     "research": 5,
+    "wild": 5,
     "science": 4,
-    "wild": 4,
     "product": 3,
     "economics": 2,
     "physics": 2,
@@ -24,5 +24,5 @@
     "sales": 1,
     "semiconductors": 1
   },
-  "entries": 46
+  "entries": 47
 }

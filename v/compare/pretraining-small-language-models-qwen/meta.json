@@ -1,0 +1,17 @@
+{
+  "title": "Lessons Pre-training Small Models for the Edge",
+  "description": "Small models have unique challenges. Maxim Labonne of Liquid AI shares lessons from pre-training 350M\u201324B parameter edge models: architecture choices, scaling beyond Chinchilla laws, eliminating doom looping with RL, and why tiny models excel as agentic tool-users.",
+  "source_url": "https://www.youtube.com/watch?v=fLUtUkqYHnQ",
+  "kind": "talk",
+  "duration_minutes": "20",
+  "date": "2026-06-01",
+  "published": "2026-05-31T19:30:22Z",
+  "slug": "lessons-pretraining-small-models",
+  "video_date": "2026-04-29",
+  "views": 101897,
+  "tags": [
+    "ai",
+    "research",
+    "agents"
+  ]
+}
