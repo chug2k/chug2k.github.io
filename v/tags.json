@@ -1,10 +1,10 @@
 {
   "tags": {
-    "ai": 9,
-    "agents": 2,
+    "ai": 10,
+    "agents": 3,
+    "productivity": 3,
     "anthropic": 2,
     "pickleball": 2,
-    "productivity": 2,
     "seo": 2,
     "sports": 2,
     "startups": 2,
@@ -18,5 +18,5 @@
     "science": 1,
     "stanford": 1
   },
-  "entries": 12
+  "entries": 13
 }

@@ -1,0 +1,16 @@
+{
+  "title": "AI Agents, Clearly Explained (for Non-Technical People)",
+  "description": "A distilled walkthrough of Jeff Su's \"AI Agents, Clearly Explained\" \u2014 the three levels (LLMs, AI workflows, AI agents), what RAG and ReAct really mean, and the single change that turns a workflow into an agent.",
+  "source_url": "https://www.youtube.com/watch?v=FwOTs4UxQS4",
+  "kind": "Explainer",
+  "duration_minutes": 10,
+  "date": "2026-05-31",
+  "slug": "ai-agents-clearly-explained",
+  "video_date": "2025-04-08",
+  "views": 4384733,
+  "tags": [
+    "ai",
+    "agents",
+    "productivity"
+  ]
+}
