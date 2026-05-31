@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Inside Ramp: How a $32B Company Runs on AI Agents</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Peter Yang · Jeff (CPO, Ramp)</div>
+<h1>Inside Ramp: How a $32B Company Runs on AI Agents</h1>
+<p class="lede">Ramp shipped 500+ features and passed $1B in revenue with ~25 PMs — by being maybe the most AI-native company outside the big labs. CPO Jeff walks through the actual agents, tools, and org changes behind that, from a Voice-of-Customer bot to PMs shipping real production code, and where he thinks the PM role goes next.</p>
+<div class="byline"><span><strong>Creator:</strong> Peter Yang</span><span><strong>Runtime:</strong> 44 min</span><span><strong>Video published:</strong> March 15, 2026</span><span><strong>47.1K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=RBqT2PHWdBg" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>How Ramp actually operates</h2><ol><li>Ramp shipped 500+ features and passed $1B in revenue with ~25 PMs by going aggressively AI-native: ~50% of its code is AI-written (up from 30% in December, headed for 80%).</li><li>The workflow flipped — PMs no longer write specs for engineers; the spec is a prompt and the output is a working product. PMs, designers, even sales ship real PRs via Ramp's internal 'Inspect' tool, a chunk auto-approved.</li><li>Agents run the unglamorous work: a Voice-of-Customer agent sifts Gong calls, tickets, and Salesforce to surface problems (8 minutes vs 8 days); Ramp Research answers any data question (Snowflake CLI + Claude + custom skills).</li><li>The leader's job shifts from 'best at the craft' to fixing the process: when output is wrong, ask which prompt/skill/design-system failed and fix that, so the feedback never recurs. Planning horizon: ~3 months.</li><li>The PM role isn't dead but splits — become a builder (code is free) or own the business/GM side (strategy, positioning, monetization). 'Management is probably dead'; software becomes 'coworkers,' and the bar is being the best builder.</li></ol></div>
+<section id="headline"><h2 class="section">01 · The numbers</h2><h3 class="heading">What AI-native actually looks like</h3><p>Ramp is one of the fastest-growing companies ever and, Peter argues, the most AI-native outside the big labs: 500+ features shipped last year, past $1B in revenue, with only ~25 PMs.</p>
+<figure><img src="screenshots/headline.jpg" alt=""><figcaption><span>CPO Jeff: the product principles haven't changed (understand the pain, find the solution, build, iterate) — AI just dropped the cost of each step toward zero.</span><span class="ts">00:02:04</span></figcaption></figure>
+<blockquote>50% of Ramp's code is built by AI. That's 50% up from 30% in December. It'll probably be 80% by March.<cite>— Jeff, CPO of Ramp</cite></blockquote></section><section id="spec"><h2 class="section">02 · Prompt → product</h2><h3 class="heading">The spec is for the AI now</h3><p>PMs used to pride themselves on the perfect spec. But the spec is now read by an AI, not an engineer — so it's just the output of a prompt, and <em>its</em> output is the product.</p>
+<figure><img src="screenshots/spec.jpg" alt=""><figcaption><span>Ramp's spec skill is conversation-based: it has full Notion context (personas, research) and asks clarifying questions and surfaces trade-offs, like a peer reviewer.</span><span class="ts">00:12:00</span></figcaption></figure>
+<blockquote>We don't really talk about the spec itself — that's just a step. We talk about the actual product. It's prompt to product, back to prompt, back to product.<cite>— Jeff</cite></blockquote></section><section id="voc"><h2 class="section">03 · The Voice-of-Customer agent</h2><h3 class="heading">8 minutes, not 8 days</h3><p>The hardest part is sifting signal from 50,000+ customers. Ramp's Voice-of-Customer agent reads Gong recordings, Salesforce notes, in-app surveys, support tickets, chats, and Snowflake — and answers any PM question about a persona's pain points.</p>
+<figure><img src="screenshots/voc.jpg" alt=""><figcaption><span>Hosted in a Slack-like interface (you talk to it like a coworker), it chewed through 90 days of tickets and chats to surface the key themes — ~8 minutes for what would take a human ~8 days.</span><span class="ts">00:05:00</span></figcaption></figure></section><section id="research"><h2 class="section">04 · Ask your data anything</h2><h3 class="heading">Ramp Research</h3><p>Making data easy to query made <em>more</em> people query it — so the company got more data-centric. "Ramp Research" understands the whole schema and answers questions in minutes; it's since moved to Snowflake CLI + Claude + custom skills.</p>
+<figure><img src="screenshots/research.jpg" alt=""><figcaption><span>A data-analyst skill that knows Ramp's database and best practices — prompt it for "a full report on the procurement product" and Claude generates an actionable HTML report baked into the real data.</span><span class="ts">00:08:40</span></figcaption></figure>
+<div class="callout"><span class="label">The mindset shift</span>Don't just ask the question — tell the AI your <em>goal</em>. "You'll be surprised at the questions the AI asks itself to get there."</div></section><section id="inspect"><h2 class="section">05 · Everyone ships</h2><h3 class="heading">The Inspect tool</h3><p>Ramp built "Inspect," a visual layer over LLMs so non-engineers can build real product — front-end <em>and</em> back-end, with the design component library baked in.</p>
+<figure><img src="screenshots/inspect.jpg" alt=""><figcaption><span>A live build: "add four metrics on top of the bills table" → a real, on-brand accounts-payable feature in ~5 minutes, ready as a PR. A double-digit % of PRs auto-approve; PMs, designers, operators, even sales ship with it.</span><span class="ts">00:18:48</span></figcaption></figure>
+<p>Feedback closes the loop automatically: an escalation or support ticket → AI takes the first pass, finds the code, opens the PR, often ships it.</p></section><section id="leader"><h2 class="section">06 · The leader&#x27;s new job</h2><h3 class="heading">Fix the process, not the output</h3><p>When Jeff sees a bad result, the high-leverage question isn't "how do I fix this?" — it's <em>what broke down?</em> Which prompt, skill, or design-system failed? Fix that, and the feedback never recurs.</p>
+<figure><img src="screenshots/leader.jpg" alt=""><figcaption><span>His example: he asked for "CTA above the fold" 100 times — now it's baked into the automated design process, so it's handled before anything reaches him. "My job is to automate my job."</span><span class="ts">00:24:30</span></figcaption></figure>
+<p>Planning, meanwhile, runs on a ~3-month horizon ("3 months is what used to be 3 years") — mostly aligning on strategy and trade-offs, not a roadmap.</p></section><section id="pmfuture"><h2 class="section">07 · Is the PM dead?</h2><h3 class="heading">No — it splits in two</h3><p>Jeff's surprising take: automating code is "over for the engineer" more than the PM. But the old PM training — stakeholder management, prioritization, frameworks — is outdated. The role splits two ways.</p>
+<figure><img src="screenshots/pmfuture.jpg" alt=""><figcaption><span>Path one: become a builder (code is free; craft and fast iteration matter). Path two: own the business/GM side — positioning, monetization, how you win — the context engineers and designers lack.</span><span class="ts">00:30:00</span></figcaption></figure>
+<ol class="steps"><li><b><strong>L0</strong></b><span>occasional ChatGPT user — "most likely won't be at the company."</span></li><li><b><strong>L1</strong></b><span>builds custom GPTs / Notion agents.</span></li><li><b><strong>L2</strong></b><span>built an app that automates part of their job; commits code.</span></li><li><b><strong>L3</strong></b><span>a systems builder who lifts everyone else up.</span></li></ol>
+<p>Ramp removes token/budget limits, runs public "what I built" channels and office hours, requires AI proficiency to be hired (a build-a-product interview), and tracks per-person AI usage.</p></section><section id="bigpicture"><h2 class="section">08 · Software is dead</h2><h3 class="heading">Long live coworkers</h3><p>Token cost is a non-issue ("consumption per employee isn't close to double-digit % of salary — if an agent does 10× your work, why wouldn't you pay it more than you?"). The real race is using the window before AI one-shots a whole platform.</p>
+<figure><img src="screenshots/bigpicture.jpg" alt=""><figcaption><span>Jeff's bet: software becomes "coworkers," not tables and dashboards. Build great ones by encoding deep domain expertise — and measure success by <em>reducing</em> time-in-app, the opposite of the ad-driven playbook.</span><span class="ts">00:42:00</span></figcaption></figure>
+<blockquote>Management is probably dead… now is the time to be very, very proficient in this new technology. Optimize to be the best builder in the world.<cite>— Jeff</cite></blockquote></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=RBqT2PHWdBg" target="_blank" rel="noopener">Inside Ramp: How a $32B Company Runs on AI Agents</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>
