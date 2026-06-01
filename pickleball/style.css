@@ -141,6 +141,17 @@ blockquote.drill strong{color:var(--pickle-d)}
 .court-fig .cl-pl{font-size:9px; font-weight:700; fill:#2b261e}
 .court-fig figcaption{font-family:"Caveat","Bradley Hand",cursive; font-size:18px; line-height:1.25; color:var(--ink-soft); margin-top:9px}
 
+/* the five lives of a bouncing ball */
+.bounce-fig{clear:both; margin:30px auto; max-width:580px; text-align:center}
+.bounce-fig svg{width:100%; height:auto; background:#efe6cc; border:1px solid #d8c9a3; border-radius:10px;
+  padding:10px 6px; box-shadow:0 9px 22px rgba(40,30,10,.22)}
+.bounce-fig text{font-family:"Newsreader",Georgia,serif}
+.bounce-fig .bp{font-family:"Caveat","Bradley Hand",cursive; font-weight:700; font-size:19px; fill:#2b261e}
+.bounce-fig .bp.pk{fill:var(--sienna); font-size:23px; letter-spacing:.04em}
+.bounce-fig .bs{font-style:italic; font-size:11px; fill:var(--pickle-d)}
+.bounce-fig .bn text, .bounce-fig .bn{font-size:10px; fill:#9a8c6a; font-weight:700}
+.bounce-fig figcaption{font-family:"Caveat","Bradley Hand",cursive; font-size:18px; line-height:1.25; color:var(--ink-soft); margin-top:9px}
+
 .content hr{border:none; text-align:center; margin:2.2em 0 1.2em; clear:both}
 .content hr::after{content:"🥒"; font-size:22px; opacity:.7}
 
