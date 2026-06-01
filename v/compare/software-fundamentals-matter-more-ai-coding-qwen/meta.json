@@ -1,0 +1,17 @@
+{
+  "title": "Why Software Fundamentals Matter More Than Ever",
+  "description": "Matt Pocock walks through six failure modes he hit when using AI for software development, and the classical software engineering practices that fixed each one \u2014 from Ousterhout's deep modules to Beck's daily design investment.",
+  "source_url": "https://www.youtube.com/watch?v=v4F1gFy-hqg",
+  "kind": "talk",
+  "duration_minutes": 18,
+  "date": "2026-04-23",
+  "published": "2026-06-01 02:34:04+00:00",
+  "slug": "software-fundamentals-ai-age",
+  "video_date": "2026-04-23",
+  "views": 807307,
+  "tags": [
+    "ai",
+    "design",
+    "productivity"
+  ]
+}

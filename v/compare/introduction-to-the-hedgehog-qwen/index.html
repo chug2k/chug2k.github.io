@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Hedgehog Chess Setup — Complete Guide</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">GM John Bartholomew teaches</div>
+<h1>The Hedgehog Chess Setup — Complete Guide</h1>
+<p class="lede">A complete walkthrough of the Hedgehog — one of chess&#x27;s most dynamic counterattacking setups — from the pawns on the sixth rank to the devastating d5 break that unleashes it. Includes Fischer playing it as White, plus how White should fight back.</p>
+<div class="byline"><span><strong>Creator:</strong> GM John Bartholomew</span><span><strong>Runtime:</strong> 109 min</span><span><strong>Video published:</strong> May 22, 2018</span><span><strong>78.1K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=z1IfAUOLp1Q" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>Key takeaways</h2><ol><li>The Hedgehog uses pawns on a6, b6, d6, e6 to create a "spiny" defense that looks passive but stores massive counterattacking energy</li><li>The Samish maneuver (bishop d8 → c7) is the key positional idea — it amplifies pressure on the long diagonal and makes the d5 break far more dangerous</li><li>The d5 pawn break is the Hedgehog's defining strike; you play it not to trade but to unleash your pieces and sacrifice material for initiative</li><li>Fischer played the Hedgehog as White in 1970, then launched a kingside pawn storm (Rg1–g4–g3, Rg3–Rhg3) to crush Anderson</li><li>Against the Hedgehog, Knight b3 is the most effective weapon — it eyes d6, supports a4/a5, and makes the Samish maneuver much harder for Black</li></ol></div>
+<section id="what-is-the-hedgehog"><h2 class="section">01 · The Setup</h2><h3 class="heading">What is the Hedgehog?</h3><p>The Hedgehog is not an opening — it's a flexible pawn structure. Black sets up pawns on <strong>a6, b6, d6, e6</strong>, forming what GM Bartholomew calls "quills on a hedgehog" — spiky, controlling all the fifth-rank squares in front of them.</p>
+<figure><img src="screenshots/hedgehog-structure.jpg" alt=""><figcaption><span>The quintessential Hedgehog pawn formation — pawns on a6, b6, d6, e6 controlling the fifth rank.</span><span class="ts">00:07:49</span></figcaption></figure>
+<blockquote>
+<p>"If you think of these pawns as quills on a hedgehog, they are spiky — controlling all of this territory, preventing the enemy invaders from harassing you." — GM John Bartholomew</p>
+</blockquote>
+<p>Even though a hedgehog looks purely defensive, it "does have a lot of fierce potential if you can harness that and utilize it and unleash it at the right time." The setup allows Black to absorb pressure, then strike back with devastating effect.</p></section><section id="piece-placement-and-samish"><h3 class="heading">02 · Piece Placement &amp;&amp; The Samish Maneuver</h3><p>Where do Black's pieces go in this cramped setup?</p>
+<ul>
+<li><strong>Knight</strong> → f6 (always)</li>
+<li><strong>Bishop</strong> → b7 (fianchettoed on the long diagonal, hitting e4)</li>
+<li><strong>Knight</strong> → d7 (not c6 — that blocks the bishop and runs into c-file pressure)</li>
+<li><strong>Bishop</strong> → e7</li>
+<li><strong>Rook</strong> → c8 (classical) or e8 (more dynamic)</li>
+<li><strong>Queen</strong> → b8 (withdrawn to avoid c-file exposure when d5 strikes)</li>
+</ul>
+<figure><img src="screenshots/samish-maneuver.jpg" alt=""><figcaption><span>The Samish maneuver in action — the key bishop repositioning.</span><span class="ts">00:20:33</span></figcaption></figure>
+<blockquote>
+<p>"The Samish maneuver (named after Fritz Samish) — bishop d8, then c7 — adds enormous force to the eventual d5 break. It threatens the h2 pawn and gives your bishop a devastating diagonal once the position opens."</p>
+</blockquote>
+<p>The queen on b8 isn't passive: it protects b6, eyes c4, and positions itself on the long diagonal for when the d5 break opens the line.</p></section><section id="the-d5-break"><h3 class="heading">03 · The d5 Break — Unleashing the Hedgehog</h3><p>The d5 pawn push is the Hedgehog's defining moment. It's never just a trade — it's an <strong>unleashing</strong>. You sacrifice pawns to open your pieces and launch an attack.</p>
+<figure><img src="screenshots/d5-break.jpg" alt=""><figcaption><span>The d5 break — the Hedgehog strikes back from its spiny shell.</span><span class="ts">00:29:42</span></figcaption></figure>
+<blockquote>
+<p>"You're not playing d5 to swap everything off — you're playing it to unleash the potential of your pieces. Maybe sacrifice a pawn. In some cases, straight-up sacrifice for activity."</p>
+</blockquote>
+<p>In his own game from the 2011 Manhattan Open, Bartholomew demonstrates this perfectly: down two pawns, he uses the opened e-file, his bishop on c7, and a knight on e5 to create unstoppable threats. His opponent, up material, had a loose king and doubled isolated pawns.</p>
+<div class="callout"><span class="label">Key principle</span>In the Hedgehog, it's sometimes better to continue attacking and creating threats rather than immediately trying to win material back.</div></section><section id="fischer-s-hedgehog"><h3 class="heading">04 · Fischer&#x27;s Hedgehog — 1970 Zagreb Olympiad</h3><p>In a stunning reversal, Bobby Fischer — one of the greatest players in history — played the Hedgehog <strong>as White</strong> against Arne Andersen at the 1970 Zagreb Olympiad.</p>
+<figure><img src="screenshots/fischer-setup.jpg" alt=""><figcaption><span>Fischer's Hedgehog as White — the pawns reversed, the plan kingside.</span><span class="ts">00:58:00</span></figcaption></figure>
+<p>Fischer's plan was his signature: instead of the usual queenside play, he launched a <strong>kingside pawn storm</strong>:</p>
+<ol>
+<li>Kh1 → Rg1 (preparing g4)</li>
+<li>g4, g3, Rg3, Rhg3 (doubling rooks on the g-file)</li>
+<li>Nh4 → Nf5 (the knight dive)</li>
+<li>g5 (breaking open the king's position)</li>
+</ol>
+<blockquote>
+<p>"Fischer illustrates a plan synonymous with him — using a kingside pawn assault to crush the enemy king."</p>
+</blockquote>
+<p>The result: Anderson's position collapsed under the weight of open files and White's bishop pair. Fischer won in style.</p>
+<figure><img src="screenshots/fischer-knight-f5.jpg" alt=""><figcaption><span>Fischer's knight lands on f5 — the point of the kingside assault.</span><span class="ts">01:08:14</span></figcaption></figure></section><section id="fighting-the-hedgehog"><h3 class="heading">05 · Fighting the Hedgehog — White&#x27;s Best Response</h3><p>How should White combat the Hedgehog? GM Bartholomew shows his own loss to Scott Reester in the 2013 Minnesota State Championship, where Reester demonstrated the most effective anti-Hedgehog plan.</p>
+<figure><img src="screenshots/white-plan.jpg" alt=""><figcaption><span>White's anti-Hedgehog plan — Knight b3, the key move.</span><span class="ts">00:29:54</span></figcaption></figure>
+<blockquote>
+<p>"Knight b3 is a very good multi-purpose move. It allows the queen and rook to pressure d6, the bishop to pester b6, and — most importantly — it sets up a4/a5 to support the knight jumping to a5."</p>
+</blockquote>
+<p>The Knight b3 plan works because:
+- It creates immediate pressure on d6 (the Hedgehog's lifeline)
+- It supports the queenside pawn advance a4–a5
+- After a4–a5, if Black takes, White's knight jumps to a5 with devastating effect
+- It makes the Samish maneuver much harder for Black to execute</p>
+<blockquote>
+<p>"This plan has really put me off of this particular position. I haven't found a good solution from Black's point of view."</p>
+</blockquote>
+<div class="callout"><span class="label">Why the Hedgehog is double-edged</span>The Hedgehog is "a lot of fun" but "by no means bulletproof." When things go wrong, they tend to go really wrong — you can get suffocated and the position can open up poorly for you.</div>
+<p>:::</p></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=z1IfAUOLp1Q" target="_blank" rel="noopener">The Hedgehog Chess Setup — Complete Guide</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>
