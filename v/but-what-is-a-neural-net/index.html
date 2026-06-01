@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>But What Is a Neural Net? — Inspecting the 150-Line Training Loop</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Micrograd</div>
+<h1>But What Is a Neural Net? — Inspecting the 150-Line Training Loop</h1>
+<p class="lede">Karpathy builds a full neural-network training library from scratch — 150 lines of Python — then shows you every piece under the hood: the autograd engine, the expression graph, backpropagation, and the training loop.</p>
+<div class="byline"><span><strong>Runtime:</strong> 146 min</span><span><strong>Video published:</strong> August 16, 2022</span><span><strong>3.6M views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=VMj-3S1tku0" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>TL;DR</h2><ol><li>micrograd does all of neural-network training in 150 lines</li><li>backpropagation is just the chain rule, applied recursively backward through the computation graph</li><li>gradients accumulate via += — the shared-node bug kills you if you use plain =</li><li>you can bundle operations at any granularity (tanh, exp, power) as long as you know the forward and backward formulas</li><li>the zero_grad() bug is the most common training mistake; gradients persist across iterations and corrupt the update</li></ol></div>
+<section id="intro"><h2 class="section">00 · The setup</h2><h3 class="heading">The micrograd README</h3><figure><img src="screenshots/micropaper.jpg" alt=""><figcaption><span>The micrograd README: a fluffy dog, a computation graph, and 150 lines of code that do it all.</span><span class="ts">00:00:57</span></figcaption></figure>
+<p>Karpathy introduces micrograd as a minimal autograd engine — "autograd" being short for automatic differentiation. His thesis: <strong>every neural network is just a mathematical expression</strong>, and training is differentiating the loss with respect to the weights and taking a step in the opposite direction. Everything beyond that — tensors, GPUs, batched ops — is efficiency.</p>
+<blockquote>
+<p>"Fundamentally, all you need to train a neural net is a mathematical expression and back propagation." — Andre Karpathy</p>
+</blockquote></section><section id="derivatives"><h2 class="section">08 · Derivatives</h2><h3 class="heading">Sensitivity, not symbols</h3><figure><img src="screenshots/parabola.jpg" alt=""><figcaption><span>The parabola f(x) = 3x² − 4x + 5. Karpathy measures the derivative numerically by nudging x and watching how f responds.</span><span class="ts">00:09:30</span></figcaption></figure>
+<p>Before building any machinery, he establishes the intuition: <strong>a derivative measures how sensitive the output is to a tiny nudge in one input</strong>. He uses the numerical formula:</p>
+<pre><code>(f(x + ε) − f(x)) / ε    where ε = 0.001
+</code></pre>
+<p>For a multi-variable function like d = a × b + c, each partial derivative tells you which input matters most:</p>
+<ul>
+<li><code>∂d/∂a = b = −3</code> — a has a strong negative influence</li>
+<li><code>∂d/∂b = a = 2</code> — b pushes the output up</li>
+<li><code>∂d/∂c = 1</code> — c's influence is unit-size</li>
+</ul>
+<p>The sign tells direction; the magnitude tells strength. That's all gradient descent needs.</p></section><section id="value-class"><h2 class="section">19 · The Value class</h2><h3 class="heading">Building the expression graph</h3><p>The <code>Value</code> class wraps a scalar and tracks its provenance:</p>
+<pre><code class="language-python">class Value:
+    def __init__(self, data, _children=(), _op=''):
+        self.data = data
+        self.grad = 0.0
+        self._prev = set(_children)
+        self._op = _op
+</code></pre>
+<p>Every <code>+</code> and <code>*</code> creates a new <code>Value</code> whose <code>_prev</code> points to its children and whose <code>_op</code> records the operation. This builds a <strong>directed acyclic graph</strong> of the forward pass — and the graph is all backpropagation needs to walk backward.</p>
+<p>Python's operator overloading (<code>__add__</code>, <code>__mul__</code>, <code>__rmul__</code>, <code>__pow__</code>) means expressions read naturally: <code>a * b + c</code>.</p></section><section id="backprop"><h2 class="section">29 · Back propagation</h2><h3 class="heading">The chain rule in action</h3><figure><img src="screenshots/backprop-graph.jpg" alt=""><figcaption><span>Computation graph with gradient annotations. Each node carries <code>val</code> and <code>grad</code> — the gradient flowing backward through the chain rule.</span><span class="ts">00:38:14</span></figcaption></figure>
+<p>Backpropagation starts at the output node with <code>grad = 1.0</code> and walks backward through the graph:</p>
+<ul>
+<li><strong>Addition nodes</strong> split the gradient equally to both children (local derivative = 1)</li>
+<li><strong>Multiplication nodes</strong> scale by the other input: <code>∂(x·y)/∂x = y</code></li>
+<li><strong>Composite nodes</strong> (tanh, exp, power) use their own local derivative</li>
+</ul>
+<p>The chain rule compounds: <code>∂L/∂x = (∂L/∂y) · (∂y/∂x)</code>. Each node only knows its local derivative; the global gradient arrives from downstream and gets multiplied through.</p>
+<blockquote>
+<p>"Knowing the instantaneous rate of change of z with respect to y and y relative to x allows one to calculate the instantaneous rate of change of z relative to x as a product of those two rates of change." — Chain rule intuition, via Wikipedia (cited in-video)</p>
+</blockquote></section><section id="automating"><h2 class="section">53 · Automating backward</h2><h3 class="heading">Topological sort + the accumulation bug</h3><p>The key insight: <strong>call <code>backward()</code> on every node in reverse topological order</strong>. The topological sort guarantees that when you visit a node, all of its children have already computed their gradients.</p>
+<pre><code class="language-python">def backward(self):
+    topo = []
+    visited = set()
+    def build_topo(node):
+        if node not in visited:
+            visited.add(node)
+            for child in node._prev:
+                build_topo(child)
+            topo.append(node)
+    build_topo(self)
+    self.grad = 1.0
+    for node in reversed(topo):
+        node._backward()
+</code></pre>
+<p><strong>The accumulation bug</strong>: if a variable appears more than once in the graph, <code>=</code> overwrites the gradient instead of adding to it. The fix is <code>+=</code>:</p>
+<pre><code class="language-python"># Bug: self.grad = local * out.grad    # overwrites on shared nodes
+# Fix:  self.grad += local * out.grad   # accumulates correctly
+</code></pre></section><section id="composite"><h2 class="section">1:27 · Composite operations</h2><h3 class="heading">tanh, exp, power</h3><p>You can implement operations at <strong>any granularity</strong> — from atomic <code>+</code>/<code>*</code> to a bundled <code>tanh</code> — as long as you know the forward and backward formulas:</p>
+<ul>
+<li><code>tanh(x)</code> — backward: <code>(1 − tanh²(x)) · grad</code></li>
+<li><code>exp(x)</code> — backward: <code>exp(x) · grad</code></li>
+<li><code>x ** k</code> — backward: <code>k · x^(k-1) · grad</code> (power rule)</li>
+</ul>
+<p>Division is just multiplication by <code>x⁻¹</code>: <code>a / b = a * b ** (-1)</code>.</p>
+<blockquote>
+<p>"As long as you know how to differentiate through any one function … that's all you need."</p>
+</blockquote></section><section id="pytorch"><h2 class="section">1:39 · PyTorch</h2><h3 class="heading">Same API, bigger tensors</h3><p>micrograd is intentionally designed to mirror the PyTorch API using single-element tensors:</p>
+<table>
+<thead>
+<tr>
+<th>micrograd</th>
+<th>PyTorch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Value(2.0)</code></td>
+<td><code>torch.tensor(2.0, requires_grad=True)</code></td>
+</tr>
+<tr>
+<td><code>a + b</code></td>
+<td><code>a + b</code> (identical)</td>
+</tr>
+<tr>
+<td><code>o.backward()</code></td>
+<td><code>o.backward()</code> (identical)</td>
+</tr>
+<tr>
+<td><code>o.data</code></td>
+<td><code>o.item()</code></td>
+</tr>
+<tr>
+<td><code>a.grad</code></td>
+<td><code>a.grad</code> (identical)</td>
+</tr>
+</tbody>
+</table>
+<p>The only difference is scale: production libraries use n-dimensional tensors to exploit GPU parallelism. The math doesn't change.</p></section><section id="training"><h2 class="section">1:44 · Training</h2><h3 class="heading">From neurons to gradient descent</h3><figure><img src="screenshots/neural-net.jpg" alt=""><figcaption><span>Full computation graph for a 3→4→4→1 MLP — every weight and bias is a leaf node with a gradient.</span><span class="ts">01:43:57</span></figcaption></figure>
+<p>Building a neural net from the ground up:</p>
+<pre><code class="language-python">class Neuron:
+    def __call__(self, x):
+        act = sum(w_i * x_i for w_i, x_i in zip(self.w, x)) + self.b
+        return act.tanh()
+
+class Layer:
+    def __call__(self, x):
+        return [n(x) for n in self.neurons]
+
+class MLP:
+    def __call__(self, x):
+        for layer in self.layers:
+            x = layer(x)
+        return x[-1]
+</code></pre>
+<p>Training loop (gradient descent, 100 steps, lr = 0.05):</p>
+<pre><code class="language-python">for k in range(100):
+    yhat = n(x)                       # forward
+    loss = sum((ygt - yhat_i)**2 for ygt, yhat_i in zip(y, yhat))  # MSE
+    n.zero_grad()                     # ← critical
+    loss.backward()                   # backward
+    for p in n.parameters():
+        p.data -= 0.05 * p.grad       # update
+</code></pre>
+<p>Loss drops from ~7 → ~0.04 → near-zero. The network learns to classify the four training examples.</p></section><section id="zerograd"><h2 class="section">2:10 · The bug</h2><h3 class="heading">Forgetting to zero_grad</h3><p>Karpathy catches a real bug on camera: <strong>forgetting to call <code>zero_grad()</code> before each backward pass</strong>. Gradients accumulate across iterations (<code>+=</code> is additive by design), so the second forward pass starts with stale gradient values from the first.</p>
+<p>The funny part: on this trivially simple problem, the corrupted gradients accidentally made convergence <strong>faster</strong> — the network happened to land in a good spot. On any real problem, this bug breaks training silently.</p>
+<blockquote>
+<p>"You forgot to zero_grad before that backward."</p>
+</blockquote></section><section id="recap"><h2 class="section">2:14 · Recap</h2><h3 class="heading">All you need</h3><figure><img src="screenshots/decision-surface.jpg" alt=""><figcaption><span>The learned decision surface — red and blue points separated by a neural-network boundary, after training on the micrograd XOR problem.</span><span class="ts">02:20:56</span></figcaption></figure>
+<p>The complete picture:</p>
+<ol>
+<li><strong>Forward pass</strong> — a mathematical expression takes data + weights → predictions</li>
+<li><strong>Loss</strong> — a single number measuring how far predictions are from targets</li>
+<li><strong>Backward pass</strong> — differentiate loss w.r.t. every weight via the chain rule</li>
+<li><strong>Update</strong> — nudge every weight in the opposite direction of its gradient</li>
+<li><strong>Repeat</strong> — gradient descent iterates steps 1–4 until the loss is low enough</li>
+</ol>
+<p>micrograd distills this to scalar operations for clarity. GPT and every other modern model work on the <strong>exact same principles</strong> — just with billions of parameters, cross-entropy loss, and tensors on GPUs.</p>
+<div class="callout"><span class="label">Key number</span>micrograd = 100 lines of autograd engine + 50 lines of neural-network library. That's it.</div>
+<div class="pills"><div class="pill"><h5><strong>Forward pass</strong> is the expression; <strong>backward pass</strong> is the chain rule running backward through it</h5><p></p></div><div class="pill"><h5><strong>Gradients accumulate</strong> — use <code>+=</code>, never <code>=</code></h5><p></p></div><div class="pill"><h5><strong>zero_grad()</strong> before every backward pass — the most common training bug</h5><p></p></div><div class="pill"><h5><strong>Abstraction level is a choice</strong> — bundle operations freely as long as you know forward + backward</h5><p></p></div><div class="pill"><h5><strong>Everything else is efficiency</strong> — tensors, GPUs, batched ops don't change the math</h5><p></p></div></div>
+<p>:::</p></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=VMj-3S1tku0" target="_blank" rel="noopener">But What Is a Neural Net? — Inspecting the 150-Line Training Loop</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>

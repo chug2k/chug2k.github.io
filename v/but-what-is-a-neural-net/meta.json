@@ -1,0 +1,17 @@
+{
+  "title": "But What Is a Neural Net? \u2014 Inspecting the 150-Line Training Loop",
+  "description": "A walk-through of micrograd, Karpathy's 150-line library that implements everything needed to train a neural network. From the Value class (scalar autograd) through the chain rule, backpropagation, and gradient descent \u2014 down to the actual bug of forgetting zero_grad.",
+  "source_url": "https://www.youtube.com/watch?v=VMj-3S1tku0",
+  "kind": "tutorial",
+  "duration_minutes": "146",
+  "date": "2026-06-01",
+  "published": "2026-06-01T20:19:27Z",
+  "slug": "but-what-is-a-neural-net",
+  "video_date": "2022-08-16",
+  "views": 3568669,
+  "tags": [
+    "wild",
+    "qwen",
+    "ai"
+  ]
+}
