@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Urusov Gambit — The Bishop&#x27;s Opening Nobody Defends</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Chessnetwork</div>
+<h1>The Urusov Gambit — The Bishop&#x27;s Opening Nobody Defends</h1>
+<p class="lede">A deep dive into the Urusov Gambit — an underrated 1.e4 e5 2.Bc4 d4 weapon that surprises opponents and gives White crushing attacking chances. Aaron walks through the theory, three historical games, and why Black&#x27;s best defense often isn&#x27;t accepting the gambit at all.</p>
+<div class="byline"><span><strong>Creator:</strong> Aaron (Chessnetwork)</span><span><strong>Runtime:</strong> 50 min</span><span><strong>Video published:</strong> May 19, 2016</span><span><strong>2.1M views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=dxUuueHFfFs" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>TL;DR</h2><ol><li>The Urusov Gambit (1.e4 e5 2.Bc4 Nf6 3.d4) sacrifices a pawn for rapid development and a kingside attack.</li><li>After accepting, White's plan is mechanical: Nc3, Bg5, queenside castle, and the rook to d1.</li><li>Black's most testing reply is …Nc6 followed by …d5, but even that line favors White.</li><li>Three historical games (1909, 1950, 2001) show how quickly White's attack can decide the game.</li><li>Michael Clurman reportedly uses this opening as a "secret weapon" — opponents walk right into it.</li></ol></div>
+<section id="gambit-open"><h2 class="section">01 · The Gambit</h2><h3 class="heading">The d4 surprise</h3><p>The Bishop's Opening (1.e4 e5 2.Bc4) is surprisingly obscure — even less popular than the King's Gambit. But its real punch comes after <strong>3.d4</strong>, the Urusov Gambit. White offers a pawn on d4 with the idea that Black will feel compelled to take, walking straight into a prepared attack.</p>
+<p>Aaron notes this is Michael Clurman's "secret weapon" — he plays the Bishop's Opening so often that opponents blunder into the d4 gambit without even realizing what's happened. The audience reactions confirm: most players shake their heads at the position after accepting.</p>
+<figure><img src="screenshots/gambit-open.jpg" alt=""><figcaption><span>The d4 gambit pawn appears — Black must decide: take and fight, or decline and transpose.</span><span class="ts">00:02:35</span></figcaption></figure></section><section id="tactics-accept"><h2 class="section">02 · Accept the gambit</h2><h3 class="heading">Tactical fireworks</h3><p>After <strong>3...exd4</strong>, White doesn't play the obvious Nf3. Instead, the main plan is a piece sacrifice on f7 followed by queen invasion — classic King's Gambit DNA. The tactical theme: if Black plays carelessly, <strong>Bxf7+</strong> picks up the knight and strips the king's castling rights.</p>
+<p>Aaron poses a puzzle to the class: after the bishop takes on f7, what's White's best follow-up? The answer — <strong>Bxf7+</strong>, not Qd5 — wins a piece while keeping the attack alive.</p>
+<blockquote>You've got a huge lead in development but Black is up a pawn. The challenge: can you prove the attack works, or is Black just going to be up a pawn?<cite>— Aaron</cite></blockquote>
+<div class="callout"><span class="label">White&#x27;s mechanical plan</span>Nc3 → Bg5 → O-O-O → Rd1. Against almost anything Black plays, the plan is the same.</div></section><section id="critical-theory"><h2 class="section">03 · Decline the gambit</h2><h3 class="heading">The c6–d5 counter</h3><p>Most players won't accept the gambit — they'll play <strong>…Nc6</strong> instead, transposing to the Scotch Gambit. Aaron emphasizes the critical theoretical line: <strong>…c6 followed by …d5</strong>, which at first glance looks slow but is actually the most testing response.</p>
+<p>After the position clears, White's pieces are ideally placed: the bishop on c5, queen on h4, knight on c3. Black's best is to liquidate some material and hope for equality — but engines consistently favor White.</p>
+<figure><img src="screenshots/critical-theory.jpg" alt=""><figcaption><span>The critical c6+d5 position — the highest-rated game with this opening featured Aaron's main analysis.</span><span class="ts">00:35:33</span></figcaption></figure></section><section id="game2-theory"><h2 class="section">04 · Game 1 (1909)</h2><h3 class="heading">One misstep, game over</h3><p>Aaron reviews a 1909 game between <strong>Nikolay Seitz</strong> and an unnamed opponent. Black accepts the gambit and tries the c6+d5 plan, but after a subtle <strong>Rxe1</strong> pin, the position becomes razor-sharp.</p>
+<p>White must find the difficult move <strong>Bxd5</strong> (not Nxd5) to secure an advantage. Black's only saving grace — <strong>Kf8</strong>, threatening g6 to trap the queen — is a move Aaron calls "possibly harder to find" than White's own best replies. In the game, Black simply blundered and resigned after a cascade of exchanges.</p>
+<blockquote>Stockfish prefers the crazy move G4 — threatening Bf5. Whatever Black plays, the follow-up works.<cite>— Aaron</cite></blockquote></section><section id="game3-climax"><h2 class="section">05 · Game 2 (1950) · Game 3 (2001)</h2><h3 class="heading">Shock tactics &amp; the engine&#x27;s verdict</h3><p>Two more games drive home the point. In a 1950 encounter, White's <strong>G4</strong> surprise tactic — threatening Bf5 — unravels Black's kingside in devastating fashion. The <strong>Ne6</strong> knight jump is described as an "instant killer."</p>
+<p>The pièce de résistance is a 2001 game between <strong>Boris Sakaev</strong> and <strong>Alexandra Kosteniuk</strong> at Linares. After a complex middlegame where even engines initially mis-evaluated the position, White finds <strong>Qxf7</strong> with crushing threats. Black resigned after the forced mate sequence.</p>
+<figure><img src="screenshots/game3-climax.jpg" alt=""><figcaption><span>The final position from Sakaev vs. Kosteniuk — White's attack was simply too fast.</span><span class="ts">00:48:30</span></figcaption></figure>
+<div class="pills"></div>
+<ol class="steps"><li><b><strong>Step 1</strong> — Play 1.e4 e5 2.Bc4, then surprise with 3.d4</b><span></span></li><li><b><strong>Step 2</strong> — If Black accepts (…exd4), develop Nc3, Bg5, castle queenside</b><span></span></li><li><b><strong>Step 3</strong> — Bring the rook to d1 and launch a kingside attack</b><span></span></li><li><b><strong>Step 4</strong> — If Black declines with …Nc6, be ready to transpose to Scotch Gambit lines</b><span></span></li></ol></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=dxUuueHFfFs" target="_blank" rel="noopener">The Urusov Gambit — The Bishop&#x27;s Opening Nobody Defends</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>
