@@ -1,0 +1,17 @@
+{
+  "title": "Let's build GPT: from scratch, in code, spelled out.",
+  "description": "A 116-minute walk-through of building a decoder-only Transformer from scratch. Karpathy starts with ChatGPT's probabilistic text generation, traces back to the 2017 \"Attention Is All You Need\" paper, then implements every component step by step: tokenization, batching, the BPE vocabulary, the self-attention math, multi-head attention, the feed-forward block, residual connections, LayerNorm, dropout, and GPU-accelerated scaling. The result is a ~10M parameter model that can babble Shakespeare-like text \u2014 and a clear mental model for how GPT-3 (175B params, 300B tokens) scales the same architecture up by orders of magnitude.",
+  "source_url": "https://www.youtube.com/watch?v=kCc8FmEb1nY",
+  "kind": "tutorial",
+  "duration_minutes": "116",
+  "date": "2023-01-17",
+  "published": "2026-06-01T21:10:24Z",
+  "slug": "build-gpt-from-scratch",
+  "video_date": "2023-01-17",
+  "views": 7277379,
+  "tags": [
+    "wild",
+    "qwen",
+    "ai"
+  ]
+}

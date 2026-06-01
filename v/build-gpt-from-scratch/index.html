@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Let&#x27;s build GPT: from scratch, in code, spelled out.</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Andrej Karpathy</div>
+<h1>Let&#x27;s build GPT: from scratch, in code, spelled out.</h1>
+<p class="lede">Karpathy takes a blank file and builds a character-level GPT — complete with self-attention, multi-head mechanisms, residual connections, and layer normalization — then trains it on Shakespeare. Every architectural choice is explained through live code in Google Colab.</p>
+<div class="byline"><span><strong>Runtime:</strong> 116 min</span><span><strong>Video published:</strong> January 17, 2023</span><span><strong>7.3M views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=kCc8FmEb1nY" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>What you&#x27;ll learn</h2><ol><li>The Transformer is a sequence-completion engine: given tokens, predict the next one, repeat.</li><li>Self-attention lets every token query its past via learned affinities — queries, keys, and values.</li><li>Multi-head attention gives parallel communication channels; residual connections + LayerNorm make deep networks trainable.</li><li>nanoGPT (two files, ~200 lines each) reproduces the core of GPT-2's architecture.</li><li>GPT-3 uses the same decoder-only blueprint, scaled to 175B params and 300B training tokens.</li></ol></div>
+<section id="format"><h2 class="section">01 · The promise</h2><h3 class="heading">ChatGPT&#x27;s probabilistic magic</h3><p>ChatGPT isn't deterministic — it's a language model that models the sequence of characters (or tokens) and completes whatever you give it. Run the same prompt twice and you get slightly different outputs. That randomness is the point: the model has learned the statistics of language and samples from them.</p>
+<figure><img src="screenshots/format.jpg" alt=""><figcaption><span>ChatGPT's interface showing four text-generation demos side by side.</span><span class="ts">00:00:06</span></figcaption></figure>
+<blockquote>It models the sequence of words or characters — it knows how words follow each other in the English language.<cite>— Karpathy</cite></blockquote>
+<div class="callout"><span class="label">Key insight</span>GPT = Generative Pre-trained Transformer. The Transformer is the neural architecture; "generative pre-trained" describes the two-stage training pipeline.</div></section><section id="transformers"><h2 class="section">02 · The architecture</h2><h3 class="heading">&quot;Attention Is All You Need&quot;</h3><p>The Transformer architecture emerged in 2017 as a machine translation paper nobody fully anticipated. Its core innovation: replace recurrence with attention. All you need is the attention mechanism — hence the title.</p>
+<figure><img src="screenshots/transformers.jpg" alt=""><figcaption><span>The "Attention Is All You Need" paper with its encoder-decoder architecture diagram.</span><span class="ts">00:02:20</span></figcaption></figure>
+<blockquote>The authors didn't fully anticipate the impact that the Transformer would have on the field. This architecture, with minor changes, was copy-pasted into a huge amount of applications in AI.<cite>— Karpathy</cite></blockquote></section><section id="nanogpt"><h2 class="section">03 · nanoGPT</h2><h3 class="heading">From scratch, in code, spelled out</h3><p>nanoGPT is Karpathy's minimalist implementation: two Python files of roughly 300 lines each. One defines the GPT model (the Transformer). The other trains it on any given text dataset. Starting with tiny Shakespeare (~1 MB of text), the goal is character-level generation — one character at a time.</p>
+<figure><img src="screenshots/nanogpt.jpg" alt=""><figcaption><span>The nanoGPT GitHub README showing the loss curve and example Shakespeare-like output.</span><span class="ts">01:46:33</span></figcaption></figure>
+<div class="callout"><span class="label">The numbers</span>The final model has ~10 million parameters, trained on ~300K tokens (tiny Shakespeare). The training code is roughly 200 lines.</div></section><section id="tokenization"><h2 class="section">04 · Tokenization</h2><h3 class="heading">From characters to integers</h3><p>Before the model sees any text, it must be converted to integers. Character-level tokenization maps each unique character to an index — Karpathy's tiny Shakespeare dataset has 65 possible characters (spaces, newlines, uppercase, lowercase, punctuation). This is the simplest possible tokenizer, but it produces very long sequences. Real models like GPT use subword tokenizers (byte-pair encoding via tiktoken) with a vocabulary of ~50K tokens, producing shorter sequences at the cost of a larger codebook.</p>
+<figure><img src="screenshots/tokenization.jpg" alt=""><figcaption><span>Google Colab notebook showing the character vocabulary and encoding/decoding functions.</span><span class="ts">00:08:40</span></figcaption></figure>
+<blockquote>You can trade off the codebook size and the sequence lengths: very long sequences of integers with very small vocabularies, or short sequences with very large vocabularies.<cite>— Karpathy</cite></blockquote></section><section id="attention"><h2 class="section">05 · Training data</h2><h3 class="heading">Batches, blocks, and context</h3><p>The model never sees the full text at once. Instead, it trains on random chunks (blocks) of fixed length — Karpathy starts with block size 8, then scales to 256. Each block contains multiple training examples: given the first N characters, predict the (N+1)th. A batch stacks B independent blocks, processed in parallel on the GPU.</p>
+<figure><img src="screenshots/attention.jpg" alt=""><figcaption><span>Colab output showing the training data tensor — a 4×8 matrix of integer sequences with their corresponding targets.</span><span class="ts">01:02:30</span></figcaption></figure>
+<div class="callout"><span class="label">Training setup</span>Final configuration: batch size 64, block size 256, learning rate 3e-4, 6 attention heads, 6 layers, 384-dim embeddings, 0.2 dropout. Trained on an A100 GPU for ~15 minutes. Validation loss dropped from 4.87 (random) to 1.48.</div>
+<blockquote>We're never going to actually feed the entire text into a Transformer all at once — that would be computationally very expensive and prohibitive.<cite>— Karpathy</cite></blockquote></section><section id="architecture"><h2 class="section">06 · Self-attention</h2><h3 class="heading">Tokens that talk to each other</h3><p>In a character-level model, tokens don't inherently communicate. Self-attention fixes this: every token emits a <strong>query</strong> (what am I looking for?), a <strong>key</strong> (what do I contain?), and a <strong>value</strong> (what information will I share?). Queries dot-product with keys to produce affinities — learned attention weights — which softmax-normalize into a probability distribution over the past. The model then aggregates values weighted by these affinities.</p>
+<figure><img src="screenshots/architecture.jpg" alt=""><figcaption><span>The decoder architecture diagram showing self-attention blocks, feed-forward networks, LayerNorm, and the autoregressive masking.</span><span class="ts">01:24:27</span></figcaption></figure>
+<blockquote>Attention is a communication mechanism — you can think about it as a communication mechanism where you have a number of nodes in a directed graph, and nodes aggregate information via a weighted sum from all the nodes that point to them.<cite>— Karpathy</cite></blockquote>
+<div class="pills"><div class="pill"><h5><strong>Q · K</strong> — dot product between queries and transposed keys produces raw affinity scores</h5><p></p></div><div class="pill"><h5><strong>/ √d_k</strong> — scale by the square root of the head dimension to prevent softmax from becoming too peaky</h5><p></p></div><div class="pill"><h5><strong>softmax</strong> — normalize affinities into a probability distribution (with causal masking so future tokens can't attend)</h5><p></p></div><div class="pill"><h5><strong>· V</strong> — weighted aggregate of value vectors, producing the attended output</h5><p></p></div></div></section><section id="block"><h2 class="section">07 · Multi-head attention</h2><h3 class="heading">Parallel communication channels</h3><p>Instead of one monolithic attention mechanism, multi-head attention runs multiple heads in parallel — each with its own learned projections for Q, K, and V. The heads operate in lower-dimensional subspaces (e.g., 384-dim embeddings / 6 heads = 64-dim per head) and their outputs are concatenated. This lets different heads attend to different kinds of relationships: one might track subject-verb agreement, another might track long-range dependencies.</p>
+<figure><img src="screenshots/block.jpg" alt=""><figcaption><span>The transformer block implementation showing the multi-head attention module, feed-forward network, and residual connections.</span><span class="ts">01:28:00</span></figcaption></figure>
+<blockquote>It's really just multiple attentions running in parallel and concatenating their results.<cite>— Karpathy</cite></blockquote></section><section id="scaling"><h2 class="section">08 · The transformer block</h2><h3 class="heading">Communication + computation</h3><p>Each transformer block interleaves two operations: <strong>communication</strong> (multi-head self-attention) and <strong>computation</strong> (a position-wise feed-forward network). The feed-forward layer expands the embedding dimension by 4×, applies a ReLU (or GELU in nanoGPT), then projects back. Crucially, both operations use <strong>residual connections</strong> — the output of each sub-layer is added back to its input. This creates a "gradient super highway" that lets supervision flow unimpeded through deep networks.</p>
+<p>Layer normalization normalizes the features at each token position (across the embedding dimension), stabilizing training. Karpathy uses the <strong>pre-normalization</strong> variant (LayerNorm before each sub-layer) rather than the original paper's post-normalization.</p>
+<figure><img src="screenshots/scaling.jpg" alt=""><figcaption><span>The scaling comparison from the Attention Is All You Need paper showing encoder and decoder blocks.</span><span class="ts">01:39:00</span></figcaption></figure>
+<div class="callout"><span class="label">Residual connections</span>From the ResNet paper (2015): addition distributes gradients equally to both branches during backpropagation, so supervision hops through every addition node all the way to the input — an unimpeded gradient super highway.</div></section><section id="gpt3-table"><h2 class="section">09 · Scaling up</h2><h3 class="heading">From Shakespeare to the internet</h3><p>With residual connections and LayerNorm in place, the network becomes trainable at scale. Karpathy increases the model size: 384-dim embeddings, 6 heads, 6 layers, 64 batch size, 256 block size. The validation loss drops from 4.87 → 2.08 → 1.48. The generated text starts to resemble Shakespeare's register — archaic vocabulary and meter — even though it's nonsense.</p>
+<p>The same architecture scales to GPT-3: 175 billion parameters (17,500× larger), trained on 300 billion tokens (~1M× more data), across thousands of GPUs. The architecture is "nearly identical" — just bigger.</p>
+<figure><img src="screenshots/gpt3-table.jpg" alt=""><figcaption><span>GPT-3 model specifications table showing parameter counts, layer counts, and training token counts across model sizes.</span><span class="ts">01:52:00</span></figcaption></figure>
+<blockquote>Between 10,000 and 1 million times bigger depending on how you count. That's all I have for now — go forth and transform.<cite>— Karpathy</cite></blockquote></section><section id="chatgpt"><h2 class="section">10 · Beyond pre-training</h2><h3 class="heading">Fine-tuning for conversation</h3><p>Pre-training alone gives a document completer — not a chatbot. It completes whatever text you feed it, whether it's a question, a news article, or Shakespeare. To get ChatGPT's behavior requires two additional stages:</p>
+<ol>
+<li><strong>Supervised fine-tuning</strong>: Train on human-written Q&amp;A pairs so the model learns to expect a question and produce an answer.</li>
+<li><strong>Reinforcement learning from human feedback (RLHF)</strong>: Humans rank model responses; a reward model is trained on those rankings; PPO (policy gradient optimization) fine-tunes the model to maximize reward.</li>
+</ol>
+<div class="callout"><span class="label">The full pipeline</span>Pre-training → document completer → SFT → assistant behavior → RLHF → aligned assistant (ChatGPT)</div>
+<blockquote>nanoGPT focuses on the pre-training stage. If you want the model to perform tasks, be aligned in a specific way, or detect sentiment — anytime you don't want just a document completer — you have to complete further stages of fine-tuning.<cite>— Karpathy</cite></blockquote></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=kCc8FmEb1nY" target="_blank" rel="noopener">Let&#x27;s build GPT: from scratch, in code, spelled out.</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>
