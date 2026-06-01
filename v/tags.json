@@ -1,11 +1,11 @@
 {
   "tags": {
-    "ai": 32,
-    "wild": 19,
+    "ai": 33,
+    "wild": 20,
     "agents": 13,
     "chess": 12,
+    "qwen": 10,
     "productivity": 9,
-    "qwen": 9,
     "research": 8,
     "sports": 8,
     "pickleball": 7,
@@ -19,5 +19,5 @@
     "seo": 2,
     "stanford": 2
   },
-  "entries": 61
+  "entries": 62
 }

@@ -1,0 +1,17 @@
+{
+  "title": "Visually Explaining Transformers \u2014 3Blue1Brown",
+  "description": "A visual deep-dive into how Transformers actually work, from next-token prediction to the QKV attention mechanism, with geometric intuition for embedding spaces and why scale alone has driven the rise of the architecture.",
+  "source_url": "https://www.youtube.com/watch?v=KJtZARuO3JY",
+  "kind": "talk",
+  "duration_minutes": 58,
+  "date": "2026-06-01",
+  "published": "2026-06-01T23:29:28Z",
+  "slug": "visually-explaining-transformers-3blue1brown",
+  "video_date": "2024-11-20",
+  "views": 1232856,
+  "tags": [
+    "wild",
+    "qwen",
+    "ai"
+  ]
+}
