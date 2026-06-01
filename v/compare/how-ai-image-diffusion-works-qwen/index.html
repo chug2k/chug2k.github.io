@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Inside Diffusion Models — Physics, Vector Fields, and Text-to-Image</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">A guest video from Welsh Labs — unpacking the physics and geometry behind AI image and video generation</div>
+<h1>Inside Diffusion Models — Physics, Vector Fields, and Text-to-Image</h1>
+<p class="lede">Diffusion models turn pure noise into video by learning to play Brownian motion backwards — then steer that process with text through vector arithmetic in a shared embedding space.</p>
+<div class="byline"><span><strong>Creator:</strong> Stephen Welsh / Welsh Labs</span><span><strong>Runtime:</strong> 37 min</span><span><strong>Video published:</strong> July 25, 2025</span><span><strong>1.9M views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=iv-5mZ_9CPY" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>TL;DR</h2><ol><li>Image and video models use diffusion — noise added forward, learned reversed backward — equivalent to Brownian motion in high-dimensional space</li><li>CLIP learns a shared embedding space where vector arithmetic captures conceptual differences (hat − no-hat = "hat")</li><li>DDPM trains models to predict total noise from any diffusion step, not just one step at a time — this reduces variance and accelerates learning</li><li>Adding random noise during generation is essential: without it, all outputs converge to the dataset average, producing blurry images</li><li>Classifier-free guidance subtracts the unconditional vector field from the conditioned one and amplifies the difference, steering generation toward the prompt</li></ol></div>
+<section id="format"><h2 class="section">01 · Reverse Brownian Motion</h2><h3 class="heading">Noise → video</h3><p>AI image and video models operate through a process called <strong>diffusion</strong> — remarkably equivalent to Brownian motion (particles diffusing through a medium), but with time run backwards and in high-dimensional pixel space.</p>
+<figure><img src="screenshots/format.jpg" alt=""><figcaption><span>A WAN 2.1 model shapes pure noise into a coherent astronaut on horseback on the lunar surface over 50 iterations.</span><span class="ts">00:02:06</span></figcaption></figure>
+<p>The process starts with a random number generator filling every pixel with noise. A transformer — the same architecture behind LLMs — reads that noise video, outputs a slightly less noisy one, and the cycle repeats. Step by step, the transformer carves realistic video out of static.</p>
+<blockquote>The best models are closed source, but there are some compelling open source models.<cite>— Stephen Welsh</cite></blockquote></section><section id="clip"><h2 class="section">02 · The Shared Space of Words and Pictures</h2><h3 class="heading">CLIP&#x27;s contrastive embedding</h3><p>In 2021, OpenAI released <strong>CLIP</strong> — two models (text encoder + image encoder) trained on 400M image-caption pairs to map both words and pictures into a shared 512-dimensional vector space.</p>
+<figure><img src="screenshots/clip.jpg" alt=""><figcaption><span>The CLIP similarity matrix — green highlights the diagonal (matching pairs), colored rows show cross-similarity between all image-caption combinations.</span><span class="ts">00:05:05</span></figcaption></figure>
+<p>The training objective is <strong>contrastive</strong>: maximize similarity between matching pairs on the diagonal while minimizing similarity between all off-diagonal (mismatched) pairs. Cosine similarity measures the angle between vectors — zero angle means maximum alignment.</p>
+<p>The embedding geometry supports <strong>vector arithmetic</strong> on pure concepts:</p>
+<div class="callout"><span class="label">Vector arithmetic</span>image(wearing-hat) − image(no-hat) ≈ "hat" in text space</div>
+<p>Testing the difference vector against hundreds of words, the top cosine-similarity match is "hat" (0.165), followed by "cap" and "helmet." CLIP's learned space lets you operate mathematically on the ideas inside images — translating content differences into literal vector distances.</p></section><section id="spiral"><h2 class="section">03 · Why Adding Noise While Generating Makes Sharper Images</h2><h3 class="heading">DDPM&#x27;s training trick and the vector-field intuition</h3><p>A few weeks after GPT-3, a Berkeley team published <strong>DDPM</strong> (Denoising Diffusion Probabilistic Models), showing high-quality images could be generated by transforming pure noise step by step.</p>
+<figure><img src="screenshots/spiral.jpg" alt=""><figcaption><span>A 2D toy dataset: a spiral structure representing the manifold of realistic images, with noise adding random-walk perturbations equivalent to Brownian motion.</span><span class="ts">00:13:03</span></figcaption></figure>
+<p>Two surprising details from the DDPM paper:</p>
+<ol>
+<li><strong>Random noise is added during generation too</strong> — after the network predicts a denoised frame, noise is re-added before the next step. Remove that line and you get a tiny blurry tree instead of a detailed one.</li>
+<li><strong>The model predicts total noise from <em>any</em> step, not just the next one</strong> — instead of learning step 99 → 98 → 97 sequentially, the model skips to predicting the full vector from x₀ to any noisy step. This dramatically reduces training variance.</li>
+</ol>
+<p>The key intuition: think of each image as a point in high-dimensional space. Diffusion adds noise → the point goes on a random walk (Brownian motion). Training the model to reverse this means learning a <strong>time-varying vector field</strong> — a "score function" that points from every noisy location back toward the data manifold.</p>
+<figure><img src="screenshots/vector-field.jpg" alt=""><figcaption><span>The learned vector field undergoes a phase transition as t → 0: arrows shift from pointing at the spiral's center to pointing along its arms.</span><span class="ts">00:17:23</span></figcaption></figure>
+<p>This phase transition — arrows pivoting from center-attraction to manifold-following — is what lets the model recover fine structure as diffusion time approaches zero.</p></section><section id="ddim"><h2 class="section">04 · Deterministic Diffusion (DDIM)</h2><h3 class="heading">From stochastic to ordinary differential equations</h3><p>DDPM required hundreds of steps, each needing a full network pass. Months later, papers from Stanford and Google showed <strong>deterministic sampling</strong> is possible.</p>
+<figure><img src="screenshots/ddim.jpg" alt=""><figcaption><span>Trajectories following the contour lines of the vector field, converging onto the spiral distribution with far fewer steps.</span><span class="ts">00:23:57</span></figcaption></figure>
+<p>The DDPM generation process is a <strong>stochastic differential equation</strong> (SDE) — the model's vector field plus random noise terms. Using the <strong>Fokker-Planck equation</strong> from statistical mechanics, the authors found an <strong>ordinary differential equation</strong> (ODE) with no random component that produces the same final distribution.</p>
+<p>The result: <strong>DDIM</strong> — deterministic image generation in far fewer steps, with no training changes. Smaller step sizes let trajectories follow vector field contours instead of collapsing to the dataset mean.</p>
+<p>The WAN model demonstrated at the start uses a DDIM generalization called <strong>flow matching</strong>.</p></section><section id="classifier-free"><h2 class="section">05 · Steering Diffusion with Text</h2><h3 class="heading">Conditioning and classifier-free guidance</h3><p>CLIP maps text and images into the same space; diffusion models reverse the image encoder. Combining them means using CLIP's text embedding to steer diffusion toward prompt-desired content.</p>
+<p><strong>Conditioning</strong> alone (passing the text vector as network input) isn't enough — a stable diffusion model prompted with "tree in desert" produces a desert shadow with no tree.</p>
+<p>The missing piece is <strong>classifier-free guidance</strong>:</p>
+<figure><img src="screenshots/classifier-free.jpg" alt=""><figcaption><span>Unconditional (gray) and cat-conditioned (yellow) vector fields diverge as t → 0, with the conditioned field pulling toward the cat region of the spiral.</span><span class="ts">00:30:30</span></figcaption></figure>
+<p>Train one model with class information randomly dropped during training. At generation time:</p>
+<ol>
+<li>Get the unconditional vector field (no class → points to data in general)</li>
+<li>Get the class-conditioned vector field (points to specific class region)</li>
+<li><strong>Subtract</strong> the unconditional from the conditioned</li>
+<li><strong>Amplify</strong> by a scaling factor α</li>
+</ol>
+<p>This amplified direction pushes points precisely toward the prompt's desired region of the data manifold. At guidance scale α ≈ 2, a tiny tree appears in the desert image and grows with α.</p></section><section id="negative-prompt"><h2 class="section">06 · Negative Prompts</h2><h3 class="heading">WAN&#x27;s approach to steering away from unwanted features</h3><p>WAN takes classifier-free guidance one step further: instead of an unconditional model, it uses a <strong>negative prompt</strong> — a text description of everything the user <em>doesn't</em> want.</p>
+<figure><img src="screenshots/negative-prompt.jpg" alt=""><figcaption><span>Wan2.1 architecture: subtract the negative-prompt vector from the conditioned output, amplify the difference, and steer generation away from unwanted features.</span><span class="ts">00:34:17</span></figcaption></figure>
+<p>WAN's standard negative prompt is in <strong>Chinese</strong> and lists features like "extra fingers" and "walking backwards." Without it, generated scenes go cartoonish — limbs don't connect, objects float — because the diffusion process lacks the counter-force to reject the prompt's blind spots.</p>
+<hr />
+<div class="callout">The most astounding detail: a trained text encoder from CLIP can steer the diffusion process — a highly complex vector field — using geometric intuitions that hold in thousands of dimensions.</div>
+<div class="pills"><div class="pill"><h5><strong>Noise + guidance = detail</strong> — adding random steps during generation prevents collapse to the dataset average, producing sharp, diverse images</h5><p></p></div><div class="pill"><h5><strong>Vector arithmetic works</strong> — CLIP's embedding space lets you manipulate concepts (hat, color, pose) as literal vector operations</h5><p></p></div><div class="pill"><h5><strong>DDPM's trick</strong> — predicting total noise from any step instead of one step at a time reduces training variance without changing the objective</h5><p></p></div><div class="pill"><h5><strong>DDIM = deterministic</strong> — Fokker-Planck reveals an ODE equivalent to the SDE, enabling fast, deterministic sampling</h5><p></p></div><div class="pill"><h5><strong>Classifier-free guidance</strong> — subtracting unconditional from conditioned and amplifying the difference is the key to prompt adherence</h5><p></p></div></div>
+<blockquote>To create incredibly lifelike and beautiful images and video, you no longer need a camera. You don't need to know how to draw or how to paint. All you need is language.<cite>— Stephen Welsh</cite></blockquote>
+<div class="callout"><span class="label">About the speaker</span>This is a guest video by <strong>Stephen Welsh</strong>, who runs the channel <strong>Welsh Labs</strong>. He recently became a father and is commissioning guest creators to fill airtime during paternity leave. His channel covers mathematical physics, machine learning, and has a published book on imaginary numbers.</div></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=iv-5mZ_9CPY" target="_blank" rel="noopener">Inside Diffusion Models — Physics, Vector Fields, and Text-to-Image</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>

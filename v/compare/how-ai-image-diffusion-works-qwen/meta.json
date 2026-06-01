@@ -1,0 +1,18 @@
+{
+  "title": "Inside Diffusion Models \u2014 Physics, Vector Fields, and Text-to-Image",
+  "description": "Step-by-step walkthrough of how diffusion models work: from reverse Brownian motion and CLIP's shared text-image space, through DDPM's time-varying vector fields and DDIM's deterministic sampling, to classifier-free guidance and negative prompts.",
+  "source_url": "https://www.youtube.com/watch?v=iv-5mZ_9CPY",
+  "kind": "guest-video",
+  "duration_minutes": "37",
+  "date": "2026-06-01",
+  "published": "2026-06-01T00:00:00Z",
+  "slug": "inside-diffusion-models",
+  "video_date": "2025-07-25",
+  "views": 1880398,
+  "tags": [
+    "ai",
+    "research",
+    "physics",
+    "science"
+  ]
+}
