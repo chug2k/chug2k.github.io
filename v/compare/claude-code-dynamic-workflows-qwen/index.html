@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Claude Code Dynamic Workflows Clearly Explained</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Claude Code</div>
+<h1>Claude Code Dynamic Workflows Clearly Explained</h1>
+<p class="lede">Nate Herk breaks down Claude Code&#x27;s new Dynamic Workflows feature — what it is, how it differs from skills, sub-agents, and agent teams, and when (and when not) to use it.</p>
+<div class="byline"><span><strong>Creator:</strong> Nate Herk | AI Automation</span><span><strong>Runtime:</strong> 16 min</span><span><strong>Video published:</strong> May 30, 2026</span><span><strong>31.8K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=jZgcWCzxh1I" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>TL;DR</h2><ol><li>Dynamic Workflows spin up dozens of agents in parallel; each agent is a full Claude call with its own context window</li><li>/goal is depth (one agent loops until done); workflow is width (many agents at once, then synthesize)</li><li>One workflow prompt burned through half of a $200/month plan — scope explicitly or pay for it</li><li>Workflows are worth it for broad sweeps (codebase audits, 400-file migrations); overkill for single edits</li><li>You can save and re-run workflows; they generate a JavaScript file you keep</li></ol></div>
+<section id="intro"><h2 class="section">01 · The $200 workflow</h2><h3 class="heading">What are Dynamic Workflows</h3><p>Claude Code Dynamic Workflows — released with Opus 4.8 — let Claude Code write a JavaScript script that spins up dozens (even hundreds) of sub-agents in parallel, each doing a piece of the job. Results get merged and sent back to the main session.</p>
+<figure><img src="screenshots/intro.jpg" alt=""><figcaption><span>Four features that blur together: Skill, Sub-agent, Agent Team, and Workflow.</span><span class="ts">00:02:05</span></figcaption></figure>
+<p>The key distinction: unlike sub-agents that work in isolation, or agent teams that share a task list, a workflow is Claude Code <strong>writing a script</strong> — a saved JavaScript file — that orchestrates everything. Claude sets the end goal, the script handles the execution.</p>
+<blockquote>I in one workflow prompt burned through half of my $200 a month subscription with just one prompt and it took a little over 30 minutes.<cite>— Nate Herk</cite></blockquote></section><section id="comparison"><h2 class="section">02 · Skill vs Sub-agent vs Agent Team vs Workflow</h2><h3 class="heading">Who holds the plan?</h3><p>The ladder of complexity:</p>
+<figure><img src="screenshots/comparison.jpg" alt=""><figcaption><span>The four features ranked by complexity — and cost.</span><span class="ts">00:02:05</span></figcaption></figure>
+<ul>
+<li><strong>Skill</strong> = a reusable recipe. You or a sub-agent can run it.</li>
+<li><strong>Sub-agent</strong> = a parallel worker with its own context window. Doesn't talk to other agents.</li>
+<li><strong>Agent Team</strong> = a small crew that talks to each other, shares a task list. Like a war room.</li>
+<li><strong>Workflow</strong> = Claude Code writes a JavaScript file that runs the show. Can be hundreds of agents. No shared context between them — they work alone and return results.</li>
+</ul>
+<p>The big separation: <strong>who holds the plan</strong>. In normal Claude, the plan lives with Claude. In a workflow, the plan lives in the JavaScript file.</p>
+<figure><img src="screenshots/plan.jpg" alt=""><figcaption><span>Normal Claude holds the plan; a workflow stores it in code.</span><span class="ts">00:03:13</span></figcaption></figure></section><section id="goal-vs-workflow"><h2 class="section">03 · /goal vs Workflow</h2><h3 class="heading">Depth vs Width</h3><p>This is the core distinction Nate found most confusing.</p>
+<figure><img src="screenshots/goal-vs-workflow.jpg" alt=""><figcaption><span>Goal = depth (one agent loops). Workflow = width (many agents at once).</span><span class="ts">00:09:00</span></figcaption></figure>
+<ul>
+<li><strong>/goal</strong> is a <strong>depth</strong> play — one agent (or a few) takes multiple turns, looping until <code>done == true</code>. Could run for hours.</li>
+<li><strong>Workflow</strong> is a <strong>width</strong> play — 50+ agents, all executing on a plan established upfront. They don't check against criteria; they do their job and return.</li>
+</ul>
+<p>The killer question: <em>does this task break into many pieces that can run individually at the same time?</em> If yes → workflow. If no → /goal or just ask Claude directly.</p>
+<blockquote>If you want something to keep going until an objective criteria has been met, use /goal. And if you want a giant parallel job, use the new dynamic workflows.<cite>— Nate Herk</cite></blockquote></section><section id="cost"><h2 class="section">04 · Cost</h2><h3 class="heading">Each agent is a full Claude call</h3><p>Every agent in a workflow is a <strong>full Claude call</strong> with its own context window. It has to read through its own context. Many get spun up. It gets expensive fast.</p>
+<p>Most tokens are input (not output), which is cheaper per token but the volume adds up. Nate's skills audit used <strong>5 million input tokens</strong> across 41 Haiku agents.</p>
+<figure><img src="screenshots/demo.jpg" alt=""><figcaption><span>Nate's live prompt: "Audit all 40 of my skills."</span><span class="ts">00:12:24</span></figcaption></figure>
+<p>The mitigation: <strong>be explicit and specific</strong> about what you're looking for. Bound the scope, name the deliverable, and your sub-agents can all run on Haiku.</p>
+<div class="callout"><span class="label">Cost rule of thumb</span>Each agent = full Claude call + own context window. 41 agents × Haiku = cheaper per-token, but 5M input tokens total. Be explicit or pay for it.</div>
+<blockquote>Do the agents talk to each other? No. They've got sub lanes and they talk back to one result. Whereas an agent team is kind of like more of a group chat. It's legitimately a team.<cite>— Nate Herk</cite></blockquote></section><section id="summary"><h2 class="section">05 · The whole thing in one slide</h2><h3 class="heading">When to use what</h3><p>The summary slide Nate put at the end of the video:</p>
+<figure><img src="screenshots/summary.jpg" alt=""><figcaption><span>The decision ladder: skill → sub-agent → agent team → /goal → workflow.</span><span class="ts">00:15:27</span></figcaption></figure>
+<table>
+<thead>
+<tr>
+<th>Task type</th>
+<th>Tool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Quick thing</td>
+<td>Just ask Claude Code</td>
+</tr>
+<tr>
+<td>Thing you repeat</td>
+<td>Skill</td>
+</tr>
+<tr>
+<td>Messy side task</td>
+<td>Sub-agent</td>
+</tr>
+<tr>
+<td>Small crew that talks together</td>
+<td>Agent Team</td>
+</tr>
+<tr>
+<td>Keep going until objective met</td>
+<td>/goal</td>
+</tr>
+<tr>
+<td>Giant parallel job</td>
+<td>Dynamic Workflows</td>
+</tr>
+</tbody>
+</table>
+<div class="callout"><span class="label">Bonus: /deep research</span>A /deep research function automatically invokes a workflow — spins up agents for parallel research, they vote on claims, you get a cited report. Worth testing if you do a lot of research.</div>
+<div class="pills"><div class="pill"><h5><strong>Be explicit</strong> — vague requests = runaway tokens</h5><p></p></div><div class="pill"><h5><strong>Save workflows</strong> — they generate a .js file you can rerun</h5><p></p></div><div class="pill"><h5><strong>Watch with /workflows</strong> — monitor running agents, token usage, tool calls</h5><p></p></div><div class="pill"><h5><strong>/ultracode</strong> = X-high effort + workflows by default. Very expensive.</h5><p></p></div></div>
+<blockquote>Does this break into many pieces that can run individually of each other at the same time? If that's true, then go ahead and try out a workflow.<cite>— Nate Herk</cite></blockquote>
+<p>:::</p></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=jZgcWCzxh1I" target="_blank" rel="noopener">Claude Code Dynamic Workflows Clearly Explained</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>
