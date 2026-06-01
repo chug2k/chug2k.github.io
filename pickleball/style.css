@@ -152,6 +152,25 @@ blockquote.drill strong{color:var(--pickle-d)}
 .bounce-fig .bn text, .bounce-fig .bn{font-size:10px; fill:#9a8c6a; font-weight:700}
 .bounce-fig figcaption{font-family:"Caveat","Bradley Hand",cursive; font-size:18px; line-height:1.25; color:var(--ink-soft); margin-top:9px}
 
+/* the Ladder (hierarchy of assessment) */
+.ladder-fig{clear:both; margin:30px auto; max-width:520px; text-align:center}
+.ladder-fig svg{width:100%; height:auto; background:#efe6cc; border:1px solid #d8c9a3; border-radius:10px;
+  padding:14px 10px; box-shadow:0 9px 22px rgba(40,30,10,.22)}
+.ladder-fig text{font-family:"Newsreader",Georgia,serif}
+.ladder-fig .lr{font-weight:700; font-size:19px; fill:#2b261e}
+.ladder-fig .lr.top{fill:var(--sienna)}
+.ladder-fig .ld{font-style:italic; font-size:12.5px; fill:var(--ink-soft)}
+.ladder-fig .lnum{font-weight:700; font-size:13px; fill:var(--pickle-d)}
+.ladder-fig .lnote{font-family:"Caveat","Bradley Hand",cursive; font-size:16px; fill:var(--sienna)}
+.ladder-fig figcaption{font-family:"Caveat","Bradley Hand",cursive; font-size:18px; line-height:1.25; color:var(--ink-soft); margin-top:9px}
+
+/* the little "which rung are you on" tag at a chapter top */
+.content .rung{font-family:"Caveat","Bradley Hand",cursive; font-size:19px; color:var(--pickle-d);
+  display:flex; align-items:center; margin:-4px 0 20px}
+.content .rung strong{color:var(--sienna); font-weight:700}
+.content .rung .lad{width:14px; height:18px; flex:0 0 auto; margin-right:8px; fill:none; stroke:#8a7f63; stroke-width:1.2}
+.content .rung .lad .on{stroke:var(--sienna); stroke-width:2.6}
+
 .content hr{border:none; text-align:center; margin:2.2em 0 1.2em; clear:both}
 .content hr::after{content:"🥒"; font-size:22px; opacity:.7}
 
