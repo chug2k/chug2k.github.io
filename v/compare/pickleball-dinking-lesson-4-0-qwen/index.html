@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pickleball Dinking — Stay Locked at the Kitchen</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Pickleball</div>
+<h1>Pickleball Dinking — Stay Locked at the Kitchen</h1>
+<p class="lede">Bobby plays around 4.0 but struggles to hold position at the kitchen. His instructor walks him through apex contact, forward站位, and why taking dinks out of the air — not letting them bounce — is the fastest way to win at the net.</p>
+<div class="byline"><span><strong>Runtime:</strong> 35 min</span><span><strong>Video published:</strong> October 19, 2024</span><span><strong>31.7K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=plKF-YzPYI8" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>What you&#x27;ll learn</h2><ol><li>Hit every dink at the ball's apex, not on the descent</li><li>Step in and catch dinks early to stay at the kitchen line</li><li>Use paddle-face tracking (outer edge) to handle both dinks and hard drives</li><li>Condense middle on crosscourt dinks instead of drifting to the sideline</li><li>Backhand dink starts with paddle head down and a bent wrist — not a flick</li></ol></div>
+<section id="dink-warmup"><h2 class="section">01 · The starting line</h2><h3 class="heading">Bobby&#x27;s DUPR chart</h3><figure><img src="screenshots/dink-warmup.jpg" alt=""><figcaption><span>Bobby sits in the 4.0 range — can get to the net, but can't hold it there. The DUPR chart maps it: from intermediate to advanced, the jump is positional, not just swing speed.</span><span class="ts">00:00:38</span></figcaption></figure>
+<div class="callout"><span class="label">Player profile</span>Bobby has been playing pickleball for a year and a half, in the 4.0 rating range, and gets points where he reaches the kitchen — but sometimes can't maintain position up there and win the points.</div></section><section id="apex-catch"><h2 class="section">02 · Catch at the apex</h2><h3 class="heading">The H-bounce drill</h3><div class="callout">The ball's journey: short hop → apex (highest point) → descent. Hitting at the apex gives you the flattest trajectory and the most court to aim at.</div>
+<p>Most dink mistakes come from hitting on the descent — you've lost height and the ball sits up. The fix is learning to get the paddle head below the ball at its highest point. The instructor introduces a scooping tool to drill this feel: toss the ball up, catch it under it on the way up, then replicate that motion with the paddle.</p>
+<blockquote>Get all the way up to the kitchen. Get the paddle head below the level of the ball.<cite>— Instructor</cite></blockquote>
+<figure><img src="screenshots/apex-catch.jpg" alt=""><figcaption><span>The scooping tool drills the under-the-ball motion — catch it on the way up, not after it starts falling.</span><span class="ts">00:02:57</span></figcaption></figure></section><section id="body-position"><h2 class="section">03 · Step in, not back</h2><h3 class="heading">Dinking to the yellow line</h3><figure><img src="screenshots/body-position.jpg" alt=""><figcaption><span>Yellow line = target zone. Hit dinks that land here and the rally ends short — no deep balls, no panic.</span><span class="ts">00:09:27</span></figcaption></figure>
+<p>Instead of stepping back to take a dink, step <em>in</em> and reach. More time means no rush. The goal is to get the ball to land on the yellow line (roughly the kitchen edge), keeping the shot shallow and controlled.</p>
+<div class="callout"><span class="label">Stance adjustment</span>Widen your stance, splay your toes out, shift your shoulders over your knees and your knees over your shoulders. Reach for dinks instead of stiffening up.</div></section><section id="out-of-air"><h2 class="section">04 · Take it out of the air</h2><h3 class="heading">Why the early strike matters</h3><blockquote>Taking a ball out of the air — versus letting it bounce — is going to be hitting it at a higher point.<cite>— Instructor</cite></blockquote>
+<p>Three reasons to take dinks out of the air:
+1. <strong>Less reaction time for the opponent</strong> — the ball arrives faster
+2. <strong>Easier contact point</strong> — the ball is higher, closer to your ideal strike zone
+3. <strong>Stay at the kitchen</strong> — every step back is a step away from the winning position</p>
+<p>If you keep volleying dinks at the net, you stay set for the next shot. Every deep ball forces you back and gives your opponent time to reset.</p>
+<div class="callout"><span class="label">The kitchen rule</span>Winning pickleball is getting up to the kitchen. So if shots are taking you away from the kitchen, that's taking you away from your goal to hit winners.</div></section><section id="backhand-drill"><h2 class="section">05 · Backhand defense</h2><h3 class="heading">Paddle head down, wrist bent</h3><figure><img src="screenshots/backhand-drill.jpg" alt=""><figcaption><span>The instructor demonstrates: make the back of the paddle face your face — that's the starting position for a backhand dink.</span><span class="ts">00:18:50</span></figcaption></figure>
+<p>When a drop lands on the backhand side, the instinct is to panic-flick. Instead:</p>
+<ol class="steps"><li><b><strong>Paddle head down</strong> — keep the wrist firm and bent</b><span></span></li><li><b><strong>Step back</strong> — create room between you and the ball</b><span></span></li><li><b><strong>Push with the shoulder</strong> — not a wrist flick, a shoulder-driven motion</b><span></span></li><li><b><strong>Let the ball's momentum carry it</strong> — no extra effort needed</b><span></span></li></ol>
+<div class="callout"><span class="label">Common mistake</span>Starting with the paddle head closed and trying to lift it open. You lose consistency. Start open — the paddle face tracks the entire stroke, never closes and reopens.</div></section><section id="pinch-middle"><h2 class="section">06 · Pinch the middle</h2><h3 class="heading">Crosscourt positioning</h3><blockquote>Condense middle. Take that option away. Rather than being outside wide on their flanks.<cite>— Instructor</cite></blockquote>
+<p>The biggest mistake in crosscourt dinking: drifting to the sideline. It feels more accurate, but it:
+- Gives the opponent a wide-open lane to hit into
+- Puts you out of position to cover the middle
+- Removes all positional pressure</p>
+<p>The fix: dink crosscourt but pinch slightly toward the middle. If the instructor speeds it up, the dinker flushes the middle with a backhand putaway. The outer edge of the paddle tracks the ball like a laser pointer — keeping you neutral and ready for any stimulus.</p>
+<figure><img src="screenshots/pinch-middle.jpg" alt=""><figcaption><span>Pinch middle on crosscourt dinks. The dinker stays compact, eyes the kitchen line, and covers the middle if the ball comes at the seam.</span><span class="ts">00:28:03</span></figcaption></figure>
+<div class="callout"><span class="label">The golden rule</span>No matter how good your crosscourt dink is, if you drifted wide you've given your opponent a free lane. Pinch middle — they can't hit the ball into not going to be the case if you pinch middle.</div>
+<div class="pills"><div class="pill"><h5><strong>Track the ball</strong> with the outer edge of your paddle</h5><p></p></div><div class="pill"><h5><strong>Pinch middle</strong> on crosscourt dinks, not the sideline</h5><p></p></div><div class="pill"><h5><strong>Two contact points</strong> with the ground — left foot, right foot — stay balanced</h5><p></p></div><div class="pill"><h5><strong>Stay neutral</strong> — ready for dinks or hard drives from the same stance</h5><p></p></div></div></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=plKF-YzPYI8" target="_blank" rel="noopener">Pickleball Dinking — Stay Locked at the Kitchen</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>
