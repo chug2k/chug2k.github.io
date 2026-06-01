@@ -1,8 +1,8 @@
 {
   "tags": {
-    "ai": 29,
+    "ai": 30,
     "agents": 13,
-    "wild": 12,
+    "wild": 13,
     "chess": 10,
     "productivity": 9,
     "research": 8,
@@ -13,11 +13,11 @@
     "science": 4,
     "physics": 3,
     "product": 3,
+    "qwen": 3,
     "economics": 2,
     "math": 2,
-    "qwen": 2,
     "seo": 2,
     "stanford": 2
   },
-  "entries": 54
+  "entries": 55
 }
