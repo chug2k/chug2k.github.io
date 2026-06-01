@@ -1,16 +1,16 @@
 {
   "tags": {
     "ai": 31,
-    "wild": 15,
+    "wild": 16,
     "agents": 13,
-    "chess": 10,
+    "chess": 11,
     "productivity": 9,
     "research": 8,
     "sports": 8,
     "pickleball": 7,
     "anthropic": 6,
+    "qwen": 6,
     "startups": 6,
-    "qwen": 5,
     "science": 5,
     "physics": 3,
     "product": 3,
@@ -19,5 +19,5 @@
     "seo": 2,
     "stanford": 2
   },
-  "entries": 57
+  "entries": 58
 }
