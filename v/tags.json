@@ -3,8 +3,8 @@
     "ai": 28,
     "agents": 13,
     "chess": 10,
+    "wild": 10,
     "productivity": 9,
-    "wild": 9,
     "research": 8,
     "sports": 8,
     "pickleball": 7,
@@ -15,7 +15,8 @@
     "product": 3,
     "economics": 2,
     "seo": 2,
-    "stanford": 2
+    "stanford": 2,
+    "math": 1
   },
-  "entries": 51
+  "entries": 52
 }

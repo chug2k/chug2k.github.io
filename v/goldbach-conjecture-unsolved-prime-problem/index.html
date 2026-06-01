@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Obviously True Theorem No One Can Prove</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Number theory</div>
+<h1>The Obviously True Theorem No One Can Prove</h1>
+<p class="lede">A claim a child can understand, that no one has proved in nearly 300 years — every even number above 2 is the sum of two primes. The story of who chased it, the machinery they built, and why the strong version still won&#x27;t fall.</p>
+<div class="byline"><span><strong>Creator:</strong> Veritasium</span><span><strong>Runtime:</strong> 42 min</span><span><strong>Video published:</strong> June 20, 2025</span><span><strong>9M views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=x32Zq-XvID4" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>The short version</h2><ol><li>Goldbach's conjecture says every even number greater than 2 is the sum of two primes. Checked by computer up to four quintillion, never broken, never proved.</li><li>Euler split it in two: a weak form (every odd number above 5 is a sum of three primes) and a strong form (the even-number version). Prove the strong and you get the weak for free; not the reverse.</li><li>Hardy and Littlewood's circle method turned "does it work?" into "how many ways?" — counting prime combinations via interference of rotating clocks on a circle.</li><li>In 2013 Harald Helfgott proved the weak conjecture outright, closing a 300-year-old problem by squeezing a hostile constant below what computers had already checked.</li><li>The strong conjecture is still open. For it the circle method's "major arcs" stop dominating, so it needs a genuinely new idea no one has found.</li></ol></div>
+<section id="conjecture"><h2 class="section">01 · The problem</h2><h3 class="heading">A theorem a child can state, no one can prove</h3><p>The whole conjecture fits in one line: every even number greater than 2 can be written as the sum of two primes. 6 is 3+3, 10 is 5+5 or 7+3, 42 is 37+5. It has resisted proof for nearly 300 years, and in 2000 a publisher attached a $1,000,000 prize to it.</p>
+<figure><img src="screenshots/conjecture.jpg" alt=""><figcaption><span>The strong Goldbach conjecture in symbols: every even N equals p₁ + p₂, two primes.</span><span class="ts">00:06:14</span></figcaption></figure>
+<blockquote>A child can understand the statement, but the greatest geniuses in mathematical history have not been able to solve it.<cite>— Steven Strogatz</cite></blockquote></section><section id="pyramid"><h2 class="section">02 · Building intuition</h2><h3 class="heading">The prime pyramid</h3><p>Write the primes down two diagonals — 2, 3, 5, 7… — then draw a line from each. Where two lines cross, you get the sum of those two primes. Read down the pyramid and every even number appears, and appears more and more often the further you go. The pattern looks inevitable. The conjecture is the claim that it never stops.</p>
+<figure><img src="screenshots/pyramid.jpg" alt=""><figcaption><span>Primes on the diagonals; each intersection is a sum. Even numbers fill in, with more combinations lower down.</span><span class="ts">00:02:42</span></figcaption></figure></section><section id="goldbach"><h2 class="section">03 · Origins</h2><h3 class="heading">Goldbach, Euler, and a line in the margin</h3><p>Christian Goldbach was a minor Prussian mathematician who spent 14 years traveling Europe to meet Leibniz, Bernoulli, and Newton before settling in St. Petersburg. There, in 1727, he met a 20-year-old Leonhard Euler. They wrote letters for 35 years. On 7 June 1742, Goldbach scribbled in the margin that every integer greater than 2 seemed to be a sum of three primes.</p>
+<figure><img src="screenshots/goldbach.jpg" alt=""><figcaption><span>Goldbach and the young Euler — a correspondence that ran until Goldbach's death.</span><span class="ts">00:04:48</span></figcaption></figure></section><section id="reformulation"><h2 class="section">04 · Reformulation</h2><h3 class="heading">Euler splits it into strong and weak</h3><p>Euler sharpened the idea into two conjectures. The weak one: every odd number greater than 5 is a sum of three primes. The strong one: every even number greater than 2 is a sum of two primes. Prove the strong form and the weak follows — add 3 to every even sum to reach the odds. It doesn't work the other way. Euler couldn't prove either, and for 150 years almost nobody made progress, until Hilbert put it on his 1900 list of 23 problems for the new century (number 8, on primes).</p>
+<figure><img src="screenshots/reformulation.jpg" alt=""><figcaption><span>Weak (N_odd = p₁+p₂+p₃) and strong (N_even = p₁+p₂), side by side.</span><span class="ts">00:06:44</span></figcaption></figure>
+<blockquote>I regard this as a completely certain theorem, although I cannot prove it.<cite>— Euler, on the conjecture</cite></blockquote></section><section id="estimate"><h2 class="section">05 · Counting ways</h2><h3 class="heading">Hardy and Littlewood&#x27;s estimate</h3><p>Mathematicians changed the question: not whether an even number is a sum of two primes, but in how many ways — call it H(N). In 1923 G. H. Hardy and John Littlewood used the prime number theorem (a number near N is prime with chance about 1/ln N) to estimate it. Split a big even number 2N down the middle, multiply the chances both halves are prime, sum over all pairs, and you get roughly N/(ln N)². It tracks the real counts beautifully — but, as they admitted, an estimate is not a proof.</p>
+<figure><img src="screenshots/estimate.jpg" alt=""><figcaption><span>The Hardy–Littlewood heuristic for the number of prime pairs, with their correction factor.</span><span class="ts">00:11:03</span></figcaption></figure>
+<div class="callout"><span class="label">Their own verdict</span>It is only proof that counts.</div></section><section id="ramanujan"><h2 class="section">06 · A new tool</h2><h3 class="heading">Ramanujan and the circle method</h3><p>In 1913 Hardy received a letter from an unknown clerk in India, Srinivasa Ramanujan — ten pages, over a hundred theorems, almost no proofs, some seemingly impossible (the sum of all positive integers equal to −1/12). Hardy brought him to Cambridge. Around 1917 they invented the circle method, which became the main attack on the weak Goldbach conjecture for the next hundred years.</p>
+<figure><img src="screenshots/ramanujan.jpg" alt=""><figcaption><span>Ramanujan, who worked on intuition — by his own telling, formulas placed on his tongue in dreams.</span><span class="ts">00:14:40</span></figcaption></figure>
+<blockquote>On a scale from 0 to 100, maybe he's a 10. Littlewood is a 30. Ramanujan is an 80.<cite>— Steven Strogatz, on Hardy&#x27;s scale</cite></blockquote></section><section id="arcs"><h2 class="section">07 · The machine</h2><h3 class="heading">Clocks, interference, and arcs</h3><p>The circle method builds a counting machine out of an integral. Each prime becomes a clock spinning at its own rate; you add them tip to tail and sweep a slider α from 0 to 1. At most angles the clocks point every which way and cancel. But at simple fractions — 1/2, 1/3 — the remainders line up, the clocks interfere constructively, and the sum spikes. Wrap that picture around a circle: the spikes are the "major arcs," which give the main count; the flat regions are the "minor arcs," which give only an error term.</p>
+<figure><img src="screenshots/arcs.jpg" alt=""><figcaption><span>The resultant's magnitude wrapped onto the circle — tall spikes are major arcs, the rest minor arcs.</span><span class="ts">00:26:46</span></figcaption></figure>
+<div class="pills"><div class="pill"><h5><strong>Major arcs</strong></h5><p>Sharp spikes at small rational α; they supply the main term that counts the prime triples.</p></div><div class="pill"><h5><strong>Minor arcs</strong></h5><p>The chaotic remainder; for the weak conjecture it stays small enough to be just an error term.</p></div></div></section><section id="helfgott"><h2 class="section">08 · The weak case falls</h2><h3 class="heading">Vinogradov to Helfgott</h3><p>Hardy and Littlewood showed the weak conjecture held for large enough numbers — but only assuming the generalized Riemann hypothesis, and without saying how large. In 1937 Ivan Vinogradov dropped the Riemann assumption. A student later pinned a threshold: about 10 to the 6.8 million. It fell over the decades — 10^43,000 by 1989, 10^7,194, 10^1,346 by 2002 — still hopelessly large to check by computer. From 2005, Harald Helfgott pushed the constant down and (with David Platt) checked numbers up to 8.8×10³⁰, finally driving the bound below 10²⁷ in 2013. The weak conjecture was proved.</p>
+<figure><img src="screenshots/helfgott.jpg" alt=""><figcaption><span>Helfgott's 2013 paper, with the title that says it all: "The Ternary Goldbach Conjecture is True."</span><span class="ts">00:31:00</span></figcaption></figure>
+<div class="callout"><span class="label">As a bonus</span>The weak result means every even number greater than 2 is a sum of at most four primes — add 3 to each odd sum.</div></section><section id="hero"><h2 class="section">09 · So close</h2><h3 class="heading">Chen Jingrun, the comet, and why it matters</h3><p>The strong conjecture is still open — for it the major arcs no longer dominate, so the circle method breaks and something new is needed. The closest anyone reached was Chen Jingrun, who in 1966 used sieve methods to prove every large enough even number is a prime plus either a prime or a semiprime. He did much of it persecuted during the Cultural Revolution, working by kerosene lamp, and published in 1973; China later made him a national hero. Computers have now checked every even number up to four quintillion. Plot the number of representations and you get "Goldbach's comet," hugging the old heuristic curve with no sign of a drop.</p>
+<figure><img src="screenshots/hero.jpg" alt=""><figcaption><span>Chen Jingrun, who got nearest to the strong conjecture and was celebrated across China.</span><span class="ts">00:36:33</span></figcaption></figure>
+<figure><img src="screenshots/comet.jpg" alt=""><figcaption><span>Goldbach's comet: representation counts climbing in step with the N/(ln N)² heuristic.</span><span class="ts">00:38:35</span></figcaption></figure>
+<blockquote>We do know what we love. So work on that.<cite>— Steven Strogatz</cite></blockquote></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=x32Zq-XvID4" target="_blank" rel="noopener">The Obviously True Theorem No One Can Prove</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>
