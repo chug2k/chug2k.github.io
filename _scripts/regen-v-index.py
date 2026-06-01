@@ -15,11 +15,13 @@ Usage:
 from __future__ import annotations
 import json
 import html
+import datetime
 from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 V_DIR = ROOT / "v"
+LOCAL_TZ = datetime.timezone(datetime.timedelta(hours=7))
 
 _MONTHS = ["", "January", "February", "March", "April", "May", "June", "July",
            "August", "September", "October", "November", "December"]
@@ -33,6 +35,20 @@ def fmt_date(value) -> str:
         if 1 <= m <= 12:
             return f"{_MONTHS[m]} {dd}, {y}"
     return str(value or "")
+
+
+def fmt_added_date(value) -> str:
+    """Format a full added timestamp in the site's local timezone."""
+    raw = str(value or "").strip()
+    if not raw:
+        return ""
+    try:
+        dt = datetime.datetime.fromisoformat(raw.replace("Z", "+00:00"))
+        if dt.tzinfo:
+            dt = dt.astimezone(LOCAL_TZ)
+        return fmt_date(dt.date().isoformat())
+    except ValueError:
+        return fmt_date(raw[:10])
 
 
 def fmt_views(n) -> str:
@@ -237,14 +253,17 @@ TEMPLATE_TAIL = """  <div class="noresults" id="noresults">No summaries match th
 
   function applySort() {
     var mode = sortSel.value;
+    function byTitle(a, b) {
+      return a.dataset.title.localeCompare(b.dataset.title);
+    }
     var sorted = cards.slice().sort(function (a, b) {
-      if (mode === "pub-desc")  return (Date.parse(b.dataset.published)||0) - (Date.parse(a.dataset.published)||0);
-      if (mode === "pub-asc")   return (Date.parse(a.dataset.published)||0) - (Date.parse(b.dataset.published)||0);
-      if (mode === "date-desc") return b.dataset.date.localeCompare(a.dataset.date);
-      if (mode === "date-asc")  return a.dataset.date.localeCompare(b.dataset.date);
-      if (mode === "dur-desc")  return (+b.dataset.duration) - (+a.dataset.duration);
-      if (mode === "dur-asc")   return (+a.dataset.duration) - (+b.dataset.duration);
-      if (mode === "title")     return a.dataset.title.localeCompare(b.dataset.title);
+      if (mode === "pub-desc")  return ((Date.parse(b.dataset.published)||0) - (Date.parse(a.dataset.published)||0)) || byTitle(a, b);
+      if (mode === "pub-asc")   return ((Date.parse(a.dataset.published)||0) - (Date.parse(b.dataset.published)||0)) || byTitle(a, b);
+      if (mode === "date-desc") return b.dataset.date.localeCompare(a.dataset.date) || byTitle(a, b);
+      if (mode === "date-asc")  return a.dataset.date.localeCompare(b.dataset.date) || byTitle(a, b);
+      if (mode === "dur-desc")  return ((+b.dataset.duration) - (+a.dataset.duration)) || byTitle(a, b);
+      if (mode === "dur-asc")   return ((+a.dataset.duration) - (+b.dataset.duration)) || byTitle(a, b);
+      if (mode === "title")     return byTitle(a, b);
       return 0;
     });
     sorted.forEach(function (c) { grid.appendChild(c); });
@@ -286,8 +305,8 @@ def render_entry(meta: dict, slug: str) -> str:
         chips = "".join(f'<span class="tag">{html.escape(t)}</span>' for t in tags)
         tags_html = f'    <div class="tags">{chips}</div>\n'
     pub = str(meta.get("published") or meta.get("date") or "")
-    # `published` is a full ISO timestamp (for total-order sorting); show only the date.
-    added_html = f'    <div class="added">Added {html.escape(fmt_date(pub[:10]))}</div>\n' if pub else ""
+    # `published` is the added timestamp; show its local calendar date.
+    added_html = f'    <div class="added">Added {html.escape(fmt_added_date(pub))}</div>\n' if pub else ""
     return (
         f'  <a class="entry" href="/v/{html.escape(slug)}/"'
         f' data-tags="{data_tags}" data-date="{html.escape(disp_date)}"'
@@ -349,7 +368,7 @@ def main() -> int:
             return datetime.datetime.fromisoformat(p.replace("Z", "+00:00")).astimezone(datetime.timezone.utc)
         except Exception:
             return datetime.datetime.min.replace(tzinfo=datetime.timezone.utc)
-    entries.sort(key=_pub_key, reverse=True)
+    entries.sort(key=lambda m: (-_pub_key(m).timestamp(), str(m.get("title") or m.get("_slug") or "").lower()))
 
     tag_counts: Counter = Counter()
     for m in entries:
