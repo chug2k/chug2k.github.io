@@ -1,0 +1,17 @@
+{
+  "title": "How DeepSeek Rewrote the Transformer (MLA)",
+  "description": "A step-by-step walkthrough of multi-head latent attention (MLA), the change DeepSeek made to the core of the transformer to cut KV-cache size 57x and generate tokens six times faster.",
+  "source_url": "https://www.youtube.com/watch?v=0VLAoVGf_74",
+  "kind": "explainer",
+  "duration_minutes": 18,
+  "date": "2026-06-01",
+  "published": "2026-06-01 03:56:50+00:00",
+  "slug": "deepseek-mla-transformer",
+  "video_date": "2025-03-05",
+  "views": 909066,
+  "tags": [
+    "wild",
+    "ai",
+    "research"
+  ]
+}

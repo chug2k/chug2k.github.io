@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Win With 1.e4: The Vienna Gambit</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">GothamChess</div>
+<h1>Win With 1.e4: The Vienna Gambit</h1>
+<p class="lede">A full 1.e4 e5 2.Nc3 repertoire — the trap-laden Vienna Gambit, every way Black can refuse it, and the database numbers that say it just wins.</p>
+<div class="byline"><span><strong>Creator:</strong> Levy Rozman / GothamChess</span><span><strong>Runtime:</strong> 25 min</span><span><strong>Video published:</strong> October 23, 2020</span><span><strong>5.4M views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=JVxENCPcCjU" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>The Vienna in one screen</h2><ol><li>Play 1.e4 e5 2.Nc3, then f4 before Nf3 in basically every line — that's the whole system.</li><li>After 2...Nf6 3.f4 the "gambit" can't really be accepted: 3...exf4 4.e5 chokes the f6-knight and you regain the pawn with a development lead.</li><li>Black can only decline with 3...d6. Declining with 3...Nc6 gets punished hard (fxe5, Nxe5, d4 with a Bxf7+ blowup).</li><li>The real main line is 3...d5 4.fxe5 Nxe4 5.Qf3 — direct pressure on the e4-knight, leading to a big center after recapture.</li><li>Against 2...Nc6 watch for the copycat Qg4 trap (Nd5 then Nh3 literally traps the queen) and play the Two Knights with d3.</li></ol></div>
+<section id="intro"><h2 class="section">01 · GothamChess</h2><h3 class="heading">Surprise them on move two</h3><p>Most openings let your opponent settle in. The Vienna doesn't. You play 1.e4 e5 2.Nc3 and you're already off the beaten path — beginner, intermediate, even 2000-plus, it doesn't matter, because almost nobody has prepped for this. The plan is simple and it runs through the whole repertoire: get ready to push f4.</p>
+<figure><img src="screenshots/intro.jpg" alt=""><figcaption><span>The board everyone knows — until you steer it somewhere they've never studied.</span><span class="ts">00:00:48</span></figcaption></figure>
+<blockquote>It's pretty rare in a game of chess to be able to surprise your opponent as early as the second move.<cite>— Levy Rozman</cite></blockquote></section><section id="setup"><h2 class="section">02 · The system</h2><h3 class="heading">e4 e5 Nc3, then f4</h3><p>If you're an e4 player you're going to face 1...e5 constantly, all the way up the ladder. So you answer 2.Nc3, and the one idea to burn into your head is this: you want to play f4 <em>before</em> the knight comes to f3. In just about every position in this opening, f4 comes first. That's it. That's the system.</p>
+<figure><img src="screenshots/setup.jpg" alt=""><figcaption><span>2.Nc3 — quiet-looking, but it sets up the f4 push that defines everything that follows.</span><span class="ts">00:01:06</span></figcaption></figure>
+<div class="callout"><span class="label">The one rule</span>f4 before Nf3 — in basically every line. Memorize the plan, not a hundred move orders.</div></section><section id="gambit"><h2 class="section">03 · The gambit</h2><h3 class="heading">It can&#x27;t be accepted</h3><p>After 2...Nf6 you play 3.f4 — the Vienna Gambit. Except it's not really a gambit, because Black can't take and hold it. If 3...exf4 you push 4.e5, and now the f6-knight has nowhere forward; it has to retreat, and after you cover Qh4+ with Nf3 you've got a huge lead in development for free. A favorite computer-backed idea: when Black takes back, play Qe2 and pin the pawn to the king.</p>
+<figure><img src="screenshots/gambit.jpg" alt=""><figcaption><span>Qe2 pins down the e-file — Black's best is to develop the bishop, and White is already winging out to castle queenside with the better game.</span><span class="ts">00:02:03</span></figcaption></figure>
+<blockquote>Just know that accepting the gambit is more or less losing for Black.<cite>— Levy Rozman</cite></blockquote></section><section id="decline"><h2 class="section">04 · Declining</h2><h3 class="heading">Only d6 survives</h3><p>Black can decline — but only with 3...d6. Try to decline with 3...Nc6 and it's close to lost on the spot: 4.fxe5 Nxe5 5.d4 and it's like a Halloween Gambit where you didn't even sacrifice the knight. The lines spiral into Bxf7+ ideas that win the queen in a handful of moves. So if Black declines, it's d6, and then you calmly develop: bishop to c4 or b5, play d3 so you don't block yourself in, castle, and pile onto the half-open f-file.</p>
+<figure><img src="screenshots/decline.jpg" alt=""><figcaption><span>Decline with Nc6 and this is the kind of thing you walk into — Bxf7+ tearing open the king and the queen falling next.</span><span class="ts">00:03:14</span></figcaption></figure>
+<div class="callout"><span class="label">Checklist</span>Did Black play Nc6 first, or Nf6 first, or f5? Your recapture and move order key off that one question.</div></section><section id="qf3"><h2 class="section">05 · Main line</h2><h3 class="heading">3...d5 4.fxe5 Nxe4 5.Qf3</h3><p>If you get 3...d5, your opponent knows what they're doing — or got lucky. You take 4.fxe5, hitting the knight, and after 4...Nxe4 the move is 5.Qf3. It's only the third-most-popular choice in the database, but it's the most direct: straight pressure on the e4-knight. After ...Nxc3 recapture with the b-pawn so you can rebuild with d4 and a monster center. And if Black gets lazy with an early ...c5, punish it: Qg3 is the tricky favorite, freezing their development.</p>
+<figure><img src="screenshots/qf3.jpg" alt=""><figcaption><span>The Qf3/Qg3 structure — doubled center pawns you don't care about, because you get the open f-file and a strong central pawn long term.</span><span class="ts">00:09:14</span></figcaption></figure>
+<blockquote>You don't care about your doubled pawns in the center, because you get an open file on the f-file in the long run.<cite>— Levy Rozman</cite></blockquote></section><section id="sidelines"><h2 class="section">06 · Sidelines</h2><h3 class="heading">Nc6 and f5</h3><p>Against 5...Nc6 don't grab the knight — pin it to the king and keep developing; the main line runs into a queen trade where you stay comfortable. For the advanced crowd there's a gorgeous sacrificial idea: Be3, give up the queenside, castle, and a quiet-looking Nd4 forks two pieces with Bg5 and mate on e7 lurking. Against 5...f5 you sac the pawn with Qg3, then Be2 eyeing Bh5 — the king gets dragged forward and the attack crashes through.</p>
+<figure><img src="screenshots/sidelines.jpg" alt=""><figcaption><span>The Nc6 queen-trade line — and the Be3 sacrifice that turns a "boring" trade into a forced mating net.</span><span class="ts">00:11:24</span></figcaption></figure>
+<div class="callout"><span class="label">Advanced only</span>Be3, sacrifice the queenside, Nd4 — both bishops point at e7 and it's unstoppable. Cool trap, not your bread and butter.</div></section><section id="copycat"><h2 class="section">07 · 2...Nc6</h2><h3 class="heading">The copycat Qg4 trap</h3><p>If Black skips Nf6 and plays 2...Nc6, delay f4 and develop Bc4 first. Now the copycat line — where Black mirrors you — is losing if you know Qg4, hitting g7. Beginners defend with Qf6, then comes the magic: Nd5 hits f6 and c7, they grab a rook, and after the dust settles you play Nh3 and the queen is <em>literally</em> trapped. d3 and c3 glue it in place. He swears you'll never face the engine's best defense in a real game.</p>
+<figure><img src="screenshots/copycat.jpg" alt=""><figcaption><span>Nh3 — the quiet move that boxes the queen in with no escape. People fall into this constantly.</span><span class="ts">00:15:37</span></figcaption></figure>
+<blockquote>Knight to h3 and the queen is trapped — literally just trapped, it can't go anywhere.<cite>— Levy Rozman</cite></blockquote></section><section id="twoknights"><h2 class="section">08 · Two Knights</h2><h3 class="heading">The f4 trap</h3><p>The popular main line after 2...Nc6 is 3.Bc4 Nf6 — the Two Knights — where you play d3. Against the common 3...Bc5 there's a slick trap: f4, and if ...Ng4 looks like you blundered, you slap back with Ng5 and counter-attack. ...Nxf2 runs into Qh5; ...0-0 thinking f7 is safe runs into f5, disconnecting the bishop from the defense and Black resigns to the f7/h7 threats. Against ...Bg4 the key move is Na4, hitting the bishop and stopping the Nd4 pin.</p>
+<figure><img src="screenshots/twoknights.jpg" alt=""><figcaption><span>The Two Knights with f4 — the f5 break and Bxf7 ideas turn a normal-looking position into a knockout.</span><span class="ts">00:19:45</span></figcaption></figure>
+<blockquote>You just slap them in the face and play knight g5 — now you're counter-attacking.<cite>— Levy Rozman</cite></blockquote></section><section id="stats"><h2 class="section">09 · The receipts</h2><h3 class="heading">What the database says</h3><p>Then the payoff: open an openings database and look at the numbers. A longtime supporter who played 1,160 games of 1...e5 saw the Vienna only 82 times — that's how far off the map it is. In the lines where he faced Bc4 setups, White scored 86%. Eighty-six percent. Even a 2700-rated Russian super-GM, top-ten in his country, had faced the Vienna exactly once on chess.com — against Levy himself. That's the whole pitch: a weapon nobody preps for, scoring like a cheat code.</p>
+<figure><img src="screenshots/stats.jpg" alt=""><figcaption><span>The chess.com Explorer — board on the left, cold hard scoring percentages on the right. The receipts.</span><span class="ts">00:22:42</span></figcaption></figure>
+<blockquote>Eighty-six percent for White in these positions — that's crazy, that is unheard of.<cite>— Levy Rozman</cite></blockquote>
+<div class="callout"><span class="label">Who it&#x27;s for</span>Beginners wanting to surprise on move two; d4 players switching to e4 without learning the Italian, Spanish, or Scotch. Play the Vienna.</div></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=JVxENCPcCjU" target="_blank" rel="noopener">Win With 1.e4: The Vienna Gambit</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>

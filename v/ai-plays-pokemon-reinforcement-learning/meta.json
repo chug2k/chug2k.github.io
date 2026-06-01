@@ -1,0 +1,17 @@
+{
+  "title": "Training AI to Play Pok\u00e9mon with Reinforcement Learning",
+  "description": "Peter Whidden trains a reinforcement-learning agent to play Pok\u00e9mon Red from scratch. The reward-function bugs it surfaces \u2014 distraction, trauma, misaligned proxy goals \u2014 turn into a surprisingly sharp lesson about human behavior.",
+  "source_url": "https://www.youtube.com/watch?v=DcYLT37ImBY",
+  "kind": "video",
+  "duration_minutes": 33,
+  "date": "2023-10-09",
+  "published": "2026-06-01 03:58:41+00:00",
+  "slug": "ai-plays-pokemon-reinforcement-learning",
+  "video_date": "2023-10-09",
+  "views": 9711927,
+  "tags": [
+    "wild",
+    "ai",
+    "research"
+  ]
+}

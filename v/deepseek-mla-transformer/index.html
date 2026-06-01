@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How DeepSeek Rewrote the Transformer (MLA)</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Multi-head latent attention</div>
+<h1>How DeepSeek Rewrote the Transformer (MLA)</h1>
+<p class="lede">DeepSeek shrank the transformer&#x27;s biggest memory bottleneck by a factor of 57 — and made the model better at the same time. Here is the linear algebra that did it.</p>
+<div class="byline"><span><strong>Creator:</strong> Welch Labs</span><span><strong>Runtime:</strong> 18 min</span><span><strong>Video published:</strong> March 5, 2025</span><span><strong>909.1K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=0VLAoVGf_74" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>The short version</h2><ol><li>DeepSeek's multi-head latent attention (MLA) strikes at the core of the transformer, not its margins — it changes how attention itself stores keys and values.</li><li>The KV cache is the bottleneck: caching keys and values turns attention's cost from quadratic to linear in token count, but for DeepSeek R1 that means 4 MB read per token and ~400 GB of memory reads to generate one token at a 100k context.</li><li>Earlier fixes — multi-query and grouped-query attention — shrink the cache by sharing keys and values across heads, but pay for it with worse model performance.</li><li>MLA instead projects the input into a compressed latent space shared across heads, then projects back up to per-head keys and values, cutting the cache 57x while improving performance.</li><li>The trick that makes it free at inference: the up-projection weights get algebraically absorbed into the query and output computations, so the extra matrix multiply costs nothing once training is done.</li></ol></div>
+<section id="intro"><h2 class="section">01 · The release</h2><h3 class="heading">DeepSeek hit the core of the transformer</h3><p>In January 2025, DeepSeek's R1 matched leading language models on a fraction of the compute — and, unlike most American labs, shipped the weights, the inference code, and a steady stream of technical reports, roughly one a month through 2024. Most of DeepSeek's tricks live at the margins of the stack. Multi-head latent attention, introduced in June 2024, does not: it changes the transformer itself, the architecture nearly every large language model shares.</p>
+<figure><img src="screenshots/intro.jpg" alt=""><figcaption><span>DeepSeek's 2024 papers, laid out end to end — the trail of incremental work that culminated in R1.</span><span class="ts">00:00:27</span></figcaption></figure>
+<div class="callout"><span class="label">The headline number</span>In DeepSeek's implementation, MLA shrinks the key-value cache by a factor of 57, letting the model generate text more than six times faster than a vanilla transformer.</div></section><section id="patterns"><h2 class="section">02 · Attention patterns</h2><h3 class="heading">What attention actually computes</h3><p>A language model generates one token at a time, and each new token is a function of every token before it. Attention is the mechanism that moves information between those token positions. It works by computing attention patterns — square matrices, one per head, sized to the number of input tokens. For the nine-token input "the American flag is red, white, and," every pattern is a 9x9 matrix.</p>
+<figure><img src="screenshots/patterns.jpg" alt=""><figcaption><span>GPT-2 small: 12 heads per layer across 12 layers, for 144 attention patterns. DeepSeek R1 has 128 heads across 61 layers — 7,808 patterns.</span><span class="ts">00:01:42</span></figcaption></figure>
+<p>A single head can learn a specific job. One pattern in GPT-2's third layer maps "American" onto "flag," fusing them into the concept American flag; a later head pulls "flag," "red," and "white" toward the final "and," setting up the correct next token: blue.</p></section><section id="mechanics"><h2 class="section">03 · Queries and keys</h2><h3 class="heading">Building attention from matrices</h3><p>Take the input matrix X — one row per token, one column per embedding dimension (768 for GPT-2 small, 7,168 for R1). Multiply X by two sets of learned weights, W_Q and W_K, to get the query matrix Q and key matrix K. Attention then searches for token pairs whose queries and keys point the same way.</p>
+<figure><img src="screenshots/mechanics.jpg" alt=""><figcaption><span>Q = XW_Q and K = XW_K. A token like "flag" can query for its modifiers; a token like "American" produces a matching key.</span><span class="ts">00:04:06</span></figcaption></figure>
+<ol class="steps"><li><b><strong>Score every pair</strong></b><span>Transpose K and multiply by Q, producing the 9x9 matrix of all key-query dot products at once.</span></li><li><b><strong>Mask</strong></b><span>Zero out the upper-right corner so a token can't peek at tokens that come after it.</span></li><li><b><strong>Normalize</strong></b><span>Divide by the square root of the dimension and apply softmax, so each row sums to one — that's the attention pattern.</span></li><li><b><strong>Apply it</strong></b><span>Compute a value matrix V = XW_V, then multiply the pattern by V to take a weighted sum of values. Stack the heads and multiply by W_O for the block's output.</span></li></ol></section><section id="kvcache"><h2 class="section">04 · The KV cache</h2><h3 class="heading">From quadratic to linear</h3><p>An attention pattern's size is the token count squared — a real problem when context windows run past 100,000 tokens, about the length of the first Harry Potter book. But there's a shortcut. When the model appends "blue" and re-runs on ten tokens, the first nine rows of Q, K, and V are unchanged. The masking means only the new bottom row of the pattern needs computing, and that needs all the keys but only the newest query row.</p>
+<figure><img src="screenshots/kvcache.jpg" alt=""><figcaption><span>Cache the keys and values you already computed, and attention's cost stops growing as the square of the token count and grows linearly instead.</span><span class="ts">00:09:57</span></figcaption></figure>
+<div class="callout"><span class="label">Why cache keys and values, not queries</span>The old query rows are never reused — only the newest one matters for the new bottom row. Keys and values, by contrast, are needed in full every step, so those are what you store.</div></section><section id="memory"><h2 class="section">05 · The cost of caching</h2><h3 class="heading">Four megabytes per token</h3><p>The shortcut trades compute for memory. The system has to hold keys and values for the entire session, across every head and every layer. For a model with L layers, NH heads, head dimension DH, and N tokens, the cache holds 2 x N x DH x NH x L numbers.</p>
+<figure><img src="screenshots/memory.jpg" alt=""><figcaption><span>The full caching pipeline, with cached entries in magenta and the per-token new work outlined.</span><span class="ts">00:10:00</span></figcaption></figure>
+<div class="callout"><span class="label">The bottleneck, in numbers</span>For R1 at fp16 with a 100,000-token context, that's 4 MB read per token — and roughly 400 GB of memory reads to generate each new token. The cache, not the math, is the wall.</div></section><section id="gqa"><h2 class="section">06 · Sharing keys and values</h2><h3 class="heading">MQA and GQA pay in performance</h3><p>Oversized caches predate DeepSeek, and the standard fixes share keys and values across heads. Multi-query attention uses a single shared K and V for all heads, shrinking the cache by the head count — 128 for R1 — but forcing every head onto the same keys and values kills specialization. Grouped-query attention softens that: heads share K and V within small groups. Meta's Llama 3 uses groups of eight, cutting the cache eightfold.</p>
+<figure><img src="screenshots/gqa.jpg" alt=""><figcaption><span>Multi-query attention drops the cache from 4 MB to 31 KB per token — but performance drops with it.</span><span class="ts">00:13:04</span></figcaption></figure>
+<blockquote>Grouped query attention reduces KV cache size, but still takes a performance hit relative to full multi-head attention.<cite>— Welch Labs</cite></blockquote></section><section id="mla"><h2 class="section">07 · Multi-head latent attention</h2><h3 class="heading">Let the model compress its own cache</h3><p>DeepSeek's move borrows a familiar idea — a latent space — and applies it in a new place. MLA adds a step between each head's input and its keys and values: project the input down into a compressed latent space shared across all heads (L_KV = XW_DKV), then project that latent back up into per-head keys and values with weights W_UK and W_UV unique to each head. That up-projection is what MQA and GQA lack, and it's where the flexibility — and the performance — comes back.</p>
+<figure><img src="screenshots/mla.jpg" alt=""><figcaption><span>The latent L_KV is shared across all heads; W_UK and W_UV expand it into each head's own keys and values. Only the latent is cached.</span><span class="ts">00:15:00</span></figcaption></figure>
+<blockquote>What if the model could learn to efficiently compress its own keys and values?<cite>— Welch Labs</cite></blockquote>
+<div class="callout"><span class="label">Why the extra multiply is free</span>The new matrix multiply looks like it just trades memory for compute. But the up-projection weights are fixed after training, so they can be absorbed once — into the query computation (W_UK) and the output computation (W_UV). At inference, the attention pattern is read straight off the latent cache with no added work.</div></section><section id="compare"><h2 class="section">08 · The result</h2><h3 class="heading">A real improvement to the transformer</h3><p>With MLA, the cache no longer depends on the number of heads — only on the size of the shared latent, 576 per token for R1. Standard attention would need 4 MB per token; grouped-query attention with groups of eight, 500 KB; MLA, just 70 KB. That's the 57x.</p>
+<figure><img src="screenshots/compare.jpg" alt=""><figcaption><span>The heads of an MLA block, all reading from one shared latent rather than caching keys and values apiece.</span><span class="ts">00:16:21</span></figcaption></figure>
+<div class="callout"><span class="label">The takeaway</span>This isn't a margin trick. R1 generates tokens more than six times faster than a vanilla transformer while scoring better — the model itself learned how to compress and share information between heads. The transformer is one of modern AI's biggest breakthroughs, and DeepSeek appears to have just made it work meaningfully better.</div></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=0VLAoVGf_74" target="_blank" rel="noopener">How DeepSeek Rewrote the Transformer (MLA)</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>

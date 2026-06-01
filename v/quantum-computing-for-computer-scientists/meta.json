@@ -1,0 +1,16 @@
+{
+  "title": "Quantum Computing for Computer Scientists, Without the Physics",
+  "description": "Andrew Helwer's Microsoft Research lecture teaches quantum computing to computer scientists using only basic linear algebra \u2014 qubits, superposition, the Hadamard and CNOT gates, the Deutsch oracle, entanglement, and teleportation \u2014 no physics required.",
+  "source_url": "https://www.youtube.com/watch?v=F_Riqjdh2oM",
+  "kind": "lecture",
+  "duration_minutes": 88,
+  "date": "2018-05-14",
+  "published": "2026-06-01 05:20:59+00:00",
+  "slug": "quantum-computing-for-computer-scientists",
+  "video_date": "2018-05-14",
+  "views": 2171531,
+  "tags": [
+    "wild",
+    "physics"
+  ]
+}
