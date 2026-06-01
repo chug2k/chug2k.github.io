@@ -1,0 +1,17 @@
+{
+  "title": "Introduction to Quantum Computing",
+  "description": "A full introductory course on quantum computing taught through rigorous mathematics. Complex numbers, Bloch sphere, quantum gates, entanglement, phase kickback, superdense coding, Deutsch's algorithm, Deutsch-Jozsa, Bernstein-Vazirani, the quantum Fourier transform, quantum phase estimation, and Shor's algorithm \u2014 all derived step by step.",
+  "source_url": "https://www.youtube.com/watch?v=tsbCSkvHhMo",
+  "kind": "course",
+  "duration_minutes": 96,
+  "date": "2026-06-01",
+  "published": "2026-06-01T23:07:31Z",
+  "slug": "intro-to-quantum-computing",
+  "video_date": "2024-05-15",
+  "views": 1355195,
+  "tags": [
+    "wild",
+    "qwen",
+    "science"
+  ]
+}

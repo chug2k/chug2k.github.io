@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Introduction to Quantum Computing</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">From complex numbers to Shor&#x27;s algorithm</div>
+<h1>Introduction to Quantum Computing</h1>
+<p class="lede">A 96-minute course that builds quantum computing from the ground up — no analogies about particles being in two places at once, just the actual math. Starts with imaginary numbers and matrices, then walks through qubits, quantum gates, entanglement, and the algorithms that show quantum speedup.</p>
+<div class="byline"><span><strong>Creator:</strong> Michael from Quantum Sore</span><span><strong>Runtime:</strong> 96 min</span><span><strong>Video published:</strong> May 15, 2024</span><span><strong>1.4M views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=tsbCSkvHhMo" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>TL;DR</h2><ol><li>Quantum states are vectors; quantum gates are unitary rotations, not switches</li><li>Phase is the engine of quantum speedup — relative phase matters, global phase does not</li><li>Entanglement links qubits so measuring one instantly determines the other</li><li>Deutsch's algorithm determines a function's property with one query instead of two</li><li>Shor's algorithm factors large numbers exponentially faster than any known classical method</li></ol></div>
+<section id="intro"><h2 class="section">01 · Why quantum computing matters</h2><h3 class="heading">Intro</h3><p>Most explanations of quantum computers lean on analogies — "bits are both zero and one at the same time" — that don't land. This course skips the analogies and teaches the actual math: complex numbers, matrices, and vector rotations. The result is a foundation you can use to derive every quantum algorithm from first principles.</p>
+<figure><img src="screenshots/intro.jpg" alt=""><figcaption><span>Lesson 1.1: Introduction to Quantum Computing — the full course outline.</span><span class="ts">00:00:00</span></figcaption></figure>
+<blockquote>When I first started learning about quantum computers, these analogies and explanations never made sense. This course was created to provide a solid foundation without them.<cite>— Michael</cite></blockquote>
+<div class="pills"><div class="pill"><h5><strong>Section 1</strong> — Essential math: complex numbers, linear algebra</h5><p></p></div><div class="pill"><h5><strong>Section 2</strong> — Qubits: representation, superposition, measurement</h5><p></p></div><div class="pill"><h5><strong>Section 3</strong> — Multiple qubits: tensor products, entanglement, phase kickback</h5><p></p></div><div class="pill"><h5><strong>Section 4</strong> — Quantum algorithms: Deutsch, Deutsch-Jozsa, Shor, and more</h5><p></p></div></div></section><section id="complex"><h2 class="section">02 · The math foundation</h2><h3 class="heading">Imaginary &amp; complex numbers</h3><p>Quantum mechanics uses complex numbers in exponential form as its native language. Before getting to qubits, you need to understand why: rotating a quantum state is multiplication by $e^{i\theta}$, and that's what gives quantum gates their power.</p>
+<figure><img src="screenshots/complex.jpg" alt=""><figcaption><span>Complex numbers on the complex plane — real axis horizontal, imaginary axis vertical.</span><span class="ts">00:02:24</span></figcaption></figure>
+<blockquote>Any number that contains a factor of the square root of minus one, or $i$, is an imaginary number.<cite>— Michael</cite></blockquote>
+<div class="callout"><span class="label">Key identity</span>Multiplying a complex number by its conjugate always yields a real number. In exponential form, $e^{i\theta} \cdot e^{-i\theta} = 1$.</div>
+<p>The course derives Euler's formula naturally — not as a fact to memorize but as the bridge between algebra and geometry. When both complex numbers have unit magnitude, multiplying them adds their angles, which maps directly to rotating on the unit circle.</p></section><section id="matrices"><h2 class="section">03 · The math foundation</h2><h3 class="heading">Matrices as transformations</h3><p>Quantum operations are matrices. But not just any matrices — unitary matrices, which preserve vector length (rotations and reflections). The course also introduces Hermitian matrices, which appear in observable measurements.</p>
+<figure><img src="screenshots/matrices.jpg" alt=""><figcaption><span>Matrix multiplication and transformation examples on screen.</span><span class="ts">00:10:05</span></figcaption></figure>
+<p>A unitary matrix $U$ satisfies $U^\dagger U = I$, meaning its conjugate transpose is its inverse. Geometrically, this means the matrix rotates or flips vectors without stretching them — essential because quantum probabilities must always sum to one.</p></section><section id="qubit"><h2 class="section">04 · The qubit</h2><h3 class="heading">What is a qubit?</h3><p>A classical bit is 0 or 1. A qubit is a column vector $\begin{bmatrix}\alpha \ \beta\end{bmatrix}$ where $|\alpha|^2 + |\beta|^2 = 1$. The state $|0\rangle = \begin{bmatrix}1 \ 0\end{bmatrix}$ and $|1\rangle = \begin{bmatrix}0 \ 1\end{bmatrix}$ are the basis states in Dirac notation (bras and kets).</p>
+<figure><img src="screenshots/qubit.jpg" alt=""><figcaption><span>Qubit column vectors — the $|0\rangle$ and $|1\rangle$ basis states.</span><span class="ts">00:15:10</span></figcaption></figure>
+<blockquote>A qubit is in superposition if it has nonzero numbers in both the zero and one state — it is both of the states at the same time.<cite>— Michael</cite></blockquote>
+<p>Measuring a qubit collapses its superposition: you get 0 with probability $|\alpha|^2$ and 1 with probability $|\beta|^2$, and the qubit permanently becomes that outcome. The numbers in the vector aren't the probability — their magnitudes squared are.</p></section><section id="bloch"><h2 class="section">05 · Visualization</h2><h3 class="heading">The Bloch sphere</h3><p>Any single-qubit state can be visualized as a point on a sphere. The north pole is $|0\rangle$, the south pole is $|1\rangle$, and the equator holds states with equal probability of measuring 0 or 1, differing only by phase.</p>
+<figure><img src="screenshots/bloch.jpg" alt=""><figcaption><span>The Bloch sphere — qubit states as points on a sphere, with phase shown as rotation around the Z axis.</span><span class="ts">00:21:50</span></figcaption></figure>
+<div class="callout"><span class="label">Why the Bloch sphere matters</span>Moving a qubit around the sphere changes its phase without changing its measurement probabilities. That decoupling of phase from probability is what makes quantum computation possible.</div></section><section id="gates"><h2 class="section">06 · Quantum gates</h2><h3 class="heading">Single-qubit gates</h3><p>Quantum gates rotate the qubit state on the Bloch sphere. The X, Y, and Z gates each rotate 180° (π radians) around their respective axes. The Hadamard gate maps $|0\rangle$ to the plus state and $|1\rangle$ to the minus state.</p>
+<figure><img src="screenshots/gates.jpg" alt=""><figcaption><span>X gate rotation diagram — flipping the qubit state 180° around the X axis.</span><span class="ts">00:23:40</span></figcaption></figure>
+<blockquote>These three gates are their own inverses — applying the same gate twice returns the qubit to its original position.<cite>— Michael</cite></blockquote>
+<p>The Z gate is subtle: it doesn't change measurement probabilities at all. It only adds a relative phase to the $|1\rangle$ component, multiplying it by −1. On the Bloch sphere, it rotates around the Z axis, which doesn't change the latitude (probability) but changes the longitude (phase).</p></section><section id="phase"><h2 class="section">07 · Phase</h2><h3 class="heading">Hadamard &amp; phase gates</h3><p>Phase is what makes quantum computers powerful. The course distinguishes two types: global phase (physically irrelevant) and relative phase (extremely important). The S gate adds $\pi/2$ phase; the T gate adds $\pi/4$.</p>
+<figure><img src="screenshots/phase.jpg" alt=""><figcaption><span>Hadamard gate matrix — mapping $|0\rangle \rightarrow |+\rangle$ and $|1\rangle \rightarrow |-\rangle$.</span><span class="ts">00:32:50</span></figcaption></figure>
+<div class="callout"><span class="label">Global vs relative phase</span>The state $e^{i\theta}\frac{1}{\sqrt{2}}(|0\rangle + |1\rangle)$ is logically identical to $\frac{1}{\sqrt{2}}(|0\rangle + |1\rangle)$ — global phase is unobservable. Only relative phase between $|0\rangle$ and $|1\rangle$ matters.</div>
+<p>The Hadamard gate demonstrates why phase matters: $|+\rangle$ and $|-\rangle$ differ only by relative phase, but after another Hadamard they become $|0\rangle$ and $|1\rangle$ — different measurement outcomes from a difference that was invisible to direct measurement.</p></section><section id="entangle"><h2 class="section">08 · Multi-qubit systems</h2><h3 class="heading">Entanglement</h3><p>Multiple qubits are represented by the tensor product of their states. A 2-qubit system has 4 basis states ($|00\rangle, |01\rangle, |10\rangle, |11\rangle$). When the joint state can't be factored into individual qubit states, the qubits are entangled — measuring one instantly determines the other.</p>
+<figure><img src="screenshots/entangle.jpg" alt=""><figcaption><span>Bell state circuit — CNOT gate creating entanglement from a superposition.</span><span class="ts">00:43:20</span></figcaption></figure>
+<blockquote>Without even looking at both the qubits, by measuring one of them we immediately know the state of the other qubit. This is called entanglement.<cite>— Michael</cite></blockquote>
+<p>The course covers maximally entangled Bell states and partially entangled states, where measuring one qubit shifts the probabilities of the other without fully determining it.</p></section><section id="superdense"><h2 class="section">09 · Protocol</h2><h3 class="heading">Superdense coding</h3><p>Superdense coding uses one pre-shared entangled qubit pair to transmit two classical bits by sending only one qubit. Alice applies one of four operations (identity, X, Z, or XZ) to her qubit, then sends it to Bob. Bob performs a Bell measurement to recover both bits.</p>
+<figure><img src="screenshots/superdense.jpg" alt=""><figcaption><span>Superdense coding circuit — Alice encodes two bits, Bob decodes them with CNOT + Hadamard.</span><span class="ts">00:48:00</span></figcaption></figure>
+<div class="callout"><span class="label">The result</span>Two bits of classical information sent by transmitting one qubit. This works because the two entangled qubits in the entire system provide the extra capacity.</div></section><section id="deutsch"><h2 class="section">10 · Algorithm</h2><h3 class="heading">Deutsch&#x27;s algorithm</h3><p>Deutsch's algorithm is the simplest quantum speedup demonstration. Given a "black box" function that takes one bit and returns one bit, determine whether it's constant (always returns the same output) or balanced (returns 0 for one input, 1 for the other).</p>
+<figure><img src="screenshots/deutsch.jpg" alt=""><figcaption><span>Deutsch's algorithm circuit — Hadamard gates, phase oracle, and measurement.</span><span class="ts">00:57:40</span></figcaption></figure>
+<p>Classically, this requires two queries. Quantum mechanically, one query suffices. The algorithm uses a phase oracle: when the output qubit is in the $|-\rangle$ state, querying $f$ applies a relative phase of $(-1)^{f(x)}$ to the input qubit. A final Hadamard gate converts this phase difference into a measurable bit flip.</p></section><section id="qft"><h2 class="section">11 · Algorithms deep</h2><h3 class="heading">Deutsch-Jozsa, BV, QFT &amp; phase estimation</h3><p>The course extends Deutsch's algorithm to n bits (Deutsch-Jozsa), then to finding a secret string (Bernstein-Vazirani). The quantum Fourier transform encodes numbers into the phases of superposition states, and quantum phase estimation extracts eigenvalues of unitary operators. These are the building blocks of Shor's factoring algorithm.</p>
+<figure><img src="screenshots/qft.jpg" alt=""><figcaption><span>QFT circuit — controlled phase gates and swaps encoding a number into qubit phases.</span><span class="ts">01:16:40</span></figcaption></figure>
+<div class="callout"><span class="label">The pattern</span>Every quantum algorithm in this course follows the same template: apply Hadamard gates to create superposition, apply the oracle function, then apply Hadamard (or inverse QFT) to convert phase information back into measurable probabilities.</div>
+<ol class="steps"><li><b><strong>Step 1</strong> — Choose $a$ coprime to $n$ (the number to factor)</b><span></span></li><li><b><strong>Step 2</strong> — Use quantum phase estimation to find the period $r$ of $a^x \bmod n$</b><span></span></li><li><b><strong>Step 3</strong> — Use continued fractions to estimate $s/r$ from the measured phase</b><span></span></li><li><b><strong>Step 4</strong> — Compute $\gcd(a^{r/2} \pm 1, n)$ to find the factors</b><span></span></li></ol>
+<blockquote>We will need a fault-tolerant quantum computer with millions of logical qubits — which won't happen for some time. But the algorithm shows that quantum computers can factor large numbers exponentially faster than any known classical method.<cite>— Michael</cite></blockquote></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=tsbCSkvHhMo" target="_blank" rel="noopener">Introduction to Quantum Computing</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>
