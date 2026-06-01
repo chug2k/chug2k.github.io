@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How Quantum Computers Will Break All Encryption</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">The quantum threat to every password, bank transfer, and secret on the internet</div>
+<h1>How Quantum Computers Will Break All Encryption</h1>
+<p class="lede">Nation-states are hoarding your encrypted data right now, betting that a powerful enough quantum computer will arrive within the next decade. The race to break—and then rebuild—encryption has begun.</p>
+<div class="byline"><span><strong>Creator:</strong> Veritasium</span><span><strong>Runtime:</strong> 25 min</span><span><strong>Video published:</strong> March 20, 2023</span><span><strong>13.1M views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=-UrdExQW0cs" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>In short</h2><ol><li>Quantum computers can factor large prime products exponentially faster than classical computers, which would break RSA and most public-key encryption in use today</li><li>The threat is already real via "Store Now, Decrypt Later" — hostile actors are collecting encrypted data now to decrypt when quantum computers arrive</li><li>The defense is lattice-based cryptography: problems that remain hard even for quantum computers, with NIST having standardized four post-quantum algorithms in 2022</li><li>Estimating for breaking RSA has plummeted from a billion physical qubits (2012) to 20 million (2019), but fault-tolerant quantum computers still don't exist</li><li>Your secret data is being protected by an "army of researchers, mathematicians, and cryptographers" working quietly behind the scenes</li></ol></div>
+<section id="threat"><h3 class="heading">01 · Store Now, Decrypt Later</h3><p>Nation-states and individual actors are intercepting and storing massive amounts of encrypted data today — passwords, bank details, social security numbers — even though they can't open any of it yet. Their motivation is simple: within the next 10 to 20 years, they expect to have access to quantum computers capable of breaking encryption in minutes.</p>
+<figure><img src="screenshots/threat.jpg" alt=""><figcaption><span>Data is being downloaded and stored today, waiting for a future quantum computer to unlock it.</span><span class="ts">00:00:06</span></figcaption></figure>
+<p>The National Security Agency has publicly stated that a sufficiently large quantum computer would be capable of undermining all widely deployed public key algorithms. Congress responded by mandating that all U.S. agencies begin transitioning to quantum-resistant cryptography immediately.</p>
+<blockquote>A sufficiently large quantum computer, if built, would be capable of undermining all widely deployed public key algorithms.<cite>— NSA (via video)</cite></blockquote>
+<div class="callout"><span class="label">The timeline</span>The NSA gives a 5–10 year window before quantum computers break encryption. That's why the "Store Now, Decrypt Later" strategy matters: the data stolen today will still be valuable a decade from now.</div></section><section id="rsa"><h3 class="heading">02 · The Lock: RSA and Prime Numbers</h3><p>Until the 1970s, private communication required meeting in person to share a secret key — a symmetric key algorithm. The breakthrough came in 1977 when three scientists — Rivest, Shamir, and Adleman — figured out how to encrypt without a pre-shared key.</p>
+<figure><img src="screenshots/rsa.jpg" alt=""><figcaption><span>The three inventors of RSA, with their last initials forming the algorithm's name.</span><span class="ts">00:02:20</span></figcaption></figure>
+<p>Every person has two large prime numbers they keep secret, multiplies them to get a public number, and publishes that for anyone to use. To send a private message, you garble it with the recipient's public number in a way that's impossible to reverse without knowing the original prime factors.</p>
+<p>This is an asymmetric key system — easy to encrypt, nearly impossible to decrypt without the secret primes. Modern cryptography uses prime numbers around 313 digits long. Factoring such a product on a classical supercomputer would take roughly 16 million years.</p>
+<blockquote>It's easy for my intended recipient to decode, but impossible for everyone else, unless they can factor that large public number.<cite>— Speaker</cite></blockquote></section><section id="qubit"><h3 class="heading">03 · The Key: Qubits and Superposition</h3><p>Classical bits are either zero or one. A pair of bits can be in one of four states at a time. But qubits can exist in a superposition of both zero and one simultaneously — meaning two qubits can process four states at once.</p>
+<figure><img src="screenshots/qubit.jpg" alt=""><figcaption><span>A qubit in superposition: simultaneously zero and one, with probability coefficients.</span><span class="ts">00:04:07</span></figcaption></figure>
+<p>Add a qubit and you double the computational space. With 20 qubits, you can represent over a million states simultaneously. With 300 qubits, more states than there are particles in the observable universe.</p>
+<p>There's a critical catch, though: you can't simply read out all those answers. Measuring a superposition gives you one random value and destroys everything else. Quantum algorithms must be clever enough to transform the superposition so that the <em>one</em> answer you get is the right one.</p></section><section id="factor"><h3 class="heading">04 · Shor&#x27;s Algorithm: Factoring by Finding Cycles</h3><p>In 1994, Peter Shor and Don Coppersmith figured out how to use quantum computers to factor large numbers — precisely the problem that makes RSA secure. The algorithm works by finding a hidden periodic pattern.</p>
+<p>The approach starts with a simple number theory observation: if you pick a number <em>g</em> and keep multiplying it by itself, the remainders when divided by <em>N</em> will always eventually cycle back. The period of that cycle is the key to finding <em>N</em>'s factors.</p>
+<figure><img src="screenshots/factor.jpg" alt=""><figcaption><span>The core equation: N = p × q, with N=77 used as a worked example.</span><span class="ts">00:07:02</span></figcaption></figure>
+<p>On a quantum computer, the algorithm prepares a superposition of all possible exponents simultaneously, computes the remainder pattern for all of them at once, then measures just the remainder — which collapses the superposition into a periodic pattern. Applying the quantum Fourier transform extracts the period from that pattern, and the period reveals the factors.</p>
+<figure><img src="screenshots/period.jpg" alt=""><figcaption><span>The remainders cycle with a fixed period — the repeating pattern is what Shor's algorithm extracts using the quantum Fourier transform.</span><span class="ts">00:13:14</span></figcaption></figure>
+<blockquote>If we apply the quantum Fourier transform to this superposition of states, we will be left with states containing one over R.<cite>— Speaker</cite></blockquote></section><section id="lattice"><h3 class="heading">05 · The Defense: Lattice-Based Cryptography</h3><p>Because the threat has been known for decades, cryptographers have been developing encryption schemes that resist both classical and quantum attacks. In 2016, NIST launched a competition for post-quantum algorithms. Out of 82 proposals, four were standardized in July 2022 — three of which are based on lattice mathematics.</p>
+<figure><img src="screenshots/lattice.jpg" alt=""><figcaption><span>A 2D lattice built from two vectors r₁ and r₂ — the same lattice can be described by many different vector pairs.</span><span class="ts">00:18:27</span></figcaption></figure>
+<p>The idea: a lattice is a grid of points generated by combining basis vectors in integer multiples. Given "nice" (short, nearly orthogonal) basis vectors, finding the closest lattice point to a target is easy. But given "messy" (long, skewed) basis vectors describing the same lattice, the problem becomes exponentially hard.</p>
+<p>In a thousand dimensions, taking a step toward the answer along one axis throws you off along all the others. There's no shortcut — even for a quantum computer.</p>
+<blockquote>You win some, you lose everything else.<cite>— Speaker</cite></blockquote></section><section id="curve"><h3 class="heading">06 · The Race: Two Exponential Curves</h3><p>Estimates for the number of physical qubits needed to break RSA have plummeted: a billion in 2012, 230 million five years later, and 20 million by 2019. Current quantum computers have nowhere near that many quality qubits, but progress is exponential on both sides.</p>
+<figure><img src="screenshots/curve.jpg" alt=""><figcaption><span>The number of lattice points grows exponentially with dimension — in ~1,000 dimensions, the closest-vector problem becomes intractable.</span><span class="ts">00:20:34</span></figcaption></figure>
+<p>The critical question: when will the two curves collide — the qubit count of advancing quantum computers meeting the threshold needed to break RSA? No one knows for sure, but the window for switching to post-quantum cryptography is closing.</p></section><section id="unsung"><h3 class="heading">07 · The Unsung Heroes</h3><p>Behind the scenes, an army of researchers, mathematicians, and cryptographers is working to ensure your secret data stays secret. These are the people who will keep us safe moving forward — avoiding mass surveillance by governments, protecting critical infrastructure, and letting us live as if quantum computers were never invented.</p>
+<blockquote>Behind the scenes, there's an army of researchers, mathematicians, and cryptographers, we're gonna make sure your secret data stays secret. These are some of the unsung heroes that will keep us safe moving forward.<cite>— Speaker</cite></blockquote>
+<div class="pills"><div class="pill"><h5><strong>Exponential advantage</strong> — Quantum computers factor prime products exponentially faster than classical ones, breaking RSA and most public-key encryption</h5><p></p></div><div class="pill"><h5><strong>SNDL is happening now</strong> — Nation-states are collecting encrypted data today to decrypt later; the threat is already active</h5><p></p></div><div class="pill"><h5><strong>Lattices are the answer</strong> — Three of NIST's four post-quantum standards use lattice-based cryptography, which resists quantum attacks</h5><p></p></div><div class="pill"><h5><strong>The estimate keeps falling</strong> — Qubit requirements to break RSA dropped from 1 billion (2012) to 20 million (2019)</h5><p></p></div><div class="pill"><h5><strong>Fault-tolerant QC doesn't exist yet</strong> — We have time, but not infinite time, to transition</h5><p></p></div></div>
+<p>:::</p></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=-UrdExQW0cs" target="_blank" rel="noopener">How Quantum Computers Will Break All Encryption</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>
