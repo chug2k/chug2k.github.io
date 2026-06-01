@@ -19,7 +19,7 @@
   });
 
   content.querySelectorAll('h2').forEach(function(h){
-    var m = h.textContent.match(/^(Chapter\s+\d+)\s*[—:-]\s*(.+)$/i);
+    var m = h.textContent.match(/^((?:Chapter\s+\d+|Part\s+\w+))\s*[—:-]\s*(.+)$/i);
     if(m){ h.innerHTML = '<span class="ch hand">'+m[1]+'</span>'+m[2]; }
     var n = h.nextElementSibling;
     while(n && n.tagName!=='P'){ if(n.tagName==='H2'){n=null;break;} n=n.nextElementSibling; }
