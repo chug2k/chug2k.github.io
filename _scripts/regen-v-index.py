@@ -280,7 +280,8 @@ TEMPLATE_TAIL = """  <div class="noresults" id="noresults">No summaries match th
     });
   });
   sortSel.addEventListener("change", applySort);
-  applySort();  // enforce the default ("Newest") on load, not just on change
+  sortSel.value = "pub-desc";
+  applySort();  // enforce the default ("Recently added") on load, not just on change
 })();
 </script>
 </body>
