@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chess Fundamentals</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style></head>
+<body><div class="wrap">
+<a class="back" href="/v/">← all video summaries</a>
+<header class="hero">
+<div class="eyebrow">Part 3 of the chess fundamentals series</div>
+<h1>Chess Fundamentals</h1>
+<p class="lede">Asianometry brings his student Zach into the frame — reviewing three real games where the same mistakes (undefended pieces, poor coordination, ignoring squares) show up again and again, then putting him on camera for live blitz games where the patterns repeat in real time.</p>
+<div class="byline"><span><strong>Runtime:</strong> 93 min</span><span><strong>Video published:</strong> January 11, 2015</span><span><strong>710.4K views</strong> when summarized</span></div>
+<a class="watch" href="https://www.youtube.com/watch?v=I5o2d9slUCM" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+<div class="tldr"><div class="tldr-label">TL;DR</div><h2>Key takeaways</h2><ol><li>Move pawns with purpose; the same pawn twice in the opening is fine when the opponent does something unusual, but don't use that as an excuse for wing pawns.</li><li>The c-pawn should usually go before the knight to it — c-pawn in front, knight behind gives you more central pressure.</li><li>In a closed position without a pawn break, you typically don't have a plan.</li><li>When your opponent is pushing a lot of pawns, build solid and time your pawn break to cash in on their wasted tempos.</li><li>Thinking in terms of weak squares (not just pieces) is the big leap from beginner to intermediate play.</li><li>You can know all the concepts and still blunder them — the gap between knowing and noticing is where improvement happens.</li></ol></div>
+<section id="setup"><h2 class="section">01 · The warm-up problem</h2><h3 class="heading">The missing between-move</h3><p>Asianometry opens with a trick question: a position where Zach, playing white, saw a queen sacrifice (Qxh6) leading to Rook on h6+ and mate in two — but missed that after Bxh6, Black gets check with their own rook. The same kind of oversight happens at the master level; world champions have fallen for it.</p>
+<figure><img src="screenshots/setup.jpg" alt=""><figcaption><span>The board after Qxh6 Bxh6 — white's combination ignored Black's between-move.</span><span class="ts">00:07:17</span></figcaption></figure>
+<div class="callout"><span class="label">Lesson</span>When you smell blood, double-check your opponent's defensive resources. Underestimating what they can do is the most common calculation error — at every level.</div></section><section id="pawn-sauna"><h3 class="heading">02 · Game #1 — The pawn sauna</h3><p>Zach (black) vs. Luke Carney. Zach plays the Scandinavian on his own, then faces an opponent who pushes <strong>almost every pawn in the opening</strong>. Instead of fighting with pawn breaks, Zach shuttles his bishop around the queenside (Bf5→Bb4+→Ba5→...), giving White tempo after tempo as each pawn push kicks his piece deeper.</p>
+<figure><img src="screenshots/pawn-sauna.jpg" alt=""><figcaption><span>The position after White's pawn storm — black's bishop hopping around the edge.</span><span class="ts">00:14:11</span></figcaption></figure>
+<blockquote>There's a good rule of thumb: if you're thinking about moving a minor piece into your opponent's half early and they can just push a pawn to kick it away, it's almost never a good move.<cite>— Asianometry</cite></blockquote>
+<p>The turning point: Zach has a clear <strong>pawn break</strong> with f6, opening the center and leveraging his development lead. He plays f6 (good!) but then <strong>abruptly switches to f5</strong>, closing the position and neutering his own advantage.</p>
+<div class="callout"><span class="label">Classic error</span>He played for a pawn break but when the moment came, he changed his mind and locked the board. A development lead in a closed position is worthless.</div></section><section id="weak-d4"><h3 class="heading">03 · Game #2 — Thinking in squares</h3><p>Zach (black) vs. Rud Begas. This game introduces the <strong>big leap in chess thinking</strong>: from pieces to squares. When White plays c4, they weaken the d4 square — it can no longer be contested by a pawn, only a piece. That makes d4 a prime outpost.</p>
+<figure><img src="screenshots/weak-d4.jpg" alt=""><figcaption><span>The Sicilian position — d4 is the weak square White created for themselves.</span><span class="ts">00:27:45</span></figcaption></figure>
+<blockquote>When you start thinking in terms of squares rather than pieces, that's a big step in your chess development.<cite>— Asianometry</cite></blockquote>
+<p>The d4 square dominates the game: Zach eventually plants a knight there, and the analysis shows how a knight on an unchallengable outpost can completely reverse the position evaluation — knight dominates bishop, knight can never be exchanged.</p>
+<div class="callout"><span class="label">Strategic insight</span>In closed positions with the bishop pair, the side with bishops prefers open positions. The side with knights prefers closed positions — the more pawns on the board, the more the knight's value increases relative to the bishop.</div></section><section id="live-game1"><h3 class="heading">04 · Live game #1 — Tactics under the clock</h3><p>Zach plays blitz against Herard Feliz (~125 points higher rated). The opening goes sideways: Zach moves pieces multiple times (bishop back and forth), leaves the b7 pawn undefended, and plays f6 (the "forget about it" pawn) when e5 would have sufficed.</p>
+<p>The critical moment: after ...e5, White has a <strong>discovered attack</strong> on the undefended d5 knight — both knights can capture on e5, opening different lines to the same target. White finds it; Zach loses two pawns and can't castle.</p>
+<div class="callout"><span class="label">Pattern to watch</span>An undefended piece in the center is a magnet for tactics. The knight on d5 becomes the target of two separate tactical shots — both involving discovered attacks.</div>
+<p>Despite being down material, Zach fights on and eventually gets a swindle win when White overlooks the bishop on b7 — queen to d1 check, queen to f1 mate. A turnaround, but the path there was full of missed threats.</p></section><section id="e4-break"><h3 class="heading">05 · Live game #2 — The e4 break</h3><p>Zach (white) vs. gm2 Gonzalez. A more coherent game: Zach builds a reverse-Stonewall setup, coordinates his pieces, and finds the <strong>e4 pawn break</strong> at exactly the right moment — a double attack on the queen and knight that wins material.</p>
+<ol class="steps"><li><b><strong>E4 double attack</strong> — the pawn push hits both the queen on g5 and the knight on d5</b><span></span></li><li><b><strong>Exchange on e5</strong> — after Nxe5, Bxe5 gives white an active bishop targeting the weak g6 pawn</b><span></span></li><li><b><strong>Capture on c1</strong> — white takes the undefended rook, winning a full exchange</b><span></span></li></ol>
+<blockquote>When you're opening up a position and trying to capitalize on a lead in development, often the best way to do that is with a pawn break.<cite>— Asianometry</cite></blockquote>
+<p>The game then explodes with tactical complications — black's bishop on b7 creates threats on g2, and after a queen sacrifice and counter-sacrifice, material evens out with opposite-piece imbalances (queen + pawn vs. two rooks).</p></section><section id="qgd-position"><h3 class="heading">06 · Live game #3 — The improvement</h3><p>Zack (white) vs. Matilda (1114). A Queen's Gambit Declined where Zack shows <strong>real progress</strong>. He castles early (by move 7), keeps his pawn structure coherent (c6, d5, e6 chain), pins white's bishop, and wins the exchange with Nd3.</p>
+<div class="callout"><span class="label">Growth moment</span>The difference between this game and the first one is night and day. He coordinated his position, developed coherently, and didn't waste time with pawn moves.</div>
+<p>The game gets messy at the end with both kings under attack, but the opening was a massive step forward. The pawn on c6 at the base of the chain is the right structure — it's not easy for white to get at that base point.</p></section><section><h3 class="heading">Wrapping up</h3><blockquote>You can know all the concepts and still blunder them. The gap between knowing and noticing is where improvement happens.<cite>— Asianometry</cite></blockquote>
+<p>The video's core message isn't about new concepts — it's about the <strong>difficulty of noticing</strong> the same mistakes in real games even when you can identify them in review. Zach is Asianometry's student; he's watched the previous two videos, knows the theory, and still makes these errors over the board. That's the reality for virtually every player below 1500.</p>
+<div class="callout"><span class="label">What to practice</span>Undefended pieces. Piece coordination. Thinking in squares. Watch your opponent's threats. In between-moves matter at every level.</div></section>
+<footer><p>Summary generated from the video transcript with screenshots at referenced moments.</p><p>Source: <a href="https://www.youtube.com/watch?v=I5o2d9slUCM" target="_blank" rel="noopener">Chess Fundamentals</a></p></footer>
+</div>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script>
+</body></html>
