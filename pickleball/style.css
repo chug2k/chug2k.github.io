@@ -52,13 +52,15 @@ body{margin:0; background:var(--desk);
 .contents .ck{display:inline-block; min-width:108px; color:var(--pickle-d); font-size:14px;
   letter-spacing:.08em; text-transform:uppercase}
 .contents .mn{color:var(--sienna)}
-.contents .toc-part{margin:16px 0 3px}
-.contents .toc-part a{background:#e7eed2; border-bottom:2px solid var(--pickle); border-radius:8px}
-.contents .toc-part a:hover{background:#dde7bf}
-.contents .toc-part .pk{display:inline-block; min-width:108px; color:var(--pickle-d);
-  font-weight:700; letter-spacing:.16em; text-transform:uppercase; font-size:13px}
-.contents .toc-part .pm{color:var(--ink); font-weight:700}
-.contents li:not(.toc-part) .ck{margin-left:6px}
+.contents .toc-part{margin:38px 0 4px}
+.contents .toc-part:first-child{margin-top:8px}
+.contents .toc-part a{display:block; background:none; border:none; border-radius:0;
+  padding:0 12px 9px; border-bottom:1px solid var(--rule)}
+.contents .toc-part a:hover{background:none}
+.contents .toc-part a:hover .pm{color:var(--sienna)}
+.contents .toc-part .pk{display:block; color:var(--pickle-d); font-weight:700;
+  letter-spacing:.26em; text-transform:uppercase; font-size:11.5px; margin-bottom:3px}
+.contents .toc-part .pm{display:block; color:var(--ink); font-weight:700; font-size:21px; line-height:1.2}
 
 /* part divider pages */
 .content.part{text-align:center; padding-top:42px; padding-bottom:30px}
