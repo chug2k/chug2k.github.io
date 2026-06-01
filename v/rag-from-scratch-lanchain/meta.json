@@ -1,0 +1,17 @@
+{
+  "title": "RAG from Scratch \u2014 Building Production Retrieval Systems with LangChain",
+  "description": "A complete deep dive into RAG architecture \u2014 from the fundamentals of indexing, retrieval, and generation through advanced query translation (multi-query, RAG Fusion, step-back, HyDE), logical and semantic routing, metadata-filter construction, multi-representation indexing, RAPTOR hierarchical indexing, ColBERT token-level embeddings, LangGraph state machines for active RAG, adaptive RAG with self-reflection, and the enduring case for retrieval in the era of million-token context windows.",
+  "source_url": "https://www.youtube.com/watch?v=sVcwVQRHIc8",
+  "kind": "tutorial",
+  "duration_minutes": 132,
+  "date": "2026-06-02",
+  "published": "2026-06-01T22:42:03Z",
+  "slug": "rag-from-scratch-lanchain",
+  "video_date": "2024-04-17",
+  "views": 1379741,
+  "tags": [
+    "wild",
+    "qwen",
+    "ai"
+  ]
+}
