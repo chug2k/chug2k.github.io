@@ -1,14 +1,14 @@
 {
   "tags": {
     "ai": 33,
-    "wild": 20,
+    "wild": 21,
     "agents": 13,
     "chess": 12,
-    "qwen": 10,
+    "qwen": 11,
     "productivity": 9,
+    "pickleball": 8,
     "research": 8,
     "sports": 8,
-    "pickleball": 7,
     "anthropic": 6,
     "science": 6,
     "startups": 6,
@@ -19,5 +19,5 @@
     "seo": 2,
     "stanford": 2
   },
-  "entries": 62
+  "entries": 63
 }
