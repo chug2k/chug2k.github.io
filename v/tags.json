@@ -5,10 +5,10 @@
     "agents": 14,
     "chess": 12,
     "qwen": 11,
+    "pickleball": 9,
     "productivity": 9,
-    "pickleball": 8,
+    "sports": 9,
     "research": 8,
-    "sports": 8,
     "startups": 7,
     "anthropic": 6,
     "science": 6,
@@ -19,5 +19,5 @@
     "seo": 2,
     "stanford": 2
   },
-  "entries": 64
+  "entries": 65
 }
