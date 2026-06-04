@@ -19,7 +19,7 @@
     --tan:#CBB593;
     --rust:#9A5A3B;
     --line:#C9BBA0;
-    --maxw:1180px;
+    --maxw:460px;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;}
@@ -41,7 +41,12 @@
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
     mix-blend-mode:multiply;
   }
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;}
+  /* the whole editorial lives in a phone-width column, centered on any screen */
+  .page{
+    max-width:var(--maxw);margin:0 auto;background:var(--paper);position:relative;
+    box-shadow:0 1px 0 rgba(255,255,255,.4) inset, 0 36px 90px -44px rgba(46,40,32,.6);
+  }
+  .wrap{max-width:100%;margin:0 auto;padding:0 22px;}
 
   /* ---------- masthead ---------- */
   header.top{
@@ -185,7 +190,7 @@
   .dcell{background:var(--paper);padding:18px 16px;}
   .dcell .dk{font-family:"Fraunces",serif;text-transform:uppercase;letter-spacing:.2em;font-size:10px;color:var(--rust);}
   .dcell .dv{font-family:"Fraunces",serif;font-size:20px;margin-top:7px;line-height:1.1;}
-  @media(max-width:780px){ .dossier{grid-template-columns:repeat(2,1fr);} }
+  @media(max-width:100000px){ .dossier{grid-template-columns:repeat(2,1fr);} }
 
   /* ---------- sources ---------- */
   footer.src{border-top:1.5px solid var(--ink);padding:44px 0 90px;}
@@ -224,11 +229,12 @@
   figcaption .fno{color:var(--clay);letter-spacing:.1em;}
   figcaption em{font-family:"Newsreader",serif;font-style:italic;text-transform:none;letter-spacing:0;font-size:13px;color:var(--ink);}
 
-  /* full-bleed band that escapes the wrap */
-  .bleed{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-top:48px;margin-bottom:8px;}
-  .bleed.tight{margin-top:8px;}
+  /* wide editorial band — capped to content width so low-res photos
+     are never rendered larger than their pixels (keeps them crisp) */
+  .bleed{position:relative;width:auto;left:auto;margin:46px 0 8px;}
+  .bleed.tight{margin-top:10px;}
   .bleed figure{position:relative;overflow:hidden;background:var(--paper-2);}
-  .bleed img{width:100%;height:clamp(320px,56vh,620px);object-fit:cover;}
+  .bleed img{width:100%;height:clamp(280px,42vh,440px);object-fit:cover;}
   .bleed .cap{
     position:absolute;left:0;right:0;bottom:0;padding:46px 32px 22px;
     background:linear-gradient(180deg,transparent,rgba(20,17,12,.55));
@@ -237,8 +243,8 @@
   }
   .bleed .cap em{font-family:"Newsreader",serif;font-style:italic;text-transform:none;letter-spacing:0;font-size:14px;}
 
-  /* cover image — taller, brand-forward */
-  .cover img{height:clamp(420px,76vh,820px);object-fit:cover;object-position:center 42%;}
+  /* cover image — brand-forward, but not blown past its resolution */
+  .cover img{height:clamp(360px,56vh,540px);object-fit:cover;object-position:center 42%;}
 
   /* portrait duo */
   .duo{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:40px 0 8px;}
@@ -253,7 +259,7 @@
   .lede-grid .colimg{overflow:hidden;background:var(--paper-2);}
   .lede-grid .colimg img{height:100%;min-height:320px;object-fit:cover;}
 
-  @media(max-width:780px){
+  @media(max-width:100000px){
     .duo{grid-template-columns:1fr;}
     .bleed img{height:clamp(260px,46vh,420px);}
   }
@@ -262,7 +268,7 @@
   .rise{opacity:0;transform:translateY(22px);animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards;}
   @keyframes rise{to{opacity:1;transform:none;}}
 
-  @media(max-width:780px){
+  @media(max-width:100000px){
     .lede-grid{grid-template-columns:1fr;gap:18px;}
     .swatches{grid-template-columns:repeat(2,1fr);}
     .sw{border-bottom:1px solid rgba(46,40,32,.25);}
@@ -273,9 +279,45 @@
     .piece{grid-template-columns:30px 1fr;gap:12px;}
     .piece .pr{grid-column:2;text-align:left;}
   }
+
+  /* phone-scale typography — vw clamps would otherwise read the full desktop
+     viewport and blow up inside the 460px column, so pin sizes here */
+  header.top{font-size:8.5px;letter-spacing:.14em;gap:8px;}
+  header.top .issue{letter-spacing:.1em;}
+  .hero{padding:54px 0 24px;}
+  .kicker{font-size:11px;letter-spacing:.34em;margin-bottom:22px;}
+  h1.title{font-size:48px;}
+  .dek{font-size:18.5px;margin-top:24px;}
+  .byline{margin-top:30px;font-size:10px;gap:7px 18px;}
+  .dedication{margin:36px 0 8px;padding:22px 0;gap:14px;}
+  .dedication p{font-size:20px;min-width:0;}
+  .giftnote p{font-size:18.5px;}
+  .leafrow{margin:46px 0;}
+  .leafrow .ln{width:60px;}
+  .prose p{font-size:17px;}
+  .prose p.lead{font-size:19px;}
+  .prose .drop::first-letter{font-size:64px;}
+  .pull{font-size:33px;max-width:none;margin:24px 0;}
+  .swatch-head h2{font-size:30px;}
+  .pieces h2{font-size:30px;}
+  .demand{margin-top:54px;}
+  .demand .wrap{padding:48px 22px;}
+  .demand h2{font-size:33px;}
+  .stat{padding:24px 20px;}
+  .stat .big{font-size:40px;}
+  .care{padding:54px 0 30px;}
+  .care h2{font-size:28px;}
+  .verdict{padding:34px 24px;margin:24px 0 56px;}
+  .verdict p{font-size:25px;}
+  .cover img{height:clamp(340px,52vh,460px);}
+  .bleed img{height:clamp(260px,40vh,400px);}
+  .bleed .cap{padding:38px 22px 18px;font-size:10px;letter-spacing:.2em;}
+  .bleed .cap em{font-size:13px;}
 </style>
 </head>
 <body>
+
+<div class="page">
 
 <div class="wrap">
   <header class="top">
@@ -478,6 +520,8 @@
     <p class="colophon">A special editorial assembled for Jaden, Ngoc &amp; the soon-to-be-named, to accompany a gift. Specifications are drawn from the brand's own storefronts and are accurate to the date of writing; colors, being plant-made, are accurate to no two garments at once — which is the whole, lovely point.</p>
   </footer>
 </div>
+
+</div><!-- /.page -->
 
 <script>
   // gentle staggered reveal for sections on scroll
