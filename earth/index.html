@@ -196,6 +196,24 @@
   .srcgrid a{color:var(--rust);text-decoration:none;border-bottom:1px solid var(--line);word-break:break-all;}
   .colophon{margin-top:34px;font-style:italic;font-size:14px;color:var(--ink-soft);max-width:640px;}
 
+  /* ---------- gift note ---------- */
+  .giftnote{
+    margin:34px 0 4px;border:1.5px solid var(--ink);
+    background:linear-gradient(180deg, rgba(151,164,127,.10), rgba(176,122,86,.06));
+    padding:clamp(26px,3.4vw,38px);
+  }
+  .giftnote .gk{
+    font-family:"Fraunces",serif;text-transform:uppercase;letter-spacing:.4em;
+    font-size:11px;color:var(--rust);display:flex;align-items:center;gap:12px;
+  }
+  .giftnote .gk::after{content:"";flex:1;height:1px;background:var(--line);}
+  .giftnote p{
+    font-family:"Fraunces",serif;font-weight:300;font-size:clamp(19px,2.5vw,27px);
+    line-height:1.32;letter-spacing:-.01em;color:var(--ink);margin-top:18px;
+  }
+  .giftnote p em{font-style:italic;color:var(--olive);}
+  .giftnote p b{font-weight:500;color:var(--rust);}
+
   /* ---------- imagery ---------- */
   img{display:block;width:100%;height:auto;}
   figure{margin:0;}
@@ -289,6 +307,11 @@
       <span class="seal">Dedicated&nbsp;To</span>
       <p><span class="names">Jaden &amp; Ngoc</span> — and the one still choosing a name. <em>(Archer? Charles?)</em> May your first wardrobe be as gentle as you are new.</p>
     </div>
+
+    <div class="giftnote rise" style="animation-delay:.42s">
+      <div class="gk">A Note On This Gift</div>
+      <p>What's folded in this box is, quietly, <b>the most fought-over name in Korean kidswear</b> — a botanical-dye house whose terry pieces sell out in under a minute and whose restocks parents stalk like concert tickets. <em>Getting it is the hard part; you already have it.</em> Consider the pages that follow a field guide to what you're holding.</p>
+    </div>
   </section>
 
   <div class="bleed rise">
@@ -372,21 +395,13 @@
   </section>
 
   <section class="pieces">
-    <h2>The Pieces Worth Knowing</h2>
-    <p class="sub">A curated cut of the catalogue, with prices as listed at the brand's English storefront (¥, approx. USD).</p>
+    <h2>Famous For One Thing,<br>Done Exceptionally Well</h2>
+    <p class="sub">The terry bib — absorbent, impossibly soft, and the piece that built the whole house.</p>
 
-    <figure class="plate" style="margin:0 0 30px;">
+    <figure class="plate" style="margin:6px 0 0;">
       <img src="img/10-bib-detail.jpg" alt="Close-up of a baby in a waffle-knit EARTH bib with twin suede diamond patches, sitting in warm sand.">
       <figcaption><span class="fno">Fig. 6</span><em>The hero, up close — waffle terry, suede diamonds, and the only label it needs.</em></figcaption>
     </figure>
-
-    <div class="piece"><span class="idx">I</span><span class="nm">Organic Terry Bib<small>The hero. Highly absorbent, gentle on skin — the piece that made the brand.</small></span><span class="pr">¥2,640<span>≈ $18</span></span></div>
-    <div class="piece"><span class="idx">II</span><span class="nm">Volume Suit<small>Rounded, roomy, room-to-grow — in ecru beige &amp; rich brown.</small></span><span class="pr">¥6,270<span>≈ $42</span></span></div>
-    <div class="piece"><span class="idx">III</span><span class="nm">Ribbed Sleeveless<small>The ribbed staple. Layer it or let it stand alone.</small></span><span class="pr">¥5,170<span>≈ $35</span></span></div>
-    <div class="piece"><span class="idx">IV</span><span class="nm">Pocket Shorts — Sage<small>The signature green, in the easiest summer shape.</small></span><span class="pr">¥5,500<span>≈ $37</span></span></div>
-    <div class="piece"><span class="idx">V</span><span class="nm">Knit Jumpsuit<small>A one-and-done outfit in light olive or brown. The showpiece.</small></span><span class="pr">¥11,880<span>≈ $79</span></span></div>
-    <div class="piece"><span class="idx">VI</span><span class="nm">Knit Cardigan<small>Heirloom-weight knit in ecru, baby blue, olive &amp; brown.</small></span><span class="pr">¥10,450+<span>≈ $70+</span></span></div>
-    <div class="piece"><span class="idx">VII</span><span class="nm">Sun Hat<small>Tan or ecru cream — the photograph-completing detail.</small></span><span class="pr">¥5,170<span>≈ $35</span></span></div>
   </section>
 
   <div class="bleed rise">
@@ -454,13 +469,13 @@
     <h3>Sources &amp; Verification</h3>
     <div class="srcgrid">
       <p><b>Brand identity, founding &amp; philosophy.</b> EARTH THE ARCHIVE (얼스디아카이브), botanical-dye label launched 2021. Brand page, 29CM — <a href="https://shop.29cm.co.kr/brand/52573">shop.29cm.co.kr/brand/52573</a></p>
-      <p><b>Materials, products &amp; pricing.</b> "100% GOTS organic cotton," plant dye, full catalogue &amp; prices, and the popular terry bibs — official English storefront, ARIRO (Japan) — <a href="https://ariro.jp/en/collections/frontpage">ariro.jp/en/collections/frontpage</a></p>
+      <p><b>Materials &amp; products.</b> "100% GOTS organic cotton," plant dye, and the popular terry bibs — official English storefront, ARIRO (Japan) — <a href="https://ariro.jp/en/collections/frontpage">ariro.jp/en/collections/frontpage</a></p>
       <p><b>Sold out in a minute · "bibketing" · +166%.</b> 1,000 bib sets cleared within a minute of the 29CM drop; the category's transaction volume rose 166% YoY over 20 days — Money Today, May 2026 — <a href="https://www.mt.co.kr/amp/living/2026/05/02/2026043012281850797">mt.co.kr</a></p>
       <p><b>KEEN × EARTH THE ARCHIVE.</b> Kids collection collaboration; bibs bought via pre-order &amp; open-run — Newsis / Daum, Apr 2026 — <a href="https://v.daum.net/v/bZOZZWV7Y6">v.daum.net</a></p>
       <p><b>29CM Kids Seongsu.</b> Selected for 29CM's curated offline kids shop among contemporary designer labels — Newsis, Aug 2025 — <a href="https://www.newsis.com/view/NISX20250813_0003289665">newsis.com</a></p>
       <p><b>Following.</b> 158K — Instagram, @earthstore.kr — <a href="https://www.instagram.com/earthstore.kr/">instagram.com/earthstore.kr</a> · <b>Home store</b> — <a href="https://earthstore.kr/">earthstore.kr</a></p>
     </div>
-    <p class="colophon">A special editorial assembled for Jaden, Ngoc &amp; the soon-to-be-named. Specifications and prices are drawn from the brand's own storefronts and are accurate to the date of writing; colors, being plant-made, are accurate to no two garments at once — which is the whole, lovely point.</p>
+    <p class="colophon">A special editorial assembled for Jaden, Ngoc &amp; the soon-to-be-named, to accompany a gift. Specifications are drawn from the brand's own storefronts and are accurate to the date of writing; colors, being plant-made, are accurate to no two garments at once — which is the whole, lovely point.</p>
   </footer>
 </div>
 
