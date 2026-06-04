@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EARTH THE ARCHIVE — An Editorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3ECDC;
+    --paper-2:#EDE4D0;
+    --ink:#2E2820;
+    --ink-soft:#5A5043;
+    --sage:#97A47F;
+    --olive:#6E7A4F;
+    --clay:#B07A56;
+    --tan:#CBB593;
+    --rust:#9A5A3B;
+    --line:#C9BBA0;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Newsreader",Georgia,serif;
+    font-optical-sizing:auto;
+    line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    background-image:
+      radial-gradient(circle at 18% 12%, rgba(151,164,127,.10), transparent 38%),
+      radial-gradient(circle at 88% 78%, rgba(176,122,86,.10), transparent 42%);
+  }
+  /* subtle paper grain */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;}
+
+  /* ---------- masthead ---------- */
+  header.top{
+    border-bottom:1.5px solid var(--ink);
+    padding:18px 0 14px;
+    display:flex;justify-content:space-between;align-items:baseline;
+    font-family:"Fraunces",serif;
+    text-transform:uppercase;letter-spacing:.28em;font-size:11px;font-weight:500;
+  }
+  header.top .issue{letter-spacing:.2em;color:var(--ink-soft);}
+
+  .hero{padding:78px 0 30px;position:relative;}
+  .kicker{
+    font-family:"Fraunces",serif;text-transform:uppercase;letter-spacing:.42em;
+    font-size:12px;font-weight:500;color:var(--rust);margin-bottom:30px;
+  }
+  h1.title{
+    font-family:"Fraunces",serif;font-weight:300;
+    font-size:clamp(54px,11vw,138px);
+    line-height:.92;letter-spacing:-.02em;
+    font-optical-sizing:auto;
+  }
+  h1.title em{font-style:italic;font-weight:400;color:var(--olive);}
+  .dek{
+    margin-top:30px;max-width:680px;
+    font-size:clamp(19px,2.3vw,26px);line-height:1.45;color:var(--ink-soft);
+    font-weight:300;
+  }
+  .dek b{color:var(--ink);font-weight:500;}
+  .byline{
+    margin-top:40px;display:flex;flex-wrap:wrap;gap:8px 26px;align-items:center;
+    font-family:"Fraunces",serif;text-transform:uppercase;letter-spacing:.22em;
+    font-size:11px;color:var(--ink-soft);
+  }
+  .byline .dot{width:5px;height:5px;border-radius:50%;background:var(--clay);display:inline-block;}
+
+  /* dedication ribbon */
+  .dedication{
+    margin:50px 0 10px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:26px 0;display:flex;align-items:center;gap:22px;flex-wrap:wrap;
+  }
+  .dedication .seal{
+    font-family:"Fraunces",serif;font-weight:600;font-size:13px;letter-spacing:.3em;
+    text-transform:uppercase;color:var(--rust);white-space:nowrap;
+  }
+  .dedication p{font-family:"Fraunces",serif;font-style:italic;font-weight:400;font-size:clamp(20px,2.4vw,28px);color:var(--ink);line-height:1.3;flex:1;min-width:280px;}
+  .dedication .names{color:var(--olive);}
+
+  /* leaf divider */
+  .leafrow{display:flex;gap:14px;justify-content:center;align-items:center;margin:64px 0;opacity:.7;}
+  .leafrow svg{width:26px;height:26px;}
+  .leafrow .ln{height:1px;width:90px;background:var(--line);}
+
+  /* ---------- body copy ---------- */
+  section{padding:8px 0;}
+  .lede-grid{display:grid;grid-template-columns:1fr 2fr;gap:46px;align-items:start;padding:40px 0;}
+  .sectionlabel{
+    font-family:"Fraunces",serif;text-transform:uppercase;letter-spacing:.3em;
+    font-size:12px;font-weight:600;color:var(--rust);
+    border-top:2px solid var(--ink);padding-top:12px;
+  }
+  .prose p{font-size:19px;margin-bottom:22px;}
+  .prose p.lead{font-size:23px;line-height:1.5;}
+  .prose .drop::first-letter{
+    font-family:"Fraunces",serif;float:left;font-size:84px;line-height:.72;
+    padding:8px 12px 0 0;color:var(--olive);font-weight:400;
+  }
+  em.term{font-style:italic;color:var(--rust);}
+
+  .pull{
+    font-family:"Fraunces",serif;font-weight:300;font-style:italic;
+    font-size:clamp(28px,4.6vw,52px);line-height:1.12;letter-spacing:-.01em;
+    color:var(--ink);max-width:14ch;margin:30px 0 30px;
+  }
+  .pull span{color:var(--clay);}
+
+  /* ---------- swatches ---------- */
+  .swatch-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:24px;}
+  .swatch-head h2{font-family:"Fraunces",serif;font-weight:400;font-size:clamp(30px,4vw,46px);letter-spacing:-.01em;}
+  .swatches{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:1px solid var(--ink);}
+  .sw{aspect-ratio:3/4;padding:14px;display:flex;flex-direction:column;justify-content:flex-end;border-right:1px solid rgba(46,40,32,.25);position:relative;}
+  .sw:last-child{border-right:none;}
+  .sw .nm{font-family:"Fraunces",serif;font-size:13px;letter-spacing:.06em;}
+  .sw .lt{font-size:12px;font-style:italic;opacity:.8;}
+  .sw.dark .nm,.sw.dark .lt{color:var(--paper);}
+  .sw .no{position:absolute;top:12px;left:14px;font-family:"Fraunces",serif;font-size:11px;letter-spacing:.2em;}
+  .sw.dark .no{color:var(--paper);opacity:.85;}
+  .sw .no{opacity:.6;}
+
+  /* ---------- the pieces ---------- */
+  .pieces{padding:60px 0 30px;}
+  .pieces h2{font-family:"Fraunces",serif;font-weight:400;font-size:clamp(30px,4vw,46px);margin-bottom:6px;}
+  .pieces .sub{color:var(--ink-soft);font-style:italic;margin-bottom:30px;}
+  .piece{
+    display:grid;grid-template-columns:46px 1fr auto;gap:24px;align-items:baseline;
+    padding:22px 0;border-top:1px solid var(--line);
+  }
+  .piece:last-child{border-bottom:1px solid var(--line);}
+  .piece .idx{font-family:"Fraunces",serif;color:var(--clay);font-size:14px;letter-spacing:.1em;}
+  .piece .nm{font-family:"Fraunces",serif;font-size:clamp(20px,2.4vw,28px);font-weight:400;}
+  .piece .nm small{display:block;font-family:"Newsreader",serif;font-style:italic;font-size:15px;color:var(--ink-soft);font-weight:300;margin-top:4px;letter-spacing:0;}
+  .piece .pr{font-family:"Fraunces",serif;font-size:17px;white-space:nowrap;color:var(--ink);text-align:right;}
+  .piece .pr span{display:block;font-size:12px;color:var(--ink-soft);font-style:italic;font-family:"Newsreader",serif;}
+
+  /* ---------- demand ---------- */
+  .demand{background:var(--ink);color:var(--paper);margin-top:70px;border-radius:2px;}
+  .demand .wrap{padding:64px 32px;}
+  .demand .sectionlabel{color:var(--tan);border-color:var(--tan);}
+  .demand h2{font-family:"Fraunces",serif;font-weight:300;font-size:clamp(32px,5vw,60px);line-height:1.02;margin:18px 0 36px;letter-spacing:-.01em;}
+  .demand h2 em{font-style:italic;color:var(--sage);}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(243,236,220,.2);border:1px solid rgba(243,236,220,.2);}
+  .stat{background:var(--ink);padding:30px 24px;}
+  .stat .big{font-family:"Fraunces",serif;font-weight:300;font-size:clamp(38px,6vw,62px);line-height:1;color:var(--tan);}
+  .stat .lbl{margin-top:12px;font-size:15px;color:var(--paper-2);line-height:1.4;}
+  .signals{margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:14px 40px;}
+  .signal{display:flex;gap:14px;align-items:flex-start;font-size:16.5px;color:var(--paper-2);line-height:1.45;}
+  .signal b{color:var(--paper);font-weight:500;}
+  .signal .mk{color:var(--sage);font-family:"Fraunces",serif;flex:none;}
+
+  /* ---------- care ---------- */
+  .care{display:grid;grid-template-columns:1fr 1fr;gap:50px;padding:70px 0 40px;align-items:start;}
+  .care h2{font-family:"Fraunces",serif;font-weight:400;font-size:clamp(28px,3.6vw,42px);letter-spacing:-.01em;}
+  .care .note{font-size:18px;color:var(--ink-soft);margin-top:16px;}
+  .carelist{list-style:none;}
+  .carelist li{padding:16px 0;border-top:1px solid var(--line);display:flex;gap:16px;font-size:16.5px;}
+  .carelist li:first-child{border-top:none;}
+  .carelist .ic{flex:none;color:var(--olive);font-family:"Fraunces",serif;font-weight:600;letter-spacing:.04em;}
+  .carelist b{font-weight:500;}
+
+  .verdict{
+    border:1.5px solid var(--ink);padding:clamp(34px,5vw,64px);margin:30px 0 70px;
+    background:linear-gradient(180deg, rgba(151,164,127,.10), rgba(176,122,86,.06));
+    text-align:center;
+  }
+  .verdict .vk{font-family:"Fraunces",serif;text-transform:uppercase;letter-spacing:.4em;font-size:12px;color:var(--rust);}
+  .verdict p{font-family:"Fraunces",serif;font-weight:300;font-size:clamp(24px,3.6vw,40px);line-height:1.22;margin-top:20px;letter-spacing:-.01em;}
+  .verdict p em{font-style:italic;color:var(--olive);}
+
+  /* ---------- dossier ---------- */
+  .dossier{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:4px 0 32px;}
+  .dcell{background:var(--paper);padding:18px 16px;}
+  .dcell .dk{font-family:"Fraunces",serif;text-transform:uppercase;letter-spacing:.2em;font-size:10px;color:var(--rust);}
+  .dcell .dv{font-family:"Fraunces",serif;font-size:20px;margin-top:7px;line-height:1.1;}
+  @media(max-width:780px){ .dossier{grid-template-columns:repeat(2,1fr);} }
+
+  /* ---------- sources ---------- */
+  footer.src{border-top:1.5px solid var(--ink);padding:44px 0 90px;}
+  footer.src h3{font-family:"Fraunces",serif;text-transform:uppercase;letter-spacing:.3em;font-size:12px;font-weight:600;margin-bottom:22px;color:var(--ink-soft);}
+  .srcgrid{columns:2;column-gap:46px;font-size:14px;color:var(--ink-soft);line-height:1.5;}
+  .srcgrid p{break-inside:avoid;margin-bottom:14px;}
+  .srcgrid b{color:var(--ink);font-weight:500;}
+  .srcgrid a{color:var(--rust);text-decoration:none;border-bottom:1px solid var(--line);word-break:break-all;}
+  .colophon{margin-top:34px;font-style:italic;font-size:14px;color:var(--ink-soft);max-width:640px;}
+
+  /* ---------- imagery ---------- */
+  img{display:block;width:100%;height:auto;}
+  figure{margin:0;}
+  figcaption{
+    font-family:"Fraunces",serif;text-transform:uppercase;letter-spacing:.22em;
+    font-size:10.5px;color:var(--ink-soft);margin-top:12px;display:flex;gap:10px;align-items:baseline;
+  }
+  figcaption .fno{color:var(--clay);letter-spacing:.1em;}
+  figcaption em{font-family:"Newsreader",serif;font-style:italic;text-transform:none;letter-spacing:0;font-size:13px;color:var(--ink);}
+
+  /* full-bleed band that escapes the wrap */
+  .bleed{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-top:48px;margin-bottom:8px;}
+  .bleed.tight{margin-top:8px;}
+  .bleed figure{position:relative;overflow:hidden;background:var(--paper-2);}
+  .bleed img{width:100%;height:clamp(320px,56vh,620px);object-fit:cover;}
+  .bleed .cap{
+    position:absolute;left:0;right:0;bottom:0;padding:46px 32px 22px;
+    background:linear-gradient(180deg,transparent,rgba(20,17,12,.55));
+    font-family:"Fraunces",serif;text-transform:uppercase;letter-spacing:.26em;
+    font-size:11px;color:rgba(243,236,220,.92);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  }
+  .bleed .cap em{font-family:"Newsreader",serif;font-style:italic;text-transform:none;letter-spacing:0;font-size:14px;}
+
+  /* cover image — taller, brand-forward */
+  .cover img{height:clamp(420px,76vh,820px);object-fit:cover;object-position:center 42%;}
+
+  /* portrait duo */
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:40px 0 8px;}
+  .duo figure{overflow:hidden;background:var(--paper-2);}
+  .duo img{aspect-ratio:3/4;object-fit:cover;}
+
+  /* framed editorial figure inside the column */
+  .plate{margin:34px 0 6px;overflow:hidden;background:var(--paper-2);}
+  .plate img{width:100%;}
+
+  /* image as one cell of the lede grid */
+  .lede-grid .colimg{overflow:hidden;background:var(--paper-2);}
+  .lede-grid .colimg img{height:100%;min-height:320px;object-fit:cover;}
+
+  @media(max-width:780px){
+    .duo{grid-template-columns:1fr;}
+    .bleed img{height:clamp(260px,46vh,420px);}
+  }
+
+  /* load animation */
+  .rise{opacity:0;transform:translateY(22px);animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards;}
+  @keyframes rise{to{opacity:1;transform:none;}}
+
+  @media(max-width:780px){
+    .lede-grid{grid-template-columns:1fr;gap:18px;}
+    .swatches{grid-template-columns:repeat(2,1fr);}
+    .sw{border-bottom:1px solid rgba(46,40,32,.25);}
+    .stats{grid-template-columns:1fr;}
+    .signals{grid-template-columns:1fr;}
+    .care{grid-template-columns:1fr;gap:24px;}
+    .srcgrid{columns:1;}
+    .piece{grid-template-columns:30px 1fr;gap:12px;}
+    .piece .pr{grid-column:2;text-align:left;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <span>Earth the Archive</span>
+    <span class="issue">A Special Issue · No. 01</span>
+    <span>Botanical / Organic / Childhood</span>
+  </header>
+</div>
+
+<div class="wrap">
+  <div class="bleed cover tight rise">
+    <figure>
+      <img src="earth-img/01-hero-daisies.jpg" alt="Shasta daisies in low evening light, with the words EARTH, THE ARCHIVE set across them.">
+      <div class="cap"><span>The Cover · No. 01</span><em>“Earth, the Archive” — light, leaf, and a name in the grass.</em></div>
+    </figure>
+  </div>
+
+  <section class="hero">
+    <div class="kicker rise">The Quiet Standard in Children's Dress</div>
+    <h1 class="title rise" style="animation-delay:.08s">Dyed by<br><em>the earth</em>,<br>worn by<br>the small.</h1>
+    <p class="dek rise" style="animation-delay:.18s">A Seoul-born studio turning <b>plants into pigment</b> and <b>GOTS organic cotton</b> into the softest, most quietly beautiful wardrobe a new person could be handed. Here is the case — made plainly, made warmly — for dressing a baby in something grown rather than manufactured.</p>
+    <div class="byline rise" style="animation-delay:.26s">
+      <span>Founded 2021 · Seoul</span><span class="dot"></span>
+      <span>Botanical Dye House</span><span class="dot"></span>
+      <span>158K Following</span>
+    </div>
+
+    <div class="dedication rise" style="animation-delay:.34s">
+      <span class="seal">Dedicated&nbsp;To</span>
+      <p><span class="names">Jaden &amp; Ngoc</span> — and the one still choosing a name. <em>(Archer? Charles?)</em> May your first wardrobe be as gentle as you are new.</p>
+    </div>
+  </section>
+
+  <div class="bleed rise">
+    <figure>
+      <img src="earth-img/05-kids-running.jpg" alt="Children in olive, cream and rust play in a sunlit yard with laundry drying on the line behind them.">
+      <div class="cap"><span>Spring Lookbook</span><em>Plant-dyed cottons, drying on the line — and worn at a run.</em></div>
+    </figure>
+  </div>
+</div>
+
+<div class="leafrow">
+  <span class="ln"></span>
+  <svg viewBox="0 0 24 24" fill="none" stroke="#6E7A4F" stroke-width="1.2"><path d="M12 2C7 6 5 11 12 22 19 11 17 6 12 2Z"/><path d="M12 5v14"/></svg>
+  <svg viewBox="0 0 24 24" fill="none" stroke="#B07A56" stroke-width="1.2"><path d="M3 12c6-7 12-7 18 0-6 7-12 7-18 0Z"/><path d="M3 12h18"/></svg>
+  <svg viewBox="0 0 24 24" fill="none" stroke="#6E7A4F" stroke-width="1.2"><path d="M12 2C7 6 5 11 12 22 19 11 17 6 12 2Z"/><path d="M12 5v14"/></svg>
+  <span class="ln"></span>
+</div>
+
+<div class="wrap">
+  <section class="lede-grid">
+    <div class="sectionlabel">The House</div>
+    <div class="prose">
+      <p class="lead drop"><b>EARTH THE ARCHIVE</b> — 얼스디아카이브 in its native Korean — is a Seoul botanical-dye house making clothing for babies and small children. Founded in 2021, it has grown into one of the most talked-about names in Korean kidswear on a single, almost old-fashioned conviction: that color should come from plants, and that cloth worn by a newborn should be clean enough to trust without a second thought.</p>
+      <p>The premise is easy to say and hard to do. Every piece is cut from <b>100% GOTS-certified organic cotton</b> — the strictest organic-textile standard there is — and colored with natural botanical dye: no synthetic pigment, no chemical fixative to freeze a shade in place. The studio designs out the pinching seams and tight elastics of ordinary baby clothes, and lets each garment soften, and quietly shift in color, the longer it is worn.</p>
+      <p>And it is famous for one small thing done exceptionally well — the terry <em class="term">bib</em>: so absorbent, so soft, and so coveted that, in Korea, simply buying one has turned into a minor national sport. (More on that shortly.)</p>
+    </div>
+  </section>
+
+  <section style="padding:2px 0 8px;">
+    <div class="dossier">
+      <div class="dcell"><div class="dk">Founded</div><div class="dv">2021 · Seoul</div></div>
+      <div class="dcell"><div class="dk">Discipline</div><div class="dv">Botanical dye</div></div>
+      <div class="dcell"><div class="dk">The cloth</div><div class="dv">100% GOTS organic</div></div>
+      <div class="dcell"><div class="dk">Known for</div><div class="dv">The terry bib</div></div>
+    </div>
+  </section>
+
+  <div class="duo rise">
+    <figure>
+      <img src="earth-img/02-bucket-hat.jpg" alt="A small child in a cream bucket hat and organic-cotton pullover, mid-play against a dark hedge.">
+      <figcaption><span class="fno">Fig. 1</span><em>The sun hat &amp; pullover — ecru, undyed.</em></figcaption>
+    </figure>
+    <figure>
+      <img src="earth-img/03-pink-romper.jpg" alt="A toddler in a soft pink botanical-dyed romper and bib stands in a wildflower meadow.">
+      <figcaption><span class="fno">Fig. 2</span><em>Madder-soft pink, in a field that matches.</em></figcaption>
+    </figure>
+  </div>
+
+  <div class="pull rise">Each piece is a <span>once-in-a-lifetime</span> color. The plant decides.</div>
+
+  <section class="lede-grid">
+    <div class="sectionlabel">On Plant Dye</div>
+    <div class="prose">
+      <p>Indigo leaf, madder root, the skins of things — natural dyes have colored cloth for four thousand years, long before aniline and petroleum entered the picture. EARTH leans entirely into that lineage. Because even one species of plant carries different pigment from harvest to harvest, no two runs are identical. A sage is never quite the same sage twice.</p>
+      <p>The trade-off is honest and worth naming: without artificial fixatives, the colors <em class="term">shift and mellow</em> with washing and sun. Most parents read this as the good kind of patina — a garment that visibly remembers the season your child wore it. If you need a shade frozen forever, this is the wrong shelf. If you want clothing that ages like linen and leather do, it's exactly right.</p>
+      <figure class="plate">
+        <img src="earth-img/04-bib-ribbon.jpg" alt="Terry bibs on a worn wooden table, bound with cotton twill tape printed EARTH, EARTH, EARTH.">
+        <figcaption><span class="fno">Fig. 3</span><em>The terry bib, unboxed — twill tape stamped EARTH, the only logo in sight.</em></figcaption>
+      </figure>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section style="padding:50px 0 20px;">
+    <div class="swatch-head">
+      <h2>The Palette,<br>Pulled From the Ground</h2>
+      <p style="font-style:italic;color:var(--ink-soft);max-width:30ch;">The house signatures — earthy neutrals and soft greens that photograph like a film still and read beautifully against any skin.</p>
+    </div>
+    <div class="swatches">
+      <div class="sw" style="background:#EBE2CC;"><span class="no">01</span><span class="nm">Ecru Cream</span><span class="lt">undyed warmth</span></div>
+      <div class="sw" style="background:#97A47F;"><span class="no">02</span><span class="nm">Sage Green</span><span class="lt">the favorite</span></div>
+      <div class="sw dark" style="background:#6E7A4F;"><span class="no">03</span><span class="nm">Light Olive</span><span class="lt">leaf &amp; herb</span></div>
+      <div class="sw dark" style="background:#8A5A3C;"><span class="no">04</span><span class="nm">Rich Brown</span><span class="lt">root &amp; bark</span></div>
+      <div class="sw" style="background:#C8A98A;"><span class="no">05</span><span class="nm">Tan</span><span class="lt">sun-softened</span></div>
+    </div>
+    <figure class="plate" style="margin-top:26px;">
+      <img src="earth-img/07-bibs-flatlay.jpg" alt="A flat-lay of terry bibs in two dozen botanical shades — sage, clay, ochre, dusty rose, slate — each labelled EARTH.">
+      <figcaption><span class="fno">Fig. 4</span><em>One bib, the full spectrum — every shade pulled from a plant, none of them repeatable.</em></figcaption>
+    </figure>
+  </section>
+
+  <section class="pieces">
+    <h2>The Pieces Worth Knowing</h2>
+    <p class="sub">A curated cut of the catalogue, with prices as listed at the brand's English storefront (¥, approx. USD).</p>
+
+    <div class="piece"><span class="idx">I</span><span class="nm">Organic Terry Bib<small>The hero. Highly absorbent, gentle on skin — the piece that made the brand.</small></span><span class="pr">¥2,640<span>≈ $18</span></span></div>
+    <div class="piece"><span class="idx">II</span><span class="nm">Volume Suit<small>Rounded, roomy, room-to-grow — in ecru beige &amp; rich brown.</small></span><span class="pr">¥6,270<span>≈ $42</span></span></div>
+    <div class="piece"><span class="idx">III</span><span class="nm">Ribbed Sleeveless<small>The ribbed staple. Layer it or let it stand alone.</small></span><span class="pr">¥5,170<span>≈ $35</span></span></div>
+    <div class="piece"><span class="idx">IV</span><span class="nm">Pocket Shorts — Sage<small>The signature green, in the easiest summer shape.</small></span><span class="pr">¥5,500<span>≈ $37</span></span></div>
+    <div class="piece"><span class="idx">V</span><span class="nm">Knit Jumpsuit<small>A one-and-done outfit in light olive or brown. The showpiece.</small></span><span class="pr">¥11,880<span>≈ $79</span></span></div>
+    <div class="piece"><span class="idx">VI</span><span class="nm">Knit Cardigan<small>Heirloom-weight knit in ecru, baby blue, olive &amp; brown.</small></span><span class="pr">¥10,450+<span>≈ $70+</span></span></div>
+    <div class="piece"><span class="idx">VII</span><span class="nm">Sun Hat<small>Tan or ecru cream — the photograph-completing detail.</small></span><span class="pr">¥5,170<span>≈ $35</span></span></div>
+  </section>
+
+  <div class="bleed rise">
+    <figure>
+      <img src="earth-img/06-bibs-color.jpg" alt="Yellow, pink and blue terry bibs draped over the edge of a dark cabinet, each tagged EARTH.">
+      <div class="cap"><span>The Object of the Frenzy</span><em>Three bibs, three minutes — if you’re lucky.</em></div>
+    </figure>
+  </div>
+</div>
+
+<div class="demand">
+  <div class="wrap">
+    <div class="sectionlabel">Yes — People Want It</div>
+    <h2>It sold out in <em>sixty seconds</em>.</h2>
+    <div class="stats">
+      <div class="stat"><div class="big">1 min</div><div class="lbl">When 29CM dropped three EARTH bib styles, 1,000 sets sold out within a minute of opening.</div></div>
+      <div class="stat"><div class="big">+166%</div><div class="lbl">Year-on-year jump in Korea's baby-bib category over a single 20-day window — a craze this brand helped ignite.</div></div>
+      <div class="stat"><div class="big">158K</div><div class="lbl">A following tracking every restock and drop on Instagram (@earthstore.kr).</div></div>
+    </div>
+
+    <div class="signals">
+      <div class="signal"><span class="mk">→</span><span><b>Parents coined a word for it.</b> The scramble to land a bib earned its own slang — "bibketing," bib plus ticketing — with restocks treated like concert tickets.</span></div>
+      <div class="signal"><span class="mk">→</span><span><b>KEEN came knocking.</b> The US outdoor-footwear house built a kids collection around EARTH — pieces you secure by pre-order and open-run.</span></div>
+      <div class="signal"><span class="mk">→</span><span><b>Hand-picked by the tastemakers.</b> Chosen for 29CM's curated kids shop in Seongsu, among designer labels most of which have no storefront of their own.</span></div>
+      <div class="signal"><span class="mk">→</span><span><b>Collaboration cachet.</b> An EARTH × CLAUMAN1981 organic bath-towel capsule, plus an English storefront and overseas stockists — the brand travels.</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <section class="care">
+    <div>
+      <div class="sectionlabel" style="margin-bottom:18px;">Care &amp; Keeping</div>
+      <h2>How to Keep It Beautiful</h2>
+      <p class="note">Plant-dyed organic cotton rewards a gentle hand. None of this is hard — it's the same care you'd give good linen, plus one bit of universal baby-clothing sense.</p>
+      <figure class="plate" style="margin-top:30px;">
+        <img src="earth-img/08-bibs-stack.jpg" alt="Four terry bibs stacked and fanned — sage grey, deep brown, slate blue and white — each labelled EARTH.">
+        <figcaption><span class="fno">Fig. 5</span><em>The neutrals, aging gently — grey, brown, slate, white.</em></figcaption>
+      </figure>
+    </div>
+    <ul class="carelist">
+      <li><span class="ic">i.</span><span><b>Wash cool &amp; gentle.</b> Cold water, gentle cycle, turned inside out. Heat and rough cycles strip natural dye fastest.</span></li>
+      <li><span class="ic">ii.</span><span><b>pH-neutral detergent only.</b> Skip oxy-bleach and harsh formulas — they pull the plant color straight out.</span></li>
+      <li><span class="ic">iii.</span><span><b>Dry in shade.</b> Lay flat, out of direct sun, to keep the shade even as it mellows.</span></li>
+      <li><span class="ic">iv.</span><span><b>Check snaps &amp; fastenings before each wear.</b> Universal good practice with any infant garment — a two-second once-over over the dressing table.</span></li>
+      <li><span class="ic">v.</span><span><b>Expect the patina.</b> Slight fading isn't a flaw — it's the vintage charm the dye is designed to develop.</span></li>
+    </ul>
+  </section>
+
+  <div class="verdict">
+    <div class="vk">The Verdict</div>
+    <p>For a baby with sensitive skin, or parents who simply love the <em>high, hushed, minimalist</em> look — this is as good as a first wardrobe gets. Beautifully made, genuinely organic, and quietly impossible to find a second of. <em>Buy the bib. Then the rest.</em></p>
+  </div>
+</div>
+
+<div class="wrap">
+  <footer class="src">
+    <h3>Sources &amp; Verification</h3>
+    <div class="srcgrid">
+      <p><b>Brand identity, founding &amp; philosophy.</b> EARTH THE ARCHIVE (얼스디아카이브), botanical-dye label launched 2021. Brand page, 29CM — <a href="https://shop.29cm.co.kr/brand/52573">shop.29cm.co.kr/brand/52573</a></p>
+      <p><b>Materials, products &amp; pricing.</b> "100% GOTS organic cotton," plant dye, full catalogue &amp; prices, and the popular terry bibs — official English storefront, ARIRO (Japan) — <a href="https://ariro.jp/en/collections/frontpage">ariro.jp/en/collections/frontpage</a></p>
+      <p><b>Sold out in a minute · "bibketing" · +166%.</b> 1,000 bib sets cleared within a minute of the 29CM drop; the category's transaction volume rose 166% YoY over 20 days — Money Today, May 2026 — <a href="https://www.mt.co.kr/amp/living/2026/05/02/2026043012281850797">mt.co.kr</a></p>
+      <p><b>KEEN × EARTH THE ARCHIVE.</b> Kids collection collaboration; bibs bought via pre-order &amp; open-run — Newsis / Daum, Apr 2026 — <a href="https://v.daum.net/v/bZOZZWV7Y6">v.daum.net</a></p>
+      <p><b>29CM Kids Seongsu.</b> Selected for 29CM's curated offline kids shop among contemporary designer labels — Newsis, Aug 2025 — <a href="https://www.newsis.com/view/NISX20250813_0003289665">newsis.com</a></p>
+      <p><b>Following.</b> 158K — Instagram, @earthstore.kr — <a href="https://www.instagram.com/earthstore.kr/">instagram.com/earthstore.kr</a> · <b>Home store</b> — <a href="https://earthstore.kr/">earthstore.kr</a></p>
+    </div>
+    <p class="colophon">A special editorial assembled for Jaden, Ngoc &amp; the soon-to-be-named. Specifications and prices are drawn from the brand's own storefronts and are accurate to the date of writing; colors, being plant-made, are accurate to no two garments at once — which is the whole, lovely point.</p>
+  </footer>
+</div>
+
+<script>
+  // gentle staggered reveal for sections on scroll
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('rise'); io.unobserve(e.target);} });
+  },{threshold:.12});
+  document.querySelectorAll('.lede-grid, .pull, .pieces, .swatch-head, .swatches, .care, .verdict, .demand .wrap > *').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
