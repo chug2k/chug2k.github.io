@@ -1,0 +1,17 @@
+{
+  "title": "How to Build a Company With AI From the Ground Up",
+  "description": "A distilled walkthrough of Diana's YC talk on building an AI-native company \u2014 running the company as a closed loop, making the whole org queryable by AI, software factories that replace hand-written code, the death of human middleware, the three new employee archetypes (IC / DRI / AI founder), and token-maxing over headcount.",
+  "source_url": "https://www.youtube.com/watch?v=EN7frwQIbKc",
+  "kind": "Talk",
+  "duration_minutes": 10,
+  "date": "2026-06-04",
+  "published": "2026-06-04T04:33:49Z",
+  "slug": "ai-native-company-from-scratch",
+  "video_date": "2026-04-24",
+  "views": 236203,
+  "tags": [
+    "ai",
+    "startups",
+    "agents"
+  ]
+}
