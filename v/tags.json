@@ -3,11 +3,11 @@
     "ai": 34,
     "wild": 21,
     "agents": 14,
+    "pickleball": 13,
+    "sports": 13,
     "chess": 12,
     "qwen": 11,
-    "pickleball": 9,
     "productivity": 9,
-    "sports": 9,
     "research": 8,
     "startups": 7,
     "anthropic": 6,
@@ -19,5 +19,5 @@
     "seo": 2,
     "stanford": 2
   },
-  "entries": 65
+  "entries": 69
 }
