@@ -1,10 +1,10 @@
 {
   "tags": {
     "ai": 34,
+    "pickleball": 24,
+    "sports": 24,
     "wild": 21,
     "agents": 14,
-    "pickleball": 14,
-    "sports": 14,
     "chess": 12,
     "qwen": 11,
     "productivity": 9,
@@ -19,5 +19,5 @@
     "seo": 2,
     "stanford": 2
   },
-  "entries": 70
+  "entries": 80
 }
