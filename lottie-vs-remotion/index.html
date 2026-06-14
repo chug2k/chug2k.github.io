@@ -303,25 +303,14 @@ This page&rsquo;s first draft was written by an AI that was <em>told</em> to use
 const TAU=Math.PI*2;
 const lerp=(a,b,t)=>a+(b-a)*t, cl=t=>t<0?0:t>1?1:t;
 function rng(seed){let s=seed*9301+49297;return()=>{s=(s*9301+49297)%233280;return s/233280;};}
-function heartPts(scale){const P=[],n=26;
+/* the classic parametric heart — symmetric and pretty. Sampled finely (n=80) so
+   the top cleavage stays smooth in lottie-web, not a spiky cusp. */
+function heartPts(scale){const P=[],n=80;
   for(let k=0;k<n;k++){const t=k/n*TAU;
     const x=16*Math.pow(Math.sin(t),3);
     const y=13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t);
     P.push([x*scale,-y*scale]);}
   return P;}
-/* a clean hand-authored heart bezier — control the cleavage tangents directly so
-   the top dip is a smooth valley, not the spiky cusp the parametric seam produced.
-   Returns a Lottie shape (v + relative i/o handles); heartPath() draws the same on canvas. */
-function heartShape(s){
-  const V=[[0,-5.5],[13,-15.5],[0,14.5],[-13,-15.5]];
-  const O=[[5.2,-3.4],[6.5,7.5],[-9.5,-7.5],[8.5,-2.2]];
-  const I=[[-5.2,-3.4],[-8.5,-2.2],[9.5,-7.5],[-6.5,7.5]];
-  return {c:true,v:V.map(p=>[p[0]*s,p[1]*s]),o:O.map(p=>[p[0]*s,p[1]*s]),i:I.map(p=>[p[0]*s,p[1]*s])};}
-function heartPath(g,sh,cx,cy){const v=sh.v,o=sh.o,i=sh.i,n=v.length;g.beginPath();
-  g.moveTo(cx+v[0][0],cy+v[0][1]);
-  for(let k=0;k<n;k++){const a=v[k],b=v[(k+1)%n],ni=(k+1)%n;
-    g.bezierCurveTo(cx+a[0]+o[k][0],cy+a[1]+o[k][1],cx+b[0]+i[ni][0],cy+b[1]+i[ni][1],cx+b[0],cy+b[1]);}
-  g.closePath();}
 
 /* ============================================================================
  * LOTTIE AUTHORING  — follows the text-to-lottie skill's JSON rules:
@@ -622,7 +611,7 @@ LOTTIE.like=()=>{OP=120;return COMP([
   L(1,{o:S(100),r:S(0),p:S([CX,CY+6]),a:S([0,0]),
      s:K([{t:0,s:[100,100]},{t:20,s:[100,100]},{t:30,s:[132,132]},{t:42,s:[100,100]},
           {t:96,s:[100,100]},{t:112,s:[58,58]},{t:120,s:[100,100]}])},
-    [GR([SH(heartShape(2.2)),
+    [GR([SH(smooth(heartPts(2.2))),
       FL(K([{t:0,s:[...C.gray]},{t:30,s:[...C.red]},{t:96,s:[...C.red]},{t:112,s:[...C.gray]}])),TR()])]),
   L(2,{o:K([{t:0,s:[0]},{t:26,s:[0]},{t:31,s:[80]},{t:60,s:[0]},{t:120,s:[0]}]),r:S(0),p:S([CX,CY+2]),a:S([0,0]),
      s:K([{t:26,s:[18,18]},{t:64,s:[172,172]},{t:120,s:[172,172]}])},
@@ -718,7 +707,7 @@ DRAW.like=(g,f,W,H)=>{const sx=W/200,cx=W/2,cy=H/2+4*sx,lt=f%120;
   const colP=lt<20?0:lt<30?(lt-20)/10:lt<96?1:lt<112?1-(lt-96)/16:0;
   if(lt>=24&&lt<56){const rt=(lt-24)/32;g.strokeStyle=`rgba(245,128,153,${(Math.sin(rt*Math.PI)*0.9).toFixed(3)})`;g.lineWidth=4*sx;g.beginPath();g.arc(cx,cy-2*sx,lerp(14,82,rt)*sx,0,TAU);g.stroke();}
   g.save();g.translate(cx,cy);g.scale(sc*sx,sc*sx);g.fillStyle=mixHex(COL.gray,COL.red,Math.max(0,colP));
-  heartPath(g,heartShape(2.2),0,0);g.fill();g.restore();};
+  smoothPath(g,heartPts(2.2),0,0);g.fill();g.restore();};
 
 const CF21=(()=>{const r=rng(21),a=[],cols=[COL.teal,COL.cyan,COL.blue,COL.violet,COL.pink,COL.amber];
   for(let k=0;k<12;k++)a.push({a:k/12*TAU,r:58+r()*22,s:(r()>.5?1:-1),col:cols[k%cols.length]});
@@ -1184,7 +1173,7 @@ const PHEX=['#f24555','#0b84f3','#a78bfa','#fab32e','#10c98e'];
 function makeMark(p,a){OP=120;return COMP([
   L(1,{o:S(100),r:S(0),p:S([CX,CY+6]),a:S([0,0]),
      s:K([{t:0,s:[94,94]},{t:24,s:[114,114]},{t:42,s:[100,100]},{t:84,s:[100,100]},{t:104,s:[114,114]},{t:120,s:[94,94]}])},
-    [GR([SH(heartShape(2.7)),FL(p),TR()])]),
+    [GR([SH(smooth(heartPts(2.7))),FL(p),TR()])]),
   L(2,{o:K([{t:0,s:[0]},{t:18,s:[0]},{t:24,s:[72]},{t:58,s:[0]},{t:120,s:[0]}]),r:S(0),p:S([CX,CY+2]),a:S([0,0]),
      s:K([{t:18,s:[14,14]},{t:62,s:[190,190]},{t:120,s:[190,190]}])},
     [GR([EL([60,60]),ST(a,5),TR()])])
