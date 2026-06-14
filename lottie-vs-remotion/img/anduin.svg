@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" role="img" aria-label="Anduin mascot">
+  <defs>
+    <radialGradient id="anduinGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="55%" stop-color="#bfe2fb" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#bfe2fb" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- soft glow behind the gem -->
+  <circle cx="100" cy="84" r="34" fill="url(#anduinGlow)"/>
+
+  <!-- blue mountain body with base notch (two feet) + dark outline -->
+  <path d="M100 30 L162 152 L112 152 L100 120 L88 152 L38 152 Z"
+        fill="#3DA1EE" stroke="#1A2E45" stroke-width="5"
+        stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- white diamond gem with subtle outline -->
+  <path d="M100 60 L116 84 L100 108 L84 84 Z"
+        fill="#ffffff" stroke="#1A2E45" stroke-width="3.5"
+        stroke-linejoin="round"/>
+
+  <!-- friendly face below the diamond -->
+  <!-- eyes -->
+  <circle cx="88" cy="119" r="5.5" fill="#1A2E45"/>
+  <circle cx="112" cy="119" r="5.5" fill="#1A2E45"/>
+  <!-- eye sparkles -->
+  <circle cx="90" cy="117" r="1.7" fill="#ffffff"/>
+  <circle cx="114" cy="117" r="1.7" fill="#ffffff"/>
+  <!-- smile -->
+  <path d="M90 130 Q100 139 110 130" fill="none"
+        stroke="#1A2E45" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- twinkle sparkle near the apex -->
+  <path d="M100 40 L102.4 47.6 L110 50 L102.4 52.4 L100 60 L97.6 52.4 L90 50 L97.6 47.6 Z"
+        fill="#ffffff" opacity="0.9"/>
+</svg>

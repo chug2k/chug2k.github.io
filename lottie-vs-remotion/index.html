@@ -1,0 +1,1205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lottie vs Remotion: making motion graphics with an LLM</title>
+<meta name="description" content="The same animations built twice — Lottie vector keyframes vs Remotion's frame-driven render — climbing from trivial to a 30-second launch video. When to use which, and how to get an LLM to write either one.">
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#211d1a;--code-ink:#f0e6d6;--lottie:#10c98e;--remotion:#0b84f3}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:32px;margin-bottom:36px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.08;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 22px;max-width:680px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 16px}
+.byline strong{color:var(--ink);font-weight:600}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:26px 30px;margin:0 0 44px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 8px;line-height:1.3}
+.tldr ul{margin:14px 0 0;padding-left:20px;font-size:16px}.tldr ul li{margin-bottom:9px}
+.tldr b{color:var(--accent);font-weight:600}
+section{margin-bottom:52px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:29px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 16px}
+p{margin:0 0 18px}
+em{font-style:italic}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:24px 0}
+@media(max-width:620px){.two-col{grid-template-columns:1fr}}
+.def{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:20px 22px;font-family:"Inter",sans-serif}
+.def h4{font-size:16px;margin:0 0 4px;display:flex;align-items:center;gap:8px}
+.def h4 .swatch{width:11px;height:11px;border-radius:50%;flex-shrink:0}
+.def .ms{font-size:12px;color:var(--muted);margin:0 0 12px;font-weight:500}
+.def p{font-size:14.5px;line-height:1.5;color:var(--muted);margin:0}
+.def code{font-size:.86em}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:21px;line-height:1.42;font-style:italic}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:15.5px;line-height:1.55}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.callout code{font-size:.86em;background:#ecd9c8;padding:1px 5px;border-radius:3px}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.86em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:16px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:13px;line-height:1.6;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+.prompt .you{color:#f0a76b}.prompt .cc{color:#8fd6b4}.prompt .dim{color:#9a8f80}
+/* demo cards */
+.legend{display:flex;flex-wrap:wrap;gap:10px 22px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);margin:24px 0 8px}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend i{width:10px;height:10px;border-radius:50%}
+.demo{margin:26px 0 0;border:1px solid var(--rule);border-radius:10px;overflow:hidden;background:var(--paper)}
+.demo-head{display:flex;align-items:center;gap:14px;padding:13px 20px;border-bottom:1px solid var(--rule);font-family:"Inter",sans-serif}
+.demo-head .num{font-size:12px;font-weight:700;color:var(--accent);font-feature-settings:"tnum"}
+.demo-head .mini{width:26px;height:26px;border-radius:7px;flex-shrink:0;display:block;animation:miniBob 3.2s ease-in-out infinite}
+@keyframes miniBob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-3px) rotate(2deg)}}
+@media(prefers-reduced-motion:reduce){.demo-head .mini{animation:none}}
+.demo-head h4{font-size:17px;font-weight:600;margin:0;flex:1;letter-spacing:-.01em;color:var(--ink)}
+.cx{display:flex;align-items:center;gap:4px}
+.cx i{width:7px;height:7px;border-radius:50%;background:var(--rule)}
+.cx i.on{background:var(--accent)}
+.cx span{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-left:7px}
+.pair{display:grid;grid-template-columns:1fr 1fr;background:#0c1118}
+@media(max-width:620px){.pair{grid-template-columns:1fr}}
+.cell{position:relative}
+.cell+.cell{border-left:1px solid #1d2735}
+@media(max-width:620px){.cell+.cell{border-left:none;border-top:1px solid #1d2735}}
+.tag{position:absolute;top:10px;left:12px;z-index:2;font-family:"Inter",sans-serif;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:4px 9px;border-radius:5px;line-height:1.25}
+.tag small{display:block;font-weight:500;letter-spacing:.01em;text-transform:none;opacity:.72;font-size:10px}
+.tag-l{color:#16d89a;background:rgba(16,201,142,.13)}
+.tag-r{color:#5cb4ff;background:rgba(11,132,243,.16)}
+.stage{height:228px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:repeating-linear-gradient(0deg,transparent 0 23px,rgba(255,255,255,.02) 23px 24px),repeating-linear-gradient(90deg,transparent 0 23px,rgba(255,255,255,.02) 23px 24px),#0c1118}
+.lo{width:200px;height:200px}
+canvas.re{display:block;width:100%;height:100%}
+.solo .stage,.stage.wide{height:440px}
+@media(max-width:620px){.solo .stage,.stage.wide{height:300px}}
+.fr{position:absolute;left:10px;bottom:8px;font-family:"JetBrains Mono",monospace;font-size:10px;color:rgba(150,178,205,.5);z-index:2}
+.demo-note{font-family:"Inter",sans-serif;font-size:14px;line-height:1.55;color:var(--muted);padding:14px 20px}
+.demo-note b,.demo-note strong{color:var(--ink);font-weight:600}
+.demo-note code{font-size:.85em}
+.loerr{color:#16d89a;font-family:"Inter",sans-serif;font-size:12px;padding:20px;text-align:center}
+/* interactive Lottie-only demo */
+.live-stage{height:300px;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;transition:background .25s;background:#0c1118}
+.live-stage.lite{background:repeating-linear-gradient(45deg,#efe7d6 0 16px,#e6dbc4 16px 32px)}
+.live-inner{width:160px;height:160px;transition:transform .3s ease;transform-origin:center}
+.ctrls{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;padding:15px 20px;border-top:1px solid var(--rule);font-family:"Inter",sans-serif}
+.ctrls .grp{display:flex;align-items:center;gap:8px}
+.ctrls .lbl{font-weight:600;color:var(--ink);font-size:12px;letter-spacing:.02em}
+.sw{width:22px;height:22px;border-radius:50%;border:2px solid transparent;outline:1px solid var(--rule);cursor:pointer;padding:0}
+.sw.on{border-color:var(--paper);outline-color:var(--ink)}
+.tg{font:600 12px "Inter",sans-serif;color:var(--muted);background:var(--paper);border:1px solid var(--rule);border-radius:999px;padding:5px 13px;cursor:pointer}
+.tg.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.verdict{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:26px 0}
+@media(max-width:620px){.verdict{grid-template-columns:1fr}}
+.vcard{border:1px solid var(--rule);border-radius:8px;padding:22px 24px;font-family:"Inter",sans-serif;background:var(--paper)}
+.vcard h4{margin:0 0 12px;font-size:18px;display:flex;align-items:center;gap:9px}
+.vcard h4 .swatch{width:12px;height:12px;border-radius:50%}
+.vcard ul{margin:0;padding-left:20px;font-size:14.5px;line-height:1.5;color:var(--muted)}
+.vcard li{margin-bottom:7px}
+.fourway{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:26px 0}
+@media(max-width:620px){.fourway{grid-template-columns:1fr}}
+.way{border:1px solid var(--rule);border-radius:10px;overflow:hidden;background:var(--paper);display:flex;flex-direction:column}
+.way-h{display:flex;align-items:center;gap:8px;padding:11px 15px;border-bottom:1px solid var(--rule);font-family:"Inter",sans-serif}
+.way-h b{font-size:14px;color:var(--ink)}
+.way-h .pill{margin-left:auto;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:5px}
+.pill-rem{color:#5cb4ff;background:rgba(11,132,243,.16)}
+.pill-lot{color:#16d89a;background:rgba(16,201,142,.14)}
+.pill-spr{color:#f3b43a;background:rgba(250,179,46,.16)}
+.pill-riv{color:#ff6f8e;background:rgba(255,91,120,.16)}
+.way-stage{height:212px;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;background:#0a120c;cursor:default}
+.way-lo{width:172px;height:172px}
+.way canvas{display:block;width:100%;height:100%}
+.way-hint{position:absolute;bottom:8px;left:0;right:0;text-align:center;font:600 11px "Inter",sans-serif;color:rgba(255,255,255,.45);pointer-events:none}
+.way-note{font-family:"Inter",sans-serif;font-size:12.5px;line-height:1.5;color:var(--muted);padding:11px 15px}
+.way-note b{color:var(--ink);font-weight:600}
+.way-note code{font-size:.85em}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:8px}
+footer a{color:var(--accent);text-decoration:none}footer a:hover{text-decoration:underline}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:31px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/">← chug2k</a>
+
+<header class="hero">
+<div class="eyebrow">Field Notes · Building with LLMs</div>
+<h1>Lottie vs Remotion: making motion graphics with an LLM</h1>
+<p class="lede">Two ways to make pixels move, two completely different mental models — and a model that&rsquo;s now good enough to write either one for you. Here&rsquo;s the same animation built twice, climbing from trivial to a 30-second launch video, so you can see exactly where each tool wins. Shown, not told.</p>
+<div class="byline"><span><strong>Charles Lee</strong></span><span>June 2026</span><span>A dozen demos, rendering live in your browser as you scroll</span></div>
+</header>
+
+<div class="tldr">
+<div class="tldr-label">TL;DR</div>
+<h2>If it lives inside your app and loops, reach for Lottie. If it&rsquo;s a video you export, reach for Remotion.</h2>
+<ul>
+<li><b>Lottie</b> is vector keyframes a runtime interpolates live — tiny, loops for free, one file plays on web, iOS and Android. Home turf: UI micro-interactions (spinners, toggles, like buttons, empty states).</li>
+<li><b>Remotion</b> makes every pixel a function of the frame, written in React and rendered to MP4. Home turf: actual video — anything with data, text, audio, length, or <em>N</em> of something.</li>
+<li><b>An LLM writes both well now</b> — but only if it actually uses the authoring skill instead of name-dropping it. This page is the cautionary tale.</li>
+</ul>
+</div>
+
+<section>
+<h2 class="section">01 · Two mental models</h2>
+<h3 class="heading">Interpolated vectors vs. a function of the frame</h3>
+<p>Before the demos, the one distinction everything else falls out of. Lottie and Remotion don&rsquo;t just differ in API — they differ in <em>who does the animating</em>.</p>
+<div class="two-col">
+  <div class="def">
+    <h4><span class="swatch" style="background:var(--lottie)"></span>Lottie</h4>
+    <p class="ms">vectors, interpolated live by a player</p>
+    <p>A designer sets keyframes in After Effects; the Bodymovin exporter writes a JSON file of shapes, transforms and keyframes. A small runtime (<code>lottie-web</code>, or Skia&rsquo;s Skottie) reads that JSON and <em>tweens between the keyframes</em> at playback. The file is declarative and resolution-independent. You ship the JSON; the device draws it.</p>
+  </div>
+  <div class="def">
+    <h4><span class="swatch" style="background:var(--remotion)"></span>Remotion</h4>
+    <p class="ms">every pixel = f(frame)</p>
+    <p>You write React components. On frame <code>f</code>, <code>useCurrentFrame()</code> returns <code>f</code> and you compute everything from it — positions, opacity, text, charts — with <code>interpolate()</code> and springs. A renderer steps frame by frame and rasterizes each one to a PNG, then stitches them into an MP4. It&rsquo;s a program, not a document.</p>
+  </div>
+</div>
+<p>That single difference predicts the whole comparison. Declarative keyframes are unbeatable for small, looping, designer-authored motion that has to live inside an app. A frame-as-a-function is unbeatable when the motion is computed — math, data, hundreds of elements, or a four-minute timeline with audio. The demos below are just that line being drawn, over and over, at rising complexity.</p>
+<div class="legend">
+  <span><i style="background:var(--lottie)"></i> Lottie — real JSON, played by <code>lottie-web</code> in this page</span>
+  <span><i style="background:var(--remotion)"></i> Remotion — its frame model, simulated on canvas</span>
+</div>
+</section>
+
+<section>
+<h2 class="section">02 · The complexity ladder</h2>
+<h3 class="heading">The same thing, built twice, getting harder</h3>
+<p>Each rung is the identical animation on both sides — a real Lottie file on the left, a frame-driven render on the right. Watch where they tie, where code pulls ahead, and where vectors win. The little <code>frame</code> counters are there to remind you both worlds are ultimately frame-based; they just decide what a frame <em>means</em> very differently.</p>
+<div id="gallery"></div>
+</section>
+
+<section>
+<h2 class="section">03 · Driving it from Claude Code</h2>
+<h3 class="heading">Two prompts, two pipelines</h3>
+<p>Neither of these requires you to touch After Effects or write <code>interpolate()</code> by hand anymore. You describe the motion; the model writes the file and verifies it. The two pipelines look like this:</p>
+<div class="prompt"><span class="you">you ▸</span> make a Lottie like-button — grey heart that pops to red with a
+      ring pulse, looping. use the text-to-lottie skill.
+
+<span class="cc">claude ▸</span> <span class="dim">reads text-to-lottie/SKILL.md</span>
+       <span class="dim">writes public/lottie.json — groups wrapped, 0–1 colors, keyframe arrays</span>
+       <span class="dim">npm run dev → opens the Skottie player</span>
+       <span class="dim">pins ?frame=30, screenshots: heart mid-pop and red ✓</span></div>
+<div class="prompt"><span class="you">you ▸</span> 30-second launch video for "Dashbored" — cold open, the problem,
+      a reveal, three product shots, a stats flex, a testimonial, a CTA.
+      use Remotion.
+
+<span class="cc">claude ▸</span> <span class="dim">scaffolds a Remotion project, one &lt;Sequence&gt; per scene</span>
+       <span class="dim">interpolate(frame, …) for every move; spring() for the pops</span>
+       <span class="dim">npx remotion render → out.mp4, 30s @ 30fps</span></div>
+<p>The Lottie side leans on a <em>skill</em> — a markdown file that teaches the model the exact JSON shape its player needs. And that skill is the whole reason this page exists.</p>
+<div class="callout">
+<span class="label">The lesson, embedded</span>
+This page&rsquo;s first draft was written by an AI that was <em>told</em> to use the <code>text-to-lottie</code> skill — and didn&rsquo;t. It name-checked the skill in a comment and then hand-rolled the JSON from memory. The Lottie column came out blank. Lottie fails silently: no console error, just nothing on screen. The bugs were exactly the ones the skill warns about — shapes not wrapped in a <code>gr</code> group, colors in 0–255 instead of 0–1, keyframe values that weren&rsquo;t arrays. The fix wasn&rsquo;t clever; it was <em>reading the file</em>: every shape inside a group ending in a <code>tr</code> transform, colors normalized 0–1 RGBA, every keyframe value an array, loops repeating their first value. The animations on the left are the corrected version. Referencing a skill is not the same as using one.
+</div>
+</section>
+
+<section>
+<h2 class="section">04 · The payoff</h2>
+<h3 class="heading">What you&rsquo;d actually render</h3>
+<p>Everything above was a warm-up. Here is why Remotion exists — and why it&rsquo;s the tool an LLM should reach for when the deliverable is a film, not a UI element. Below are <b>four launch videos in four completely different registers</b>. The first is made up, to show the idea. The other three are real: a family of Dokploy starter templates I actually ship — <b>Skeleton Crew</b> (request/response), <b>Cauldron</b> (background jobs), and <b>Séance</b> (realtime) — each a different backend shape, each shipping with its own mascot and its deploy &ldquo;curses&rdquo; pre-broken.</p>
+<p>They share <em>nothing</em> visually — deadpan corporate, bone-and-charcoal, toxic-green, occult violet. But underneath, every one is the same kind of object: a single function of the frame. That&rsquo;s the property that lets you restyle them, swap the script, or <b>generate one launch video per repo in CI</b> without re-animating a thing — which is precisely how you&rsquo;d make these.</p>
+<div id="payoff"></div>
+<p style="font-family:'Inter',sans-serif;font-size:13px;color:var(--muted);margin-top:14px"><em>&ldquo;Dashbored&rdquo; is fictional and a little mean. Skeleton Crew, Cauldron and Séance are real — the clone link is in each video.</em></p>
+</section>
+
+<section>
+<h2 class="section">05 · Where Lottie actually wins</h2>
+<h3 class="heading">Does it only win for humans?</h3>
+<p>It&rsquo;s tempting to read everything above as &ldquo;Remotion is the powerful one; Lottie is the toy for little loops.&rdquo; That&rsquo;s wrong — but to see why, you have to untangle two completely different kinds of advantage that the usual &ldquo;why Lottie&rdquo; pitch jams together. An LLM pulls them cleanly apart.</p>
+<p>The first kind is about the <b>author</b>. Lottie is how a motion designer&rsquo;s After Effects work reaches production without an engineer rebuilding it by hand, and LottieFiles is a marketplace of thousands of ready-made animations you drop in. Both are real — and both are exactly what an LLM erodes. If a model writes a correct Lottie (or a Remotion scene) from one sentence, you no longer need the designer&rsquo;s source file or someone else&rsquo;s marketplace upload. So yes: a big slice of Lottie&rsquo;s reputation really <em>was</em> a human win, and that slice is quietly going away.</p>
+<p>The second kind has nothing to do with who — or what — authored it. It&rsquo;s about what the thing <em>is</em> once it&rsquo;s running, for the person using your app. Poke this one:</p>
+<div class="demo">
+  <div class="demo-head"><span class="num">★</span><h4>One ~4&nbsp;KB file you can poke — recolor, resize, restage</h4><span class="cx"><i class="on" style="background:var(--lottie)"></i><span>live Lottie</span></span></div>
+  <div class="live-stage" id="live-stage"><div class="live-inner" id="live-inner"></div></div>
+  <div class="ctrls">
+    <div class="grp"><span class="lbl">Color</span><span id="sw-row"></span></div>
+    <div class="grp"><span class="lbl">Size</span><button class="tg on" data-size="1">1×</button><button class="tg" data-size="3">3×</button></div>
+    <div class="grp"><span class="lbl">Background</span><button class="tg on" data-bg="dark">dark</button><button class="tg" data-bg="lite">light</button></div>
+  </div>
+  <p class="demo-note">Recolor it, blow it up 3&times;, drop it on a different background — all at runtime, from the <em>same</em> few-kilobyte vector. A rendered MP4 can do none of these, no matter what wrote the MP4. This is what &ldquo;a live asset, not a recording&rdquo; means in practice.</p>
+</div>
+<p>Those wins don&rsquo;t care whether a designer, a developer, or a model produced the JSON:</p>
+<ul style="font-family:'Inter',sans-serif;font-size:15px;line-height:1.55;color:var(--muted);max-width:680px">
+  <li style="margin-bottom:10px"><b style="color:var(--ink)">It&rsquo;s a live vector object, not a recording.</b> Recolor it for dark mode or a customer&rsquo;s brand, scale it to any size with zero new bytes and zero blur, and set it on any background because it has no baked-in one.</li>
+  <li style="margin-bottom:10px"><b style="color:var(--ink)">It&rsquo;s tiny and codec-free.</b> A few kilobytes of vectors — no video decoder, no mobile autoplay restrictions, no alpha-channel gymnastics, easy on the battery.</li>
+  <li style="margin-bottom:10px"><b style="color:var(--ink)">It&rsquo;s addressable.</b> The app can seek it, play a segment, reverse it, interrupt it mid-flight, or bind its progress to a scroll or a drag — because every frame is reconstructed on demand, not baked into pixels.</li>
+</ul>
+<p>So — does Lottie only win for humans? The pipeline wins do, and they&rsquo;re fading. But the runtime wins were never about the author at all; they&rsquo;re about the <em>end user</em>. An MP4 can&rsquo;t be recolored, can&rsquo;t stay crisp at any size, can&rsquo;t be transparent for free, can&rsquo;t be interrupted and redirected. Lottie&rsquo;s real moat was never that designers liked it. It&rsquo;s that the output stays alive.</p>
+<blockquote>Remotion&rsquo;s superpower is that the output is a file you can generate by the thousand. Lottie&rsquo;s is that the output is never a file at all — it&rsquo;s a living thing your app keeps animating.</blockquote>
+</section>
+
+<section>
+<h2 class="section">06 · So which one?</h2>
+<h3 class="heading">The decision is the dividing line</h3>
+<p>You almost never have to choose between them on the same artifact, because they&rsquo;re for different artifacts. The question isn&rsquo;t &ldquo;which is better&rdquo; — it&rsquo;s &ldquo;is this thing a UI element or a video?&rdquo;</p>
+<div class="verdict">
+  <div class="vcard">
+    <h4><span class="swatch" style="background:var(--lottie)"></span>Reach for Lottie when…</h4>
+    <ul>
+      <li>it lives <b>inside your app</b> and loops or reacts to a tap</li>
+      <li>it&rsquo;s small and designer-authored — a spinner, toggle, like, empty state, onboarding flourish</li>
+      <li>you need <b>one file across web + iOS + Android</b></li>
+      <li>file size and battery matter more than pixel-perfect compositing</li>
+      <li>the motion is fixed — it doesn&rsquo;t need to read live data</li>
+    </ul>
+  </div>
+  <div class="vcard">
+    <h4><span class="swatch" style="background:var(--remotion)"></span>Reach for Remotion when…</h4>
+    <ul>
+      <li>the output is a <b>video file</b> — MP4, GIF, a social clip</li>
+      <li>it&rsquo;s <b>data-driven</b> or templated: per-customer, per-PR, per-row</li>
+      <li>the motion is a formula, or there are dozens of moving parts</li>
+      <li>you want <b>audio</b>, long timelines, or real text/typography</li>
+      <li>it should render headless in CI, not be authored in a GUI</li>
+    </ul>
+  </div>
+</div>
+<p>And the meta-point, since this was really a post about doing it with an LLM: both tools are now a prompt away. The skill — or in Remotion&rsquo;s case, the docs the model reads — is what stands between &ldquo;describe the motion&rdquo; and &ldquo;working file.&rdquo; The model is the easy part. Pointing it at the right rules, and checking that it followed them, is the job.</p>
+</section>
+
+<section>
+<h2 class="section">Postscript · Animating the mascot</h2>
+<h3 class="heading">Same mascot, four ways to make it move</h3>
+<p>Those mascots are flat PNGs. So: can you actually <em>animate</em> one? Yes — and the ways line up almost exactly with the rest of this post, from cheapest to most capable. Pick a mascot below and watch it brought to life four different ways; notice what each can and can&rsquo;t do. (The <b>Anduin</b> one started as nothing but the logo — I had it traced to an <a href="img/anduin.svg" target="_blank" rel="noopener">SVG</a> and rigged from there, which is why it&rsquo;s the crispest of the bunch.)</p>
+<div class="fourway" id="fourway">
+  <div class="way">
+    <div class="way-h"><b>1 · Puppet the PNG</b><span class="pill pill-rem">raster · moved</span></div>
+    <div class="way-stage"><canvas class="re" id="way-puppet"></canvas></div>
+    <p class="way-note">The cheapest trick, and what the launch videos do: take the flat image and move it <em>as a unit</em> — float, breathe, glow — on the frame timeline. Can&rsquo;t move its own parts (the bubbles are painted in), but it&rsquo;s instant and needs no new art.</p>
+  </div>
+  <div class="way">
+    <div class="way-h"><b>2 · Rig it as vector</b><span class="pill pill-lot">lottie · rebuilt</span></div>
+    <div class="way-stage"><div class="way-lo" id="way-lottie"></div></div>
+    <p class="way-note">Redrawn as a real <b>Lottie</b> — shapes with independently animated parts: it <b>blinks</b>, the <b>bubbles rise</b>, the <b>flame flickers</b>. A stylized redraw, not the painted look — but it&rsquo;s a few KB, recolorable, and infinitely crisp. The left-column way.</p>
+  </div>
+  <div class="way">
+    <div class="way-h"><b>3 · Sprite sheet</b><span class="pill pill-spr">gpt-image-2 · frames</span></div>
+    <div class="way-stage"><canvas class="re" id="way-sprite"></canvas></div>
+    <p class="way-note">Kept the painted look: I had <b>gpt-image-2</b> draw a 2×2 sheet of four frames (calm → bubbling → splash → blink) and flip them like a flipbook. Gorgeous — but it&rsquo;s baked raster: heavy, locked to one background (the model refused a transparent one), and you can&rsquo;t recolor it. A recording, basically.</p>
+  </div>
+  <div class="way">
+    <div class="way-h"><b>4 · Rig it interactive</b><span class="pill pill-riv">rive · state machine</span></div>
+    <div class="way-stage"><canvas id="way-rive"></canvas><div class="way-hint" id="rive-hint">a live Rive file · hover / click it</div></div>
+    <p class="way-note"><b>Rive</b> is the third tool worth knowing: vector like Lottie, but with a <b>state machine</b> you drive from input — so a mascot can react to hover, clicks, or app state. (This is a Rive sample running through its runtime; you&rsquo;d rig your own in Rive&rsquo;s editor, not from a prompt — yet.)</p>
+  </div>
+</div>
+<p>That spread is the whole post in miniature. <b>Puppet</b> and <b>sprite sheet</b> are the Remotion-ish raster routes — fast, faithful to the artwork, but recordings. <b>Lottie</b> is the live vector that ships inside your app. <b>Rive</b> is where it&rsquo;s going: vector that&rsquo;s also <em>interactive</em>. For a brand mascot that needs to react, rig it in Rive; for one that just needs to loop in a button, Lottie; for a one-off in a video, puppet the PNG and move on.</p>
+</section>
+
+<footer>
+<p><strong>Built with Claude Code.</strong> All eight Lottie animations are authored as real Bodymovin JSON in-page and rendered by a vendored copy of <code>lottie-web</code> 5.12.2 — no network, no build step. The Remotion column simulates its deterministic frame model on a canvas; real Remotion renders React to frames.</p>
+<p>Further reading: <a href="https://airbnb.io/lottie/" target="_blank" rel="noopener">Lottie</a> · <a href="https://lottiefiles.com/" target="_blank" rel="noopener">LottieFiles</a> · <a href="https://www.remotion.dev/" target="_blank" rel="noopener">Remotion</a> · <a href="https://www.remotion.dev/docs/ai/" target="_blank" rel="noopener">Remotion&rsquo;s AI docs</a> · <a href="https://github.com/diffusionstudio/lottie" target="_blank" rel="noopener">the text-to-lottie skill</a>.</p>
+<p>Source at <a href="https://github.com/chug2k/chug2k.github.io" target="_blank" rel="noopener">github.com/chug2k/chug2k.github.io</a>.</p>
+</footer>
+</div>
+
+<script src="lottie.min.js"></script>
+<script src="vendor/rive.js"></script>
+<script>
+/* ============================================================================
+ * SHARED GEOMETRY  (used by both the Lottie authoring and the canvas renders)
+ * ========================================================================== */
+const TAU=Math.PI*2;
+const lerp=(a,b,t)=>a+(b-a)*t, cl=t=>t<0?0:t>1?1:t;
+function rng(seed){let s=seed*9301+49297;return()=>{s=(s*9301+49297)%233280;return s/233280;};}
+function heartPts(scale){const P=[],n=26;
+  for(let k=0;k<n;k++){const t=k/n*TAU;
+    const x=16*Math.pow(Math.sin(t),3);
+    const y=13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t);
+    P.push([x*scale,-y*scale]);}
+  return P;}
+
+/* ============================================================================
+ * LOTTIE AUTHORING  — follows the text-to-lottie skill's JSON rules:
+ *   • every shape wrapped in a "gr" group whose `it` ends with a "tr" transform
+ *   • colors are 0–1 RGBA, not 0–255
+ *   • every keyframe value `s` is an array; loops repeat the first value
+ * ========================================================================== */
+const FR=60, CW=200, CH=200, CX=100, CY=100;
+let OP=120;                                  // comp duration, set per demo
+const S = k => ({a:0,k});                    // static property
+const isAnim = v => v && v.a !== undefined;
+/* keyframes in the skill's modern form (no `e`; the next keyframe's `s` is the
+   segment end). lin=true gives constant velocity, else ease-in-out. */
+function K(arr,lin){
+  const E = lin ? {i:{x:[1],y:[1]},o:{x:[0],y:[0]}}
+                : {i:{x:[0.58],y:[1]},o:{x:[0.42],y:[0]}};
+  return {a:1,k:arr.map((p,j)=> j<arr.length-1
+      ? {t:p.t,s:p.s,i:E.i,o:E.o}
+      : {t:p.t,s:p.s})};
+}
+const EL = (s,p)=>({ty:"el",p:S(p||[0,0]),s:S(s)});
+const RC = (s,r,p)=>({ty:"rc",p:S(p||[0,0]),s:isAnim(s)?s:S(s),r:isAnim(r)?r:S(r||0)});
+const FL = (c,o)=>({ty:"fl",c:isAnim(c)?c:S(c),o:S(o==null?100:o)});
+const ST = (c,w,o)=>({ty:"st",c:isAnim(c)?c:S(c),o:S(o==null?100:o),w:isAnim(w)?w:S(w),lc:2,lj:2});
+const SH = p =>({ty:"sh",ks:isAnim(p)?p:S(p)});
+const TR = (p,a,s,r,o)=>({ty:"tr",p:S(p||[0,0]),a:S(a||[0,0]),s:S(s||[100,100]),r:S(r||0),o:S(o==null?100:o)});
+const GR = it =>({ty:"gr",it});
+function KS(o,r,p,s,a){return {o:o||S(100),r:r||S(0),p:p||S([CX,CY]),a:a||S([0,0]),s:s||S([100,100])};}
+function L(ind,ks,shapes,parent){const o={ddd:0,ind,ty:4,nm:"l"+ind,sr:1,ks,shapes,ip:0,op:OP,st:0};if(parent)o.parent=parent;return o;}
+function NULL(ind,ks){return {ddd:0,ind,ty:3,nm:"n"+ind,sr:1,ks,shapes:[],ip:0,op:OP,st:0};}
+function COMP(layers){return {v:"5.7.0",fr:FR,ip:0,op:OP,w:CW,h:CH,nm:"c",ddd:0,assets:[],layers};}
+
+/* path helpers (constant vertex count so paths interpolate) */
+function lineP(P){return {c:false,i:P.map(()=>[0,0]),o:P.map(()=>[0,0]),v:P.map(p=>[p[0],p[1]])};}
+function poly(P){return {c:true,i:P.map(()=>[0,0]),o:P.map(()=>[0,0]),v:P.map(p=>[p[0],p[1]])};}
+function smooth(P){const n=P.length,i=[],o=[];
+  for(let k=0;k<n;k++){const a=P[(k-1+n)%n],b=P[(k+1)%n];
+    const ox=(b[0]-a[0])/6,oy=(b[1]-a[1])/6;o.push([ox,oy]);i.push([-ox,-oy]);}
+  return {c:true,i,o,v:P.map(p=>[p[0],p[1]])};}
+/* arc as an open bezier, `frac` of a full circle, fixed n segments, from top */
+function arcVertsN(frac,r,n){n=n||28;const total=frac*TAU,dth=total/n;
+  const h=r*(4/3)*Math.tan((Math.abs(dth)||1e-6)/4)*(dth<0?-1:1),v=[],i=[],o=[];
+  for(let k=0;k<=n;k++){const th=-Math.PI/2+dth*k;
+    v.push([Math.cos(th)*r,Math.sin(th)*r]);
+    const tx=-Math.sin(th),ty=Math.cos(th);o.push([tx*h,ty*h]);i.push([-tx*h,-ty*h]);}
+  return {c:false,i,o,v};}
+/* baked "draw-on" arc keyframes (0→full over t0..t1, then hold) */
+function arcDraw(r,t0,t1,holdTo){const k=[],st=Math.max(2,Math.round((t1-t0)/16));
+  for(let t=t0;t<=t1;t+=st)k.push({t,s:[arcVertsN((t-t0)/(t1-t0),r)]});
+  k.push({t:t1,s:[arcVertsN(1,r)]});
+  if(holdTo)k.push({t:holdTo,s:[arcVertsN(1,r)]});
+  return K(k);}
+/* resample first `frac` of a polyline to fixed n verts (for draw-on strokes) */
+function resample(pts,frac,n){n=n||16;const seg=[];let tot=0;
+  for(let k=1;k<pts.length;k++){const d=Math.hypot(pts[k][0]-pts[k-1][0],pts[k][1]-pts[k-1][1]);seg.push(d);tot+=d;}
+  const want0=Math.max(1e-4,frac)*tot,out=[];
+  for(let s=0;s<=n;s++){let want=want0*s/n,acc=0,p=pts[0];
+    for(let k=1;k<pts.length;k++){if(acc+seg[k-1]>=want){const fr=(want-acc)/seg[k-1];
+      p=[pts[k-1][0]+(pts[k][0]-pts[k-1][0])*fr,pts[k-1][1]+(pts[k][1]-pts[k-1][1])*fr];break;}acc+=seg[k-1];p=pts[k];}
+    out.push(p);}
+  return lineP(out);}
+function strokeDraw(pts,t0,t1,holdTo){const k=[],st=Math.max(2,Math.round((t1-t0)/14));
+  for(let t=t0;t<=t1;t+=st)k.push({t,s:[resample(pts,(t-t0)/(t1-t0),16)]});
+  k.push({t:t1,s:[resample(pts,1,16)]});
+  if(holdTo)k.push({t:holdTo,s:[resample(pts,1,16)]});
+  return K(k);}
+
+/* colors, 0–1 RGBA */
+const C={teal:[.063,.788,.557,1],blue:[.043,.518,.953,1],cyan:[.133,.827,.933,1],
+  green:[.2,.8,.45,1],violet:[.655,.545,.98,1],purple:[.55,.4,.95,1],
+  pink:[.96,.35,.55,1],red:[.95,.27,.33,1],amber:[.98,.7,.18,1],gray:[.42,.46,.52,1]};
+
+const LOTTIE={};
+
+/* a RIGGED vector cauldron — the same character redrawn as Lottie shapes with
+   independently animated parts (blink, rising bubbles, flame flicker) plus a
+   breathing bob driven by a parented null. This is "rigging it" the vector way. */
+function smilePts(){const P=[];for(let i=0;i<=8;i++){const x=-11+i*2.75;P.push([x,4-0.04*x*x]);}return lineP(P);}
+function flamePts(s){return smooth([[0,-22*s],[7*s,-6*s],[10*s,8*s],[5*s,18*s],[-5*s,18*s],[-10*s,8*s],[-7*s,-6*s]]);}
+function rigCauldron(){OP=120;
+  const dark=[.10,.12,.13,1],rim=[.17,.20,.22,1],potion=[.16,.84,.46,1],potHi=[.5,.97,.62,1],
+        eye=[.88,.99,.93,1],flameO=[.98,.55,.15,1],flameI=[.99,.82,.32,1],log=[.46,.32,.2,1],blush=[.2,.85,.5,1];
+  const P=50;
+  const bob=NULL(P,{o:S(100),r:S(0),
+     p:K([{t:0,s:[100,110]},{t:60,s:[100,105]},{t:120,s:[100,110]}]),a:S([100,110]),
+     s:K([{t:0,s:[100,100]},{t:60,s:[103,103]},{t:120,s:[100,100]}])});
+  const bubble=(ind,x,delay,sz)=>L(ind,{o:K([{t:delay,s:[0]},{t:delay+8,s:[100]},{t:delay+30,s:[100]},{t:delay+42,s:[0]},{t:120,s:[0]}]),
+      r:S(0),a:S([0,0]),
+      p:K([{t:delay,s:[x,84]},{t:delay+42,s:[x+(x>100?6:-6),52]},{t:120,s:[x,84]}]),
+      s:K([{t:delay,s:[50,50]},{t:delay+42,s:[120,120]},{t:120,s:[50,50]}])},
+    [GR([EL([sz,sz]),FL(potion),TR()])],P);
+  const eyes=L(10,{o:S(100),r:S(0),a:S([0,0]),p:S([100,108]),
+      s:K([{t:0,s:[100,100]},{t:50,s:[100,100]},{t:54,s:[100,8]},{t:58,s:[100,100]},
+           {t:92,s:[100,100]},{t:96,s:[100,8]},{t:100,s:[100,100]},{t:120,s:[100,100]}])},
+    [GR([EL([11,13],[-14,0]),EL([11,13],[14,0]),FL(eye),TR()])],P);
+  const blushL=L(11,KS(S(100),S(0),S([100,114])),[GR([EL([7,5],[-26,0]),EL([7,5],[26,0]),FL(blush,55),TR()])],P);
+  const smile=L(12,KS(S(100),S(0),S([100,118])),[GR([SH(smilePts()),ST(eye,2.5),TR()])],P);
+  const potHiL=L(13,KS(S(100),S(0),S([92,77])),[GR([EL([24,7]),FL(potHi),TR()])],P);
+  const potionL=L(14,KS(S(100),S(0),S([100,80])),[GR([EL([76,20]),FL(potion),TR()])],P);
+  const rimL=L(15,KS(S(100),S(0),S([100,80])),[GR([EL([94,26]),FL(rim),TR()])],P);
+  const belly=L(16,KS(S(100),S(0),S([100,112])),[GR([EL([98,92]),FL(dark),TR()])],P);
+  const handles=L(17,KS(S(100),S(0),S([100,86])),[GR([EL([12,20],[-50,0]),EL([12,20],[50,0]),ST(rim,6),TR()])],P);
+  const flame=L(18,{o:S(100),r:S(0),a:S([0,24]),p:S([100,156]),
+      s:K([{t:0,s:[100,100]},{t:12,s:[114,88]},{t:24,s:[92,116]},{t:36,s:[110,94]},{t:48,s:[96,108]},{t:60,s:[108,92]},{t:72,s:[100,100]},{t:120,s:[100,100]}])},
+    [GR([SH(flamePts(1)),FL(flameO),TR()]),GR([SH(flamePts(0.55)),FL(flameI),TR()])],P);
+  const logs=L(19,KS(S(100),S(0),S([100,168])),[GR([RC([20,8],4,[-13,-1]),FL(log),TR()]),GR([RC([20,8],4,[13,2]),FL(log),TR()])],P);
+  return COMP([bubble(1,92,0,11),bubble(2,104,18,9),bubble(3,98,34,13),eyes,blushL,smile,potHiL,potionL,rimL,belly,handles,flame,logs,bob]);
+}
+
+function rigSkeleton(){OP=120;
+  const bone=[0.95,0.96,0.98,1],boneSh=[0.78,0.82,0.88,1],outline=[0.06,0.08,0.12,1],
+        db=[0.16,0.84,0.55,1],dbHi=[0.55,0.97,0.72,1],dbDark=[0.10,0.55,0.40,1],
+        sock=[0.10,0.13,0.17,1],eyeGlow=[0.40,0.95,0.78,1],
+        spark=[0.85,0.95,1,1],glow=[0.20,0.90,0.60,1];
+  const P=60;
+  const bob=NULL(P,{o:S(100),r:K([{t:0,s:[-1.5]},{t:60,s:[1.5]},{t:120,s:[-1.5]}]),
+     p:K([{t:0,s:[100,104]},{t:60,s:[100,100]},{t:120,s:[100,104]}]),a:S([100,104]),
+     s:K([{t:0,s:[100,100]},{t:60,s:[102,102]},{t:120,s:[100,100]}])});
+  const sparkle=(ind,x,y,sz,delay)=>L(ind,{
+      o:K([{t:delay,s:[0]},{t:delay+15,s:[100]},{t:delay+30,s:[0]},{t:120,s:[0]}]),
+      r:S(45),a:S([0,0]),p:S([x,y]),
+      s:K([{t:delay,s:[40,40]},{t:delay+15,s:[110,110]},{t:delay+30,s:[40,40]},{t:120,s:[40,40]}])},
+    [GR([RC([sz,sz*0.28],sz*0.14),RC([sz*0.28,sz],sz*0.14),FL(spark),TR()])],P);
+  const skull=L(20,{o:S(100),r:K([{t:0,s:[2]},{t:60,s:[-2]},{t:120,s:[2]}]),
+      a:S([0,0]),p:S([74,70]),
+      s:K([{t:0,s:[100,100]},{t:60,s:[101,101]},{t:120,s:[100,100]}])},[
+    GR([EL([56,52],[0,0]),ST(outline,3),FL(bone),TR()]),
+    GR([EL([34,22],[0,22]),ST(outline,3),FL(bone),TR()]),
+    GR([SH(lineP([[-9,14],[-3,18],[3,18],[9,14]])),ST(outline,3),TR()]),
+    GR([EL([5,7],[0,8]),FL(sock),TR()])
+  ],P);
+  /* eyes on their OWN layer — blink via the LAYER scale (animating a group transform NaNs in lottie-web) */
+  const eyes=L(25,{o:S(100),r:S(0),a:S([0,0]),p:S([74,68]),
+      s:K([{t:0,s:[100,100]},{t:50,s:[100,100]},{t:54,s:[100,10]},{t:58,s:[100,100]},
+           {t:92,s:[100,100]},{t:96,s:[100,10]},{t:100,s:[100,100]},{t:120,s:[100,100]}])},[
+    GR([EL([16,18],[-13,0]),EL([16,18],[13,0]),FL(sock),TR()]),
+    GR([EL([8,9],[-13,0]),EL([8,9],[13,0]),FL(eyeGlow),TR()])
+  ],P);
+  const arm=L(40,{o:S(100),a:S([0,0]),p:S([52,96]),s:S([100,100]),
+      r:K([{t:0,s:[8]},{t:30,s:[-18]},{t:60,s:[8]},{t:120,s:[8]}])},[
+    GR([SH(lineP([[0,0],[-14,-10],[-22,-22]])),ST(bone,6),TR()]),
+    GR([EL([10,10],[-24,-25]),ST(outline,2.5),FL(bone),TR()])
+  ],P);
+  const body=L(45,KS(S(100),S(0),S([72,118])),[
+    GR([RC([22,40],8,[0,8]),FL(bone),ST(boneSh,2),TR()]),
+    GR([SH(lineP([[-16,-4],[16,-4]])),ST(boneSh,3),TR()]),
+    GR([SH(lineP([[-17,4],[17,4]])),ST(boneSh,3),TR()]),
+    GR([SH(lineP([[-15,12],[15,12]])),ST(boneSh,3),TR()]),
+    GR([EL([26,46],[0,6]),ST(outline,3),FL(bone),TR()])
+  ],P);
+  const dbStack=L(55,{o:S(100),a:S([0,0]),p:S([132,116]),
+      r:S(0),s:K([{t:0,s:[100,100]},{t:60,s:[103,103]},{t:120,s:[100,100]}])},[
+    GR([EL([46,16],[0,-26]),ST(outline,3),FL(dbHi),TR()]),
+    GR([RC([46,18],4,[0,-18]),FL(db),ST(outline,3),TR()]),
+    GR([EL([5,5],[14,-18]),FL(dbHi),TR()]),
+    GR([RC([46,18],4,[0,0]),FL(db),ST(outline,3),TR()]),
+    GR([EL([5,5],[14,0]),FL(dbHi),TR()]),
+    GR([RC([46,18],4,[0,18]),FL(db),ST(outline,3),TR()]),
+    GR([EL([5,5],[14,18]),FL(dbHi),TR()]),
+    GR([SH(lineP([[-23,-9],[23,-9]])),ST(dbDark,2),TR()]),
+    GR([SH(lineP([[-23,9],[23,9]])),ST(dbDark,2),TR()])
+  ],P);
+  const dbGlow=L(58,{a:S([0,0]),p:S([132,116]),r:S(0),
+      o:K([{t:0,s:[35]},{t:60,s:[75]},{t:120,s:[35]}]),
+      s:K([{t:0,s:[100,100]},{t:60,s:[120,120]},{t:120,s:[100,100]}])},
+    [GR([EL([70,80]),FL(glow),TR()])],P);
+  const platform=L(70,{a:S([0,0]),p:S([100,170]),r:S(0),
+      o:K([{t:0,s:[55]},{t:60,s:[80]},{t:120,s:[55]}]),
+      s:K([{t:0,s:[100,100]},{t:60,s:[106,106]},{t:120,s:[100,100]}])},
+    [GR([EL([120,28]),FL(glow),TR()])],P);
+  return COMP([sparkle(1,150,52,12,0),sparkle(2,46,60,9,40),sparkle(3,158,150,8,75),eyes,skull,arm,body,dbStack,dbGlow,platform,bob]);
+}
+
+function rigSeance(){OP=120;
+  const wood=[.62,.43,.23,1], woodLt=[.74,.55,.34,1],
+        outline=[.22,.13,.06,1], lens=[.09,.07,.14,1], lensRim=[.30,.22,.40,1],
+        eye=[.13,.09,.18,1], cheek=[.95,.62,.66,1], mouth=[.30,.12,.16,1],
+        ghost=[.77,.70,.98,1], ghostDk=[.55,.46,.82,1], glow=[.55,.40,.85,1];
+  const P=50;
+  const bodyPath = smooth([[0,-46],[34,-34],[40,-6],[24,30],[0,46],[-24,30],[-40,-6],[-34,-34]]);
+  const bodyInner = smooth([[0,-40],[29,-29],[34,-5],[20,26],[0,40],[-20,26],[-34,-5],[-29,-29]]);
+  const ghostP = smooth([[0,-7],[6,-3],[7,5],[3,7],[0,5],[-3,7],[-7,5],[-6,-3]]);
+  const bob=NULL(P,{o:S(100),r:S(0),
+    p:K([{t:0,s:[100,102]},{t:60,s:[100,96]},{t:120,s:[100,102]}]),a:S([100,100]),
+    s:K([{t:0,s:[100,100]},{t:60,s:[102,102]},{t:120,s:[100,100]}])});
+  const ghost1=L(4,{o:K([{t:0,s:[70]},{t:30,s:[100]},{t:90,s:[100]},{t:120,s:[70]}]),r:S(0),a:S([0,0]),
+      p:K([{t:0,s:[-58,-46]},{t:60,s:[-66,-58]},{t:120,s:[-58,-46]}]),
+      s:K([{t:0,s:[100,100]},{t:60,s:[108,108]},{t:120,s:[100,100]}])},
+    [GR([SH(ghostP),FL(ghost),ST(ghostDk,1.4),TR([0,0],[0,0],[100,100])]),
+     GR([EL([2.4,2.4],[-2,-1]),EL([2.4,2.4],[2,-1]),FL(ghostDk),TR()])],P);
+  const ghost2=L(5,{o:K([{t:0,s:[100]},{t:50,s:[100]},{t:75,s:[60]},{t:100,s:[100]},{t:120,s:[100]}]),r:S(0),a:S([0,0]),
+      p:K([{t:0,s:[58,-40]},{t:60,s:[68,-52]},{t:120,s:[58,-40]}]),
+      s:K([{t:0,s:[100,100]},{t:60,s:[112,112]},{t:120,s:[100,100]}])},
+    [GR([SH(ghostP),FL(ghost),ST(ghostDk,1.4),TR()]),
+     GR([EL([2.4,2.4],[-2,-1]),EL([2.4,2.4],[2,-1]),FL(ghostDk),TR()])],P);
+  const ghost3=L(6,{o:K([{t:0,s:[0]},{t:35,s:[0]},{t:55,s:[100]},{t:85,s:[100]},{t:108,s:[0]},{t:120,s:[0]}]),r:S(0),a:S([0,0]),
+      p:K([{t:0,s:[44,46]},{t:60,s:[52,40]},{t:120,s:[44,46]}]),
+      s:K([{t:0,s:[80,80]},{t:55,s:[100,100]},{t:120,s:[80,80]}])},
+    [GR([SH(ghostP),FL(ghost),ST(ghostDk,1.4),TR([0,0],[0,0],[88,88])]),
+     GR([EL([2.2,2.2],[-2,-1]),EL([2.2,2.2],[2,-1]),FL(ghostDk),TR()])],P);
+  const eyes=L(10,{o:S(100),r:S(0),a:S([0,0]),p:S([100,108]),
+      s:K([{t:0,s:[100,100]},{t:48,s:[100,100]},{t:52,s:[100,12]},{t:56,s:[100,100]},{t:120,s:[100,100]}])},
+    [GR([EL([8,11],[-13,0]),EL([8,11],[13,0]),FL(eye),TR()]),
+     GR([EL([3,3.6],[-15,-3]),EL([3,3.6],[11,-3]),FL([1,1,1,1]),TR()])],P);
+  const cheeks=L(11,KS(S(85),S(0),S([100,113])),
+    [GR([EL([8,5],[-21,0]),EL([8,5],[21,0]),FL(cheek),TR()])],P);
+  const smile=L(12,KS(S(100),S(0),S([100,120])),
+    [GR([SH(lineP([[-7,0],[-3,4],[3,4],[7,0]])),ST(mouth,2.2),TR()])],P);
+  const lensGroup=L(14,KS(S(100),S(0),S([100,76])),
+    [GR([EL([30,30]),FL(lensRim),TR()]),
+     GR([EL([24,24]),FL(lens),TR()]),
+     GR([EL([8,8],[-5,-5]),FL([.65,.6,.85,.55]),TR()]),
+     GR([EL([3,3],[6,5]),FL([.5,.45,.7,.4]),TR()])],P);
+  const bodyHi=L(16,KS(S(100),S(0),S([100,100])),
+    [GR([SH(bodyInner),ST(woodLt,2,55),TR()])],P);
+  const body=L(17,KS(S(100),S(0),S([100,100])),
+    [GR([SH(bodyPath),FL(wood),ST(outline,4),TR()])],P);
+  const halo=L(20,{o:K([{t:0,s:[42]},{t:60,s:[64]},{t:120,s:[42]}]),r:S(0),a:S([0,0]),p:S([100,104]),
+      s:K([{t:0,s:[100,100]},{t:60,s:[112,112]},{t:120,s:[100,100]}])},
+    [GR([EL([150,158]),FL(glow),TR()])],P);
+  return COMP([smile,cheeks,eyes,lensGroup,ghost2,ghost1,ghost3,bodyHi,body,halo,bob]);
+}
+
+function rigAnduin(){OP=120;
+  const blue=[.24,.63,.93,1],white=[1,1,1,1],dark=[.10,.18,.27,1],eye=[.10,.18,.27,1];
+  const P=50;
+  const bob=NULL(P,{o:S(100),r:S(0),
+     p:K([{t:0,s:[100,108]},{t:60,s:[100,103]},{t:120,s:[100,108]}]),a:S([100,108]),
+     s:K([{t:0,s:[100,100]},{t:60,s:[103,103]},{t:120,s:[100,100]}])});
+  const sparkleStar=poly([[0,-9],[2.4,-2.4],[9,0],[2.4,2.4],[0,9],[-2.4,2.4],[-9,0],[-2.4,-2.4]]);
+  const sparkle=L(8,{o:K([{t:0,s:[0]},{t:18,s:[100]},{t:40,s:[0]},{t:120,s:[0]}]),
+      r:K([{t:0,s:[0]},{t:120,s:[180]}]),a:S([0,0]),p:S([100,49]),
+      s:K([{t:0,s:[40,40]},{t:18,s:[100,100]},{t:40,s:[40,40]},{t:120,s:[40,40]}])},
+    [GR([SH(sparkleStar),FL(white),TR()])],P);
+  const eyeHi=L(9,KS(S(100),S(0),S([100,119])),
+    [GR([EL([3.4,3.4],[-15,-3]),EL([3.4,3.4],[9,-3]),FL(white),TR()])],P);
+  const eyes=L(10,{o:S(100),r:S(0),a:S([0,0]),p:S([100,119]),
+      s:K([{t:0,s:[100,100]},{t:50,s:[100,100]},{t:54,s:[100,8]},{t:58,s:[100,100]},
+           {t:92,s:[100,100]},{t:96,s:[100,8]},{t:100,s:[100,100]},{t:120,s:[100,100]}])},
+    [GR([EL([11,11],[-12,0]),EL([11,11],[12,0]),FL(eye),TR()])],P);
+  const smile=L(11,KS(S(100),S(0),S([100,130])),[GR([SH(lineP([[-10,0],[-6,3.4],[-2,4.6],[2,4.6],[6,3.4],[10,0]])),ST(eye,4),TR()])],P);
+  const gem=poly([[0,-24],[16,0],[0,24],[-16,0]]);
+  const diamond=L(12,{o:S(100),r:K([{t:0,s:[0]},{t:120,s:[360]}]),p:S([100,84]),a:S([0,0]),
+      s:K([{t:0,s:[100,100]},{t:60,s:[118,118]},{t:120,s:[100,100]}])},
+    [GR([SH(gem),FL(white),ST(dark,3),TR()])],P);
+  const glow=L(13,{o:K([{t:0,s:[35]},{t:60,s:[70]},{t:120,s:[35]}]),r:S(0),a:S([0,0]),p:S([100,84]),
+      s:K([{t:0,s:[100,100]},{t:60,s:[125,125]},{t:120,s:[100,100]}])},
+    [GR([EL([66,66]),FL(white),TR()])],P);
+  const tri=poly([[100,30],[162,152],[112,152],[100,120],[88,152],[38,152]]);
+  const body=L(16,KS(S(100),S(0),S([0,0])),[GR([SH(tri),FL(blue),ST(dark,5),TR()])],P);
+  return COMP([sparkle,eyeHi,eyes,smile,diamond,glow,body,bob]);
+}
+
+LOTTIE.ball=()=>{OP=120;return COMP([
+  L(1,{o:S(100),r:S(0),
+     p:K([{t:0,s:[CX,60]},{t:60,s:[CX,150]},{t:120,s:[CX,60]}]),
+     a:S([0,0]),
+     s:K([{t:0,s:[100,100]},{t:54,s:[120,82]},{t:64,s:[120,82]},{t:120,s:[100,100]}])},
+    [GR([EL([80,80]),FL(C.blue),TR()])])
+]);};
+
+LOTTIE.spinner=()=>{OP=120;return COMP([
+  L(1,{o:S(100),r:K([{t:0,s:[0]},{t:120,s:[360]}],true),p:S([CX,CY]),a:S([0,0]),s:S([100,100])},
+    [GR([SH(arcVertsN(0.28,58)),ST(C.cyan,11),TR()])]),
+  L(2,{o:S(100),r:S(0),p:S([CX,CY]),a:S([0,0]),s:S([100,100])},
+    [GR([SH(arcVertsN(1,58)),ST(C.cyan,11,14),TR()])])
+]);};
+
+/* progress ring — no live % number; that gap is the lesson */
+LOTTIE.progress=()=>{OP=120;return COMP([
+  L(1,{o:S(100),r:S(0),p:S([CX,CY]),a:S([0,0]),s:S([100,100])},
+    [GR([SH(arcDraw(62,0,92,120)),ST(C.green,13),TR()])]),
+  L(2,{o:S(100),r:S(0),p:S([CX,CY]),a:S([0,0]),s:S([100,100])},
+    [GR([SH(arcVertsN(1,62)),ST(C.green,13,13),TR()])])
+]);};
+
+LOTTIE.equalizer=()=>{OP=120;const bars=5,w=18,gap=12,total=bars*w+(bars-1)*gap,x0=CX-total/2+w/2,bot=150;
+  const cols=[C.teal,C.cyan,C.blue,C.violet,C.purple],layers=[];
+  for(let j=0;j<bars;j++){const x=x0+j*(w+gap),sk=[],pk=[];
+    for(let t=0;t<=120;t+=12){const h=46+40*(0.5+0.5*Math.sin(t/120*Math.PI*4+j*1.1));
+      sk.push({t,s:[w,h]});pk.push({t,s:[x,bot-h/2]});}
+    layers.push(L(j+1,{o:S(100),r:S(0),p:K(pk,true),a:S([0,0]),s:S([100,100])},
+      [GR([RC(K(sk,true),6),FL(cols[j]),TR()])]));}
+  return COMP(layers);};
+
+/* confetti — 18 hand-built layers; the bloat IS the point */
+LOTTIE.confetti=()=>{OP=120;const cols=[C.teal,C.cyan,C.blue,C.violet,C.purple,C.pink,C.amber,C.green];
+  const r=rng(99),layers=[],span=CH+60;
+  for(let k=0;k<18;k++){const x=12+r()*176,startY=-30-r()*span,endY=startY+span;
+    const drift=(r()-.5)*40,spin=(1+Math.floor(r()*2))*360*(r()>.5?1:-1),col=cols[k%cols.length],sz=8+r()*7;
+    layers.push(L(k+1,{o:S(100),
+      r:K([{t:0,s:[r()*360]},{t:120,s:[r()*360+spin]}],true),
+      p:K([{t:0,s:[x,startY]},{t:120,s:[x+drift,endY]}],true),a:S([0,0]),s:S([100,70])},
+      [GR([RC([sz,sz*0.6],2),FL(col),TR()])]));}
+  return COMP(layers);};
+
+LOTTIE.like=()=>{OP=120;return COMP([
+  L(1,{o:S(100),r:S(0),p:S([CX,CY+6]),a:S([0,0]),
+     s:K([{t:0,s:[100,100]},{t:20,s:[100,100]},{t:30,s:[132,132]},{t:42,s:[100,100]},
+          {t:96,s:[100,100]},{t:112,s:[58,58]},{t:120,s:[100,100]}])},
+    [GR([SH(smooth(heartPts(2.2))),
+      FL(K([{t:0,s:[...C.gray]},{t:30,s:[...C.red]},{t:96,s:[...C.red]},{t:112,s:[...C.gray]}])),TR()])]),
+  L(2,{o:K([{t:24,s:[80]},{t:50,s:[0]}]),r:S(0),p:S([CX,CY+2]),a:S([0,0]),
+     s:K([{t:24,s:[58,58]},{t:50,s:[150,150]}])},
+    [GR([EL([60,60]),ST(C.pink,4),TR()])])
+]);};
+
+LOTTIE.checkout=()=>{OP=300;const L_=[];
+  L_.push(L(1,{o:K([{t:0,s:[0]},{t:12,s:[100]},{t:50,s:[100]},{t:62,s:[0]}]),r:S(0),p:S([CX,CY]),a:S([0,0]),s:S([100,100])},
+    [GR([RC([140,46],23),FL(C.blue),TR()])]));
+  L_.push(L(2,{o:K([{t:56,s:[0]},{t:66,s:[100]},{t:148,s:[100]},{t:158,s:[0]}]),
+     r:K([{t:60,s:[0]},{t:150,s:[540]}],true),p:S([CX,CY]),a:S([0,0]),s:S([100,100])},
+    [GR([SH(arcVertsN(0.26,37)),ST(C.blue,8),TR()])]));
+  L_.push(L(3,{o:K([{t:150,s:[0]},{t:158,s:[100]},{t:250,s:[100]},{t:272,s:[0]}]),r:S(0),p:S([CX,CY]),a:S([0,0]),
+     s:K([{t:150,s:[0,0]},{t:166,s:[112,112]},{t:174,s:[100,100]}])},
+    [GR([SH(arcDraw(39,152,178,272)),ST(C.green,8),TR()])]));
+  L_.push(L(4,{o:K([{t:150,s:[0]},{t:170,s:[100]},{t:250,s:[100]},{t:272,s:[0]}]),r:S(0),p:S([CX,CY]),a:S([0,0]),s:S([100,100])},
+    [GR([SH(strokeDraw([[-16,2],[-5,14],[18,-13]],170,192,272)),ST(C.green,7),TR()])]));
+  const r=rng(21),cols=[C.teal,C.cyan,C.blue,C.violet,C.pink,C.amber];
+  for(let k=0;k<12;k++){const ang=k/12*TAU,dx=Math.cos(ang),dy=Math.sin(ang),rr0=58+r()*22;
+    L_.push(L(20+k,{o:K([{t:185,s:[0]},{t:190,s:[100]},{t:214,s:[100]},{t:230,s:[0]}]),
+       r:K([{t:185,s:[r()*360]},{t:230,s:[r()*360+360]}],true),
+       p:K([{t:185,s:[CX,CY]},{t:230,s:[CX+dx*rr0,CY+dy*rr0+18]}],true),a:S([0,0]),s:S([100,80])},
+      [GR([RC([10,6],2),FL(cols[k%cols.length]),TR()])]));}
+  return COMP(L_);};
+
+/* ============================================================================
+ * REMOTION-STYLE CANVAS RENDERS — frame-driven, deterministic
+ * ========================================================================== */
+const eob=t=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2);};
+const eio=t=>0.5-0.5*Math.cos(Math.PI*cl(t));
+function rr(g,x,y,w,h,r){r=Math.min(r,Math.abs(w)/2,Math.abs(h)/2);g.beginPath();
+  g.moveTo(x+r,y);g.arcTo(x+w,y,x+w,y+h,r);g.arcTo(x+w,y+h,x,y+h,r);
+  g.arcTo(x,y+h,x,y,r);g.arcTo(x,y,x+w,y,r);g.closePath();}
+function smoothPath(g,P,cx,cy){const n=P.length;g.beginPath();
+  for(let k=0;k<n;k++){const p1=P[k],p0=P[(k-1+n)%n],p2=P[(k+1)%n],p3=P[(k+2)%n];
+    const c1x=p1[0]+(p2[0]-p0[0])/6,c1y=p1[1]+(p2[1]-p0[1])/6;
+    const c2x=p2[0]-(p3[0]-p1[0])/6,c2y=p2[1]-(p3[1]-p1[1])/6;
+    if(k===0)g.moveTo(cx+p1[0],cy+p1[1]);
+    g.bezierCurveTo(cx+c1x,cy+c1y,cx+c2x,cy+c2y,cx+p2[0],cy+p2[1]);}
+  g.closePath();}
+function poly2(g,cx,cy,pts,prog,color,w){let tot=0;const seg=[];
+  for(let k=1;k<pts.length;k++){const d=Math.hypot(pts[k][0]-pts[k-1][0],pts[k][1]-pts[k-1][1]);seg.push(d);tot+=d;}
+  let target=prog*tot;g.strokeStyle=color;g.lineWidth=w;g.lineJoin='round';g.lineCap='round';
+  g.beginPath();g.moveTo(cx+pts[0][0],cy+pts[0][1]);
+  for(let k=1;k<pts.length;k++){if(target<=0)break;const d=seg[k-1],fr=Math.min(1,target/d);
+    g.lineTo(cx+pts[k-1][0]+(pts[k][0]-pts[k-1][0])*fr,cy+pts[k-1][1]+(pts[k][1]-pts[k-1][1])*fr);target-=d;}
+  g.stroke();}
+function win(f,a,b,c,d){if(f<a||f>d)return 0;if(f<b)return (f-a)/(b-a);if(f<=c)return 1;return 1-(f-c)/(d-c);}
+function mixHex(a,b,t){const pa=parseInt(a.slice(1),16),pb=parseInt(b.slice(1),16);
+  const r=Math.round(lerp(pa>>16,pb>>16,t)),gg=Math.round(lerp((pa>>8)&255,(pb>>8)&255,t)),bl=Math.round(lerp(pa&255,pb&255,t));
+  return`rgb(${r},${gg},${bl})`;}
+function txt(g,s,x,y,size,col,weight,align){g.fillStyle=col;g.textAlign=align||'center';
+  g.font=`${weight||700} ${size}px -apple-system,'Segoe UI',sans-serif`;g.fillText(s,x,y);}
+const COL={teal:'#10c98e',blue:'#0b84f3',cyan:'#22d3ee',violet:'#a78bfa',purple:'#8c66f2',
+  pink:'#f55a8c',red:'#f24555',amber:'#fab32e',green:'#33cc73',gray:'#6b7280',ink:'#d9e1ec',slate:'#3a4150'};
+
+const DRAW={};
+
+DRAW.ball=(g,f,W,H)=>{const t=(f%120)/120,cx=W/2;
+  const bn=Math.abs(Math.sin(Math.PI*t)),yT=64,yB=H-78;
+  const y=lerp(yT,yB,bn),sq=lerp(1,0.82,bn);
+  g.fillStyle='rgba(0,0,0,.32)';g.beginPath();g.ellipse(cx,H-54,lerp(26,46,bn),9,0,0,TAU);g.fill();
+  g.save();g.translate(cx,y);g.scale(2-sq,sq);g.fillStyle=COL.blue;g.beginPath();g.arc(0,0,40,0,TAU);g.fill();g.restore();};
+
+DRAW.spinner=(g,f,W,H)=>{const cx=W/2,cy=H/2,r=66,a=f/120*TAU;
+  g.strokeStyle='rgba(34,211,238,.14)';g.lineWidth=11;g.lineCap='round';
+  g.beginPath();g.arc(cx,cy,r,0,TAU);g.stroke();
+  g.strokeStyle=COL.cyan;g.beginPath();g.arc(cx,cy,r,a,a+TAU*0.28);g.stroke();};
+
+DRAW.progress=(g,f,W,H)=>{const cx=W/2,cy=H/2,r=68,p=cl((f%120)/92);
+  g.strokeStyle='rgba(51,204,115,.14)';g.lineWidth=13;g.lineCap='round';
+  g.beginPath();g.arc(cx,cy,r,0,TAU);g.stroke();
+  g.strokeStyle=COL.green;g.beginPath();g.arc(cx,cy,r,-Math.PI/2,-Math.PI/2+TAU*p);g.stroke();
+  g.fillStyle='#fff';g.textAlign='center';g.font="800 30px -apple-system,sans-serif";
+  g.fillText(Math.round(p*100)+'%',cx,cy+10);
+  g.fillStyle='#7f8ea0';g.font="600 11px -apple-system,sans-serif";g.fillText('UPLOADING',cx,cy+30);};
+
+DRAW.equalizer=(g,f,W,H)=>{const bars=5,w=18,gap=12,total=bars*w+(bars-1)*gap;
+  const x0=W/2-total/2,bot=H-40,cols=[COL.teal,COL.cyan,COL.blue,COL.violet,COL.purple];
+  for(let j=0;j<bars;j++){const h=46+40*(0.5+0.5*Math.sin(f/120*Math.PI*4+j*1.1));
+    g.fillStyle=cols[j];rr(g,x0+j*(w+gap),bot-h,w,h,6);g.fill();}};
+
+const CF=(()=>{const r=rng(99),a=[],cols=[COL.teal,COL.cyan,COL.blue,COL.violet,COL.purple,COL.pink,COL.amber,COL.green];
+  for(let k=0;k<18;k++)a.push({x:12+r()*176,off:r(),drift:(r()-.5)*40,spin:(1+Math.floor(r()*2))*(r()>.5?1:-1),col:cols[k%cols.length],sz:8+r()*7});
+  return a;})();
+DRAW.confetti=(g,f,W,H)=>{const span=H+60,sx=W/200;
+  CF.forEach(p=>{const t=((f/120)+p.off)%1,x=(p.x+p.drift*t)*sx,y=-30+span*t;
+    g.save();g.translate(x,y);g.rotate(f/120*TAU*p.spin*1.5);
+    g.fillStyle=p.col;rr(g,-p.sz/2*sx,-p.sz*0.3*sx,p.sz*sx,p.sz*0.6*sx,2);g.fill();g.restore();});};
+
+DRAW.like=(g,f,W,H)=>{const sx=W/200,cx=W/2,cy=H/2+4*sx,lt=f%120;
+  const sc=lt<20?1:lt<30?lerp(1,1.32,(lt-20)/10):lt<42?lerp(1.32,1,(lt-30)/12):lt<96?1:lt<112?lerp(1,0.58,(lt-96)/16):lerp(0.58,1,(lt-112)/8);
+  const colP=lt<20?0:lt<30?(lt-20)/10:lt<96?1:lt<112?1-(lt-96)/16:0;
+  if(lt>=24&&lt<50){const rt=(lt-24)/26;g.strokeStyle=`rgba(245,128,153,${1-rt})`;g.lineWidth=4*sx;g.beginPath();g.arc(cx,cy-2*sx,lerp(29,75,rt)*sx,0,TAU);g.stroke();}
+  g.save();g.translate(cx,cy);g.scale(sc*sx,sc*sx);g.fillStyle=mixHex(COL.gray,COL.red,Math.max(0,colP));
+  smoothPath(g,heartPts(2.2),0,0);g.fill();g.restore();};
+
+const CF21=(()=>{const r=rng(21),a=[],cols=[COL.teal,COL.cyan,COL.blue,COL.violet,COL.pink,COL.amber];
+  for(let k=0;k<12;k++)a.push({a:k/12*TAU,r:58+r()*22,s:(r()>.5?1:-1),col:cols[k%cols.length]});
+  return a;})();
+DRAW.checkout=(g,f,W,H)=>{const sx=W/200,cx=W/2,cy=H/2,lt=f%300;
+  const bo=win(lt,0,12,50,62);
+  if(bo>0){g.globalAlpha=bo;g.fillStyle=COL.blue;rr(g,cx-70*sx,cy-23*sx,140*sx,46*sx,23*sx);g.fill();
+    g.fillStyle='#fff';g.font=`700 ${15*sx}px -apple-system,sans-serif`;g.textAlign='center';g.fillText('Pay',cx,cy+5*sx);g.globalAlpha=1;}
+  const so=win(lt,56,66,148,158);
+  if(so>0){g.globalAlpha=so;g.save();g.translate(cx,cy);const a=(lt-60)/90*TAU;
+    g.strokeStyle=COL.blue;g.lineWidth=8*sx;g.lineCap='round';g.beginPath();g.arc(0,0,37*sx,a,a+TAU*0.26);g.stroke();g.restore();g.globalAlpha=1;}
+  const ko=win(lt,150,158,250,272);
+  if(ko>0){g.globalAlpha=ko;const rs=lt<166?eob((lt-150)/16):1,rp=cl((lt-152)/26);
+    g.save();g.translate(cx,cy);g.scale(rs,rs);g.strokeStyle=COL.green;g.lineWidth=8*sx;g.lineCap='round';
+    g.beginPath();g.arc(0,0,39*sx,-Math.PI/2,-Math.PI/2+TAU*rp);g.stroke();g.restore();
+    const cp=cl((lt-170)/22);if(cp>0)poly2(g,cx,cy,[[-16*sx,2*sx],[-5*sx,14*sx],[18*sx,-13*sx]],cp,COL.green,7*sx);g.globalAlpha=1;}
+  if(lt>=185&&lt<232){const p=(lt-185)/45;CF21.forEach(c=>{g.save();
+    g.translate(cx+Math.cos(c.a)*c.r*p*sx,cy+Math.sin(c.a)*c.r*p*sx+18*p*sx);g.rotate(p*TAU*c.s);
+    g.globalAlpha=1-cl((p-0.7)/0.3);g.fillStyle=c.col;rr(g,-5*sx,-3*sx,10*sx,6*sx,2*sx);g.fill();g.restore();});g.globalAlpha=1;}};
+
+/* ---- the payoff: a 30-second SaaS launch video (660 frames) ---- */
+function appShot(g,x,y,w,h,sx,t){
+  g.save();
+  g.fillStyle='rgba(0,0,0,.45)';rr(g,x+6*sx,y+10*sx,w,h,14*sx);g.fill();
+  g.fillStyle='#0f1726';rr(g,x,y,w,h,14*sx);g.fill();
+  g.fillStyle='#0b1220';rr(g,x,y,w,30*sx,14*sx);g.fill();g.fillRect(x,y+18*sx,w,12*sx);
+  ['#f24555','#fab32e','#33cc73'].forEach((c,i)=>{g.fillStyle=c;g.beginPath();g.arc(x+18*sx+i*16*sx,y+15*sx,4*sx,0,TAU);g.fill();});
+  txt(g,'app.dashbored.io/overview',x+w/2,y+15*sx,11*sx,'#5f7088',600);
+  const pad=16*sx,ty=y+44*sx,gap=10*sx,tw=(w-pad*2-2*gap)/3,th=46*sx;
+  const kp=[['MRR','$2.4M',COL.teal],['Active users','18,204',COL.cyan],['Churn','2.1%',COL.violet]];
+  kp.forEach((k,i)=>{const tx0=x+pad+i*(tw+gap);g.fillStyle='#0b1424';rr(g,tx0,ty,tw,th,9*sx);g.fill();
+    txt(g,k[0],tx0+12*sx,ty+15*sx,10*sx,'#5f7088',600,'left');
+    txt(g,k[1],tx0+12*sx,ty+33*sx,17*sx,k[2],800,'left');});
+  const cy0=ty+th+gap,cw=(w-pad*2)*0.56,ch=h-(cy0-y)-pad,chx=x+pad;
+  g.fillStyle='#0b1424';rr(g,chx,cy0,cw,ch,9*sx);g.fill();
+  const bw=cw/7;for(let i=0;i<5;i++){const bh=(ch-24*sx)*(0.4+0.5*Math.abs(Math.sin(i*1.3+t*0.04)));
+    g.fillStyle=[COL.teal,COL.cyan,COL.blue,COL.violet,COL.purple][i];
+    rr(g,chx+14*sx+i*bw*1.15,cy0+ch-12*sx-bh,bw,bh,3*sx);g.fill();}
+  const lx=chx+cw+gap,lw=(x+w-pad)-lx,lh=ch;g.fillStyle='#0b1424';rr(g,lx,cy0,lw,lh,9*sx);g.fill();
+  g.strokeStyle=COL.teal;g.lineWidth=2.5*sx;g.beginPath();
+  for(let i=0;i<=6;i++){const px=lx+12*sx+(lw-24*sx)*i/6,py=cy0+lh-14*sx-(lh-28*sx)*(0.3+0.6*(0.5+0.5*Math.sin(i*0.9+t*0.05)));
+    i?g.lineTo(px,py):g.moveTo(px,py);}g.stroke();
+  g.restore();
+}
+/* real mascot artwork (1024² originals, downsized) — beats cheap emoji */
+const MASCOT={};
+['skeleton','cauldron','seance','anduin'].forEach(k=>{const im=new Image();im.src='img/'+k+'.png';MASCOT[k]=im;});
+/* draw a mascot centered, rounded so its square edge doesn't show, with a themed
+   glow — and puppet it on the frame timeline: idle float, breathe, sway, glow pulse.
+   (A flat PNG can't move its own parts, but it can absolutely come alive as a unit.) */
+function mascot(g,key,cx,cy,size,glow,F){const im=MASCOT[key];if(!im||!im.complete||!im.naturalWidth)return;
+  F=F||0;
+  cy+=Math.sin(F*0.07)*size*0.03;            // gentle vertical float
+  const s=size*(1+Math.sin(F*0.09)*0.025);   // subtle breathing
+  const tilt=Math.sin(F*0.05)*0.045;         // slow sway
+  g.save();
+  if(glow){const pulse=0.42+0.2*Math.sin(F*0.09);const gl=g.createRadialGradient(cx,cy,s*0.2,cx,cy,s*0.8);
+    gl.addColorStop(0,glow);gl.addColorStop(1,'rgba(0,0,0,0)');
+    g.save();g.globalAlpha*=pulse;g.fillStyle=gl;g.beginPath();g.arc(cx,cy,s*0.8,0,TAU);g.fill();g.restore();}
+  g.translate(cx,cy);g.rotate(tilt);
+  rr(g,-s/2,-s/2,s,s,s*0.2);g.clip();
+  g.drawImage(im,-s/2,-s/2,s,s);
+  g.restore();}
+function starPath(g,cx,cy,R,r,rot){g.beginPath();for(let k=0;k<10;k++){const rad=k%2?r:R;
+  const a=-Math.PI/2+k*Math.PI/5+(rot||0);const x=cx+Math.cos(a)*rad,y=cy+Math.sin(a)*rad;k?g.lineTo(x,y):g.moveTo(x,y);}g.closePath();}
+/* shared transport bar for every launch video; theme 'd' (dark bg) or 'l' (light bg) */
+function scrubber(g,F,W,H,TOTAL,SCN,secs,accent,theme){const sx=W/1000,lite=theme==='l';
+  const track=lite?'rgba(0,0,0,.12)':'rgba(255,255,255,.10)',tick=lite?'rgba(0,0,0,.22)':'rgba(255,255,255,.25)';
+  const dot=lite?'#0f3d2e':'#fff',lab=lite?'rgba(15,61,46,.7)':'rgba(255,255,255,.6)',tm=lite?'rgba(15,61,46,.45)':'rgba(255,255,255,.4)';
+  g.globalAlpha=1;const sbx=40*sx,sbw=W-80*sx,sby=H-22;
+  g.fillStyle=track;rr(g,sbx,sby,sbw,4,2);g.fill();
+  g.fillStyle=accent;rr(g,sbx,sby,sbw*(F/TOTAL),4,2);g.fill();
+  SCN.forEach(s=>{g.fillStyle=tick;g.fillRect(sbx+sbw*s[0]/TOTAL,sby-3,1.5,10);});
+  let cur=SCN[0][1];SCN.forEach(s=>{if(F>=s[0])cur=s[1];});
+  g.fillStyle=dot;g.beginPath();g.arc(sbx+sbw*(F/TOTAL),sby+2,5,0,TAU);g.fill();
+  txt(g,'▶  '+cur,sbx,sby-16,11,lab,600,'left');
+  txt(g,'00:'+String(Math.floor(F/TOTAL*secs)).padStart(2,'0')+' / 00:'+String(secs).padStart(2,'0'),sbx+sbw,sby-16,11,tm,600,'right');}
+
+/* ---- style 1: deadpan SaaS ("Dashbored"), 660f / 30s ---- */
+const SCN_saas=[[0,'Cold open'],[125,'The problem'],[238,'The reveal'],[305,'Charts'],[388,'AI insights'],[458,'Alerts'],[520,'Numbers'],[585,'Testimonial'],[632,'CTA']];
+DRAW.launch_saas=(g,F,W,H)=>{const cx=W/2,cy=H/2-12,sx=W/1000;
+  const bg=g.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#0a1322');bg.addColorStop(1,'#06101e');
+  g.fillStyle=bg;g.fillRect(0,0,W,H);
+  const sc=(a,b)=>F>=a&&F<b,Sw=(a,b,c,d)=>win(F,a,b,c,d);
+  g.textBaseline='middle';g.globalAlpha=1;
+
+  if(sc(0,125)){
+    if(F<66){const line='Yet another SaaS launch video.';const n=Math.floor(cl((F-6)/48)*line.length);
+      txt(g,line.slice(0,n)+(Math.floor(F/8)%2?'_':' '),cx,cy,30*sx,'#8aa0b6',600);}
+    else{const tg=[[-1,-1],[1,-1],[-1,1],[1,1]];
+      tg.forEach((t,j)=>{const pr=cl((F-66-j*4)/30);if(pr<=0)return;
+        const x=cx+lerp(t[0]*220,t[0]*22,eio(pr))*sx,y=(cy-26*sx)+lerp(t[1]*220,t[1]*22,eio(pr))*sx;
+        g.save();g.globalAlpha=pr;g.translate(x,y);g.rotate(lerp(Math.PI,0,pr));
+        g.fillStyle=[COL.teal,COL.cyan,COL.blue,COL.violet][j];rr(g,-18*sx,-18*sx,36*sx,36*sx,8*sx);g.fill();g.restore();});
+      const wo=Sw(94,106,125,9999);if(wo>0){g.globalAlpha=Math.min(1,wo);
+        txt(g,'Dashbored',cx,cy+62*sx,42*sx,'#fff',800);
+        txt(g,'Dashboards so pretty, nobody reads them.',cx,cy+96*sx,18*sx,'#8aa0b6',500);g.globalAlpha=1;}}
+  }
+  if(sc(125,238)){const o=Sw(125,138,224,238);g.globalAlpha=o;
+    txt(g,'You have 47 dashboards.',cx,cy-58*sx,36*sx,'#e7edf3',800);
+    const lx=cx-180*sx,lw=360*sx,ly=cy+6*sx;
+    g.strokeStyle='#27344a';g.lineWidth=2*sx;g.beginPath();g.moveTo(lx,ly+34*sx);g.lineTo(lx+lw,ly+34*sx);g.stroke();
+    const prog=cl((F-150)/70),pts=[[0,-30],[1,-18],[2,-22],[3,-2],[4,6],[5,18],[6,28]];
+    g.strokeStyle=COL.red;g.lineWidth=3.5*sx;g.beginPath();
+    let drawn=Math.floor(prog*(pts.length-1)+1);
+    for(let i=0;i<Math.min(drawn,pts.length);i++){const px=lx+lw*pts[i][0]/6,py=ly+pts[i][1]*sx;i?g.lineTo(px,py):g.moveTo(px,py);}g.stroke();
+    txt(g,'Daily engagement, apparently.',cx,cy+58*sx,15*sx,'#5f7088',600);
+    txt(g,'You open none of them.',cx,cy+86*sx,22*sx,'#8aa0b6',700);g.globalAlpha=1;}
+  if(sc(238,305)){const o=Sw(238,250,292,305);g.globalAlpha=o;
+    txt(g,'So we built another one.',cx,cy-46*sx,18*sx,'#6b7a8d',600);
+    txt(g,'Introducing Dashbored',cx,cy+6*sx,46*sx,'#fff',800);
+    const sh=Sw(258,266,286,300);if(sh>0){const sxp=lerp(cx-260*sx,cx+260*sx,cl((F-262)/30));
+      g.save();g.globalAlpha=sh*0.35;g.translate(sxp,cy+6*sx);g.rotate(0.5);g.fillStyle='#fff';g.fillRect(-22*sx,-60*sx,44*sx,120*sx);g.restore();}
+    txt(g,'Now with 40% more gradients.',cx,cy+48*sx,15*sx,'#5f7088',600);g.globalAlpha=1;}
+  if(sc(305,388)){const o=Sw(305,320,372,388);g.globalAlpha=o;
+    const ww=520*sx,hh=300*sx,slide=lerp(60*sx,0,eio(cl((F-308)/26)));
+    appShot(g,cx-ww/2+slide,cy-hh/2-6*sx,ww,hh,sx,F);
+    g.globalAlpha=o;txt(g,'Real-time charts',cx,cy+hh/2-2*sx,22*sx,'#fff',800);
+    txt(g,'…that update faster than you can ignore them.',cx,cy+hh/2+24*sx,15*sx,'#8aa0b6',500);g.globalAlpha=1;}
+  if(sc(388,458)){const o=Sw(388,400,444,458);g.globalAlpha=o;
+    txt(g,'AI Insights',cx,cy-78*sx,24*sx,'#fff',800);
+    const bw=440*sx,bx=cx-bw/2,by=cy-44*sx,pop=eob(cl((F-398)/16));
+    g.save();g.translate(cx,by+28*sx);g.scale(pop,pop);g.translate(-cx,-(by+28*sx));
+    g.fillStyle='#101d33';rr(g,bx,by,bw,70*sx,14*sx);g.fill();
+    g.fillStyle=COL.violet;g.beginPath();g.arc(bx+30*sx,by+35*sx,14*sx,0,TAU);g.fill();
+    txt(g,'✦',bx+30*sx,by+35*sx,15*sx,'#fff',800);
+    txt(g,'"Your number went up.  ↑"',bx+58*sx,by+28*sx,18*sx,'#e7edf3',700,'left');
+    txt(g,'Confidence: 100%.  Insight: questionable.',bx+58*sx,by+50*sx,13*sx,'#6b7a8d',500,'left');g.restore();
+    g.globalAlpha=o;txt(g,'Groundbreaking stuff. Truly.',cx,cy+58*sx,15*sx,'#5f7088',600);g.globalAlpha=1;}
+  if(sc(458,520)){const o=Sw(458,470,506,520);g.globalAlpha=o;
+    txt(g,'Smart Alerts',cx,cy-72*sx,24*sx,'#fff',800);
+    const sw=(Math.sin((F-462)*0.5)*Math.max(0,1-(F-462)/40))*14*Math.PI/180;
+    g.save();g.translate(cx,cy-30*sx);g.rotate(sw);g.translate(0,18*sx);
+    g.fillStyle=COL.amber;smoothPath(g,[[0,-24],[14,-15],[18,7],[24,15],[-24,15],[-18,7],[-14,-15]].map(p=>[p[0]*sx,p[1]*sx]),0,0);g.fill();
+    g.beginPath();g.arc(0,22*sx,5*sx,0,TAU);g.fill();g.restore();
+    const tp=eob(cl((F-474)/16)),tw=300*sx,tx=cx-tw/2,tyy=cy+24*sx;
+    g.save();g.globalAlpha=o*Math.min(1,tp);g.fillStyle='#0f1726';rr(g,tx,tyy,tw,46*sx,10*sx);g.fill();
+    g.fillStyle=COL.teal;rr(g,tx,tyy,5*sx,46*sx,3*sx);g.fill();
+    txt(g,'⚠  Revenue is doing a thing',tx+18*sx,tyy+17*sx,13*sx,'#e7edf3',700,'left');
+    txt(g,'2 min ago · you will mute this',tx+18*sx,tyy+33*sx,11*sx,'#6b7a8d',500,'left');g.restore();
+    g.globalAlpha=o;txt(g,"We'll Slack you. You'll mute us. Balance.",cx,cy+86*sx,15*sx,'#5f7088',600);g.globalAlpha=1;}
+  if(sc(520,585)){const o=Sw(520,532,572,585);g.globalAlpha=o;const p=cl((F-524)/40);
+    txt(g,Math.round(10000*p).toLocaleString()+'+',cx-260*sx,cy-14*sx,38*sx,COL.teal,800);txt(g,'teams onboarded',cx-260*sx,cy+18*sx,13*sx,'#7f8ea0',600);
+    txt(g,(99.99*p).toFixed(2)+'%',cx,cy-14*sx,38*sx,COL.cyan,800);txt(g,'uptime*',cx,cy+18*sx,13*sx,'#7f8ea0',600);
+    txt(g,'$'+(4.2*p).toFixed(1)+'M',cx+260*sx,cy-14*sx,38*sx,COL.violet,800);txt(g,'raised, somehow',cx+260*sx,cy+18*sx,13*sx,'#7f8ea0',600);
+    txt(g,'*measured once, on a Tuesday, in dev.',cx,cy+64*sx,13*sx,'#566377',500);g.globalAlpha=1;}
+  if(sc(585,632)){const o=Sw(585,597,620,632);g.globalAlpha=o;
+    const bw=620*sx,bx=cx-bw/2,by=cy-58*sx;g.fillStyle='#0f1726';rr(g,bx,by,bw,116*sx,16*sx);g.fill();
+    txt(g,'"I have no idea what it does,',cx,by+38*sx,22*sx,'#e7edf3',700);
+    txt(g,'but the gradients absolutely slap."',cx,by+68*sx,22*sx,'#e7edf3',700);
+    txt(g,'— VP of Vibes, a Series B you’ve heard of',cx,by+98*sx,14*sx,'#6b7a8d',600);g.globalAlpha=1;}
+  if(sc(632,660)){const o=Sw(632,640,656,660);g.globalAlpha=o;
+    txt(g,'Start free today',cx,cy-40*sx,36*sx,'#fff',800);
+    const bw=230*sx,bx=cx-bw/2,by=cy+4*sx;g.fillStyle=COL.teal;rr(g,bx,by,bw,52*sx,12*sx);g.fill();
+    txt(g,'Get Dashbored',cx,by+27*sx,17*sx,'#04140e',800);
+    txt(g,'No credit card required. Yet.',cx,cy+86*sx,14*sx,'#6b7a8d',600);
+    txt(g,'dashbored.io',cx,cy+112*sx,14*sx,'#4a90d9',700);g.globalAlpha=1;}
+
+  scrubber(g,F,W,H,660,SCN_saas,30,COL.blue,'d');
+};
+
+/* ---- style 2: 💀 Skeleton Crew — request/response starter, 570f / 19s ---- */
+const SCN_skel=[[0,'The curse'],[120,'Broken'],[250,'Reveal'],[330,'The shape'],[450,'Proof'],[520,'Clone it']];
+DRAW.launch_skeleton=(g,F,W,H)=>{const sx=W/1000,cx=W/2,cy=H/2-8;
+  g.fillStyle='#0b0c10';g.fillRect(0,0,W,H);
+  const vg=g.createRadialGradient(cx,cy,40*sx,cx,cy,W*0.62);vg.addColorStop(0,'#14161d');vg.addColorStop(1,'#08090d');
+  g.fillStyle=vg;g.fillRect(0,0,W,H);
+  g.textBaseline='middle';const bone='#ece6d6',cyan='#7fd6e6',mut='#6b7280',red='#f24555';
+  const sc=(a,b)=>F>=a&&F<b,Sw=(a,b,c,d)=>win(F,a,b,c,d);
+  if(sc(0,120)){const o=Sw(0,12,104,120);const flick=0.78+0.22*Math.sin(F*0.6);
+    g.globalAlpha=o*flick;mascot(g,'skeleton',cx,cy-44*sx,100*sx,'#7fd6e6',F);
+    g.globalAlpha=o;txt(g,'Every deploy gets cursed.',cx,cy+34*sx,34*sx,bone,800);
+    txt(g,'The same four demons. Every. Single. Time.',cx,cy+66*sx,16*sx,mut,500);g.globalAlpha=1;}
+  if(sc(120,250)){const o=Sw(120,132,238,250);g.globalAlpha=o;
+    txt(g,'the four curses',cx,cy-92*sx,15*sx,mut,700);
+    const curses=['The Severed Network','The Flexible Phantom','The Premature Migration','The Forgotten Redirect URI'];
+    curses.forEach((c,i)=>{const d=130+i*22,y=cy-44*sx+i*34*sx,ap=cl((F-d)/10);if(ap<=0)return;
+      g.globalAlpha=o*ap;g.textAlign='left';g.fillStyle=bone;g.font=`600 ${18*sx}px -apple-system,sans-serif`;const tx=cx-200*sx;g.fillText(c,tx,y);
+      const strike=cl((F-(d+14))/12);if(strike>0){g.strokeStyle=red;g.lineWidth=2.5*sx;g.beginPath();g.moveTo(tx-6*sx,y);g.lineTo(tx-6*sx+330*sx*strike,y);g.stroke();
+        if(strike>=1)txt(g,'broken',cx+200*sx,y,13*sx,'#33cc73',700,'right');}});g.globalAlpha=1;}
+  if(sc(250,330)){const o=Sw(250,262,322,330);g.globalAlpha=o;
+    const pop=eob(cl((F-254)/16));mascot(g,'skeleton',cx,cy-28*sx,132*sx*pop,'#7fd6e6',F);
+    txt(g,'Skeleton Crew',cx,cy+44*sx,44*sx,bone,800);
+    txt(g,'the bare-bones Dokploy starter',cx,cy+74*sx,16*sx,mut,500);g.globalAlpha=1;}
+  if(sc(330,450)){const o=Sw(330,344,438,450);g.globalAlpha=o;
+    txt(g,'request → response, wired right',cx,cy-96*sx,15*sx,mut,700);
+    const nodes=[['Browser',cx-300*sx],['Google SSO',cx-100*sx],['Hono',cx+100*sx],['Postgres',cx+300*sx]],ny=cy-6*sx;
+    nodes.forEach(n=>{g.fillStyle='#161a22';rr(g,n[1]-70*sx,ny-26*sx,140*sx,52*sx,10*sx);g.fill();
+      g.strokeStyle='rgba(127,214,230,.35)';g.lineWidth=1.2*sx;rr(g,n[1]-70*sx,ny-26*sx,140*sx,52*sx,10*sx);g.stroke();
+      txt(g,n[0],n[1],ny,15*sx,bone,700);});
+    for(let i=0;i<3;i++){g.strokeStyle='rgba(255,255,255,.12)';g.lineWidth=2*sx;g.beginPath();g.moveTo(nodes[i][1]+70*sx,ny);g.lineTo(nodes[i+1][1]-70*sx,ny);g.stroke();}
+    const local=Math.max(0,F-344),tp=(local%66)/66,path=tp*3,seg=Math.max(0,Math.min(2,Math.floor(path))),lp=path-seg;
+    const dx=lerp(nodes[seg][1]+70*sx,nodes[seg+1][1]-70*sx,lp);
+    g.fillStyle=cyan;g.beginPath();g.arc(dx,ny,5.5*sx,0,TAU);g.fill();
+    txt(g,'✓ guestbook row written',cx,cy+70*sx,14*sx,'#33cc73',700);g.globalAlpha=1;}
+  if(sc(450,520)){const o=Sw(450,462,512,520);g.globalAlpha=o;
+    txt(g,'The proof is a guestbook.',cx,cy-74*sx,26*sx,bone,800);
+    const rows=['ghost_42 — “first!”','bonejangles — “it deploys??”','you — “signed, in prod”'];
+    rows.forEach((r,i)=>{const d=458+i*12,p=cl((F-d)/10);if(p<=0)return;const y=cy-20*sx+i*34*sx;
+      g.globalAlpha=o*p;g.fillStyle='#11141b';rr(g,cx-220*sx,y-15*sx,440*sx,30*sx,8*sx);g.fill();txt(g,r,cx-205*sx,y,14*sx,bone,600,'left');});
+    g.globalAlpha=o;txt(g,'Sign it in prod → your DB wiring is correct.',cx,cy+92*sx,14*sx,mut,500);g.globalAlpha=1;}
+  if(sc(520,570)){const o=Sw(520,532,564,570);g.globalAlpha=o;
+    ['Hono','better-auth','Drizzle','Postgres','Dokploy'].forEach((s,i)=>{const x=cx+(i-2)*122*sx;
+      g.fillStyle='#161a22';rr(g,x-54*sx,cy-78*sx,108*sx,30*sx,15*sx);g.fill();txt(g,s,x,cy-63*sx,12*sx,cyan,700);});
+    txt(g,'Clone it. Read it in one sitting.',cx,cy-10*sx,23*sx,bone,800);
+    g.fillStyle=bone;rr(g,cx-165*sx,cy+22*sx,330*sx,46*sx,23*sx);g.fill();
+    txt(g,'github.com/chug2k/dokploy-skeleton',cx,cy+45*sx,14*sx,'#0b0c10',800);g.globalAlpha=1;}
+  scrubber(g,F,W,H,570,SCN_skel,19,cyan,'d');
+};
+
+/* ---- style 3: 🧪 Cauldron — background-jobs starter, 560f / 18s ---- */
+const SCN_cau=[[0,'Too slow'],[110,'The shape'],[250,'Reveal'],[320,'Curses'],[450,'Stack'],[510,'Clone']];
+DRAW.launch_cauldron=(g,F,W,H)=>{const sx=W/1000,cx=W/2,cy=H/2-8;
+  g.fillStyle='#070b08';g.fillRect(0,0,W,H);
+  const gr=g.createRadialGradient(cx,H-24*sx,20*sx,cx,H-24*sx,W*0.6);gr.addColorStop(0,'rgba(16,201,142,.22)');gr.addColorStop(1,'rgba(7,11,8,0)');
+  g.fillStyle=gr;g.fillRect(0,0,W,H);
+  g.textBaseline='middle';const green='#16d89a',mut='#5f7d70',ink='#e6f4ed',red='#f24555';
+  const sc=(a,b)=>F>=a&&F<b,Sw=(a,b,c,d)=>win(F,a,b,c,d);
+  function bubbles(al){for(let i=0;i<10;i++){const t=((F*0.6+i*37)%120)/120,x=cx+Math.sin(i*2.1)*180*sx,y=H-18*sx-t*180*sx;
+    g.globalAlpha=al*(1-t)*0.5;g.fillStyle=green;g.beginPath();g.arc(x,y,(2+i%3)*sx,0,TAU);g.fill();}g.globalAlpha=1;}
+  if(sc(0,110)){const o=Sw(0,12,96,110);g.globalAlpha=o;bubbles(o);
+    mascot(g,'cauldron',cx,cy-46*sx,100*sx,'#16d89a',F);
+    txt(g,'Some work is too slow',cx,cy+30*sx,31*sx,ink,800);
+    txt(g,'for a single request.',cx,cy+66*sx,31*sx,ink,800);g.globalAlpha=1;}
+  if(sc(110,250)){const o=Sw(110,124,238,250);g.globalAlpha=o;
+    txt(g,'producer → queue → worker → db',cx,cy-96*sx,15*sx,mut,700);
+    const nodes=[['Web',cx-300*sx],['Queue',cx-100*sx],['Worker',cx+110*sx],['Postgres',cx+300*sx]],ny=cy-6*sx;
+    nodes.forEach(n=>{g.fillStyle='#0e1813';rr(g,n[1]-66*sx,ny-26*sx,132*sx,52*sx,10*sx);g.fill();
+      g.strokeStyle='rgba(22,216,154,.35)';g.lineWidth=1.2*sx;rr(g,n[1]-66*sx,ny-26*sx,132*sx,52*sx,10*sx);g.stroke();
+      txt(g,n[0],n[1],ny,15*sx,ink,700);});
+    for(let i=0;i<3;i++){g.strokeStyle='rgba(255,255,255,.12)';g.lineWidth=2*sx;g.beginPath();g.moveTo(nodes[i][1]+66*sx,ny);g.lineTo(nodes[i+1][1]-66*sx,ny);g.stroke();}
+    const tp=cl((F-130)/95),path=tp*3,seg=Math.min(2,Math.floor(path)),lp=path-seg;
+    const dx=lerp(nodes[seg][1]+66*sx,nodes[seg+1][1]-66*sx,lp);
+    g.fillStyle=green;g.beginPath();g.arc(dx,ny,6*sx,0,TAU);g.fill();
+    const status=tp<0.34?'pending':tp<0.9?'active':'done',scol=tp<0.34?mut:tp<0.9?'#fab32e':green;
+    txt(g,status,cx,cy+56*sx,18*sx,scol,800);
+    g.fillStyle='rgba(255,255,255,.1)';rr(g,cx-120*sx,cy+76*sx,240*sx,8*sx,4*sx);g.fill();
+    g.fillStyle=green;rr(g,cx-120*sx,cy+76*sx,240*sx*tp,8*sx,4*sx);g.fill();g.globalAlpha=1;}
+  if(sc(250,320)){const o=Sw(250,262,312,320);g.globalAlpha=o;bubbles(o);
+    const pop=eob(cl((F-254)/16));mascot(g,'cauldron',cx,cy-28*sx,130*sx*pop,'#16d89a',F);
+    txt(g,'Cauldron',cx,cy+44*sx,44*sx,ink,800);
+    txt(g,'background jobs, deployed right',cx,cy+78*sx,16*sx,mut,500);g.globalAlpha=1;}
+  if(sc(320,450)){const o=Sw(320,332,438,450);g.globalAlpha=o;
+    txt(g,'the five async curses',cx,cy-100*sx,15*sx,mut,700);
+    const curses=['The Orphaned Worker','The Headless Healthcheck','The Interrupted Brew','The Vanishing Queue','The Retry Storm'];
+    curses.forEach((c,i)=>{const d=328+i*18,y=cy-58*sx+i*30*sx,ap=cl((F-d)/9);if(ap<=0)return;
+      g.globalAlpha=o*ap;g.textAlign='left';g.fillStyle=ink;g.font=`600 ${17*sx}px -apple-system,sans-serif`;const tx=cx-200*sx;g.fillText(c,tx,y);
+      const strike=cl((F-(d+12))/10);if(strike>0){g.strokeStyle=red;g.lineWidth=2.4*sx;g.beginPath();g.moveTo(tx-6*sx,y);g.lineTo(tx-6*sx+400*sx*strike,y);g.stroke();
+        if(strike>=1)txt(g,'✓',cx+210*sx,y,16*sx,green,800,'right');}});g.globalAlpha=1;}
+  if(sc(450,510)){const o=Sw(450,460,504,510);g.globalAlpha=o;bubbles(o);
+    txt(g,'A real producer/consumer split.',cx,cy-30*sx,24*sx,ink,800);
+    ['Hono','BullMQ','Redis','Worker','Postgres'].forEach((s,i)=>{const x=cx+(i-2)*122*sx;
+      g.fillStyle='#0e1813';rr(g,x-54*sx,cy+18*sx,108*sx,32*sx,16*sx);g.fill();txt(g,s,x,cy+34*sx,12*sx,green,700);});g.globalAlpha=1;}
+  if(sc(510,560)){const o=Sw(510,520,554,560);g.globalAlpha=o;
+    txt(g,'Toss in your own slow work.',cx,cy-18*sx,22*sx,ink,800);
+    g.fillStyle=green;rr(g,cx-135*sx,cy+18*sx,270*sx,46*sx,23*sx);g.fill();
+    txt(g,'github.com/chug2k/cauldron',cx,cy+41*sx,14*sx,'#06291d',800);g.globalAlpha=1;}
+  scrubber(g,F,W,H,560,SCN_cau,18,green,'d');
+};
+
+/* ---- style 4: 🔮 Séance — realtime / WebSocket starter, 560f / 18s ---- */
+const SCN_sea=[[0,'Speak first'],[110,'Commune'],[250,'Reveal'],[320,'Curses'],[450,'Stack'],[510,'Clone']];
+DRAW.launch_seance=(g,F,W,H)=>{const sx=W/1000,cx=W/2,cy=H/2-8;
+  g.fillStyle='#0a0712';g.fillRect(0,0,W,H);
+  const gr=g.createRadialGradient(cx,cy,30*sx,cx,cy,W*0.62);gr.addColorStop(0,'rgba(167,139,250,.17)');gr.addColorStop(1,'rgba(10,7,18,0)');
+  g.fillStyle=gr;g.fillRect(0,0,W,H);
+  g.textBaseline='middle';const vio='#c4b5fd',vio2='#a78bfa',mut='#6b6488',ink='#efeaf8',red='#f24555';
+  const sc=(a,b)=>F>=a&&F<b,Sw=(a,b,c,d)=>win(F,a,b,c,d);
+  if(sc(0,110)){const o=Sw(0,12,96,110),fl=0.8+0.2*Math.sin(F*0.5);
+    g.globalAlpha=o*fl;mascot(g,'seance',cx,cy-46*sx,100*sx,'#a78bfa',F);
+    g.globalAlpha=o;txt(g,'What if the server',cx,cy+30*sx,31*sx,ink,800);
+    txt(g,'could speak first?',cx,cy+66*sx,31*sx,ink,800);g.globalAlpha=1;}
+  if(sc(110,250)){const o=Sw(110,124,238,250);g.globalAlpha=o;
+    txt(g,'open two tabs · commune',cx,cy-100*sx,15*sx,mut,700);
+    const tw=190*sx,th=116*sx,ty=cy-46*sx,tabs=[cx-150*sx,cx+150*sx];
+    tabs.forEach((tx,ti)=>{g.fillStyle='#15102a';rr(g,tx-tw/2,ty-th/2,tw,th,10*sx);g.fill();
+      g.strokeStyle='rgba(167,139,250,.3)';g.lineWidth=1.2*sx;rr(g,tx-tw/2,ty-th/2,tw,th,10*sx);g.stroke();
+      g.fillStyle='#1e1640';rr(g,tx-tw/2,ty-th/2,tw,22*sx,10*sx);g.fill();g.fillRect(tx-tw/2,ty-th/2+12*sx,tw,10*sx);
+      txt(g,ti?'tab · luna':'tab · mort',tx,ty-th/2+11*sx,11*sx,vio,700);
+      const appear=cl((F-184)/12);if(appear>0){g.globalAlpha=o*appear;g.fillStyle='#2a2150';rr(g,tx-tw/2+14*sx,ty-2*sx,tw-28*sx,26*sx,8*sx);g.fill();
+        txt(g,'“is anyone there?”',tx,ty+11*sx,12*sx,ink,600);g.globalAlpha=o;}});
+    const syn=cy+58*sx;g.fillStyle='#1a1338';rr(g,cx-66*sx,syn-18*sx,132*sx,36*sx,8*sx);g.fill();
+    g.strokeStyle='rgba(196,181,253,.4)';g.lineWidth=1.2*sx;rr(g,cx-66*sx,syn-18*sx,132*sx,36*sx,8*sx);g.stroke();
+    txt(g,'WS · Redis pub/sub',cx,syn,12*sx,vio,700);
+    const t=cl((F-130)/64);
+    if(t<0.5){const p=t/0.5,dx=lerp(tabs[0],cx,p),dy=lerp(ty+th/2,syn-18*sx,p);g.fillStyle=vio;g.beginPath();g.arc(dx,dy,5.5*sx,0,TAU);g.fill();}
+    else{const p=(t-0.5)/0.5;tabs.forEach(tx=>{const dx=lerp(cx,tx,p),dy=lerp(syn-18*sx,ty+th/2,p);g.fillStyle=vio;g.beginPath();g.arc(dx,dy,5.5*sx,0,TAU);g.fill();});}
+    txt(g,'every soul hears it — on every replica',cx,cy+92*sx,13*sx,mut,500);g.globalAlpha=1;}
+  if(sc(250,320)){const o=Sw(250,262,312,320);g.globalAlpha=o;
+    const pop=eob(cl((F-254)/16));mascot(g,'seance',cx,cy-28*sx,130*sx*pop,'#a78bfa',F);
+    txt(g,'Séance',cx,cy+44*sx,46*sx,ink,800);
+    txt(g,'realtime, through the proxy, done right',cx,cy+80*sx,16*sx,mut,500);g.globalAlpha=1;}
+  if(sc(320,450)){const o=Sw(320,332,438,450);g.globalAlpha=o;
+    txt(g,'the five realtime curses',cx,cy-100*sx,15*sx,mut,700);
+    const curses=['The Mixed-Content Séance','The 100-Second Reaper','The Lonely Replica','The Echo','The Severed Network'];
+    curses.forEach((c,i)=>{const d=328+i*18,y=cy-58*sx+i*30*sx,ap=cl((F-d)/9);if(ap<=0)return;
+      g.globalAlpha=o*ap;g.textAlign='left';g.fillStyle=ink;g.font=`600 ${17*sx}px -apple-system,sans-serif`;const tx=cx-200*sx;g.fillText(c,tx,y);
+      const strike=cl((F-(d+12))/10);if(strike>0){g.strokeStyle=red;g.lineWidth=2.4*sx;g.beginPath();g.moveTo(tx-6*sx,y);g.lineTo(tx-6*sx+400*sx*strike,y);g.stroke();
+        if(strike>=1)txt(g,'✓',cx+210*sx,y,16*sx,'#33cc73',800,'right');}});g.globalAlpha=1;}
+  if(sc(450,510)){const o=Sw(450,460,504,510);g.globalAlpha=o;
+    txt(g,'Sockets + a pub/sub backplane.',cx,cy-30*sx,24*sx,ink,800);
+    ['Hono','node-ws','Redis pub/sub','Postgres'].forEach((s,i)=>{const x=cx+(i-1.5)*154*sx;
+      g.fillStyle='#15102a';rr(g,x-68*sx,cy+18*sx,136*sx,32*sx,16*sx);g.fill();txt(g,s,x,cy+34*sx,12*sx,vio,700);});g.globalAlpha=1;}
+  if(sc(510,560)){const o=Sw(510,520,554,560);g.globalAlpha=o;
+    txt(g,'Open two tabs and commune.',cx,cy-18*sx,22*sx,ink,800);
+    g.fillStyle=vio2;rr(g,cx-125*sx,cy+18*sx,250*sx,46*sx,23*sx);g.fill();
+    txt(g,'github.com/chug2k/seance',cx,cy+41*sx,14*sx,'#160c2e',800);g.globalAlpha=1;}
+  scrubber(g,F,W,H,560,SCN_sea,18,vio2,'d');
+};
+
+/* ============================================================================
+ * BUILD THE GALLERY
+ * ========================================================================== */
+const DEMOS=[
+ {id:'ball',per:120,cx:1,t:'Bouncing ball',
+  n:'The hello-world, and a dead heat. Lottie tweens two position keyframes plus a squash on the scale; Remotion makes <code>y</code> a function of the frame with a sine. At this size the file and the function are about equally short.'},
+ {id:'spinner',per:120,cx:2,t:'Loading spinner',
+  n:'Lottie&rsquo;s bread and butter: an arc rotating forever. Author it once, export the JSON, and it loops for free across web, iOS and Android. Remotion just rotates an arc by frame — fine, but you&rsquo;d never ship a spinner as an MP4.'},
+ {id:'progress',per:120,cx:2,t:'Progress ring + live %',
+  n:'First divergence. The ring is identical — but the counting <b>%</b> in the middle is trivial in Remotion (it&rsquo;s a number you render) and awkward in Lottie (a text layer the runtime must drive, or you bind it in code). Notice the Lottie side just&hellip; doesn&rsquo;t have the number.'},
+ {id:'equalizer',per:120,cx:3,t:'Equalizer bars',
+  n:'Five bars driven by a phase-shifted sine. Remotion evaluates <code>sin()</code> per frame. Lottie can&rsquo;t do math at runtime, so the motion has to be <i>baked</i> into keyframes — here, sampled every 12 frames, per bar. When the motion is a formula, code is cleaner.'},
+ {id:'confetti',per:120,cx:4,t:'Confetti burst',
+  n:'Eighteen independent pieces, each with its own drift and spin. In Remotion that&rsquo;s a <code>for</code> loop. In Lottie it&rsquo;s eighteen hand-built layers and the JSON balloons. This is where code-driven pulls clearly ahead: anything with <em>N</em> of something.'},
+ {id:'like',per:120,cx:3,t:'Like button',
+  n:'Back to Lottie&rsquo;s home turf. Tap-heart: grey&rarr;red, a spring pop, a ring pulse. Designers author exactly this in After Effects and hand engineering a 4&nbsp;KB file that drops into the button component. It&rsquo;s the single most common real-world use of Lottie.'},
+ {id:'checkout',per:300,cx:5,t:'Checkout success flow',
+  n:'A five-second chain: <b>Pay</b> &rarr; spinner &rarr; success ring + check &rarr; confetti. Both tools can sequence a timeline. But the longer and more video-like it gets — elements entering and leaving on cue — the more you feel Remotion&rsquo;s frame model was built for exactly this.'}
+];
+
+const gallery=document.getElementById('gallery');
+const canvases=[];
+const lotties=[];          // Lottie players, driven off the same frame as the canvases
+const DPR=Math.min(window.devicePixelRatio||1,2);
+
+function dots(n){let s='';for(let k=0;k<5;k++)s+=`<i class="${k<n?'on':''}"></i>`;return s;}
+
+DEMOS.forEach((m,i)=>{
+  const sec=document.createElement('div');sec.className='demo';
+  sec.innerHTML=`
+    <div class="demo-head">
+      <span class="num">${String(i+1).padStart(2,'0')}</span>
+      <h4>${m.t}</h4>
+      <span class="cx">${dots(m.cx)}<span>complexity</span></span>
+    </div>
+    <div class="pair">
+      <div class="cell"><span class="tag tag-l">Lottie<small>vectors, interpolated</small></span>
+        <div class="stage"><div class="lo" id="lo-${m.id}"></div></div></div>
+      <div class="cell"><span class="tag tag-r">Remotion<small>f(frame)</small></span>
+        <div class="stage"><canvas class="re" id="re-${m.id}"></canvas><span class="fr" id="fr-${m.id}"></span></div></div>
+    </div>
+    <p class="demo-note">${m.n}</p>`;
+  gallery.appendChild(sec);
+
+  try{
+    const anim=lottie.loadAnimation({container:document.getElementById('lo-'+m.id),
+      renderer:'svg',loop:false,autoplay:false,animationData:LOTTIE[m.id]()});
+    lotties.push({anim,per:m.per});
+  }catch(e){document.getElementById('lo-'+m.id).innerHTML='<div class="loerr">Lottie error</div>';console.error('lottie '+m.id,e);}
+
+  const cv=document.getElementById('re-'+m.id);
+  canvases.push({cv,g:cv.getContext('2d'),draw:DRAW[m.id],per:m.per,fr:document.getElementById('fr-'+m.id)});
+});
+
+/* the payoff — four launch videos, Remotion only */
+const LAUNCHES=[
+ {id:'saas',icon:null,draw:DRAW.launch_saas,per:660,t:'“Dashbored” — snarky SaaS launch',style:'Editorial · deadpan',
+  n:'The made-up one, in full. Nine scenes of deadpan corporate — cold open, the problem, the reveal, three product shots, a numbers flex, a fake testimonial, a CTA. Every frame is a function of <code>F</code>.'},
+ {id:'skeleton',icon:'skeleton',draw:DRAW.launch_skeleton,per:570,t:'Skeleton Crew — request/response starter',style:'Bone · charcoal',
+  n:'A real one. The starter for a Google-SSO + Postgres app on Dokploy, mascot and all. The signature beat: the four deploy curses listed, then struck through. Proof of life is a guestbook you sign in prod.'},
+ {id:'cauldron',icon:'cauldron',draw:DRAW.launch_cauldron,per:560,t:'Cauldron — background-jobs starter',style:'Toxic green · bubbling',
+  n:'Same family, async shape: web → queue → a separate worker → Postgres. The job travels the pipeline and flips <b>pending → active → done</b>. Five async curses, pre-broken.'},
+ {id:'seance',icon:'seance',draw:DRAW.launch_seance,per:560,t:'Séance — realtime / WebSocket starter',style:'Occult · violet',
+  n:'The realtime sibling. Two tabs commune; a message pulses through a WebSocket and a Redis pub/sub backplane out to every soul on every replica. Five realtime curses, pre-broken.'}
+];
+const payoff=document.getElementById('payoff');
+LAUNCHES.forEach((m,i)=>{const card=document.createElement('div');card.className='demo';card.style.marginTop=i?'22px':'0';
+  card.innerHTML=`
+    <div class="demo-head">
+      <span class="num">${String(8+i).padStart(2,'0')}</span>
+      ${m.icon?`<img class="mini" src="img/${m.icon}.png" alt="">`:''}
+      <h4>${m.t}</h4>
+      <span class="cx"><i class="on" style="background:var(--remotion)"></i><span>${m.style}</span></span>
+    </div>
+    <div class="pair" style="grid-template-columns:1fr">
+      <div class="cell"><span class="tag tag-r">Remotion<small>programmatic video → MP4</small></span>
+        <div class="stage wide"><canvas class="re" id="re-${m.id}"></canvas><span class="fr" id="fr-${m.id}"></span></div></div>
+    </div>
+    <p class="demo-note">${m.n}</p>`;
+  payoff.appendChild(card);
+  const cv=document.getElementById('re-'+m.id);
+  canvases.push({cv,g:cv.getContext('2d'),draw:m.draw,per:m.per,fr:document.getElementById('fr-'+m.id)});
+});
+
+/* interactive Lottie — a live, recolorable, resizable vector (no canvas twin) */
+const PALS=[[C.red,C.pink],[C.blue,C.cyan],[C.violet,C.pink],[C.amber,C.red],[C.teal,C.green]];
+const PHEX=['#f24555','#0b84f3','#a78bfa','#fab32e','#10c98e'];
+function makeMark(p,a){OP=120;return COMP([
+  L(1,{o:S(100),r:S(0),p:S([CX,CY+6]),a:S([0,0]),
+     s:K([{t:0,s:[94,94]},{t:24,s:[114,114]},{t:42,s:[100,100]},{t:84,s:[100,100]},{t:104,s:[114,114]},{t:120,s:[94,94]}])},
+    [GR([SH(smooth(heartPts(2.7))),FL(p),TR()])]),
+  L(2,{o:K([{t:0,s:[0]},{t:8,s:[75]},{t:58,s:[0]},{t:120,s:[0]}]),r:S(0),p:S([CX,CY+2]),a:S([0,0]),
+     s:K([{t:8,s:[58,58]},{t:58,s:[175,175]}])},
+    [GR([EL([60,60]),ST(a,5),TR()])])
+]);}
+let liveAnim=null;
+function loadLive(i){const c=document.getElementById('live-inner');if(!c)return;
+  if(liveAnim)liveAnim.destroy();
+  liveAnim=lottie.loadAnimation({container:c,renderer:'svg',loop:true,autoplay:true,animationData:makeMark(PALS[i][0],PALS[i][1])});}
+(function(){
+  const row=document.getElementById('sw-row');if(!row)return;
+  PHEX.forEach((hex,i)=>{const b=document.createElement('button');b.className='sw'+(i===0?' on':'');b.style.background=hex;b.title='recolor';
+    b.onclick=()=>{row.querySelectorAll('.sw').forEach(s=>s.classList.remove('on'));b.classList.add('on');loadLive(i);};
+    row.appendChild(b);});
+  loadLive(0);
+  document.querySelectorAll('.ctrls [data-size]').forEach(btn=>btn.onclick=()=>{
+    document.querySelectorAll('[data-size]').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+    document.getElementById('live-inner').style.transform='scale('+btn.dataset.size+')';});
+  document.querySelectorAll('.ctrls [data-bg]').forEach(btn=>btn.onclick=()=>{
+    document.querySelectorAll('[data-bg]').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+    document.getElementById('live-stage').classList.toggle('lite',btn.dataset.bg==='lite');});
+})();
+
+/* ===== Postscript: "animate the mascot four ways" (selector swaps the mascot) ===== */
+const MASC_KEYS=['cauldron','skeleton','seance','anduin'];
+const MASC_LABEL={cauldron:'Cauldron',skeleton:'Skeleton',seance:'Séance',anduin:'Anduin'};
+const MASC_GLOW={cauldron:'#16d89a',skeleton:'#7fd6e6',seance:'#a78bfa',anduin:'#3da1ee'};
+const RIGS={cauldron:rigCauldron};
+if(typeof rigSkeleton==='function')RIGS.skeleton=rigSkeleton;
+if(typeof rigSeance==='function')RIGS.seance=rigSeance;
+if(typeof rigAnduin==='function')RIGS.anduin=rigAnduin;
+const SPRITES={};
+function spriteImg(key){if(!SPRITES[key]){const im=new Image();im.src='img/sprite-'+key+'.png';SPRITES[key]=im;}return SPRITES[key];}
+let curMasc='cauldron';
+
+const puppetCv=document.getElementById('way-puppet');
+if(puppetCv)canvases.push({cv:puppetCv,g:puppetCv.getContext('2d'),per:240,
+  draw:(g,f,W,H)=>mascot(g,curMasc,W/2,H/2,Math.min(W,H)*0.78,MASC_GLOW[curMasc],f)});
+
+const spriteCv=document.getElementById('way-sprite');
+if(spriteCv)canvases.push({cv:spriteCv,g:spriteCv.getContext('2d'),per:32,
+  draw:(g,f,W,H)=>{const im=spriteImg(curMasc);if(!im.complete||!im.naturalWidth)return;
+    const idx=Math.floor(f/8)%4,col=idx%2,row=(idx/2)|0,cs=im.naturalWidth/2,sc=Math.max(W/cs,H/cs),dw=cs*sc,dh=cs*sc;
+    g.drawImage(im,col*cs,row*cs,cs,cs,(W-dw)/2,(H-dh)/2,dw,dh);}});
+
+let rigAnim=null;
+function loadRig(){const c=document.getElementById('way-lottie');if(!c||!RIGS[curMasc])return;
+  if(rigAnim)rigAnim.destroy();
+  rigAnim=lottie.loadAnimation({container:c,renderer:'svg',loop:true,autoplay:true,animationData:RIGS[curMasc]()});}
+loadRig();
+
+(function(){const grid=document.getElementById('fourway');if(!grid)return;
+  const avail=MASC_KEYS.filter(k=>RIGS[k]&&MASCOT[k]);if(avail.length<2)return;   // selector only if >1 mascot rigged
+  const bar=document.createElement('div');bar.style.cssText='display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0 16px;font-family:Inter,sans-serif';
+  const lbl=document.createElement('span');lbl.textContent='Mascot:';lbl.style.cssText='font-size:12px;font-weight:600;color:var(--ink);margin-right:4px';bar.appendChild(lbl);
+  avail.forEach(k=>{const b=document.createElement('button');b.className='tg'+(k===curMasc?' on':'');b.textContent=MASC_LABEL[k];
+    b.onclick=()=>{curMasc=k;bar.querySelectorAll('.tg').forEach(x=>x.classList.remove('on'));b.classList.add('on');loadRig();};
+    bar.appendChild(b);});
+  grid.parentNode.insertBefore(bar,grid);
+})();
+
+(function(){const cv=document.getElementById('way-rive');if(!cv||!window.rive)return;let started=false;
+  const init=()=>{started=true;
+    try{rive.RuntimeLoader.setWasmUrl('vendor/rive.wasm');}catch(e){}
+    const r=new rive.Rive({src:'vendor/mascot-sample.riv',canvas:cv,autoplay:true,
+      layout:new rive.Layout({fit:rive.Fit.Contain,alignment:rive.Alignment.Center}),
+      onLoad:()=>{try{r.resizeDrawingSurfaceToCanvas();}catch(e){}
+        const sms=(r.stateMachineNames||[]),hint=document.getElementById('rive-hint');
+        if(sms.length){try{r.play(sms[0]);}catch(e){}if(hint)hint.textContent='a live Rive file · hover / click it';}
+        else if(hint)hint.textContent='a live Rive file · vector, ~59 KB';}});
+    window.addEventListener('resize',()=>{try{r.resizeDrawingSurfaceToCanvas();}catch(e){}});};
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting&&!started){init();io.disconnect();}}),{rootMargin:'250px'});
+  io.observe(cv);
+})();
+
+function sizeAll(){canvases.forEach(o=>{const r=o.cv.getBoundingClientRect();
+  o.W=r.width;o.H=r.height;o.cv.width=r.width*DPR;o.cv.height=r.height*DPR;
+  o.g.setTransform(DPR,0,0,DPR,0,0);});}
+window.addEventListener('resize',sizeAll);sizeAll();
+
+let frame=0;
+function tick(){
+  canvases.forEach(o=>{o.g.clearRect(0,0,o.W,o.H);
+    o.g.lineCap='round';o.g.textAlign='center';o.g.textBaseline='alphabetic';o.g.globalAlpha=1;
+    const lf=frame%o.per;
+    o.draw(o.g,lf,o.W,o.H);
+    if(o.fr){o.fr.textContent='frame '+lf+' / '+o.per;}
+  });
+  /* drive each Lottie off the SAME frame so the two columns stay locked */
+  lotties.forEach(o=>{if(o.anim&&o.anim.isLoaded)o.anim.goToAndStop(frame%o.per,true);});
+  frame=(frame+1)%59400;  // LCM of all demo periods → every loop wraps seamlessly
+  requestAnimationFrame(tick);
+}
+tick();
+</script>
+</body>
+</html>
