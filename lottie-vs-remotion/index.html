@@ -917,102 +917,167 @@ DRAW.launch_skeleton=(g,F,W,H)=>{const sx=W/1000,cx=W/2,cy=H/2-8;
 };
 
 /* ---- style 3: 🧪 Cauldron — background-jobs starter, 560f / 18s ---- */
-const SCN_cau=[[0,'Too slow'],[110,'The shape'],[250,'Reveal'],[320,'Curses'],[450,'Stack'],[510,'Clone']];
+const SCN_cau=[[0,'Cauldron'],[100,'Toss it'],[200,'The queue'],[300,'Brewing'],[410,'Survives'],[500,'Clone']];
 DRAW.launch_cauldron=(g,F,W,H)=>{const sx=W/1000,cx=W/2,cy=H/2-8;
   g.fillStyle='#070b08';g.fillRect(0,0,W,H);
-  const gr=g.createRadialGradient(cx,H-24*sx,20*sx,cx,H-24*sx,W*0.6);gr.addColorStop(0,'rgba(16,201,142,.22)');gr.addColorStop(1,'rgba(7,11,8,0)');
+  const gr=g.createRadialGradient(cx,H-24*sx,20*sx,cx,H-24*sx,W*0.62);gr.addColorStop(0,'rgba(16,201,142,.20)');gr.addColorStop(1,'rgba(7,11,8,0)');
   g.fillStyle=gr;g.fillRect(0,0,W,H);
-  g.textBaseline='middle';const green='#16d89a',mut='#5f7d70',ink='#e6f4ed',red='#f24555';
+  g.textBaseline='middle';const green='#16d89a',amber='#fab32e',mut='#5f7d70',ink='#e6f4ed',red='#f24555',box='#0e1813';
   const sc=(a,b)=>F>=a&&F<b,Sw=(a,b,c,d)=>win(F,a,b,c,d);
-  function bubbles(al){for(let i=0;i<10;i++){const t=((F*0.6+i*37)%120)/120,x=cx+Math.sin(i*2.1)*180*sx,y=H-18*sx-t*180*sx;
-    g.globalAlpha=al*(1-t)*0.5;g.fillStyle=green;g.beginPath();g.arc(x,y,(2+i%3)*sx,0,TAU);g.fill();}g.globalAlpha=1;}
-  if(sc(0,110)){const o=Sw(0,12,96,110);g.globalAlpha=o;bubbles(o);
+  const card=(x,y,w,h,label,lc)=>{g.fillStyle=box;rr(g,x-w/2,y-h/2,w,h,10*sx);g.fill();
+    g.strokeStyle='rgba(22,216,154,.32)';g.lineWidth=1.2*sx;rr(g,x-w/2,y-h/2,w,h,10*sx);g.stroke();
+    if(label)txt(g,label,x,y,14*sx,lc||ink,700);};
+  const bubbles=(al,bx,by,sp)=>{for(let i=0;i<8;i++){const t=((F*0.7+i*40)%110)/110;
+    g.globalAlpha=al*(1-t)*0.55;g.fillStyle=green;g.beginPath();g.arc(bx+Math.sin(i*2.3)*(sp||26)*sx,by-t*72*sx,(2+i%3)*sx,0,TAU);g.fill();}g.globalAlpha=al;};
+
+  /* 1 — name + hook */
+  if(sc(0,100)){const o=Sw(0,12,86,100);g.globalAlpha=o;bubbles(o,cx,cy-26*sx,30);
     mascot(g,'cauldron',cx,cy-46*sx,100*sx,'#16d89a',F);
-    txt(g,'Some work is too slow',cx,cy+30*sx,31*sx,ink,800);
-    txt(g,'for a single request.',cx,cy+66*sx,31*sx,ink,800);g.globalAlpha=1;}
-  if(sc(110,250)){const o=Sw(110,124,238,250);g.globalAlpha=o;
-    txt(g,'producer → queue → worker → db',cx,cy-96*sx,15*sx,mut,700);
-    const nodes=[['Web',cx-300*sx],['Queue',cx-100*sx],['Worker',cx+110*sx],['Postgres',cx+300*sx]],ny=cy-6*sx;
-    nodes.forEach(n=>{g.fillStyle='#0e1813';rr(g,n[1]-66*sx,ny-26*sx,132*sx,52*sx,10*sx);g.fill();
-      g.strokeStyle='rgba(22,216,154,.35)';g.lineWidth=1.2*sx;rr(g,n[1]-66*sx,ny-26*sx,132*sx,52*sx,10*sx);g.stroke();
-      txt(g,n[0],n[1],ny,15*sx,ink,700);});
-    for(let i=0;i<3;i++){g.strokeStyle='rgba(255,255,255,.12)';g.lineWidth=2*sx;g.beginPath();g.moveTo(nodes[i][1]+66*sx,ny);g.lineTo(nodes[i+1][1]-66*sx,ny);g.stroke();}
-    const tp=cl((F-130)/95),path=tp*3,seg=Math.min(2,Math.floor(path)),lp=path-seg;
-    const dx=lerp(nodes[seg][1]+66*sx,nodes[seg+1][1]-66*sx,lp);
-    g.fillStyle=green;g.beginPath();g.arc(dx,ny,6*sx,0,TAU);g.fill();
-    const status=tp<0.34?'pending':tp<0.9?'active':'done',scol=tp<0.34?mut:tp<0.9?'#fab32e':green;
-    txt(g,status,cx,cy+56*sx,18*sx,scol,800);
-    g.fillStyle='rgba(255,255,255,.1)';rr(g,cx-120*sx,cy+76*sx,240*sx,8*sx,4*sx);g.fill();
-    g.fillStyle=green;rr(g,cx-120*sx,cy+76*sx,240*sx*tp,8*sx,4*sx);g.fill();g.globalAlpha=1;}
-  if(sc(250,320)){const o=Sw(250,262,312,320);g.globalAlpha=o;bubbles(o);
-    const pop=eob(cl((F-254)/16));mascot(g,'cauldron',cx,cy-28*sx,130*sx*pop,'#16d89a',F);
-    txt(g,'Cauldron',cx,cy+44*sx,44*sx,ink,800);
-    txt(g,'background jobs, deployed right',cx,cy+78*sx,16*sx,mut,500);g.globalAlpha=1;}
-  if(sc(320,450)){const o=Sw(320,332,438,450);g.globalAlpha=o;
-    txt(g,'the five async curses',cx,cy-100*sx,15*sx,mut,700);
-    const curses=['The Orphaned Worker','The Headless Healthcheck','The Interrupted Brew','The Vanishing Queue','The Retry Storm'];
-    curses.forEach((c,i)=>{const d=328+i*18,y=cy-58*sx+i*30*sx,ap=cl((F-d)/9);if(ap<=0)return;
-      g.globalAlpha=o*ap;g.textAlign='left';g.fillStyle=ink;g.font=`600 ${17*sx}px -apple-system,sans-serif`;const tx=cx-200*sx;g.fillText(c,tx,y);
-      const strike=cl((F-(d+12))/10);if(strike>0){g.strokeStyle=red;g.lineWidth=2.4*sx;g.beginPath();g.moveTo(tx-6*sx,y);g.lineTo(tx-6*sx+400*sx*strike,y);g.stroke();
-        if(strike>=1)txt(g,'✓',cx+210*sx,y,16*sx,green,800,'right');}});g.globalAlpha=1;}
-  if(sc(450,510)){const o=Sw(450,460,504,510);g.globalAlpha=o;bubbles(o);
-    txt(g,'A real producer/consumer split.',cx,cy-30*sx,24*sx,ink,800);
-    ['Hono','BullMQ','Redis','Worker','Postgres'].forEach((s,i)=>{const x=cx+(i-2)*122*sx;
-      g.fillStyle='#0e1813';rr(g,x-54*sx,cy+18*sx,108*sx,32*sx,16*sx);g.fill();txt(g,s,x,cy+34*sx,12*sx,green,700);});g.globalAlpha=1;}
-  if(sc(510,560)){const o=Sw(510,520,554,560);g.globalAlpha=o;
-    txt(g,'Toss in your own slow work.',cx,cy-18*sx,22*sx,ink,800);
-    g.fillStyle=green;rr(g,cx-135*sx,cy+18*sx,270*sx,46*sx,23*sx);g.fill();
-    txt(g,'github.com/chug2k/cauldron',cx,cy+41*sx,14*sx,'#06291d',800);g.globalAlpha=1;}
+    txt(g,'Cauldron',cx,cy+40*sx,40*sx,ink,800);
+    txt(g,'background jobs that survive the deploy',cx,cy+74*sx,15*sx,mut,500);g.globalAlpha=1;}
+
+  /* 2 — the web app answers instantly, hands the work off */
+  if(sc(100,200)){const o=Sw(100,112,188,200);g.globalAlpha=o;
+    txt(g,'The web app answers in milliseconds —',cx,cy-92*sx,16*sx,ink,700);
+    const wx=cx-150*sx,qx=cx+150*sx,wy=cy+2*sx;
+    if(cl((F-150)/40)>0){g.strokeStyle='rgba(255,255,255,.12)';g.lineWidth=2*sx;g.beginPath();g.moveTo(wx+75*sx,wy);g.lineTo(qx-75*sx,wy);g.stroke();}
+    card(wx,wy,150*sx,56*sx,'Web',ink);
+    card(qx,wy,150*sx,56*sx,'Queue',amber);
+    const drop=cl((F-110)/26);if(drop<1){const iy=lerp(cy-104*sx,wy,eob(drop));g.fillStyle=green;g.beginPath();g.arc(wx,iy,8*sx,0,TAU);g.fill();}
+    const bo=Sw(132,140,200,9999);if(bo>0){g.globalAlpha=o*Math.min(1,bo);g.fillStyle='rgba(22,216,154,.16)';rr(g,wx-54*sx,wy-48*sx,108*sx,26*sx,13*sx);g.fill();
+      txt(g,'202 · 8 ms ✓',wx,wy-35*sx,13*sx,green,800);g.globalAlpha=o;}
+    const slide=cl((F-150)/40);if(slide>0){const jx=lerp(wx+75*sx,qx,slide);g.fillStyle=amber;rr(g,jx-8*sx,wy-8*sx,16*sx,16*sx,3*sx);g.fill();}
+    txt(g,'— and hands the slow work off.',cx,cy+62*sx,16*sx,mut,600);g.globalAlpha=1;}
+
+  /* 3 — a separate worker drains the queue, one at a time */
+  if(sc(200,300)){const o=Sw(200,212,288,300);g.globalAlpha=o;
+    txt(g,'A separate worker drains the queue.',cx,cy-90*sx,16*sx,ink,700);
+    const wy=cy+6*sx,wkx=cx+205*sx,q0=cx-235*sx,gap=42*sx,total=5;
+    card(wkx,wy,118*sx,62*sx,'Worker','#c4b3fc');
+    const prog=cl((F-216)/76)*total,head=Math.floor(prog);
+    for(let k=head;k<total;k++){let ox=q0+k*gap;
+      if(k===head){const f=prog-head;ox=lerp(q0+k*gap,wkx-66*sx,f);}
+      g.fillStyle=amber;rr(g,ox-8*sx,wy-8*sx,16*sx,16*sx,3*sx);g.fill();
+      g.fillStyle='#06291d';g.beginPath();g.arc(ox,wy,3*sx,0,TAU);g.fill();}
+    txt(g,'queue: '+Math.max(0,total-head),cx-150*sx,cy+66*sx,15*sx,amber,800);
+    txt(g,'with retries, backoff, concurrency',cx+110*sx,cy+66*sx,13*sx,mut,500);g.globalAlpha=1;}
+
+  /* 4 — brew one job with live progress */
+  if(sc(300,410)){const o=Sw(300,312,398,410);g.globalAlpha=o;bubbles(o,cx,cy+8*sx,34);
+    txt(g,'pending → active → done',cx,cy-96*sx,15*sx,mut,700);
+    const p=cl((F-312)/76);
+    g.fillStyle='#0f1a14';g.beginPath();g.arc(cx,cy+8*sx,44*sx,0,TAU);g.fill();
+    g.strokeStyle='rgba(22,216,154,.16)';g.lineWidth=9*sx;g.lineCap='round';g.beginPath();g.arc(cx,cy+8*sx,62*sx,0,TAU);g.stroke();
+    g.strokeStyle=green;g.beginPath();g.arc(cx,cy+8*sx,62*sx,-Math.PI/2,-Math.PI/2+TAU*Math.max(0.001,p));g.stroke();
+    txt(g,Math.round(p*100)+'%',cx,cy+8*sx,28*sx,ink,800);
+    const st=p<0.06?'pending':p<1?'active':'done',stc=p<0.06?mut:p<1?amber:green;
+    g.fillStyle='rgba(255,255,255,.06)';rr(g,cx-46*sx,cy+78*sx,92*sx,26*sx,13*sx);g.fill();
+    txt(g,st,cx,cy+91*sx,14*sx,stc,800);
+    if(p>=1)txt(g,'✓ potion conjured',cx,cy-66*sx,17*sx,green,800);g.globalAlpha=1;}
+
+  /* 5 — the resilience gag: worker dies mid-job, a fresh one resumes */
+  if(sc(410,500)){const o=Sw(410,422,488,500);g.globalAlpha=o;
+    txt(g,'Redeploy mid-job?',cx,cy-92*sx,17*sx,ink,800);
+    const wy=cy+2*sx;
+    let p; if(F<438)p=lerp(0,0.55,cl((F-420)/18)); else if(F<458)p=0.55; else p=lerp(0.55,1,cl((F-458)/32));
+    const dead=F>=438&&F<456, wa=dead?cl(1-(F-438)/10):(F>=456?cl((F-456)/10):1);
+    g.globalAlpha=o*wa;card(cx,wy,150*sx,60*sx,dead?'':'Worker','#c4b3fc');g.globalAlpha=o;
+    if(F>=438&&F<452){const pf=(F-438)/14;g.globalAlpha=o*(1-pf);for(let k=0;k<7;k++){const a=k/7*TAU;g.fillStyle=mut;g.beginPath();g.arc(cx+Math.cos(a)*lerp(8,42,pf)*sx,wy+Math.sin(a)*lerp(8,42,pf)*sx,3*sx,0,TAU);g.fill();}g.globalAlpha=o;}
+    if(dead)txt(g,'✕ killed',cx,wy,15*sx,red,800);
+    g.fillStyle='rgba(255,255,255,.1)';rr(g,cx-110*sx,cy+56*sx,220*sx,9*sx,4*sx);g.fill();
+    g.fillStyle=green;rr(g,cx-110*sx,cy+56*sx,220*sx*p,9*sx,4*sx);g.fill();
+    txt(g,F<458?'…it picks up exactly where it left off':'…a fresh worker resumes the brew',cx,cy+82*sx,15*sx,F<458?red:green,700);g.globalAlpha=1;}
+
+  /* 6 — clone */
+  if(sc(500,560)){const o=Sw(500,510,554,560);g.globalAlpha=o;
+    ['Hono','BullMQ','Redis','Worker','Postgres'].forEach((s,i)=>{const x=cx+(i-2)*120*sx;
+      g.fillStyle=box;rr(g,x-52*sx,cy-66*sx,104*sx,30*sx,15*sx);g.fill();txt(g,s,x,cy-51*sx,12*sx,green,700);});
+    txt(g,'A real producer/consumer split.',cx,cy-6*sx,22*sx,ink,800);
+    g.fillStyle=green;rr(g,cx-135*sx,cy+24*sx,270*sx,46*sx,23*sx);g.fill();
+    txt(g,'github.com/chug2k/cauldron',cx,cy+47*sx,14*sx,'#06291d',800);g.globalAlpha=1;}
   scrubber(g,F,W,H,560,SCN_cau,18,green,'d');
 };
 
 /* ---- style 4: 🔮 Séance — realtime / WebSocket starter, 560f / 18s ---- */
-const SCN_sea=[[0,'Speak first'],[110,'Commune'],[250,'Reveal'],[320,'Curses'],[450,'Stack'],[510,'Clone']];
+const SCN_sea=[[0,'Séance'],[100,'Two tabs'],[210,'Souls'],[310,'Fan-out'],[420,'Stays alive'],[500,'Clone']];
 DRAW.launch_seance=(g,F,W,H)=>{const sx=W/1000,cx=W/2,cy=H/2-8;
   g.fillStyle='#0a0712';g.fillRect(0,0,W,H);
-  const gr=g.createRadialGradient(cx,cy,30*sx,cx,cy,W*0.62);gr.addColorStop(0,'rgba(167,139,250,.17)');gr.addColorStop(1,'rgba(10,7,18,0)');
+  const gr=g.createRadialGradient(cx,cy,30*sx,cx,cy,W*0.62);gr.addColorStop(0,'rgba(167,139,250,.16)');gr.addColorStop(1,'rgba(10,7,18,0)');
   g.fillStyle=gr;g.fillRect(0,0,W,H);
-  g.textBaseline='middle';const vio='#c4b5fd',vio2='#a78bfa',mut='#6b6488',ink='#efeaf8',red='#f24555';
+  g.textBaseline='middle';const vio='#c4b5fd',vio2='#a78bfa',mut='#6b6488',ink='#efeaf8',red='#f24555',mint='#34d399';
   const sc=(a,b)=>F>=a&&F<b,Sw=(a,b,c,d)=>win(F,a,b,c,d);
-  if(sc(0,110)){const o=Sw(0,12,96,110),fl=0.8+0.2*Math.sin(F*0.5);
+
+  /* 1 — name + hook */
+  if(sc(0,100)){const o=Sw(0,12,86,100),fl=0.82+0.18*Math.sin(F*0.5);
     g.globalAlpha=o*fl;mascot(g,'seance',cx,cy-46*sx,100*sx,'#a78bfa',F);
-    g.globalAlpha=o;txt(g,'What if the server',cx,cy+30*sx,31*sx,ink,800);
-    txt(g,'could speak first?',cx,cy+66*sx,31*sx,ink,800);g.globalAlpha=1;}
-  if(sc(110,250)){const o=Sw(110,124,238,250);g.globalAlpha=o;
-    txt(g,'open two tabs · commune',cx,cy-100*sx,15*sx,mut,700);
-    const tw=190*sx,th=116*sx,ty=cy-46*sx,tabs=[cx-150*sx,cx+150*sx];
+    g.globalAlpha=o;txt(g,'Séance',cx,cy+40*sx,42*sx,ink,800);
+    txt(g,'realtime apps that survive the proxy',cx,cy+74*sx,15*sx,mut,500);g.globalAlpha=1;}
+
+  /* 2 — two tabs: a message typed in one shows in both, then a reply */
+  if(sc(100,210)){const o=Sw(100,112,198,210);g.globalAlpha=o;
+    txt(g,'Type in one tab — it appears in both.',cx,cy-94*sx,16*sx,ink,700);
+    const tw=212*sx,th=122*sx,ty=cy+6*sx,tabs=[cx-122*sx,cx+122*sx],nm=['mort','luna'];
     tabs.forEach((tx,ti)=>{g.fillStyle='#15102a';rr(g,tx-tw/2,ty-th/2,tw,th,10*sx);g.fill();
       g.strokeStyle='rgba(167,139,250,.3)';g.lineWidth=1.2*sx;rr(g,tx-tw/2,ty-th/2,tw,th,10*sx);g.stroke();
       g.fillStyle='#1e1640';rr(g,tx-tw/2,ty-th/2,tw,22*sx,10*sx);g.fill();g.fillRect(tx-tw/2,ty-th/2+12*sx,tw,10*sx);
-      txt(g,ti?'tab · luna':'tab · mort',tx,ty-th/2+11*sx,11*sx,vio,700);
-      const appear=cl((F-184)/12);if(appear>0){g.globalAlpha=o*appear;g.fillStyle='#2a2150';rr(g,tx-tw/2+14*sx,ty-2*sx,tw-28*sx,26*sx,8*sx);g.fill();
-        txt(g,'“is anyone there?”',tx,ty+11*sx,12*sx,ink,600);g.globalAlpha=o;}});
-    const syn=cy+58*sx;g.fillStyle='#1a1338';rr(g,cx-66*sx,syn-18*sx,132*sx,36*sx,8*sx);g.fill();
-    g.strokeStyle='rgba(196,181,253,.4)';g.lineWidth=1.2*sx;rr(g,cx-66*sx,syn-18*sx,132*sx,36*sx,8*sx);g.stroke();
-    txt(g,'WS · Redis pub/sub',cx,syn,12*sx,vio,700);
-    const t=cl((F-130)/64);
-    if(t<0.5){const p=t/0.5,dx=lerp(tabs[0],cx,p),dy=lerp(ty+th/2,syn-18*sx,p);g.fillStyle=vio;g.beginPath();g.arc(dx,dy,5.5*sx,0,TAU);g.fill();}
-    else{const p=(t-0.5)/0.5;tabs.forEach(tx=>{const dx=lerp(cx,tx,p),dy=lerp(syn-18*sx,ty+th/2,p);g.fillStyle=vio;g.beginPath();g.arc(dx,dy,5.5*sx,0,TAU);g.fill();});}
-    txt(g,'every soul hears it — on every replica',cx,cy+92*sx,13*sx,mut,500);g.globalAlpha=1;}
-  if(sc(250,320)){const o=Sw(250,262,312,320);g.globalAlpha=o;
-    const pop=eob(cl((F-254)/16));mascot(g,'seance',cx,cy-28*sx,130*sx*pop,'#a78bfa',F);
-    txt(g,'Séance',cx,cy+44*sx,46*sx,ink,800);
-    txt(g,'realtime, through the proxy, done right',cx,cy+80*sx,16*sx,mut,500);g.globalAlpha=1;}
-  if(sc(320,450)){const o=Sw(320,332,438,450);g.globalAlpha=o;
-    txt(g,'the five realtime curses',cx,cy-100*sx,15*sx,mut,700);
-    const curses=['The Mixed-Content Séance','The 100-Second Reaper','The Lonely Replica','The Echo','The Severed Network'];
-    curses.forEach((c,i)=>{const d=328+i*18,y=cy-58*sx+i*30*sx,ap=cl((F-d)/9);if(ap<=0)return;
-      g.globalAlpha=o*ap;g.textAlign='left';g.fillStyle=ink;g.font=`600 ${17*sx}px -apple-system,sans-serif`;const tx=cx-200*sx;g.fillText(c,tx,y);
-      const strike=cl((F-(d+12))/10);if(strike>0){g.strokeStyle=red;g.lineWidth=2.4*sx;g.beginPath();g.moveTo(tx-6*sx,y);g.lineTo(tx-6*sx+400*sx*strike,y);g.stroke();
-        if(strike>=1)txt(g,'✓',cx+210*sx,y,16*sx,'#33cc73',800,'right');}});g.globalAlpha=1;}
-  if(sc(450,510)){const o=Sw(450,460,504,510);g.globalAlpha=o;
-    txt(g,'Sockets + a pub/sub backplane.',cx,cy-30*sx,24*sx,ink,800);
-    ['Hono','node-ws','Redis pub/sub','Postgres'].forEach((s,i)=>{const x=cx+(i-1.5)*154*sx;
-      g.fillStyle='#15102a';rr(g,x-68*sx,cy+18*sx,136*sx,32*sx,16*sx);g.fill();txt(g,s,x,cy+34*sx,12*sx,vio,700);});g.globalAlpha=1;}
-  if(sc(510,560)){const o=Sw(510,520,554,560);g.globalAlpha=o;
-    txt(g,'Open two tabs and commune.',cx,cy-18*sx,22*sx,ink,800);
-    g.fillStyle=vio2;rr(g,cx-125*sx,cy+18*sx,250*sx,46*sx,23*sx);g.fill();
-    txt(g,'github.com/chug2k/seance',cx,cy+41*sx,14*sx,'#160c2e',800);g.globalAlpha=1;}
+      g.fillStyle=mint;g.beginPath();g.arc(tx-tw/2+16*sx,ty-th/2+11*sx,3*sx,0,TAU);g.fill();
+      txt(g,nm[ti],tx-tw/2+26*sx,ty-th/2+11*sx,11*sx,vio,700,'left');});
+    const m1='is anyone there?',ty1=cl((F-114)/26),n1=Math.floor(ty1*m1.length),showR1=cl((F-144)/8);
+    [[tabs[0],true],[tabs[1],false]].forEach(t2=>{const fr=t2[1],vis=fr?n1>0:showR1>0;if(!vis)return;
+      const bx=t2[0]-tw/2+14*sx,by=ty-th/2+40*sx;g.fillStyle='#3a2d63';rr(g,bx,by-12*sx,156*sx,24*sx,8*sx);g.fill();
+      const s=fr?(m1.slice(0,n1)+(ty1<1&&Math.floor(F/8)%2?'▏':'')):m1;txt(g,s,bx+10*sx,by,12*sx,ink,600,'left');});
+    const m2='…always.',ty2=cl((F-158)/22),n2=Math.floor(ty2*m2.length),showL2=cl((F-184)/8);
+    if(F>158)[[tabs[1],true],[tabs[0],false]].forEach(t2=>{const fr=t2[1],vis=fr?n2>0:showL2>0;if(!vis)return;
+      const bw=104*sx,bx=t2[0]+tw/2-14*sx-bw,by=ty-th/2+74*sx;g.fillStyle='#2a4a3a';rr(g,bx,by-12*sx,bw,24*sx,8*sx);g.fill();
+      const s=fr?(m2.slice(0,n2)+(ty2<1&&Math.floor(F/8)%2?'▏':'')):m2;txt(g,s,bx+bw-10*sx,by,12*sx,'#cdeede',600,'right');});
+    txt(g,'over a WebSocket — no refresh, no polling',cx,cy+82*sx,13*sx,mut,500);g.globalAlpha=1;}
+
+  /* 3 — souls join: presence around the room */
+  if(sc(210,310)){const o=Sw(210,222,298,310);g.globalAlpha=o;
+    txt(g,'Everyone in the room, in sync.',cx,cy-92*sx,16*sx,ink,700);
+    const r0=66*sx,n=7,appear=cl((F-224)/62),shown=Math.min(n,Math.floor(appear*n)+1);
+    for(let k=0;k<shown;k++){const a=-Math.PI/2+k/n*TAU,pp=cl((F-(224+k*9))/8);if(pp<=0)continue;
+      const x=cx+Math.cos(a)*r0,y=(cy+4*sx)+Math.sin(a)*r0;g.globalAlpha=o*pp;
+      g.fillStyle=k===0?vio2:'#6f5ea8';g.beginPath();g.arc(x,y,11*sx*eob(pp),0,TAU);g.fill();
+      g.fillStyle='#1a1130';g.beginPath();g.arc(x-3*sx,y-1*sx,1.7*sx,0,TAU);g.arc(x+3*sx,y-1*sx,1.7*sx,0,TAU);g.fill();g.globalAlpha=o;}
+    txt(g,'souls online: '+shown,cx,cy+4*sx,18*sx,vio,800);
+    txt(g,'presence, typing, joins — all live',cx,cy+86*sx,13*sx,mut,500);g.globalAlpha=1;}
+
+  /* 4 — fan-out: one message → every replica */
+  if(sc(310,420)){const o=Sw(310,322,408,420);g.globalAlpha=o;
+    txt(g,'One message → every replica.',cx,cy-94*sx,16*sx,ink,700);
+    const hy=cy-12*sx,ry=cy+62*sx,reps=[-228,-76,76,228].map(d=>cx+d*sx),cyc=(F-322)%72;
+    reps.forEach((rx,i)=>{g.strokeStyle='rgba(255,255,255,.1)';g.lineWidth=1.5*sx;g.beginPath();g.moveTo(cx,hy+18*sx);g.lineTo(rx,ry-20*sx);g.stroke();});
+    g.fillStyle='#1a1338';rr(g,cx-72*sx,hy-18*sx,144*sx,36*sx,8*sx);g.fill();
+    g.strokeStyle='rgba(196,181,253,.4)';g.lineWidth=1.2*sx;rr(g,cx-72*sx,hy-18*sx,144*sx,36*sx,8*sx);g.stroke();
+    txt(g,'Redis pub/sub',cx,hy,13*sx,vio,800);
+    reps.forEach((rx,i)=>{const lit=cl((cyc-(22+i*6))/8)*cl(1-(cyc-(22+i*6))/26);
+      g.fillStyle=lit>0.12?'#243a6e':'#141a2e';rr(g,rx-44*sx,ry-20*sx,88*sx,40*sx,8*sx);g.fill();
+      g.strokeStyle=lit>0.12?'rgba(140,180,255,'+lit.toFixed(2)+')':'rgba(255,255,255,.1)';g.lineWidth=1.4*sx;rr(g,rx-44*sx,ry-20*sx,88*sx,40*sx,8*sx);g.stroke();
+      txt(g,'web '+(i+1),rx,ry,13*sx,lit>0.12?'#a9c6ff':mut,700);});
+    if(cyc<22){const p=cyc/22;g.fillStyle=vio;g.beginPath();g.arc(cx,lerp(cy-84*sx,hy-18*sx,p),5*sx,0,TAU);g.fill();}
+    else reps.forEach((rx,i)=>{const p=cl((cyc-22-i*6)/14);if(p>0&&p<1){g.fillStyle=vio;g.beginPath();g.arc(lerp(cx,rx,p),lerp(hy+18*sx,ry-20*sx,p),4*sx,0,TAU);g.fill();}});
+    g.globalAlpha=1;}
+
+  /* 5 — the proxy gag: idle sockets get reaped at 100s; heartbeats keep them open */
+  if(sc(420,500)){const o=Sw(420,432,488,500);g.globalAlpha=o;
+    txt(g,'Idle sockets get reaped at 100s.',cx,cy-90*sx,16*sx,ink,700);
+    const cyc=(F-432)%72,frac=cyc<54?cyc/54:0,age=Math.round(frac*100),beat=cyc>=52&&cyc<62;
+    const bw=300*sx,bx=cx-bw/2,by=cy+8*sx;
+    txt(g,'connection idle: '+age+'s',cx,cy-24*sx,18*sx,frac>0.85?red:ink,800);
+    g.fillStyle='rgba(255,255,255,.1)';rr(g,bx,by-6*sx,bw,12*sx,6*sx);g.fill();
+    g.fillStyle=frac>0.85?red:vio2;rr(g,bx,by-6*sx,bw*frac,12*sx,6*sx);g.fill();
+    txt(g,'☠',bx+bw+18*sx,by,17*sx,red,800);
+    if(beat){const bp=(cyc-52)/10;g.globalAlpha=o*(1-bp);txt(g,'♥ heartbeat',cx,cy+44*sx,21*sx,mint,800);g.globalAlpha=o;}
+    else txt(g,'a ping every 25s keeps the socket alive',cx,cy+44*sx,14*sx,mut,500);g.globalAlpha=1;}
+
+  /* 6 — clone */
+  if(sc(500,560)){const o=Sw(500,510,554,560);g.globalAlpha=o;
+    ['Hono','node-ws','Redis pub/sub','Postgres'].forEach((s,i)=>{const x=cx+(i-1.5)*150*sx;
+      g.fillStyle='#15102a';rr(g,x-68*sx,cy-66*sx,136*sx,30*sx,15*sx);g.fill();txt(g,s,x,cy-51*sx,12*sx,vio,700);});
+    txt(g,'Open two tabs and commune.',cx,cy-6*sx,22*sx,ink,800);
+    g.fillStyle=vio2;rr(g,cx-125*sx,cy+24*sx,250*sx,46*sx,23*sx);g.fill();
+    txt(g,'github.com/chug2k/seance',cx,cy+47*sx,14*sx,'#160c2e',800);g.globalAlpha=1;}
   scrubber(g,F,W,H,560,SCN_sea,18,vio2,'d');
 };
 
@@ -1077,9 +1142,9 @@ const LAUNCHES=[
  {id:'skeleton',icon:'skeleton',draw:DRAW.launch_skeleton,per:570,t:'Skeleton Crew — request/response starter',style:'Bone · charcoal',
   n:'A real one. The starter for a Google-SSO + Postgres app on Dokploy, mascot and all. The signature beat: the four deploy curses listed, then struck through. Proof of life is a guestbook you sign in prod.'},
  {id:'cauldron',icon:'cauldron',draw:DRAW.launch_cauldron,per:560,t:'Cauldron — background-jobs starter',style:'Toxic green · bubbling',
-  n:'Same family, async shape: web → queue → a separate worker → Postgres. The job travels the pipeline and flips <b>pending → active → done</b>. Five async curses, pre-broken.'},
+  n:'Follows one job&rsquo;s whole life: the web app answers in 8&nbsp;ms and hands the work off, a separate worker drains the queue and brews with live progress (<b>pending → active → done</b>), and it even survives a redeploy mid-job.'},
  {id:'seance',icon:'seance',draw:DRAW.launch_seance,per:560,t:'Séance — realtime / WebSocket starter',style:'Occult · violet',
-  n:'The realtime sibling. Two tabs commune; a message pulses through a WebSocket and a Redis pub/sub backplane out to every soul on every replica. Five realtime curses, pre-broken.'}
+  n:'A realtime room: type in one tab and it&rsquo;s in both, souls join live, one message fans out through a Redis backplane to every replica, and a heartbeat keeps the socket alive through the 100-second proxy reaper.'}
 ];
 const payoff=document.getElementById('payoff');
 LAUNCHES.forEach((m,i)=>{const card=document.createElement('div');card.className='demo';card.style.marginTop=i?'22px':'0';
