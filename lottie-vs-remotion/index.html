@@ -624,8 +624,8 @@ LOTTIE.like=()=>{OP=120;return COMP([
           {t:96,s:[100,100]},{t:112,s:[58,58]},{t:120,s:[100,100]}])},
     [GR([SH(heartShape(2.2)),
       FL(K([{t:0,s:[...C.gray]},{t:30,s:[...C.red]},{t:96,s:[...C.red]},{t:112,s:[...C.gray]}])),TR()])]),
-  L(2,{o:K([{t:24,s:[80]},{t:50,s:[0]}]),r:S(0),p:S([CX,CY+2]),a:S([0,0]),
-     s:K([{t:24,s:[58,58]},{t:50,s:[150,150]}])},
+  L(2,{o:K([{t:0,s:[0]},{t:26,s:[0]},{t:31,s:[80]},{t:60,s:[0]},{t:120,s:[0]}]),r:S(0),p:S([CX,CY+2]),a:S([0,0]),
+     s:K([{t:26,s:[18,18]},{t:64,s:[172,172]},{t:120,s:[172,172]}])},
     [GR([EL([60,60]),ST(C.pink,4),TR()])])
 ]);};
 
@@ -716,7 +716,7 @@ DRAW.confetti=(g,f,W,H)=>{const span=H+60,sx=W/200;
 DRAW.like=(g,f,W,H)=>{const sx=W/200,cx=W/2,cy=H/2+4*sx,lt=f%120;
   const sc=lt<20?1:lt<30?lerp(1,1.32,(lt-20)/10):lt<42?lerp(1.32,1,(lt-30)/12):lt<96?1:lt<112?lerp(1,0.58,(lt-96)/16):lerp(0.58,1,(lt-112)/8);
   const colP=lt<20?0:lt<30?(lt-20)/10:lt<96?1:lt<112?1-(lt-96)/16:0;
-  if(lt>=24&&lt<50){const rt=(lt-24)/26;g.strokeStyle=`rgba(245,128,153,${1-rt})`;g.lineWidth=4*sx;g.beginPath();g.arc(cx,cy-2*sx,lerp(29,75,rt)*sx,0,TAU);g.stroke();}
+  if(lt>=24&&lt<56){const rt=(lt-24)/32;g.strokeStyle=`rgba(245,128,153,${(Math.sin(rt*Math.PI)*0.9).toFixed(3)})`;g.lineWidth=4*sx;g.beginPath();g.arc(cx,cy-2*sx,lerp(14,82,rt)*sx,0,TAU);g.stroke();}
   g.save();g.translate(cx,cy);g.scale(sc*sx,sc*sx);g.fillStyle=mixHex(COL.gray,COL.red,Math.max(0,colP));
   heartPath(g,heartShape(2.2),0,0);g.fill();g.restore();};
 
@@ -1185,8 +1185,8 @@ function makeMark(p,a){OP=120;return COMP([
   L(1,{o:S(100),r:S(0),p:S([CX,CY+6]),a:S([0,0]),
      s:K([{t:0,s:[94,94]},{t:24,s:[114,114]},{t:42,s:[100,100]},{t:84,s:[100,100]},{t:104,s:[114,114]},{t:120,s:[94,94]}])},
     [GR([SH(heartShape(2.7)),FL(p),TR()])]),
-  L(2,{o:K([{t:0,s:[0]},{t:8,s:[75]},{t:58,s:[0]},{t:120,s:[0]}]),r:S(0),p:S([CX,CY+2]),a:S([0,0]),
-     s:K([{t:8,s:[58,58]},{t:58,s:[175,175]}])},
+  L(2,{o:K([{t:0,s:[0]},{t:18,s:[0]},{t:24,s:[72]},{t:58,s:[0]},{t:120,s:[0]}]),r:S(0),p:S([CX,CY+2]),a:S([0,0]),
+     s:K([{t:18,s:[14,14]},{t:62,s:[190,190]},{t:120,s:[190,190]}])},
     [GR([EL([60,60]),ST(a,5),TR()])])
 ]);}
 let liveAnim=null;
