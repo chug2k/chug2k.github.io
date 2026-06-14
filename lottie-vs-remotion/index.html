@@ -112,6 +112,30 @@ canvas.re{display:block;width:100%;height:100%}
 .way-note{font-family:"Inter",sans-serif;font-size:12.5px;line-height:1.5;color:var(--muted);padding:11px 15px}
 .way-note b{color:var(--ink);font-weight:600}
 .way-note code{font-size:.85em}
+.opts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0}
+@media(max-width:680px){.opts{grid-template-columns:1fr 1fr}}
+.opt{border:1px solid var(--rule);border-radius:8px;padding:14px 15px;font-family:"Inter",sans-serif;background:var(--paper)}
+.opt h5{margin:0 0 4px;font-size:14px;color:var(--ink);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.opt .v{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 6px;border-radius:4px}
+.v-no{color:#c0492a;background:rgba(192,73,42,.1)}.v-ok{color:#1f9d57;background:rgba(31,157,87,.12)}.v-meh{color:#a8761a;background:rgba(168,118,26,.12)}
+.opt p{font-size:12.5px;line-height:1.45;color:var(--muted);margin:6px 0 0}
+.heroes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0}
+@media(max-width:680px){.heroes{grid-template-columns:1fr}}
+.hero{border:1px solid var(--rule);border-radius:10px;overflow:hidden;background:var(--paper)}
+.hero-h{display:flex;align-items:center;gap:8px;padding:11px 15px;border-bottom:1px solid var(--rule);font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:var(--ink)}
+.hero-h .mini{width:22px;height:22px;border-radius:6px;flex-shrink:0}
+.hero-stage{aspect-ratio:16/11;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#0c1118}
+.hero-lo{width:100%;height:100%}
+.hero-note{font-family:"Inter",sans-serif;font-size:12px;line-height:1.5;color:var(--muted);padding:9px 15px}
+.cssrow{display:flex;flex-wrap:wrap;gap:16px 22px;align-items:center;margin:18px 0;padding:18px 20px;background:#0c1118;border:1px solid #1d2735;border-radius:10px}
+.css-dot{display:inline-flex;align-items:center;gap:10px;font-family:"Inter",sans-serif;font-size:13px;color:#cfe0d8}
+.css-dot::before{content:"";width:10px;height:10px;border-radius:50%;background:#16d89a;animation:livePulse 1.8s ease-out infinite}
+@keyframes livePulse{0%{box-shadow:0 0 0 0 rgba(16,216,154,.55)}70%{box-shadow:0 0 0 12px rgba(16,216,154,0)}100%{box-shadow:0 0 0 0 rgba(16,216,154,0)}}
+.css-btn{position:relative;overflow:hidden;border:none;border-radius:10px;padding:11px 22px;font:700 14px "Inter",sans-serif;color:#06291d;background:#16d89a;cursor:pointer}
+.css-btn::after{content:"";position:absolute;top:0;left:-60%;width:45%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.6),transparent);transform:skewX(-18deg);animation:shimmer 2.8s ease-in-out infinite}
+@keyframes shimmer{0%{left:-60%}55%{left:140%}100%{left:140%}}
+.cssrow .cap{font-family:"Inter",sans-serif;font-size:12px;color:var(--muted)}
+@media(prefers-reduced-motion:reduce){.css-dot::before,.css-btn::after{animation:none}}
 footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
 footer p{margin-bottom:8px}
 footer a{color:var(--accent);text-decoration:none}footer a:hover{text-decoration:underline}
@@ -204,7 +228,39 @@ This page&rsquo;s first draft was written by an AI that was <em>told</em> to use
 </section>
 
 <section>
-<h2 class="section">05 · Where Lottie actually wins</h2>
+<h2 class="section">05 · The page itself isn&rsquo;t a video</h2>
+<h3 class="heading">Landing-page motion: what you&rsquo;d actually ship</h3>
+<p>Here&rsquo;s the distinction you just put your finger on. Those launch films are <em>videos</em> — render once, embed the MP4, great for a YouTube ad or a social cut. But the landing page itself is <b>not</b> a video. You wouldn&rsquo;t bolt a 4&nbsp;MB MP4 to the top of the Séance site: it&rsquo;s fixed-resolution (blurry on retina, letterboxed on a phone), heavy, autoplay-flaky on mobile, can&rsquo;t go transparent, can&rsquo;t recolor for dark mode. Right instinct — wrong tool for the page.</p>
+<p>What goes on the page instead depends on how much motion you actually need:</p>
+<div class="opts">
+  <div class="opt"><h5>MP4&nbsp;/&nbsp;WebM <span class="v v-no">avoid</span></h5><p>Only for real footage or a one-off promo. Heavy, fixed-size, opaque, mobile-hostile as UI.</p></div>
+  <div class="opt"><h5>CSS&nbsp;/&nbsp;SVG <span class="v v-ok">simple</span></h5><p>Perfect for the small stuff — fades, slide-in-on-scroll, hovers, a pulsing dot, a shimmer. Tiny, responsive, accessible. Gets clunky once motion is multi-part.</p></div>
+  <div class="opt"><h5>Lottie <span class="v v-ok">designed loops</span></h5><p>The sweet spot for an animated hero — vector, a few KB, crisp at any size, loops, recolorable, one tag. The answer here.</p></div>
+  <div class="opt"><h5>Rive <span class="v v-meh">interactive</span></h5><p>When the hero should react — scroll-scrub, hover, cursor-follow. Vector + a state machine; heavier toolchain.</p></div>
+</div>
+<p>So no — you wouldn&rsquo;t reach for Remotion for the Séance or Skeleton Crew <em>pages</em>. The page hero isn&rsquo;t a narrated film; it&rsquo;s a tight loop that says what the thing <em>does</em>. Here&rsquo;s what I&rsquo;d actually put at the top of each — live Lottie, looping forever, a few KB each. Resize your window: they scale and stay razor-sharp, no MP4 anywhere.</p>
+<div class="heroes" id="heroes">
+  <div class="hero"><div class="hero-h"><img class="mini" src="img/skeleton.png" alt="">Skeleton Crew</div>
+    <div class="hero-stage"><div class="hero-lo" id="hero-skeleton"></div></div>
+    <p class="hero-note">request → server → db, and the 200 comes back. An app&rsquo;s heartbeat.</p></div>
+  <div class="hero"><div class="hero-h"><img class="mini" src="img/cauldron.png" alt="">Cauldron</div>
+    <div class="hero-stage"><div class="hero-lo" id="hero-cauldron"></div></div>
+    <p class="hero-note">a job drops in, the worker brews it, the ring fills, done — on loop.</p></div>
+  <div class="hero"><div class="hero-h"><img class="mini" src="img/seance.png" alt="">Séance</div>
+    <div class="hero-stage"><div class="hero-lo" id="hero-seance"></div></div>
+    <p class="hero-note">one message pulses out to every soul in the room.</p></div>
+</div>
+<p>And the genuinely small stuff — a &ldquo;live&rdquo; status dot, a button shimmer — is <em>just CSS</em>, no library at all:</p>
+<div class="cssrow">
+  <span class="css-dot">Live · 3 souls connected</span>
+  <button class="css-btn" type="button">Start a séance</button>
+  <span class="cap">← one CSS rule each. You wouldn&rsquo;t hand-write the heroes above this way — that&rsquo;s where Lottie earns its keep.</span>
+</div>
+<p>That&rsquo;s the clean split, and it&rsquo;s the most practical takeaway in the whole post: <b>a launch video is a file you render (Remotion → MP4); a landing-page animation is an asset that stays alive in the browser (Lottie, or CSS for the simple bits, or Rive when it must react).</b> Same projects, two completely different jobs.</p>
+</section>
+
+<section>
+<h2 class="section">06 · Where Lottie actually wins</h2>
 <h3 class="heading">Does it only win for humans?</h3>
 <p>It&rsquo;s tempting to read everything above as &ldquo;Remotion is the powerful one; Lottie is the toy for little loops.&rdquo; That&rsquo;s wrong — but to see why, you have to untangle two completely different kinds of advantage that the usual &ldquo;why Lottie&rdquo; pitch jams together. An LLM pulls them cleanly apart.</p>
 <p>The first kind is about the <b>author</b>. Lottie is how a motion designer&rsquo;s After Effects work reaches production without an engineer rebuilding it by hand, and LottieFiles is a marketplace of thousands of ready-made animations you drop in. Both are real — and both are exactly what an LLM erodes. If a model writes a correct Lottie (or a Remotion scene) from one sentence, you no longer need the designer&rsquo;s source file or someone else&rsquo;s marketplace upload. So yes: a big slice of Lottie&rsquo;s reputation really <em>was</em> a human win, and that slice is quietly going away.</p>
@@ -230,7 +286,7 @@ This page&rsquo;s first draft was written by an AI that was <em>told</em> to use
 </section>
 
 <section>
-<h2 class="section">06 · So which one?</h2>
+<h2 class="section">07 · So which one?</h2>
 <h3 class="heading">The decision is the dividing line</h3>
 <p>You almost never have to choose between them on the same artifact, because they&rsquo;re for different artifacts. The question isn&rsquo;t &ldquo;which is better&rdquo; — it&rsquo;s &ldquo;is this thing a UI element or a video?&rdquo;</p>
 <div class="verdict">
@@ -562,6 +618,57 @@ function rigAnduin(){OP=120;
   const tri=poly([[100,30],[162,152],[112,152],[100,120],[88,152],[38,152]]);
   const body=L(16,KS(S(100),S(0),S([0,0])),[GR([SH(tri),FL(blue),ST(dark,5),TR()])],P);
   return COMP([sparkle,eyeHi,eyes,smile,diamond,glow,body,bob]);
+}
+
+/* ===== landing-page HERO loops — clean, responsive, looping; what you'd put at
+   the top of each project page (live Lottie, a few KB, not an MP4) ===== */
+function heroSkeleton(){OP=120;
+  const cyan=[.42,.83,.92,1],green=[.2,.85,.5,1],node=[.13,.17,.23,1],edge=[.45,.78,.88,1];
+  const A=44,B=100,C=156,Y=100;
+  const line=L(1,KS(S(100),S(0),S([0,0])),[GR([SH(lineP([[A,Y],[C,Y]])),ST([.5,.62,.74,1],2.5,16),TR()])]);
+  const browser=L(10,KS(S(100),S(0),S([A,Y])),[GR([RC([34,26],6),FL(node),ST(edge,1.5,55),TR()]),GR([RC([34,9],3,[0,-9]),FL(edge,38),TR()])]);
+  const server=L(11,KS(S(100),S(0),S([B,Y])),[GR([RC([30,30],7),FL(node),ST(edge,1.5,55),TR()]),
+    GR([SH(lineP([[-8,-6],[8,-6]])),ST(edge,2,46),TR()]),GR([SH(lineP([[-8,0],[8,0]])),ST(edge,2,46),TR()]),GR([SH(lineP([[-8,6],[8,6]])),ST(edge,2,46),TR()])]);
+  const db=L(12,KS(S(100),S(0),S([C,Y])),[GR([RC([30,28],4),FL(node),TR()]),
+    GR([EL([30,11],[0,-12]),FL(green,1),TR()]),GR([SH(lineP([[-15,-2],[15,-2]])),ST(green,1.5,45),TR()]),GR([SH(lineP([[-15,5],[15,5]])),ST(green,1.5,45),TR()])]);
+  const req=L(20,{o:K([{t:0,s:[0]},{t:4,s:[100]},{t:40,s:[100]},{t:46,s:[0]},{t:120,s:[0]}]),r:S(0),a:S([0,0]),
+     p:K([{t:2,s:[A,Y]},{t:42,s:[C,Y]}],true),s:S([100,100])},[GR([EL([13,13]),FL(cyan),TR()])]);
+  const resp=L(21,{o:K([{t:0,s:[0]},{t:52,s:[0]},{t:56,s:[100]},{t:94,s:[100]},{t:98,s:[0]},{t:120,s:[0]}]),r:S(0),a:S([0,0]),
+     p:K([{t:56,s:[C,Y]},{t:96,s:[A,Y]}],true),s:S([100,100])},[GR([EL([13,13]),FL(green),TR()])]);
+  const tick=L(30,{o:K([{t:44,s:[0]},{t:50,s:[100]},{t:62,s:[0]},{t:120,s:[0]}]),r:S(0),a:S([0,0]),p:S([C,Y-30]),
+     s:K([{t:44,s:[0,0]},{t:50,s:[115,115]},{t:58,s:[100,100]}])},[GR([SH(lineP([[-6,1],[-2,5],[7,-6]])),ST(green,3),TR()])]);
+  return COMP([tick,browser,server,db,req,resp,line]);
+}
+function heroCauldron(){OP=120;
+  const green=[.16,.84,.46,1],greenL=[.5,.97,.62,1],dark=[.10,.14,.12,1],amber=[.98,.7,.18,1];
+  const cx=100,cy=112;
+  const ringTrack=L(2,KS(S(100),S(0),S([cx,cy])),[GR([SH(arcVertsN(1,54)),ST(green,4,15),TR()])]);
+  const ringFill=L(3,KS(S(100),S(0),S([cx,cy])),[GR([SH(arcDraw(54,6,94,120)),ST(green,5),TR()])]);
+  const pot=L(10,KS(S(100),S(0),S([cx,cy])),[GR([EL([74,66]),FL(dark),TR()])]);
+  const rim=L(9,KS(S(100),S(0),S([cx,cy-28])),[GR([EL([68,18]),FL([.15,.19,.17,1]),TR()])]);
+  const potion=L(8,KS(S(100),S(0),S([cx,cy-28])),[GR([EL([56,13]),FL(green),TR()])]);
+  const bub=(ind,x,d)=>L(ind,{o:K([{t:d,s:[0]},{t:d+8,s:[100]},{t:d+30,s:[100]},{t:d+40,s:[0]},{t:120,s:[0]}]),r:S(0),a:S([0,0]),
+     p:K([{t:d,s:[x,cy-24]},{t:d+40,s:[x,cy-50]},{t:120,s:[x,cy-50]}]),s:K([{t:d,s:[40,40]},{t:d+40,s:[110,110]},{t:120,s:[40,40]}])},
+    [GR([EL([10,10]),FL(greenL),TR()])]);
+  const job=(ind,d)=>L(ind,{o:K([{t:d,s:[0]},{t:d+4,s:[100]},{t:d+22,s:[100]},{t:d+28,s:[0]},{t:120,s:[0]}]),r:S(0),a:S([0,0]),
+     p:K([{t:d,s:[cx,16]},{t:d+26,s:[cx,cy-34]}]),s:S([100,100])},[GR([RC([14,14],3),FL(amber),TR()])]);
+  const chk=L(40,{o:K([{t:92,s:[0]},{t:98,s:[100]},{t:114,s:[0]},{t:120,s:[0]}]),r:S(0),a:S([0,0]),p:S([cx,cy]),
+     s:K([{t:92,s:[0,0]},{t:98,s:[120,120]},{t:106,s:[100,100]}])},[GR([SH(lineP([[-12,2],[-4,11],[14,-10]])),ST(greenL,5),TR()])]);
+  return COMP([chk,bub(20,100,0),bub(21,86,32),bub(22,114,58),job(30,0),job(31,48),potion,rim,ringFill,ringTrack,pot]);
+}
+function heroSeance(){OP=120;
+  const vio=[.66,.56,.98,1],vioL=[.82,.76,1,1],hub=[.7,.5,.95,1];
+  const ring=(ind,d)=>L(ind,{o:K([{t:d,s:[0]},{t:d+8,s:[72]},{t:d+58,s:[0]},{t:120,s:[0]}]),r:S(0),a:S([0,0]),p:S([100,100]),
+     s:K([{t:d,s:[14,14]},{t:d+58,s:[240,240]},{t:120,s:[240,240]}])},[GR([EL([54,54]),ST(vio,3.5),TR()])]);
+  const souls=[];const N=6;
+  for(let k=0;k<N;k++){const a=-Math.PI/2+k/N*TAU,x=100+Math.cos(a)*66,y=100+Math.sin(a)*66;
+    souls.push(L(40+k,{o:K([{t:0,s:[55]},{t:46,s:[55]},{t:56,s:[100]},{t:72,s:[60]},{t:120,s:[55]}]),r:S(0),a:S([0,0]),p:S([x,y]),
+       s:K([{t:0,s:[100,100]},{t:46,s:[100,100]},{t:56,s:[126,126]},{t:72,s:[100,100]},{t:120,s:[100,100]}])},
+      [GR([EL([16,16]),FL(vioL),TR()]),GR([EL([2.4,3],[-3,-1]),EL([2.4,3],[3,-1]),FL([.3,.24,.5,1]),TR()])]));}
+  const hubL=L(60,{o:S(100),r:S(0),a:S([0,0]),p:S([100,100]),
+     s:K([{t:0,s:[100,100]},{t:56,s:[118,118]},{t:120,s:[100,100]}])},
+    [GR([EL([34,34]),FL(hub),TR()]),GR([EL([13,13]),FL([1,1,1,.92]),TR()])]);
+  return COMP([hubL,...souls,ring(10,0),ring(11,60)]);
 }
 
 LOTTIE.ball=()=>{OP=120;return COMP([
@@ -1247,6 +1354,13 @@ loadRig();
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting&&!started){init();io.disconnect();}}),{rootMargin:'250px'});
   io.observe(cv);
 })();
+
+/* landing-page hero loops — responsive Lottie, autoplay+loop, no canvas twin */
+[['skeleton',heroSkeleton],['cauldron',heroCauldron],['seance',heroSeance]].forEach(([k,fn])=>{
+  const el=document.getElementById('hero-'+k);if(!el)return;
+  try{lottie.loadAnimation({container:el,renderer:'svg',loop:true,autoplay:true,animationData:fn()});}
+  catch(e){console.error('hero '+k,e);}
+});
 
 function sizeAll(){canvases.forEach(o=>{const r=o.cv.getBoundingClientRect();
   o.W=r.width;o.H=r.height;o.cv.width=r.width*DPR;o.cv.height=r.height*DPR;
