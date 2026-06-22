@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Things I've been making — chug2k</title>
+<meta name="description" content="A workshop, not a portfolio. Everything I've been building — apps you can use, pickleball reimagined as games, illustrated guides, and a daily heartbeat of tiny tools. Some shipped, some still on the bench.">
+<style>
+:root {
+  --bg: #f5f1e8;
+  --paper: #faf7f0;
+  --ink: #1a1816;
+  --muted: #6b655c;
+  --rule: #d9d2c3;
+  --accent: #cc5429;
+  --accent-soft: #f4d8c5;
+  --live: #2f8f5b;
+  --play: #7c5cce;
+  --read: #2c6fb0;
+  --building: #c98a16;
+  --parked: #8a847a;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: "Charter", "Georgia", serif;
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--bg);
+}
+.wrap { max-width: 820px; margin: 0 auto; padding: 56px 24px 96px; }
+.back {
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 32px;
+}
+.back:hover { color: var(--accent); }
+.eyebrow {
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 18px;
+}
+h1 {
+  font-family: "Inter", sans-serif;
+  font-size: 42px;
+  line-height: 1.08;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 18px;
+}
+.lede {
+  font-size: 20px;
+  color: var(--muted);
+  margin: 0 0 14px;
+  max-width: 640px;
+}
+.lede.small { font-size: 16px; margin-bottom: 36px; }
+.lede.small b { color: var(--ink); font-weight: 600; }
+
+/* ---- Featured: The Offerings ---- */
+.featured {
+  display: block;
+  text-decoration: none;
+  color: var(--ink);
+  background: linear-gradient(180deg, #1d1b24 0%, #211d2b 100%);
+  border: 1px solid #322c3f;
+  border-radius: 14px;
+  padding: 30px 32px;
+  margin: 8px 0 44px;
+}
+.featured:hover { border-color: #6f5bbf; }
+.featured .eyebrow { color: #c4b5fd; }
+.featured h2 {
+  font-family: "Inter", sans-serif;
+  font-size: 27px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0 0 12px;
+  color: #f4f1fb;
+}
+.featured p { color: #c7c2d4; font-size: 16px; margin: 0 0 14px; }
+.featured .hl {
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  color: #9b94ab;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  margin-top: 16px;
+}
+.featured .hl b { color: #c4b5fd; font-weight: 600; }
+.featured .go {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #c4b5fd;
+  margin-top: 18px;
+  display: inline-block;
+}
+
+/* ---- Filters ---- */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-family: "Inter", sans-serif;
+  margin-bottom: 8px;
+}
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  font-family: "Inter", sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 6px 13px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+.chip:hover { border-color: var(--accent); color: var(--accent); }
+.chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.chip .count { opacity: 0.6; margin-left: 5px; font-weight: 400; }
+.chip.warn.active { background: var(--building); border-color: var(--building); }
+.chip.warn:hover { border-color: var(--building); color: var(--building); }
+.legend {
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  color: var(--muted);
+  margin: 14px 0 26px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--rule);
+  line-height: 1.9;
+}
+.legend .badge { margin-right: 4px; }
+
+/* ---- Group headings ---- */
+.group-h {
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 40px 0 4px;
+}
+.group-sub { font-size: 15px; color: var(--muted); margin: 0 0 18px; }
+
+/* ---- Cards ---- */
+.entry {
+  display: block;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin: 14px 0;
+  text-decoration: none;
+  color: var(--ink);
+  transition: border-color 0.12s ease;
+}
+.entry:hover { border-color: var(--accent); }
+.entry.dead { cursor: default; }
+.entry.dead:hover { border-color: var(--rule); }
+.entry .top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 7px;
+}
+.entry h3 {
+  font-family: "Inter", sans-serif;
+  font-size: 19px;
+  line-height: 1.25;
+  font-weight: 700;
+  margin: 0;
+}
+.entry .arrow { color: var(--muted); font-family: "Inter", sans-serif; flex-shrink: 0; }
+.entry:hover .arrow { color: var(--accent); }
+.entry p { margin: 0; font-size: 15.5px; color: var(--muted); line-height: 1.5; }
+.entry .stack {
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  color: var(--parked);
+  margin-top: 10px;
+  letter-spacing: 0.02em;
+}
+.badge {
+  font-family: "Inter", sans-serif;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 5px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.badge.live { background: rgba(47,143,91,0.13); color: var(--live); }
+.badge.play { background: rgba(124,92,206,0.14); color: var(--play); }
+.badge.read { background: rgba(44,111,176,0.13); color: var(--read); }
+.badge.building { background: rgba(201,138,22,0.16); color: var(--building); }
+.badge.parked { background: rgba(138,132,122,0.16); color: var(--parked); }
+
+.hidden { display: none !important; }
+.empty-note { font-family: "Inter", sans-serif; font-size: 14px; color: var(--muted); padding: 8px 0; }
+
+footer {
+  margin-top: 80px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  color: var(--muted);
+}
+footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="/">← chug2k</a>
+  <div class="eyebrow">The workshop</div>
+  <h1>Things I've been making</h1>
+  <p class="lede">A workshop, not a portfolio. Apps you can actually use, pickleball reimagined as four different games, illustrated guides, and a daily habit of building one tiny tool every single day.</p>
+  <p class="lede small">Some of this is shipped and polished. Some is honestly still on the bench. The <b>badges don't lie</b> — and if you want to see only the stuff that needs finishing, there's a filter for that.</p>
+
+  <!-- FEATURED -->
+  <a class="featured" href="https://offerings-eight.vercel.app" target="_blank" rel="noopener">
+    <div class="eyebrow">The big weird one · 236 and counting</div>
+    <h2>The Offerings</h2>
+    <p>Every day, an agent I call <b style="color:#c4b5fd">Prízrak</b> builds me one small web tool and ships it. No skipped days. Two hundred and thirty-six of them now — rituals, oracles, little games, decision boards, honest audits of my own week — all wrapped in Carpathian mountain folklore: fog, caves, bridges, spirits that lead you astray. Most are a single screen. The newest ones are full 3D worlds you can orbit with a mouse.</p>
+    <p>It's the strangest thing I have, and the one I'm most attached to. It's a heartbeat. It just keeps going.</p>
+    <div class="hl">
+      <span>Start with:</span>
+      <b>The Orrery</b> (fling worlds into orbit) ·
+      <b>The Deep Map</b> (descend a procedural cave) ·
+      <b>The Palimpsest</b> (erasure poetry) ·
+      <b>The Artifact</b> (what did you make this week that can't be undone?)
+    </div>
+    <span class="go">Wander in →</span>
+  </a>
+
+  <!-- FILTERS -->
+  <div class="controls">
+    <div class="chips" id="chips">
+      <button class="chip active" data-filter="">Everything</button>
+      <button class="chip" data-filter="apps">Apps<span class="count">3</span></button>
+      <button class="chip" data-filter="games">Games<span class="count">3</span></button>
+      <button class="chip" data-filter="reading">Reading<span class="count">3</span></button>
+      <button class="chip" data-filter="tools">Tools &amp; experiments<span class="count">8</span></button>
+      <button class="chip warn" data-filter="building">⚠ Needs finishing<span class="count">4</span></button>
+    </div>
+  </div>
+  <div class="legend">
+    <span class="badge live">Live</span> use it right now &nbsp;·&nbsp;
+    <span class="badge play">Play</span> a game &nbsp;·&nbsp;
+    <span class="badge read">Read</span> something &nbsp;·&nbsp;
+    <span class="badge building">On the bench</span> built, but needs a deploy or a polish pass &nbsp;·&nbsp;
+    <span class="badge parked">Parked</span> I learned something, then stopped
+  </div>
+
+  <div id="list">
+
+  <!-- ===== APPS ===== -->
+  <div class="group-h" data-group>Apps you can use</div>
+  <p class="group-sub" data-group>Real, deployed, working today.</p>
+
+  <a class="entry" data-filter="apps" href="https://jobsearch.quest" target="_blank" rel="noopener">
+    <div class="top"><h3>jobsearch.quest — your AI job-search council <span class="arrow">↗</span></h3><span class="badge live">Live</span></div>
+    <p>Job searching alone is brutal. This runs the proven "Never Search Alone" method — but solo: an AI council holds your weekly job-search meeting (wins, blockers, the hot seat, real commitments for next week) so you don't have to wrangle five humans onto a call. Bring your own API key.</p>
+  </a>
+
+  <a class="entry" data-filter="apps" href="https://h100sandburnrate.vercel.app" target="_blank" rel="noopener">
+    <div class="top"><h3>H100s &amp; Burn Rate — an album you can walk around in <span class="arrow">↗</span></h3><span class="badge live">Live</span></div>
+    <p>Twenty-three original songs placed as zones on a world map. Wander in, listen, read the story behind each track, and watch — in real time — who else is in the world dancing next to you. It's a record, but you explore it on foot instead of scrolling a tracklist.</p>
+  </a>
+
+  <a class="entry" data-filter="apps" href="https://city-picker-eight.vercel.app" target="_blank" rel="noopener">
+    <div class="top"><h3>City Picker — where should you live? <span class="arrow">↗</span></h3><span class="badge live">Live</span></div>
+    <p>If you work remotely, the world is the menu. Set what you actually care about — cost of living, timezone overlap, climate, visas — and it ranks cities for you. A salary slider recomputes how much you'd save in each place, live.</p>
+  </a>
+
+  <!-- ===== GAMES ===== -->
+  <div class="group-h" data-group>Pickleball, as four different games</div>
+  <p class="group-sub" data-group>I got a little obsessed with turning a paddle sport into something you can play with a keyboard.</p>
+
+  <a class="entry" data-filter="games" href="https://picklegame6-bg3.vercel.app" target="_blank" rel="noopener">
+    <div class="top"><h3>Grand Kitchen Tour — pickleball as a campaign RPG <span class="arrow">↗</span></h3><span class="badge play">Play</span></div>
+    <p>Pickleball in the shape of Baldur's Gate 3. Recruit a party of misfits, fight through six story chapters, earn XP and loot, and face the Sovereign Picklewhip. Every shot is a dice roll; every win levels you up. Beat it and there's a New Game+. The most complete game I've built.</p>
+  </a>
+
+  <a class="entry" data-filter="games" href="https://picklegame5.vercel.app" target="_blank" rel="noopener">
+    <div class="top"><h3>DINK — pickleball as a card game <span class="arrow">↗</span></h3><span class="badge play">Play</span></div>
+    <p>Play Dink / Drive / Lob cards against a CPU, roll for effectiveness, and drag a tug-of-war bar to your side of the net. You don't need to know a thing about pickleball — but the pressure feels exactly like the real fourth shot.</p>
+  </a>
+
+  <a class="entry" data-filter="games" href="https://picklegame4.vercel.app" target="_blank" rel="noopener">
+    <div class="top"><h3>Pickleball d20 — the tactical version <span class="arrow">↗</span></h3><span class="badge play">Play</span></div>
+    <p>The turn-based, stat-based take: doubles where court position, the two-bounce rule, and kitchen faults all genuinely matter, and a 20-sided die decides whether your shot lands. Closer to chess than to arcade.</p>
+  </a>
+
+  <!-- ===== READING ===== -->
+  <div class="group-h" data-group>Guides &amp; reading</div>
+  <p class="group-sub" data-group>Longer things, meant to be read rather than clicked.</p>
+
+  <a class="entry" data-filter="reading" href="/unhurried-guide/" target="_blank" rel="noopener">
+    <div class="top"><h3>The Unhurried Guide to Pickleball <span class="arrow">↗</span></h3><span class="badge read">Read</span></div>
+    <p>A pickleball guide disguised as a children's book. Two fox brothers — cautious Bert and reckless Erne — argue their way through fifteen illustrated chapters about attention, weight, and joy. Inspired by <em>Why's Poignant Guide to Ruby</em>. Surprisingly not about pickleball at all.</p>
+  </a>
+
+  <a class="entry" data-filter="reading" href="/youtube-music-3mb/" target="_blank" rel="noopener">
+    <div class="top"><h3>Shrinking YouTube Music from 200 MB to 3 MB <span class="arrow">↗</span></h3><span class="badge read">Read</span></div>
+    <p>I rebuilt the YouTube Music desktop app in Tauri instead of Electron — same app, native media keys and notifications, but ~65× smaller because it borrows your OS's webview instead of shipping a whole copy of Chrome. The write-up, plus the macOS rabbit holes I fell into.</p>
+  </a>
+
+  <a class="entry" data-filter="reading" href="/japan-2025/" target="_blank" rel="noopener">
+    <div class="top"><h3>Japan, Winter 2025 <span class="arrow">↗</span></h3><span class="badge read">Read</span></div>
+    <p>A bilingual, card-by-card itinerary for a nine-day December ski trip. Toggle between English and Korean, see where we stayed and what we did each night. Built so the whole family could actually use it.</p>
+  </a>
+
+  <!-- ===== TOOLS & EXPERIMENTS ===== -->
+  <div class="group-h" data-group>Tools &amp; experiments</div>
+  <p class="group-sub" data-group>The bench. Some are one deploy away from real; some taught me something and got parked. I'm keeping them honest.</p>
+
+  <a class="entry dead" data-filter="tools building">
+    <div class="top"><h3>NomadVibe — an AI quiz that finds your city</h3><span class="badge building">On the bench</span></div>
+    <p>A conversational quiz that learns your priorities and AI-ranks world cities for the life you're describing. The grown-up sibling of City Picker. Fully built — just needs its API keys wired up and a deploy before it can go live.</p>
+    <div class="stack">Next.js · Supabase · OpenAI &nbsp;—&nbsp; to finish: add env keys, deploy</div>
+  </a>
+
+  <a class="entry dead" data-filter="tools building">
+    <div class="top"><h3>Weekly Check-in Generator</h3><span class="badge building">On the bench</span></div>
+    <p>Paste a pile of messy notes; it pulls out the key points and writes a clean, properly-formatted weekly update straight into Notion. Done and working locally — just needs deploying with its keys.</p>
+    <div class="stack">Next.js · Gemini · Notion API &nbsp;—&nbsp; to finish: add env keys, deploy</div>
+  </a>
+
+  <a class="entry dead" data-filter="tools building">
+    <div class="top"><h3>LinkedIn Translator</h3><span class="badge building">On the bench</span></div>
+    <p>Type something honest in plain English; get back peak LinkedIn cringe — 🚀 synergy, humble-brags, the works. Mostly a joke, mostly built. Needs a quick QA pass and a deploy.</p>
+    <div class="stack">Next.js · OpenAI &nbsp;—&nbsp; to finish: test the API path, add key, deploy</div>
+  </a>
+
+  <a class="entry dead" data-filter="tools building">
+    <div class="top"><h3>Directory — my week, written by itself</h3><span class="badge building">On the bench</span></div>
+    <p>A small command-line tool that writes my week for me: it pulls my Claude Code sessions, git commits, and GitHub activity, summarizes them, and publishes a tidy digest to Notion. Replaces the manual retro. It's a CLI, not a site — just needs a README and a schedule.</p>
+    <div class="stack">TypeScript · Node CLI · Notion API &nbsp;—&nbsp; to finish: README + cron</div>
+  </a>
+
+  <a class="entry dead" data-filter="tools parked">
+    <div class="top"><h3>AutoDJ — the setlist optimizer</h3><span class="badge parked">Parked</span></div>
+    <p>Hand it a hundred songs and it computes the best order for one continuous DJ mix — scoring every transition for tempo, key, mood, and even geography. It quietly powered the world mixes inside H100s &amp; Burn Rate; it just never got its own front door.</p>
+    <div class="stack">Python · scoring/search &nbsp;—&nbsp; could become: an "how the mixes were ordered" post</div>
+  </a>
+
+  <a class="entry dead" data-filter="tools parked">
+    <div class="top"><h3>Voice Clone Lab</h3><span class="badge parked">Parked</span></div>
+    <p>A small rig for benchmarking what actually makes a cloned voice sound like <em>you</em> — word-error-rate, real-time speed, and a dashboard for rating naturalness. Built for a workshop; would make a good essay on what's hard about voice cloning.</p>
+    <div class="stack">Python · OmniVoice · WER/RTF eval &nbsp;—&nbsp; could become: an essay + the dashboard</div>
+  </a>
+
+  <a class="entry dead" data-filter="tools parked">
+    <div class="top"><h3>Bittersweet Symphony, humanized</h3><span class="badge parked">Parked</span></div>
+    <p>MIDI experiments to make a stiff string cover breathe — nudging timing off the grid, lifting the solo out of the mix. Scripts and audio, no front end. A rabbit hole I enjoyed.</p>
+    <div class="stack">Python · MIDI · SoundFont &nbsp;—&nbsp; needs: a way to hear the before/after in a browser</div>
+  </a>
+
+  <a class="entry dead" data-filter="tools parked">
+    <div class="top"><h3>Pickleball video analysis — an honest failure</h3><span class="badge parked">Parked</span></div>
+    <p>I tried to break down phone-recorded matches with vision models — rallies, shots, player stats. It mostly doesn't work, and I wrote down exactly why single-camera vision falls apart. Kept it because the post-mortem is the useful part.</p>
+    <div class="stack">Python · VLM pipeline &nbsp;—&nbsp; verdict: wearables/court sensors, not phone cameras</div>
+  </a>
+
+  <p class="empty-note hidden" id="emptyNote">Nothing in this filter.</p>
+  </div>
+
+  <footer>
+    Built with Claude Code. There's more on the <a href="/">home page</a> — the video summaries, the paddle guide, the user guide.
+  </footer>
+</div>
+
+<script>
+(function () {
+  var chips = Array.prototype.slice.call(document.querySelectorAll('#chips .chip'));
+  var entries = Array.prototype.slice.call(document.querySelectorAll('#list .entry'));
+  var groups = Array.prototype.slice.call(document.querySelectorAll('#list [data-group]'));
+  var emptyNote = document.getElementById('emptyNote');
+
+  function apply(filter) {
+    var shown = 0;
+    entries.forEach(function (el) {
+      var tokens = (el.getAttribute('data-filter') || '').split(/\s+/);
+      var match = !filter || tokens.indexOf(filter) !== -1;
+      el.classList.toggle('hidden', !match);
+      if (match) shown++;
+    });
+    // Hide group headings when a filter would leave their section empty,
+    // or whenever a cross-cutting filter (needs-finishing) is active.
+    var crossCut = filter === 'building';
+    groups.forEach(function (el) { el.classList.toggle('hidden', crossCut); });
+    emptyNote.classList.toggle('hidden', shown > 0);
+  }
+
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      chips.forEach(function (c) { c.classList.remove('active'); });
+      chip.classList.add('active');
+      apply(chip.getAttribute('data-filter'));
+    });
+  });
+})();
+</script>
+</body>
+</html>

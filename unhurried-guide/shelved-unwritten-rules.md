@@ -1,0 +1,46 @@
+## Chapter 11 — The Unwritten Rules, which matter more than the written ones
+
+The rulebook tells you how to score. It does not tell you how to *be* at a pickleball court, which is, frankly, the more important syllabus. Here's the unwritten part. Learn it faster than you learn the scoring.
+
+**You call the lines on your own side.** There's no referee at your level — *you* are the judge of whether their ball landed in or out on your half of the court. Which makes the next rule sacred:
+
+> **WHEN YOU'RE NOT SURE, IT'S IN.** The benefit of the doubt always — *always* — goes to your opponent. If you didn't clearly see it land out, it was in, you say so cheerfully, and you lose the point. This isn't weakness; it's the entire social contract that lets a refereeless sport exist. The player who calls the close ones honestly *against themselves* is the most quietly respected person on any court — and everyone clocks the one who doesn't inside of ten minutes. Be the first kind. Never be the second.
+
+It is a small thing, giving away a point you wanted on a ball only you could see. It is also, quietly, about the most honest test of a person there is, and people can tell within one game which kind you are — and so, I've come to think, can you.
+
+That is heavier than a pickleball book has any business being. Tap paddles. Move on.
+
+**Call "BALL!"** The instant a stray ball rolls onto your court — yours or a neighbor's — yell *"ball!"*, stop the point, replay it. A pickleball doesn't squash underfoot. It **rolls,** and it will put you flat on your back. Courtesy and safety in a single syllable.
+
+**The paddle tap.** When a game ends — win, lose, or genuinely ugly — the four of you drift to the net and gently **tap paddle faces** and say *"good game."* It's the sport's handshake. You do it after a loss too. *Especially* after a loss. It costs nothing and it is most of the reason anyone comes back.
+
+![Four foxes tap their paddles together over the net after a game](images/paddle-tap.png)
+
+**Open play, and the rack.** Most public courts run a queue: you set your paddle in a **rack** (or a fence slot), and when it's near the top, you're up — against whoever else is next. Strangers. Constantly. *Winners stay,* or everybody rotates; the custom varies, so you ask, and you adapt. It's the most quietly democratic thing in all of sport: a retiree, a teenager, and a lapsed college athlete shuffled together by a plastic paddle rack, all afternoon. **This — not this book — is where you'll actually learn.**
+
+**Know your number — and then ignore it.** Sooner or later, someone at the rack will ask your **DUPR.** It stands for **Dynamic Universal Pickleball Rating,** and it has quietly become the number the whole sport agrees to measure you by: a single figure, roughly **2.0 to 8.0,** carried to two decimal places, that says about how good you are. (Beginners live around 2–3, solid rec players 3–4, the genuinely good 4–5, the pros up in the 6s and 7s.)
+
+What makes it different from the old *"oh, I'm a 3.5"* system — where everyone politely lied — is that **DUPR is built from your actual game results, not your opinion of yourself.** You log scores; an algorithm, the same family as a chess rating, moves your number up or down based on *who* you played and *by how much.* Beat a stronger team and you jump; lose a tight one to a good team and you might even tick *up.* It's **dynamic** (it updates after every match, so it tracks who you are *now*), **universal** (singles and doubles, every age and place, one scale), and gloriously **honest,** because a scoreboard cannot be talked out of what happened. It's how the rack puts you in fair games instead of feeding you to someone four levels up — or making you the one doing the feeding.
+
+> **A WARNING.** A rating is pure catnip for Erne — the loud, judging voice in your head we met a moment ago and will get to know far too well later on. The instant a number exists, he has a fresh, official, two-decimal stick to beat you with: *you're only a 3.41, you dropped .06 last week, that 4.0 across the net is judging your backhand.* Don't let the rating become one more thing he yells about. Check it now and then to find fair games; then put the phone down and watch the ball. A DUPR measures the pickleball you already played. It has never once helped anybody play the next shot.
+
+![Erne brandishes a phone — "I'M A 5.0!" — while Bert shrugs: "never checked mine."](images/strip-dupr.png)
+
+> **ERNE, who has absolutely looked:** *i'm basically a 5.0*
+> **BERT:** *you are a 3.2, Erne.*
+> **ERNE:** *...emotionally a 5.0*
+> **BERT:** *i've never checked mine.*
+>
+> *(Bert is a 5.4.)*
+
+**Be a good partner.** You'll spend most of your pickleball life standing four feet from another nervous human. So: encourage, don't coach mid-game. Take the middle when it's yours and don't sulk when it isn't. When they miss — *"nice try,"* never the silent stare. When *you* miss — *"my bad,"* and move on. Take the blame loose and give the credit away. The court forgets the score by Tuesday and remembers how you made people feel for years.
+
+> **A WORD ON NOT DYING** (the safety bit, mercifully short): warm up before you sprint anywhere — cold tendons tear, and the Achilles is the famous casualty. Wear **eye protection** if you live up at the net; the one real danger in this gentle sport is a ball driven into an unguarded eyeball from six feet. **Court shoes,** not running shoes (we said it; we'll keep saying it until your ankles are safe). And call the ball. Always call the ball.
+
+![Erne eyeing a stray ball — "but I WANTED that point" — Bert, firm: "you call the ball, Erne."](images/strip-call-the-ball.png)
+
+> **ERNE, raising a paw:** *what if i call the ball but i actually really wanted that point*
+> **BERT:** *you call the ball, Erne.*
+
+> ### 🥒 DRILL: Go Play With Strangers
+> Find a public court on an open-play night. Put your paddle in the rack. Play with whoever's next, and the next four, and the four after that. Call your lines honestly, tap paddles at the end, say "good game" to people whose names you'll immediately forget. This is the only drill in the book with no technique in it whatsoever, and it will do more for your pickleball than any other page in here. The sport is a social one wearing athletic clothes. Go be social. That's the whole assignment.

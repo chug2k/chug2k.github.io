@@ -1,0 +1,197 @@
+@font-face{font-family:'Newsreader';font-style:normal;font-weight:400 700;font-display:swap;src:url(fonts/newsreader.woff2) format('woff2')}
+@font-face{font-family:'Newsreader';font-style:italic;font-weight:400 600;font-display:swap;src:url(fonts/newsreader-italic.woff2) format('woff2')}
+@font-face{font-family:'Caveat';font-style:normal;font-weight:500 700;font-display:swap;src:url(fonts/caveat.woff2) format('woff2')}
+:root{
+  --paper:#f6efda; --paper2:#efe6cc; --desk:#cdbf9f;
+  --ink:#352f27; --ink-soft:#5d5443;
+  --pickle:#6b7d34; --pickle-d:#4f5d24;
+  --sienna:#9c4a1f; --bert:#5a7d3c; --erne:#c0631d; --rule:#d8cba6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0; background:var(--desk);
+  background-image:radial-gradient(circle at 50% -10%, #ded0ac, var(--desk) 60%);
+  color:var(--ink); font-family:"Newsreader","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  font-size:20px; line-height:1.66; font-optical-sizing:auto;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;}
+.hand{font-family:"Caveat","Bradley Hand","Marker Felt",cursive}
+.page{max-width:780px; margin:0 auto; background:var(--paper);
+  background-image:linear-gradient(180deg,#f8f2e0,#f3ead2);
+  box-shadow:0 0 0 1px #e7dcbe, 0 22px 60px rgba(40,30,10,.35); padding:0 0 70px; min-height:100vh;}
+
+/* top bar (chapter pages) */
+.topbar{display:flex; align-items:center; justify-content:space-between;
+  padding:14px 40px; border-bottom:2px solid var(--rule);
+  position:sticky; top:0; background:#f5ecd5e8; backdrop-filter:blur(3px); z-index:5;}
+.wordmark{font-size:20px; color:var(--sienna); text-decoration:none}
+.totoc{font-size:15px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft);
+  text-decoration:none; border-bottom:1px dotted #c9b48a}
+.totoc:hover{color:var(--sienna)}
+
+/* hero (index) */
+.hero{padding:58px 56px 36px; text-align:center; border-bottom:3px double var(--rule)}
+.kicker{font-size:21px; letter-spacing:.04em; color:var(--sienna); margin:0}
+.hero h1{font-size:78px; line-height:.92; margin:.06em 0 .14em; letter-spacing:-.01em; text-transform:lowercase}
+.hero .sub{font-style:italic; color:var(--ink-soft); margin:0 auto; max-width:34em; font-size:17px}
+.cover{margin:32px auto 8px; max-width:340px}
+.cover img{width:100%; display:block; background:#fff; border:1px solid #cbb; padding:10px;
+  box-shadow:0 10px 26px rgba(40,30,10,.3); transform:rotate(-1.4deg)}
+.epi{font-style:italic; color:var(--ink-soft); margin:22px auto 0; max-width:30em; font-size:17px}
+.startbtn{display:inline-block; margin:26px 0 4px; padding:12px 26px; background:var(--pickle);
+  color:#fff; text-decoration:none; border-radius:30px; font-size:18px; box-shadow:3px 4px 0 #c9bb8e;}
+.startbtn:hover{background:var(--pickle-d)}
+
+/* contents (index) */
+.contents{padding:30px 56px 6px}
+.contents h4{font-size:14px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft); margin:0 0 14px}
+.contents ol{margin:0; padding:0; list-style:none; counter-reset:c}
+.contents li{margin:0 0 4px}
+.contents a{display:block; text-decoration:none; color:var(--ink); padding:10px 12px; border-radius:7px;
+  border-bottom:1px solid #e6dab9}
+.contents a:hover{background:#efe3c0}
+.contents .ck{display:inline-block; min-width:108px; color:var(--pickle-d); font-size:14px;
+  letter-spacing:.08em; text-transform:uppercase}
+.contents .mn{color:var(--sienna)}
+.contents .toc-part{margin:38px 0 4px}
+.contents .toc-part:first-child{margin-top:8px}
+.contents .toc-part a{display:block; background:none; border:none; border-radius:0;
+  padding:0 12px 9px; border-bottom:1px solid var(--rule)}
+.contents .toc-part a:hover{background:none}
+.contents .toc-part a:hover .pm{color:var(--sienna)}
+.contents .toc-part .pk{display:block; color:var(--pickle-d); font-weight:700;
+  letter-spacing:.26em; text-transform:uppercase; font-size:11.5px; margin-bottom:3px}
+.contents .toc-part .pm{display:block; color:var(--ink); font-weight:700; font-size:21px; line-height:1.2}
+
+/* part divider pages */
+.content.part{text-align:center; padding-top:42px; padding-bottom:30px}
+.content.part h2{font-size:38px; border:none; margin:.2em 0 .7em; line-height:1.1}
+.content.part h2 .ch{font-size:18px; letter-spacing:.34em; color:var(--pickle-d); margin-bottom:.5em}
+.content.part p{font-size:21px; line-height:1.6; max-width:30em; margin:0 auto 1.1em; color:var(--ink-soft)}
+.content.part strong{color:var(--ink)}
+.content.part p.lead::first-letter{float:none; font-size:inherit; padding:0; color:inherit; font-weight:inherit; font-family:inherit}
+.content.part figure.comic{margin-top:34px}
+
+/* body content */
+.content{padding:18px 56px 0}
+.content p{margin:0 0 1.05em}
+.content a{color:var(--sienna)}
+.content h2{font-size:34px; line-height:1.12; margin:.3em 0 .5em; padding-top:.1em; letter-spacing:-.01em}
+.content h2 .ch{display:block; font-size:14px; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--pickle-d); margin-bottom:.3em}
+.content h3{font-size:23px; margin:1.5em 0 .35em; color:var(--sienna)}
+.content strong{color:#241f18}
+.content ul,.content ol{margin:0 0 1.1em; padding-left:1.4em}
+.content li{margin:.18em 0}
+p.lead::first-letter{float:left; font-family:"Newsreader",Georgia,serif; font-weight:700;
+  font-size:78px; line-height:.62; padding:6px 12px 0 0; color:var(--sienna)}
+
+/* comics */
+figure.comic{margin:30px auto; text-align:center; max-width:430px}
+figure.comic img{width:100%; display:block; background:#fff; border:1px solid #d8c9a3; padding:9px;
+  box-shadow:0 9px 22px rgba(40,30,10,.26)}
+figure.comic:nth-of-type(even) img{transform:rotate(1.3deg)}
+figure.comic:nth-of-type(odd) img{transform:rotate(-1.6deg)}
+figure.comic figcaption{font-family:"Caveat","Bradley Hand",cursive; font-size:19px; line-height:1.25;
+  color:var(--ink-soft); margin-top:8px; transform:rotate(-.5deg); max-width:30em; margin-left:auto; margin-right:auto}
+figure.comic.missing img{display:none}
+figure.comic.missing::before{content:"🦊  strip still developing…"; display:block;
+  border:2px dashed #c4b487; border-radius:8px; padding:40px 10px; color:#a99a72;
+  font-family:"Caveat",cursive; font-size:22px}
+
+/* asides / margin notes */
+blockquote.aside{background:var(--paper2); border-left:4px solid var(--pickle); margin:1.3em 0;
+  padding:.7em 1.1em; border-radius:3px; font-size:17px}
+blockquote.aside.float{float:right; clear:right; width:43%; margin:.4em -34px 1.1em 1.6em;
+  border-left:none; border-top:3px solid var(--pickle); background:#efe5c8; box-shadow:3px 4px 0 #e4d6ae;
+  transform:rotate(.5deg); font-size:15.5px; line-height:1.5}
+blockquote.aside p{margin:.3em 0}
+blockquote.aside strong:first-child{color:var(--pickle-d)}
+
+/* fox margin interjections */
+blockquote.foxnote{position:relative; margin:1.4em 0 1.4em 30px; padding:.7em 1.1em .7em 2.4em;
+  font-style:italic; background:#fbf6e6; border:2px solid; border-radius:10px; box-shadow:4px 5px 0 rgba(0,0,0,.06)}
+blockquote.foxnote::before{content:"🦊"; position:absolute; left:-18px; top:-14px; font-size:34px;
+  background:var(--paper); border-radius:50%; line-height:1}
+blockquote.foxnote.bert{border-color:var(--bert)}
+blockquote.foxnote.erne{border-color:var(--erne); transform:rotate(-.6deg)}
+blockquote.foxnote p{margin:.2em 0}
+blockquote.foxnote strong{font-style:normal}
+
+/* drill recipe cards */
+blockquote.drill{clear:both; background:#eef2df; border:2px dashed var(--pickle); border-radius:10px;
+  margin:1.8em 0; padding:.3em 1.3em 1em; box-shadow:5px 6px 0 #e1dcc0}
+blockquote.drill h3{font-family:"Caveat","Bradley Hand",cursive; color:var(--pickle-d);
+  font-size:30px; font-weight:700; margin:.55em 0 .2em}
+blockquote.drill p{margin:.5em 0; font-size:17px}
+blockquote.drill strong{color:var(--pickle-d)}
+
+/* court diagram */
+.content pre{clear:both; background:#33422a; color:#e9e6cf; border-radius:8px; padding:18px 14px;
+  overflow-x:auto; font-size:12.5px; line-height:1.32; box-shadow:inset 0 0 0 3px #46583a, 0 8px 20px rgba(20,30,15,.4);
+  font-family:"SF Mono",Menlo,Consolas,monospace; text-align:center}
+.content pre code{white-space:pre}
+
+/* svg court diagram */
+.court-fig{clear:both; margin:30px auto; max-width:362px; text-align:center}
+.court-fig svg{width:100%; height:auto; background:#efe6cc; border:1px solid #d8c9a3; border-radius:10px;
+  padding:10px; box-shadow:0 9px 22px rgba(40,30,10,.22)}
+.court-fig text{font-family:"Iowan Old Style",Palatino,Georgia,serif}
+.court-fig .cl-dim{font-size:11px; letter-spacing:.03em; fill:#6b5f47}
+.court-fig .cl-kw{font-size:12px; font-style:italic; letter-spacing:.05em; fill:#f6efe2}
+.court-fig .cl-pl{font-size:9px; font-weight:700; fill:#2b261e}
+.court-fig figcaption{font-family:"Caveat","Bradley Hand",cursive; font-size:18px; line-height:1.25; color:var(--ink-soft); margin-top:9px}
+
+/* the five lives of a bouncing ball */
+.bounce-fig{clear:both; margin:30px auto; max-width:580px; text-align:center}
+.bounce-fig svg{width:100%; height:auto; background:#efe6cc; border:1px solid #d8c9a3; border-radius:10px;
+  padding:10px 6px; box-shadow:0 9px 22px rgba(40,30,10,.22)}
+.bounce-fig text{font-family:"Newsreader",Georgia,serif}
+.bounce-fig .bp{font-family:"Caveat","Bradley Hand",cursive; font-weight:700; font-size:19px; fill:#2b261e}
+.bounce-fig .bp.pk{fill:var(--sienna); font-size:23px; letter-spacing:.04em}
+.bounce-fig .bs{font-style:italic; font-size:11px; fill:var(--pickle-d)}
+.bounce-fig .bn text, .bounce-fig .bn{font-size:10px; fill:#9a8c6a; font-weight:700}
+.bounce-fig figcaption{font-family:"Caveat","Bradley Hand",cursive; font-size:18px; line-height:1.25; color:var(--ink-soft); margin-top:9px}
+
+/* the Ladder (hierarchy of assessment) */
+.ladder-fig{clear:both; margin:30px auto; max-width:520px; text-align:center}
+.ladder-fig svg{width:100%; height:auto; background:#efe6cc; border:1px solid #d8c9a3; border-radius:10px;
+  padding:14px 10px; box-shadow:0 9px 22px rgba(40,30,10,.22)}
+.ladder-fig text{font-family:"Newsreader",Georgia,serif}
+.ladder-fig .lr{font-weight:700; font-size:19px; fill:#2b261e}
+.ladder-fig .lr.top{fill:var(--sienna)}
+.ladder-fig .ld{font-style:italic; font-size:12.5px; fill:var(--ink-soft)}
+.ladder-fig .lnum{font-weight:700; font-size:13px; fill:var(--pickle-d)}
+.ladder-fig .lnote{font-family:"Caveat","Bradley Hand",cursive; font-size:16px; fill:var(--sienna)}
+.ladder-fig figcaption{font-family:"Caveat","Bradley Hand",cursive; font-size:18px; line-height:1.25; color:var(--ink-soft); margin-top:9px}
+
+/* the little "which rung are you on" tag at a chapter top */
+.content .rung{font-family:"Caveat","Bradley Hand",cursive; font-size:19px; color:var(--pickle-d);
+  display:flex; align-items:center; margin:-4px 0 20px}
+.content .rung strong{color:var(--sienna); font-weight:700}
+.content .rung .lad{width:14px; height:18px; flex:0 0 auto; margin-right:8px; fill:none; stroke:#8a7f63; stroke-width:1.2}
+.content .rung .lad .on{stroke:var(--sienna); stroke-width:2.6}
+
+.content hr{border:none; text-align:center; margin:2.2em 0 1.2em; clear:both}
+.content hr::after{content:"🥒"; font-size:22px; opacity:.7}
+
+/* chapter nav */
+.chapter-nav{display:flex; align-items:stretch; gap:12px; padding:30px 40px 0; margin-top:26px;
+  border-top:3px double var(--rule)}
+.chapter-nav a{flex:1; text-decoration:none; color:var(--ink); padding:14px 16px; border-radius:9px;
+  background:var(--paper2); border:1px solid #e2d6b4; font-size:16px; display:flex; align-items:center}
+.chapter-nav a:hover{background:#ebdfbd}
+.chapter-nav .navnext{justify-content:flex-end; text-align:right}
+.chapter-nav .navc{flex:0 0 auto; color:var(--ink-soft); font-size:14px; letter-spacing:.1em; text-transform:uppercase}
+.chapter-nav .spacer{flex:1}
+
+.colophon{padding:34px 56px 0; margin-top:26px; border-top:3px double var(--rule);
+  font-size:15px; color:var(--ink-soft); font-style:italic; text-align:center}
+
+@media (max-width:680px){
+  body{font-size:17px}
+  .hero,.contents,.content,.colophon{padding-left:22px; padding-right:22px}
+  .topbar{padding:12px 20px}
+  .hero h1{font-size:52px}
+  blockquote.aside.float{float:none; width:auto; margin:1.2em 0; transform:none}
+  .chapter-nav{flex-wrap:wrap; padding:24px 20px 0}
+}
