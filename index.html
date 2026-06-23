@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>chug2k</title>
+<title>Charles Lee</title>
+<meta name="description" content="Essays and guides, apps and games you can actually use, and distilled notes from the talks I'd rather not watch twice. A workshop and a notebook in one place.">
 <style>
 :root {
   --bg: #f5f1e8;
@@ -14,6 +15,7 @@
   --accent: #cc5429;
 }
 * { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
   font-family: "Charter", "Georgia", serif;
@@ -22,7 +24,7 @@ body {
   color: var(--ink);
   background: var(--bg);
 }
-.wrap { max-width: 720px; margin: 0 auto; padding: 64px 24px; }
+.wrap { max-width: 740px; margin: 0 auto; padding: 64px 24px 96px; }
 .eyebrow {
   font-family: "Inter", sans-serif;
   font-size: 12px;
@@ -40,63 +42,125 @@ h1 {
   letter-spacing: -0.02em;
   margin: 0 0 18px;
 }
-p { margin: 0 0 18px; }
+.lede { font-size: 19px; color: var(--muted); margin: 0; max-width: 620px; }
+
+/* ---- Section headings ---- */
+.section-h {
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 56px 0 6px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--rule);
+}
+.section-h .note {
+  float: right;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--muted);
+}
+
+/* ---- Cards ---- */
 .section-card {
   background: var(--paper);
   border: 1px solid var(--rule);
   border-radius: 10px;
-  padding: 24px 28px;
-  margin: 32px 0;
+  padding: 20px 26px;
+  margin: 14px 0;
   text-decoration: none;
   color: var(--ink);
   display: block;
+  transition: border-color 0.12s ease;
 }
 .section-card h2 {
   font-family: "Inter", sans-serif;
-  font-size: 20px;
-  margin: 0 0 8px;
+  font-size: 19px;
+  margin: 0 0 7px;
 }
-.section-card p { margin: 0; color: var(--muted); font-size: 15px; }
+.section-card p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.5; }
 .section-card:hover { border-color: var(--accent); }
+
 footer {
-  margin-top: 96px;
+  margin-top: 80px;
   padding-top: 24px;
   border-top: 1px solid var(--rule);
   font-family: "Inter", sans-serif;
   font-size: 13px;
   color: var(--muted);
 }
+footer a { color: var(--accent); }
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="eyebrow">chug2k.github.io</div>
   <h1>Charles Lee</h1>
-  <p>This is a directory for now. Eventually a blog.</p>
+  <p class="lede">I make small things and write them up — essays and guides, apps and games you can actually use, and distilled notes from the talks I'd rather not sit through twice.</p>
 
-  <a class="section-card" href="/making/">
-    <h2>Things I've been making →</h2>
-    <p>The workshop. Apps you can use, pickleball reimagined as four different games, illustrated guides, and a daily habit of building one tiny tool every day. Some shipped, some honestly still on the bench — the badges say which.</p>
+  <!-- ===== WRITING ===== -->
+  <div class="section-h">Writing</div>
+
+  <a class="section-card" href="/unhurried-guide/">
+    <h2>The Unhurried Guide to Pickleball →</h2>
+    <p>A pickleball guide disguised as a children's book — two fox brothers, fifteen illustrated chapters about attention, weight, and joy. Inspired by <em>Why's Poignant Guide to Ruby</em>, and surprisingly not really about pickleball.</p>
   </a>
 
-  <a class="section-card" href="/user-guide/">
-    <h2>User guide →</h2>
-    <p>How to work with me. The manual that should come in the box.</p>
+  <a class="section-card" href="/japan-2025/">
+    <h2>Japan, Winter 2025 →</h2>
+    <p>A bilingual, card-by-card itinerary for a nine-day December ski trip — toggle English and Korean, see where we stayed and what we did each night. Built so the whole family could use it.</p>
   </a>
 
-  <a class="section-card" href="/v/">
-    <h2>Video summaries →</h2>
-    <p>Curated field notes from talks, lectures, and webinars. Each one is a single-page distillation with transcripts, screenshots at key moments, and pull quotes.</p>
+  <a class="section-card" href="/earth/">
+    <h2>Earth: The Archive →</h2>
+    <p>A one-issue editorial — a warm case for a Seoul botanical-dye studio that turns plants into pigment and organic cotton into the softest clothes you could hand a brand-new person.</p>
+  </a>
+
+  <a class="section-card" href="/verdict-cl-v-kj/">
+    <h2>The Verdict — C.L. v. K.J. →</h2>
+    <p>A straight-faced tribunal ruling on a pact between two friends to quit their jobs by a deadline. One reached "full unemployment"; the other didn't. Petty, ceremonial, and exactly as serious as it sounds.</p>
   </a>
 
   <a class="section-card" href="/lottie-vs-remotion/">
     <h2>Lottie vs Remotion →</h2>
-    <p>Making motion graphics with an LLM. The same animations built twice — vector keyframes vs. a frame-driven render — from a bouncing ball to launch videos for real projects. Shown, not told, with live demos you can poke.</p>
+    <p>The same animations built twice — Lottie's vector keyframes vs Remotion's frame-driven render — climbing from a bouncing ball to a 30-second launch video, with live demos and a verdict on when to use which.</p>
   </a>
 
+  <a class="section-card" href="/youtube-music-3mb/">
+    <h2>Shrinking YouTube Music from 200 MB to 3 MB →</h2>
+    <p>I rebuilt the YouTube Music desktop app in Tauri instead of Electron — same app, native media keys, ~65× smaller — plus the macOS rabbit holes I fell into along the way.</p>
+  </a>
+
+  <!-- ===== MAKING ===== -->
+  <div class="section-h">Making</div>
+
+  <a class="section-card" href="/making/">
+    <h2>Things I've been making →</h2>
+    <p>The workshop. Apps you can actually use, pickleball reimagined as four playable games, and a daily heartbeat where an agent ships one tiny tool every single day. The badges say what's live and what's still on the bench.</p>
+  </a>
+
+  <!-- ===== VIDEO NOTES ===== -->
+  <div class="section-h">Video notes <span class="note">80+ and counting</span></div>
+
+  <a class="section-card" href="/v/">
+    <h2>Video summaries →</h2>
+    <p>I hate watching videos, so these are AI summaries of them — TL;DRs, key-moment screenshots, and pull quotes across AI, pickleball, chess, physics, and whatever else I fell into.</p>
+  </a>
+
+  <!-- ===== GUIDES & REFERENCE ===== -->
+  <div class="section-h">Guides &amp; reference</div>
+
   <a class="section-card" href="/paddle-buying-guide-2026/">
-    <h2>2026 paddle buying guide →</h2>
-    <p>Which power-foam pickleball paddle to buy — the Boomstick, Loco, Honolulu foams, Six Zero Coral, Friday Aura and more, from 350+ reviews plus a meta-ranking of 50 "best of 2026" lists, weighted by reviewer reliability.</p>
+    <h2>2026 Power-Foam Paddle Buying Guide →</h2>
+    <p>Which power-foam pickleball paddle to actually buy — the Boomstick, Loco, Honolulu foams, Six Zero Coral and more — from 350+ reviews and a reliability-weighted meta-ranking of 50 "best of 2026" lists.</p>
+  </a>
+
+  <a class="section-card" href="/user-guide/">
+    <h2>User guide to Charles Lee →</h2>
+    <p>A brutally honest personal operating manual — how I work, what I'm bad at, and how to get the best out of working with me. The manual that should come in the box.</p>
   </a>
 
   <footer>
