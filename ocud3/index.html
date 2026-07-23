@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>OcuD3™ — Vitamin D3, Absorbed Through Your Eyes</title>
+<style>
+  :root{
+    --ink:#0e1c26; --muted:#5b6b77; --bg:#fbfdfe; --line:#e6edf1;
+    --brand:#1fa6c4; --brand-deep:#0d6f8a; --sun:#ffc94d; --sun-deep:#f5a623;
+    --good:#1f9d57; --soft:#eaf7fb;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  a{color:inherit;text-decoration:none}
+  /* NAV */
+  nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+  .logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:20px;letter-spacing:-.02em}
+  .logo .eye{width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 50% 50%,#fff 0 22%,var(--brand) 24% 55%,var(--brand-deep) 57% 100%)}
+  .logo span.tm{font-size:11px;vertical-align:super;color:var(--brand)}
+  .navlinks{display:flex;gap:26px;font-size:14.5px;color:var(--muted);font-weight:500}
+  .navlinks a:hover{color:var(--ink)}
+  .btn{display:inline-block;background:var(--sun-deep);color:#3a2600;font-weight:700;
+    padding:11px 22px;border-radius:999px;font-size:14.5px;border:none;cursor:pointer;transition:transform .1s}
+  .btn:hover{transform:translateY(-1px)}
+  .btn.brand{background:var(--brand);color:#fff}
+  /* HERO */
+  .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;
+    padding:44px 0 56px}
+  .badge{display:inline-block;background:var(--soft);color:var(--brand-deep);font-weight:700;
+    font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px;margin-bottom:18px}
+  .hero h1{font-size:46px;line-height:1.05;letter-spacing:-.03em;margin-bottom:16px}
+  .hero h1 em{font-style:normal;color:var(--brand)}
+  .hero p.sub{font-size:18px;color:var(--muted);margin-bottom:26px;max-width:460px}
+  .cta-row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .stars{color:var(--sun-deep);font-size:15px}
+  .rating{font-size:13.5px;color:var(--muted)}
+  .bottle{aspect-ratio:1;border-radius:26px;
+    background:radial-gradient(circle at 30% 25%,#bfeefb,transparent 55%),
+      linear-gradient(160deg,#e9f8fc,#d3eef7);
+    display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+  .dropper{width:120px;height:250px;position:relative}
+  .dropper .cap{position:absolute;top:0;left:35px;width:50px;height:60px;background:linear-gradient(var(--brand),var(--brand-deep));border-radius:8px 8px 4px 4px}
+  .dropper .neck{position:absolute;top:56px;left:44px;width:32px;height:20px;background:#cfe6ee}
+  .dropper .body{position:absolute;top:74px;left:20px;width:80px;height:170px;
+    background:linear-gradient(150deg,rgba(255,255,255,.85),rgba(255,255,255,.5));
+    border:2px solid #fff;border-radius:16px;backdrop-filter:blur(2px);
+    box-shadow:0 10px 30px rgba(13,111,138,.18)}
+  .dropper .liquid{position:absolute;bottom:6px;left:26px;width:68px;height:95px;
+    background:linear-gradient(var(--sun),var(--sun-deep));border-radius:0 0 12px 12px;opacity:.9}
+  .dropper .label{position:absolute;top:120px;left:26px;width:68px;text-align:center;color:#fff;
+    font-weight:800;font-size:15px;z-index:2;text-shadow:0 1px 2px rgba(0,0,0,.25)}
+  .drop{position:absolute;width:16px;height:22px;background:var(--sun-deep);
+    border-radius:50% 50% 50% 50%/60% 60% 40% 40%;top:250px;left:52px;
+    animation:fall 2.4s infinite ease-in;opacity:.9}
+  @keyframes fall{0%{top:245px;opacity:0}20%{opacity:1}100%{top:330px;opacity:0}}
+  /* SECTIONS */
+  section{padding:52px 0;border-top:1px solid var(--line)}
+  .eyebrow{text-align:center;color:var(--brand);font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+  h2.center{text-align:center;font-size:32px;letter-spacing:-.02em;margin-bottom:8px}
+  p.center{text-align:center;color:var(--muted);max-width:600px;margin:0 auto 34px;font-size:17px}
+  .feat{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .fcard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px 22px;text-align:center}
+  .fcard .ic{width:52px;height:52px;border-radius:14px;background:var(--soft);margin:0 auto 14px;
+    display:flex;align-items:center;justify-content:center;font-size:26px}
+  .fcard h3{font-size:17px;margin-bottom:6px}
+  .fcard p{font-size:14.5px;color:var(--muted)}
+  /* HOW */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:s}
+  .step{position:relative;background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px 22px 22px}
+  .step::before{counter-increment:s;content:counter(s);position:absolute;top:-16px;left:22px;
+    width:34px;height:34px;background:var(--brand);color:#fff;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px}
+  .step h3{font-size:16px;margin:8px 0 6px}
+  .step p{font-size:14px;color:var(--muted)}
+  /* SCIENCE */
+  .science{background:#0d6f8a;color:#eafaff;border-radius:22px;padding:40px 40px}
+  .science h2{font-size:28px;margin-bottom:8px;letter-spacing:-.02em}
+  .science p.lead{color:#bfe9f4;font-size:16px;margin-bottom:22px;max-width:640px}
+  .sci-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .sci{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:18px 20px}
+  .sci h4{font-size:15px;margin-bottom:6px;color:#fff}
+  .sci p{font-size:14px;color:#cdeef7}
+  /* SPECS */
+  .specs{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff}
+  .specs div{padding:16px 20px;border-bottom:1px solid var(--line);font-size:14.5px}
+  .specs div:nth-child(odd){background:#f7fbfc;font-weight:600;color:var(--muted)}
+  .specs div:nth-last-child(-n+2){border-bottom:none}
+  /* FAQ */
+  .faqs{max-width:720px;margin:0 auto}
+  details{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin-bottom:12px}
+  summary{font-weight:600;cursor:pointer;font-size:16px;list-style:none;display:flex;justify-content:space-between}
+  summary::after{content:"+";color:var(--brand);font-weight:800;font-size:20px}
+  details[open] summary::after{content:"–"}
+  details p{margin-top:10px;color:var(--muted);font-size:14.5px}
+  /* REVIEWS */
+  .revs{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .rev{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px}
+  .rev .stars{margin-bottom:8px}
+  .rev p{font-size:14px;margin-bottom:12px}
+  .rev .who{font-size:13px;color:var(--muted);font-weight:600}
+  /* BUY */
+  .buy{text-align:center;background:linear-gradient(160deg,#eaf7fb,#fff);border:1px solid var(--line);border-radius:22px;padding:44px}
+  .price{font-size:44px;font-weight:800;letter-spacing:-.02em}
+  .price small{font-size:16px;color:var(--muted);font-weight:500}
+  .buy p.g{color:var(--good);font-weight:600;font-size:14px;margin-top:10px}
+  /* DISCLAIMER */
+  .legal{background:#fff4e0;border:1px solid #f2dca6;border-radius:14px;padding:20px 24px;margin:40px 0;font-size:13px;color:#6b501a}
+  .legal strong{color:#5a3d00}
+  footer{border-top:1px solid var(--line);padding:30px 0 60px;color:var(--muted);font-size:13px;text-align:center}
+  footer a{color:var(--brand-deep);text-decoration:underline}
+  @media(max-width:760px){
+    .hero{grid-template-columns:1fr;text-align:center}.hero p.sub{margin:0 auto 26px}
+    .cta-row{justify-content:center}.feat,.steps,.revs,.sci-grid,.specs{grid-template-columns:1fr}
+    .hero h1{font-size:36px}.navlinks{display:none}.science{padding:28px 24px}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <nav>
+    <div class="logo"><span class="eye"></span>OcuD3<span class="tm">™</span></div>
+    <div class="navlinks">
+      <a href="#how">How it works</a>
+      <a href="#science">The science</a>
+      <a href="#specs">Specs</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <a href="#buy" class="btn">Shop now</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div>
+      <span class="badge">☀️ Radically transparent supplementation</span>
+      <h1>Your daily vitamin&nbsp;D3 — <em>absorbed through your eyes.</em></h1>
+      <p class="sub">One drop. Zero swallowing. OcuD3™ delivers cholecalciferol via the nasolacrimal pathway — the same route your body already uses to drain the eye. A small amount reaches your bloodstream. We are required to tell you it is small, and we go further: it is very small.</p>
+      <div class="cta-row">
+        <a href="#buy" class="btn brand">Try OcuD3 — from $34</a>
+        <div>
+          <div class="stars">★★☆☆☆</div>
+          <div class="rating">2.3 · 2,318 reviews · We do not remove negative reviews</div>
+        </div>
+      </div>
+    </div>
+    <div class="bottle">
+      <div class="dropper">
+        <div class="drop"></div>
+        <div class="cap"></div><div class="neck"></div>
+        <div class="body"></div>
+        <div class="liquid"></div>
+        <div class="label">D3</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Why OcuD3</div>
+    <h2 class="center">The vitamin that looks you in the eye</h2>
+    <p class="center">Built on real ocular anatomy. Every claim below is accurate, including the ones that hurt us commercially.</p>
+    <div class="feat">
+      <div class="fcard"><div class="ic">👁️</div><h3>Tear-duct delivery</h3><p>Eye drops drain through the nasolacrimal duct into the nose and throat, where systemic absorption genuinely occurs. This is established ophthalmology. It is the strongest thing about our product.</p></div>
+      <div class="fcard"><div class="ic">🚫</div><h3>No swallowing</h3><p>Nothing touches your mouth. Roughly 40% of adults report difficulty swallowing pills. That statistic is the entire reason OcuD3 exists, and we are aware it is the only one.</p></div>
+      <div class="fcard"><div class="ic">💧</div><h3>One-drop dosing</h3><p>A single golden drop of lichen-derived, vegan D3 in an ophthalmic lipid emulsion. Your vision will blur for four to nine minutes. This is normal, in the sense that it happens every time.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section id="how">
+  <div class="wrap">
+    <div class="eyebrow">How it works</div>
+    <h2 class="center">Three steps to measurable sunshine</h2>
+    <p class="center">"Measurable" is a claim we can defend. We have chosen our words carefully throughout this page.</p>
+    <div class="steps">
+      <div class="step"><h3>Tilt &amp; drop</h3><p>Tilt your head back, pull down the lower lid, and place one drop in the corner of the eye. There will be a stinging sensation. Duration varies by individual; it has never been zero.</p></div>
+      <div class="step"><h3>Blink it home</h3><p>Blink gently. Your eye will begin reflex tearing, which flushes a portion of the dose back out. We recommend blinking anyway, as the alternative is worse.</p></div>
+      <div class="step"><h3>Absorb &amp; retain</h3><p>Of what remains, a fraction reaches the bloodstream through the nasal mucosa. The rest exits down your cheek. Internal testing suggests the cheek is the primary destination.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SCIENCE -->
+<section id="science">
+  <div class="wrap">
+    <div class="science">
+      <h2>The science, disclosed in full</h2>
+      <p class="lead">OcuD3 is built on one real anatomical fact and constrained by three real physiological ones. Most supplement companies would not publish this section. We consider that their weakness.</p>
+      <div class="sci-grid">
+        <div class="sci"><h4>✅ The route is real</h4><p>Ophthalmic drugs drain via the tear duct and are absorbed systemically — it's why glaucoma drops can lower heart rate. The pathway exists, works, and is used by real medicine every day. For real medicine, the required dose fits in a drop.</p></div>
+        <div class="sci"><h4>⚠️ Solubility</h4><p>Vitamin D is fat-soluble; the tear film is aqueous. Our lipid emulsion resolves this at the cost of a greasy film across the cornea. Users describe the first nine minutes of their morning as "vaseline-adjacent."</p></div>
+        <div class="sci"><h4>⚠️ Volume</h4><p>The ocular surface holds approximately 30 microliters. One drop is 50. The overflow — 40% of the dose — never had a chance, and we want to be clear that we knew that when we designed the bottle.</p></div>
+        <div class="sci"><h4>⚠️ Rejection</h4><p>Concentrated drops sting, and stinging triggers reflex tearing, which flushes the dose. The more vitamin D we put in a drop, the more efficiently your eye removes it. We have not solved this. We do not currently believe it can be solved.</p></div>
+      </div>
+      <p style="margin-top:20px;color:#bfe9f4;font-size:14px"><strong style="color:#fff">Statement from our R&amp;D team:</strong> an oral softgel taken with a fatty meal delivers the full labeled dose with none of the above. We are ethically obligated to tell you this, and we just did. OcuD3 remains available for those who read this paragraph and wish to proceed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SPECS -->
+<section id="specs">
+  <div class="wrap">
+    <div class="eyebrow">Product specs</div>
+    <h2 class="center">The details</h2>
+    <p class="center">Every figure below appears on the label at the same font size as the brand name. This is company policy.</p>
+    <div class="specs">
+      <div>Active ingredient</div><div>Cholecalciferol (Vitamin D3), lichen-derived — vegan</div>
+      <div>Content per drop</div><div>5,000 IU</div>
+      <div>Estimated systemic delivery per drop</div><div>11–60 IU, prior to reflex tearing (internal estimate)</div>
+      <div>Equivalent oral softgel cost</div><div>$0.04</div>
+      <div>OcuD3 cost per absorbed IU</div><div>Approximately 280× oral</div>
+      <div>Base</div><div>Ophthalmic-grade lipid emulsion</div>
+      <div>Sensation profile</div><div>Stinging (100% of users), blurred vision (100%), tearing (100%)</div>
+      <div>Volume</div><div>10 mL dropper bottle (≈200 drops, ≈120 of which reach the eye)</div>
+      <div>Certifications</div><div>Vegan · Cruelty-free · cGMP facility</div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Customer reviews</div>
+    <h2 class="center">Unedited, per policy</h2>
+    <p class="center">We publish every review we receive. Our average is 2.3 stars. We believe an honest 2.3 is worth more than a curated 4.8.</p>
+    <div class="revs">
+      <div class="rev"><div class="stars">★★★★★</div><p>"I have not swallowed a pill since March. My bloodwork is unchanged and my doctor has asked me to stop, but I haven't swallowed a pill since March."</p><div class="who">— Charles, verified purchaser</div></div>
+      <div class="rev"><div class="stars">★★☆☆☆</div><p>"Everything the label warned me about happened, in the order the label warned me it would happen. Two stars, but honest stars."</p><div class="who">— Dana R., verified purchaser</div></div>
+      <div class="rev"><div class="stars">★☆☆☆☆</div><p>"It stung, my vision blurred, most of it ran down my face, and my levels didn't move at my 3-month recheck. I was refunded promptly and without argument."</p><div class="who">— M.T., refunded purchaser</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="eyebrow">FAQ</div>
+    <h2 class="center">Questions we answer directly</h2>
+    <p class="center">&nbsp;</p>
+    <div class="faqs">
+      <details>
+        <summary>Does OcuD3 work?</summary>
+        <p>A measurable quantity of vitamin D3 enters your bloodstream. "Measurable" is doing significant work in that sentence, and we'd rather you notice that now than after purchase.</p>
+      </details>
+      <details>
+        <summary>Does it sting?</summary>
+        <p>Yes.</p>
+      </details>
+      <details>
+        <summary>Why wouldn't I just take a pill?</summary>
+        <p>If you can take a pill, you should take a pill. An oral D3 softgel with a meal containing fat delivers the full dose in two seconds for four cents. OcuD3 exists for people who will not do that under any circumstances, and for those customers we have made every compromise described on this page.</p>
+      </details>
+      <details>
+        <summary>Can I just put regular vitamin D oil or a softgel in my eye instead?</summary>
+        <p>No. Do not do this. Oral supplements are not sterile, not pH-balanced for the eye, and not preservative-appropriate; you risk corneal irritation and injury for the same negligible absorption. OcuD3 is formulated to ophthalmic standards, which is why it is merely ineffective rather than dangerous.</p>
+      </details>
+      <details>
+        <summary>What is your refund rate?</summary>
+        <p>61%. We publish this because we publish everything. It has been described by our investors as "a number you could simply not put on the website," which is how we knew it belonged here.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- BUY -->
+<section id="buy">
+  <div class="wrap">
+    <div class="buy">
+      <div class="eyebrow">Get OcuD3</div>
+      <h2 class="center" style="margin-bottom:16px">Sunshine, in a dropper</h2>
+      <div class="price">$34<small> / 10 mL bottle</small></div>
+      <p class="g">🚚 Free shipping · 30-day no-questions guarantee · 61% of you will use it</p>
+      <div style="margin-top:22px"><button class="btn brand" style="padding:14px 34px;font-size:16px" onclick="this.textContent='Out of stock';this.disabled=true;this.style.opacity=.6;document.getElementById('oos').style.display='block'">Add to cart</button>
+      <p id="oos" style="display:none;margin-top:12px;font-size:13.5px;color:var(--muted)">OcuD3 is currently out of stock. We produced one batch and are evaluating whether to produce another. In the meantime, an oral D3 softgel with breakfast will exceed OcuD3's performance in every respect, and we encourage you to consider it.</p></div>
+    </div>
+
+    <div class="legal">
+      <strong>⚠️ Required disclosures.</strong> These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Based on our own delivery estimates, it is also unlikely to meaningfully supplement one. Do not put oral vitamin D pills, oils, or punctured softgels in your eyes — you risk corneal injury and will not absorb a useful dose. The effective method of vitamin D supplementation is an <strong>oral D3 softgel taken with a meal containing fat</strong>, rechecked by blood test after approximately 3 months. Not medical advice — consult a physician, who will agree with the softgel part.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    OcuD3™ is a concept. There is no bottle, no warehouse, no clinical program, and no batch — the refund rate is fictional and, if anything, optimistic.<br>
+    From the <a href="/">bad ideas shelf</a> at chug2k.github.io · Built with Claude Code.
+  </div>
+</footer>
+
+</body>
+</html>
