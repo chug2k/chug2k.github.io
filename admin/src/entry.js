@@ -16,15 +16,22 @@ const b64decode = (s) => dec.decode(Uint8Array.from(atob(s.replace(/\s/g, "")), 
 const today = () => new Date().toISOString().slice(0, 10);
 const slugify = (t) => t.toLowerCase().replace(/[^a-z0-9 ]/g, " ").trim().replace(/\s+/g, "-").slice(0, 60).replace(/-+$/, "");
 
+/* ---------- GitHub sign-in (personal access token, stored in this browser) ----------
+   Needs contents:read+write on the repo. Paste once per browser — you stay
+   signed in until you sign out. Get one at
+   github.com/settings/tokens (fine-grained, this repo only). */
+
 const editor = BlockNoteEditor.create({ initialContent: [{ type: "paragraph", content: "" }] });
 createRoot($("editor")).render(React.createElement(BlockNoteView, { editor, theme: "light", onChange }));
 
 let currentPath = null;   // blog/posts/<file>.md when editing an existing post
 let currentSha = null;
 let markdown = "";
+let authToken = "";
+
+try { authToken = localStorage.getItem("bn.token") || ""; } catch (e) {}
 
 $("date").value = today();
-$("token").value = localStorage.getItem("bn.token") || "";
 for (const k of ["owner", "repo", "branch"]) {
   const v = localStorage.getItem("bn." + k);
   if (v) $(k).value = v;
@@ -40,8 +47,11 @@ for (const el of [$("title"), $("dek")]) {
 }
 $("slug").addEventListener("input", saveDraft);
 $("date").addEventListener("input", saveDraft);
-for (const k of ["token", "owner", "repo", "branch"])
-  $(k).addEventListener("change", () => localStorage.setItem("bn." + k, $(k).value.trim()));
+for (const k of ["owner", "repo", "branch"])
+  $(k).addEventListener("change", () => {
+    localStorage.setItem("bn." + k, $(k).value.trim());
+    refreshList();
+  });
 
 async function onChange() {
   markdown = await editor.blocksToMarkdownLossy(editor.document);
@@ -93,7 +103,7 @@ const api = (path, opts = {}) => {
     ...opts,
     headers: {
       Accept: "application/vnd.github+json",
-      Authorization: `Bearer ${$("token").value.trim()}`,
+      Authorization: `Bearer ${authToken}`,
       "Content-Type": "application/json",
       ...(opts.headers || {}),
     },
@@ -102,7 +112,7 @@ const api = (path, opts = {}) => {
 
 async function refreshList() {
   const list = $("postlist");
-  if (!$("token").value.trim()) { list.innerHTML = "<li class='d'>needs a token to list posts</li>"; return; }
+  if (!authToken) { list.innerHTML = "<li class='d'>sign in with GitHub below to see posts</li>"; return; }
   const branch = $("branch").value.trim() || "main";
   const r = await api(`/contents/blog/posts?ref=${encodeURIComponent(branch)}`);
   if (!r.ok) { list.innerHTML = `<li class='d'>couldn't list posts (${r.status})</li>`; return; }
@@ -172,7 +182,7 @@ $("newBtn").addEventListener("click", () => {
 publishBtn.addEventListener("click", async () => {
   const title = $("title").value.trim();
   if (!title || !editor.document.length) { status.textContent = "needs a title and some words first"; return; }
-  if (!$("token").value.trim()) { status.textContent = "add a GitHub token below first"; return; }
+  if (!authToken) { status.textContent = "sign in with GitHub below first"; return; }
   publishBtn.disabled = true;
   status.textContent = "publishing…";
   try {
@@ -209,13 +219,74 @@ publishBtn.addEventListener("click", async () => {
   publishBtn.disabled = false;
 });
 
-$("token").addEventListener("change", refreshList);
-for (const k of ["owner", "repo", "branch"])
-  $(k).addEventListener("change", refreshList);
 $("editor").addEventListener("click", () => editor.focus());
+
+/* ---------- GitHub sign-in ---------- */
+
+function showAuthState(state) {
+  // state: "out" | "in"
+  $("signedOut").hidden = state !== "out";
+  $("signedIn").hidden = state !== "in";
+}
+
+function setAuth(token) {
+  authToken = (token || "").trim();
+  try {
+    if (authToken) localStorage.setItem("bn.token", authToken);
+    else localStorage.removeItem("bn.token");
+  } catch (e) {}
+  if (authToken) { showAuthState("in"); refreshList(); }
+  else {
+    showAuthState("out");
+    $("userLogin").textContent = "";
+    refreshList();
+  }
+}
+
+async function validateStoredToken() {
+  if (!authToken) { showAuthState("out"); refreshList(); return; }
+  try {
+    const r = await fetch("https://api.github.com/user", {
+      headers: { Accept: "application/vnd.github+json", Authorization: `Bearer ${authToken}` },
+    });
+    if (!r.ok) throw new Error(String(r.status));
+    $("userLogin").textContent = (await r.json()).login;
+    showAuthState("in");
+  } catch (e) {
+    setAuth(""); // dead token — back to sign-in
+    status.textContent = "that token didn't work — sign in again";
+    return;
+  }
+  refreshList();
+}
+
+$("signinBtn").addEventListener("click", async () => {
+  const token = $("tokenInput").value.trim();
+  if (!token) return;
+  $("authError").textContent = "";
+  $("signinBtn").disabled = true;
+  try {
+    const r = await fetch("https://api.github.com/user", {
+      headers: { Accept: "application/vnd.github+json", Authorization: `Bearer ${token}` },
+    });
+    if (!r.ok) throw new Error(r.status === 401 ? "GitHub rejected that token (401)" : `GitHub said ${r.status}`);
+    $("userLogin").textContent = (await r.json()).login;
+    $("tokenInput").value = "";
+    setAuth(token);
+    status.textContent = "signed in ✓";
+  } catch (e) {
+    $("authError").textContent = "Sign-in failed: " + e.message;
+  }
+  $("signinBtn").disabled = false;
+});
+
+$("signoutBtn").addEventListener("click", () => {
+  setAuth("");
+  status.textContent = "signed out";
+});
 
 restoreDraft();
 await onChange();
 publishBtn.disabled = false;
 status.textContent = "ready";
-refreshList();
+validateStoredToken();
