@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Write — Charles Lee</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@blocknote/core@0.54.2/src/fonts/inter.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@blocknote/mantine@0.54.2/src/style.css">
+<style>
+  :root {
+    --bg: #f5f1e8; --paper: #faf7f0; --ink: #1a1816;
+    --muted: #6b655c; --rule: #d9d2c3; --accent: #cc5429;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Charter", "Georgia", serif; font-size: 18px; }
+  .bar {
+    position: sticky; top: 0; z-index: 20;
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 20px; background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    font-family: "Inter", -apple-system, sans-serif; font-size: 13px;
+  }
+  .bar a.home { color: var(--muted); text-decoration: none; }
+  .bar a.home:hover { color: var(--accent); }
+  .bar .spacer { flex: 1; }
+  .bar .status { color: var(--muted); font-size: 12px; }
+  .btn {
+    font-family: inherit; font-size: 13px; font-weight: 600;
+    border: 1px solid var(--rule); border-radius: 8px;
+    background: var(--paper); color: var(--ink);
+    padding: 7px 14px; cursor: pointer;
+  }
+  .btn:hover { border-color: var(--accent); color: var(--accent); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn.primary:hover { filter: brightness(1.08); color: #fff; }
+  .btn:disabled { opacity: 0.5; cursor: default; }
+  .sheet { max-width: 720px; margin: 0 auto; padding: 48px 24px 120px; }
+  #title {
+    width: 100%; border: none; outline: none; resize: none; overflow: hidden;
+    background: transparent; color: var(--ink);
+    font-family: "Charter", "Georgia", serif;
+    font-size: clamp(32px, 5.5vw, 46px); font-weight: 700; line-height: 1.12;
+    padding: 0; margin: 0 0 8px;
+  }
+  #title::placeholder { color: #b9b0a1; }
+  #dek {
+    width: 100%; border: none; outline: none; resize: none; overflow: hidden;
+    background: transparent; color: var(--muted);
+    font-family: "Charter", "Georgia", serif; font-size: 20px; line-height: 1.45;
+    padding: 0; margin: 0 0 6px;
+  }
+  #dek::placeholder { color: #c6bdaD; }
+  .meta-row {
+    display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center;
+    font-family: "Inter", sans-serif; font-size: 12.5px; color: var(--muted);
+    padding: 14px 0; margin-bottom: 8px;
+    border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  }
+  .meta-row input {
+    font: inherit; color: var(--ink); background: transparent;
+    border: none; border-bottom: 1px dashed var(--rule); outline: none;
+    padding: 2px 4px; min-width: 0;
+  }
+  .meta-row input:focus { border-bottom-color: var(--accent); }
+  #editor { min-height: 50vh; cursor: text; }
+  #editor .bn-container { font-size: 18px; }
+  .drawer {
+    font-family: "Inter", sans-serif; font-size: 13px;
+    max-width: 720px; margin: 0 auto; padding: 0 24px 40px;
+  }
+  .drawer details { border: 1px solid var(--rule); border-radius: 10px; background: var(--paper); margin-bottom: 12px; }
+  .drawer summary { cursor: pointer; padding: 12px 16px; color: var(--muted); }
+  .drawer .body { padding: 0 16px 16px; }
+  .drawer label { display: block; margin: 10px 0 4px; color: var(--muted); font-size: 12px; }
+  .drawer input[type=text], .drawer input[type=password] {
+    width: 100%; font: inherit; padding: 8px 10px; color: var(--ink);
+    border: 1px solid var(--rule); border-radius: 8px; background: var(--bg);
+  }
+  .postlist { list-style: none; margin: 8px 0 0; padding: 0; }
+  .postlist li { display: flex; gap: 10px; align-items: baseline; padding: 7px 0; border-top: 1px solid var(--rule); }
+  .postlist button.link { background: none; border: none; padding: 0; cursor: pointer;
+    font: inherit; color: var(--ink); text-align: left; }
+  .postlist button.link:hover { color: var(--accent); }
+  .postlist .d { color: var(--muted); font-size: 12px; white-space: nowrap; }
+  #mdPreview { white-space: pre-wrap; font-size: 12px; background: var(--bg);
+    border: 1px solid var(--rule); border-radius: 8px; padding: 12px; max-height: 300px; overflow: auto; }
+  .hint { color: var(--muted); font-size: 12.5px; line-height: 1.6; }
+  .hint code { font-size: 12px; }
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.3.1",
+    "react-dom": "https://esm.sh/react-dom@18.3.1?external=react",
+    "react-dom/client": "https://esm.sh/react-dom@18.3.1/client?external=react",
+    "@blocknote/core": "https://esm.sh/@blocknote/core@0.54.2?external=react,react-dom",
+    "@blocknote/react": "https://esm.sh/@blocknote/react@0.54.2?external=react,react-dom,@blocknote/core",
+    "@blocknote/mantine": "https://esm.sh/@blocknote/mantine@0.54.2?external=react,react-dom,@blocknote/core,@blocknote/react"
+  }
+}
+</script>
+</head>
+<body>
+<div class="bar">
+  <a class="home" href="/">← site</a>
+  <button class="btn" id="newBtn" type="button">New</button>
+  <span class="status" id="status">loading editor…</span>
+  <span class="spacer"></span>
+  <span class="status" id="words"></span>
+  <button class="btn primary" id="publishBtn" type="button" disabled>Publish</button>
+</div>
+
+<div class="sheet">
+  <textarea id="title" rows="1" placeholder="Title"></textarea>
+  <textarea id="dek" rows="1" placeholder="A one-line summary for cards and RSS…"></textarea>
+  <div class="meta-row">
+    <label>Date <input id="date" type="text" size="10" value=""></label>
+    <label>Slug <input id="slug" type="text" size="28" placeholder="auto-from-title"></label>
+  </div>
+  <div id="editor"></div>
+</div>
+
+<div class="drawer">
+  <details open>
+    <summary>Posts &amp; settings</summary>
+    <div class="body">
+      <label>GitHub token (needs <code>contents:write</code> on this repo — stays in this browser)</label>
+      <input type="password" id="token" placeholder="ghp_… / github_pat_…">
+      <p class="hint">Owner / repo / branch default to this site. Publishing commits
+      <code>blog/posts/YYYY-MM-DD-slug.md</code> — a GitHub Action renders the
+      page, index, feed and sitemap within a minute or two.</p>
+      <label>Owner</label><input type="text" id="owner" value="chug2k">
+      <label>Repo</label><input type="text" id="repo" value="chug2k.github.io">
+      <label>Branch</label><input type="text" id="branch" value="main">
+      <label>Open an existing post</label>
+      <ul class="postlist" id="postlist"><li class="d">needs a token to list posts</li></ul>
+    </div>
+  </details>
+  <details>
+    <summary>Markdown preview</summary>
+    <div class="body"><pre id="mdPreview">(write something)</pre></div>
+  </details>
+</div>
+
+<script type="module">
+import React from "react";
+import { createRoot } from "react-dom/client";
+import { BlockNoteEditor } from "@blocknote/core";
+import { BlockNoteView } from "@blocknote/mantine";
+
+const $ = (id) => document.getElementById(id);
+const status = $("status"), wordsEl = $("words"), publishBtn = $("publishBtn");
+
+const enc = new TextEncoder(), dec = new TextDecoder();
+const b64encode = (s) => {
+  const b = enc.encode(s); let r = "";
+  for (let i = 0; i < b.length; i += 0x8000) r += String.fromCharCode(...b.subarray(i, i + 0x8000));
+  return btoa(r);
+};
+const b64decode = (s) => dec.decode(Uint8Array.from(atob(s.replace(/\s/g, "")), (c) => c.charCodeAt(0)));
+const today = () => new Date().toISOString().slice(0, 10);
+const slugify = (t) => t.toLowerCase().replace(/[^a-z0-9 ]/g, " ").trim().replace(/\s+/g, "-").slice(0, 60).replace(/-+$/, "");
+
+const editor = BlockNoteEditor.create({ initialContent: [{ type: "paragraph", content: "" }] });
+createRoot($("editor")).render(React.createElement(BlockNoteView, { editor, theme: "light", onChange }));
+
+let currentPath = null;   // blog/posts/<file>.md when editing an existing post
+let currentSha = null;
+let markdown = "";
+
+$("date").value = today();
+$("token").value = localStorage.getItem("bn.token") || "";
+for (const k of ["owner", "repo", "branch"]) {
+  const v = localStorage.getItem("bn." + k);
+  if (v) $(k).value = v;
+}
+
+function autogrow(el) {
+  el.style.height = "auto";
+  el.style.height = el.scrollHeight + "px";
+}
+for (const el of [$("title"), $("dek")]) {
+  el.addEventListener("input", () => { autogrow(el); saveDraft(); });
+  autogrow(el);
+}
+$("slug").addEventListener("input", saveDraft);
+$("date").addEventListener("input", saveDraft);
+for (const k of ["token", "owner", "repo", "branch"])
+  $(k).addEventListener("change", () => localStorage.setItem("bn." + k, $(k).value.trim()));
+
+async function onChange() {
+  markdown = await editor.blocksToMarkdownLossy(editor.document);
+  const words = markdown.split(/\s+/).filter(Boolean).length;
+  wordsEl.textContent = words ? words + " words" : "";
+  $("mdPreview").textContent = frontmatter() + markdown;
+  saveDraft();
+  status.textContent = "draft saved locally · " + new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+}
+
+function saveDraft() {
+  try {
+    localStorage.setItem("bn.draft", JSON.stringify({
+      title: $("title").value, dek: $("dek").value,
+      date: $("date").value, slug: $("slug").value,
+      blocks: editor.document, path: currentPath, sha: currentSha,
+    }));
+  } catch (e) {}
+}
+
+function restoreDraft() {
+  try {
+    const d = JSON.parse(localStorage.getItem("bn.draft") || "null");
+    if (!d) return false;
+    $("title").value = d.title || ""; $("dek").value = d.dek || "";
+    $("date").value = d.date || today(); $("slug").value = d.slug || "";
+    currentPath = d.path || null; currentSha = d.sha || null;
+    if (d.blocks && d.blocks.length) editor.replaceBlocks(editor.document, d.blocks);
+    for (const el of [$("title"), $("dek")]) autogrow(el);
+    return true;
+  } catch (e) { return false; }
+}
+
+function frontmatter() {
+  const title = $("title").value.trim() || "Untitled";
+  const date = $("date").value.trim() || today();
+  const slug = $("slug").value.trim() || slugify(title);
+  return `---\ntitle: ${title}\ndescription: ${$("dek").value.trim()}\ndate: ${date}\n---\n\n`;
+}
+const filename = () => {
+  const date = $("date").value.trim() || today();
+  const slug = $("slug").value.trim() || slugify($("title").value.trim() || "untitled");
+  return `${date}-${slug}.md`;
+};
+
+const api = (path, opts = {}) => {
+  const [owner, repo] = [$("owner").value.trim(), $("repo").value.trim()];
+  return fetch(`https://api.github.com/repos/${owner}/${repo}${path}`, {
+    ...opts,
+    headers: {
+      Accept: "application/vnd.github+json",
+      Authorization: `Bearer ${$("token").value.trim()}`,
+      "Content-Type": "application/json",
+      ...(opts.headers || {}),
+    },
+  });
+};
+
+async function refreshList() {
+  const list = $("postlist");
+  if (!$("token").value.trim()) { list.innerHTML = "<li class='d'>needs a token to list posts</li>"; return; }
+  const branch = $("branch").value.trim() || "main";
+  const r = await api(`/contents/blog/posts?ref=${encodeURIComponent(branch)}`);
+  if (!r.ok) { list.innerHTML = `<li class='d'>couldn't list posts (${r.status})</li>`; return; }
+  const files = (await r.json()).filter((f) => f.name.endsWith(".md")).reverse();
+  list.innerHTML = "";
+  if (!files.length) list.innerHTML = "<li class='d'>no posts yet</li>";
+  for (const f of files) {
+    const li = document.createElement("li");
+    const b = document.createElement("button");
+    b.className = "link"; b.type = "button"; b.textContent = f.name.replace(/\.md$/, "");
+    b.addEventListener("click", () => openPost(f.path));
+    const d = document.createElement("span"); d.className = "d";
+    d.textContent = (f.name.match(/^\d{4}-\d{2}-\d{2}/) || [""])[0];
+    li.append(b, d); list.append(li);
+  }
+}
+
+function splitFrontmatter(text) {
+  const meta = {};
+  let body = text;
+  if (text.startsWith("---")) {
+    const end = text.indexOf("---", 3);
+    if (end !== -1) {
+      for (const line of text.slice(3, end).trim().split("\n")) {
+        const i = line.indexOf(":");
+        if (i !== -1) meta[line.slice(0, i).trim().toLowerCase()] = line.slice(i + 1).trim();
+      }
+      body = text.slice(end + 3).replace(/^\n+/, "");
+    }
+  }
+  return [meta, body];
+}
+
+async function openPost(path) {
+  status.textContent = "loading…";
+  const r = await api(`/contents/${path}?ref=${encodeURIComponent($("branch").value.trim() || "main")}`);
+  if (!r.ok) { status.textContent = `load failed (${r.status})`; return; }
+  const data = await r.json();
+  const [meta, body] = splitFrontmatter(b64decode(data.content));
+  const m = path.match(/blog\/posts\/(\d{4}-\d{2}-\d{2})-(.+)\.md$/);
+  $("title").value = meta.title || "";
+  $("dek").value = meta.description || "";
+  $("date").value = meta.date || (m ? m[1] : today());
+  $("slug").value = (m ? m[2] : "");
+  currentPath = path; currentSha = data.sha;
+  try {
+    const blocks = await editor.tryParseMarkdownToBlocks(body);
+    editor.replaceBlocks(editor.document, blocks.length ? blocks : [{ type: "paragraph", content: "" }]);
+  } catch (e) {
+    editor.replaceBlocks(editor.document, [{ type: "paragraph", content: "Couldn't parse post body — see Markdown preview." }]);
+  }
+  for (const el of [$("title"), $("dek")]) autogrow(el);
+  await onChange();
+  status.textContent = "editing " + path.split("/").pop();
+  window.scrollTo({ top: 0 });
+}
+
+$("newBtn").addEventListener("click", () => {
+  $("title").value = ""; $("dek").value = "";
+  $("date").value = today(); $("slug").value = "";
+  currentPath = null; currentSha = null;
+  editor.replaceBlocks(editor.document, [{ type: "paragraph", content: "" }]);
+  onChange();
+  $("title").focus();
+});
+
+publishBtn.addEventListener("click", async () => {
+  const title = $("title").value.trim();
+  if (!title || !editor.document.length) { status.textContent = "needs a title and some words first"; return; }
+  if (!$("token").value.trim()) { status.textContent = "add a GitHub token below first"; return; }
+  publishBtn.disabled = true;
+  status.textContent = "publishing…";
+  try {
+    const branch = $("branch").value.trim() || "main";
+    const md = frontmatter() + (await editor.blocksToMarkdownLossy(editor.document)).trim() + "\n";
+    let path = currentPath || `blog/posts/${filename()}`;
+    let sha = currentSha;
+    if (!sha) {
+      const check = await api(`/contents/${path}?ref=${encodeURIComponent(branch)}`);
+      if (check.ok) sha = (await check.json()).sha;
+    }
+    const r = await api(`/contents/${path}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        message: `${sha ? "Edit" : "New"} post: ${title}`, content: b64encode(md), branch, ...(sha ? { sha } : {}),
+      }),
+    });
+    if (!r.ok) throw new Error(`GitHub said ${r.status}: ${(await r.text()).slice(0, 200)}`);
+    // Renamed file? delete the old one.
+    if (currentPath && currentPath !== path) {
+      await api(`/contents/${currentPath}`, {
+        method: "DELETE",
+        body: JSON.stringify({ message: `Rename post to ${path}`, sha: currentSha, branch }),
+      });
+    }
+    currentPath = path;
+    currentSha = (await r.json()).content.sha;
+    localStorage.removeItem("bn.draft");
+    status.textContent = "published — live in a minute or two ✓";
+    refreshList();
+  } catch (e) {
+    status.textContent = "publish failed: " + e.message;
+  }
+  publishBtn.disabled = false;
+});
+
+$("token").addEventListener("change", refreshList);
+$("editor").addEventListener("click", () => editor.focus());
+
+restoreDraft();
+await onChange();
+publishBtn.disabled = false;
+status.textContent = "ready";
+refreshList();
+</script>
+</body>
+</html>

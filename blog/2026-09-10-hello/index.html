@@ -25,19 +25,20 @@
   <div style="text-align:right;margin:-48px 0 32px"><button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">☾ Dark</button></div>
   <div class="eyebrow">Notebook</div>
   <h1>Hello, notebook</h1>
-  <div class="post-meta">September 10, 2026 · 2 min</div>
+  <div class="post-meta">September 10, 2026 · 1 min</div>
   <main id="main" class="prose">
     <p>The long essays on this site take weeks. This notebook is for everything else: small observations, build notes, things I changed my mind about.</p>
-    <h2>What goes here</h2>
+    <h3>What goes here</h3>
     <ul>
       <li><strong>Build notes</strong> — what shipped today, what broke, what I learned.</li>
       <li><strong>Reading marginalia</strong> — a paragraph on something worth your time.</li>
       <li><strong>Corrections</strong> — when an old page turns out wrong, the fix lands here first.</li>
     </ul>
-    <h2>How posts get made</h2>
-    <p>One command scaffolds everything — page, index entry, feed item:</p>
-    <pre><code>./_scripts/new-post.sh "A working title"</code></pre>
-    <blockquote>Edit the generated HTML, run the sitemap builder, commit on a branch, open a PR. No build step, no bundler.</blockquote>
+    <h3>How posts get made</h3>
+    <p>Write Markdown in <code>blog/posts/</code>, then build:</p>
+    <pre><code>./_scripts/new-post.sh &quot;A working title&quot;  # scaffold
+python3 _scripts/build-blog.py            # render</code></pre>
+    <blockquote><p>Edit the <code>.md</code>, rebuild, commit on a branch, open a PR. No bundler, no CMS.</p></blockquote>
     <p>If you're reading this in RSS: welcome. The feed is at <a href="/feed.xml">/feed.xml</a> and it's hand-rolled, on purpose.</p>
   </main>
   <footer>
