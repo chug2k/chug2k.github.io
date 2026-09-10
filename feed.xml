@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<title>Charles Lee — notebook</title>
+<link>https://clpanic.com/blog/</link>
+<description>Short, dated posts on what I'm building, reading, and changing my mind about.</description>
+<language>en</language>
+<atom:link href="https://clpanic.com/feed.xml" rel="self" type="application/rss+xml"/>
+<item>
+<title>Hello, notebook</title>
+<link>https://clpanic.com/blog/2026-09-10-hello/</link>
+<guid>https://clpanic.com/blog/2026-09-10-hello/</guid>
+<pubDate>Thu, 10 Sep 2026 00:00:00 +0000</pubDate>
+<description>Why this blog exists, what goes here vs. the long-form essays, and how new posts get made.</description>
+</item>
+</channel>
+</rss>

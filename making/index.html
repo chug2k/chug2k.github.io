@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Things I've been making — chug2k</title>
 <meta name="description" content="A workshop, not a portfolio. Everything I've been building — apps you can use, pickleball reimagined as games, and a daily heartbeat of tiny tools. Some shipped, some still on the bench.">
+<link rel="canonical" href="https://clpanic.com/making/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Charles Lee">
+<meta property="og:title" content="Things I've been making — chug2k">
+<meta property="og:description" content="A workshop, not a portfolio. Apps, games, and a daily heartbeat of tiny tools.">
+<meta property="og:url" content="https://clpanic.com/making/">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="Charles Lee — blog" href="/feed.xml">
+<script src="/assets/site.js" defer></script>
 <style>
 :root {
   --bg: #f5f1e8;
@@ -217,6 +227,46 @@ h1 {
 .hidden { display: none !important; }
 .empty-note { font-family: "Inter", sans-serif; font-size: 14px; color: var(--muted); padding: 8px 0; }
 
+/* ---- Dark mode (shared palette) ---- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #161411;
+    --paper: #1f1c18;
+    --ink: #ece6d9;
+    --muted: #a89e90;
+    --rule: #38322a;
+    --accent: #e8703f;
+    --accent-soft: #3a2418;
+  }
+}
+[data-theme="dark"] {
+  --bg: #161411;
+  --paper: #1f1c18;
+  --ink: #ece6d9;
+  --muted: #a89e90;
+  --rule: #38322a;
+  --accent: #e8703f;
+  --accent-soft: #3a2418;
+}
+[data-theme="light"] {
+  --bg: #f5f1e8;
+  --paper: #faf7f0;
+  --ink: #1a1816;
+  --muted: #6b655c;
+  --rule: #d9d2c3;
+  --accent: #cc5429;
+}
+.toprow { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 32px; }
+.toprow .back { margin-bottom: 0; }
+.theme-toggle {
+  font-family: "Inter", sans-serif; font-size: 12.5px;
+  background: var(--paper); color: var(--muted);
+  border: 1px solid var(--rule); border-radius: 999px;
+  padding: 5px 12px; cursor: pointer;
+}
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
 footer {
   margin-top: 80px;
   padding-top: 24px;
@@ -230,7 +280,10 @@ footer a { color: var(--accent); }
 </head>
 <body>
 <div class="wrap">
+  <div class="toprow">
   <a class="back" href="/">← chug2k</a>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">☾ Dark</button>
+  </div>
   <div class="eyebrow">The workshop</div>
   <h1>Things I've been making</h1>
   <p class="lede">A workshop, not a portfolio. Apps you can actually use, pickleball reimagined as four different games, and a daily habit of building one tiny tool every single day.</p>
@@ -365,7 +418,7 @@ footer a { color: var(--accent); }
   </div>
 
   <footer>
-    Built with Claude Code. There's more on the <a href="/">home page</a> — the writing, the video summaries, and the guides.
+    Built with Claude Code. There's more on the <a href="/">home page</a> — the writing, the video summaries, and the guides. New: <a href="/blog/">the notebook</a> + <a href="/feed.xml">RSS</a>.
   </footer>
 </div>
 
