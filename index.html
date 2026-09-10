@@ -3,106 +3,52 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Charles Lee</title>
+<title>Charles Lee — small things, written up</title>
 <meta name="description" content="Essays and guides, apps and games you can actually use, and distilled notes from the talks I'd rather not watch twice. A workshop and a notebook in one place.">
-<style>
-:root {
-  --bg: #f5f1e8;
-  --paper: #faf7f0;
-  --ink: #1a1816;
-  --muted: #6b655c;
-  --rule: #d9d2c3;
-  --accent: #cc5429;
-}
-* { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
-body {
-  margin: 0;
-  font-family: "Charter", "Georgia", serif;
-  font-size: 18px;
-  line-height: 1.55;
-  color: var(--ink);
-  background: var(--bg);
-}
-.wrap { max-width: 740px; margin: 0 auto; padding: 64px 24px 96px; }
-.eyebrow {
-  font-family: "Inter", sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 18px;
-}
-h1 {
-  font-family: "Inter", sans-serif;
-  font-size: 44px;
-  line-height: 1.1;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin: 0 0 18px;
-}
-.lede { font-size: 19px; color: var(--muted); margin: 0; max-width: 620px; }
-
-/* ---- Section headings ---- */
-.section-h {
-  font-family: "Inter", sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin: 56px 0 6px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--rule);
-}
-.section-h .note {
-  float: right;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  text-transform: none;
-  color: var(--muted);
-}
-
-/* ---- Cards ---- */
-.section-card {
-  background: var(--paper);
-  border: 1px solid var(--rule);
-  border-radius: 10px;
-  padding: 20px 26px;
-  margin: 14px 0;
-  text-decoration: none;
-  color: var(--ink);
-  display: block;
-  transition: border-color 0.12s ease;
-}
-.section-card h2 {
-  font-family: "Inter", sans-serif;
-  font-size: 19px;
-  margin: 0 0 7px;
-}
-.section-card p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.5; }
-.section-card:hover { border-color: var(--accent); }
-
-footer {
-  margin-top: 80px;
-  padding-top: 24px;
-  border-top: 1px solid var(--rule);
-  font-family: "Inter", sans-serif;
-  font-size: 13px;
-  color: var(--muted);
-}
-footer a { color: var(--accent); }
-</style>
+<link rel="canonical" href="https://clpanic.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Charles Lee">
+<meta property="og:title" content="Charles Lee — small things, written up">
+<meta property="og:description" content="Essays and guides, apps and games you can actually use, and distilled notes from talks I'd rather not sit through twice.">
+<meta property="og:url" content="https://clpanic.com/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Charles Lee — small things, written up">
+<meta name="twitter:description" content="Essays and guides, apps and games you can actually use, and distilled video notes.">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="Charles Lee — blog" href="/feed.xml">
+<link rel="stylesheet" href="/assets/site.css">
+<script src="/assets/site.js" defer></script>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <div class="wrap">
-  <div class="eyebrow">chug2k.github.io</div>
+  <div class="topbar">
+    <a class="home" href="/">chug2k</a>
+    <nav aria-label="Sections">
+      <a href="#writing">Writing</a>
+      <a href="#making">Making</a>
+      <a href="/blog/">Blog</a>
+      <a href="#guides">Guides</a>
+      <a href="/v/">Videos</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">☾ Dark</button>
+  </div>
+
+  <div class="eyebrow">clpanic.com</div>
   <h1>Charles Lee</h1>
   <p class="lede">I make small things and write them up — essays and guides, apps and games you can actually use, and distilled notes from the talks I'd rather not sit through twice.</p>
 
+  <main id="main">
+  <!-- ===== BLOG ===== -->
+  <div class="section-h" id="blog">Notebook <span class="note"><a href="/blog/" style="color:inherit">all posts →</a></span></div>
+
+  <a class="section-card" href="/blog/">
+    <h2>The notebook →</h2>
+    <p>Short, dated posts — what I'm building, reading, and changing my mind about. With <a href="/feed.xml" style="color:inherit">RSS</a> for the old-school.</p>
+  </a>
+
   <!-- ===== WRITING ===== -->
-  <div class="section-h">Writing</div>
+  <div class="section-h" id="writing">Writing</div>
 
   <a class="section-card" href="/unhurried-guide/">
     <h2>The Unhurried Guide to Pickleball →</h2>
@@ -135,7 +81,7 @@ footer a { color: var(--accent); }
   </a>
 
   <!-- ===== MAKING ===== -->
-  <div class="section-h">Making</div>
+  <div class="section-h" id="making">Making</div>
 
   <a class="section-card" href="/making/">
     <h2>Things I've been making →</h2>
@@ -159,7 +105,7 @@ footer a { color: var(--accent); }
   </a>
 
   <!-- ===== GUIDES & REFERENCE ===== -->
-  <div class="section-h">Guides &amp; reference</div>
+  <div class="section-h" id="guides">Guides &amp; reference</div>
 
   <a class="section-card" href="/paddle-buying-guide-2026/">
     <h2>2026 Power-Foam Paddle Buying Guide →</h2>
@@ -170,8 +116,12 @@ footer a { color: var(--accent); }
     <h2>User guide to Charles Lee →</h2>
     <p>A brutally honest personal operating manual — how I work, what I'm bad at, and how to get the best out of working with me. The manual that should come in the box.</p>
   </a>
+  </main>
 
   <footer>
+    <div class="foot-nav">
+      <a href="/blog/">Blog</a><a href="/feed.xml">RSS</a><a href="/making/">Making</a><a href="/v/">Videos</a><a href="/user-guide/">About</a>
+    </div>
     Built with Claude Code. Source at <a href="https://github.com/chug2k/chug2k.github.io">github.com/chug2k/chug2k.github.io</a>.
   </footer>
 </div>
