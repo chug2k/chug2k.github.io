@@ -246,6 +246,8 @@ def main() -> int:
 
     # index
     parts = [INDEX_HEAD]
+    if not posts:
+        parts.append('  <p class="lede" style="margin-top:24px">Nothing here yet. Check back soon.</p>\n')
     year = None
     for post in posts:
         y = post["date"][:4]
