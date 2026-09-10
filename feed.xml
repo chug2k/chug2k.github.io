@@ -6,12 +6,6 @@
 <description>Short, dated posts on what I'm building, reading, and changing my mind about.</description>
 <language>en</language>
 <atom:link href="https://clpanic.com/feed.xml" rel="self" type="application/rss+xml"/>
-<item>
-<title>Hello, notebook</title>
-<link>https://clpanic.com/blog/2026-09-10-hello/</link>
-<guid>https://clpanic.com/blog/2026-09-10-hello/</guid>
-<pubDate>Thu, 10 Sep 2026 09:00:00 +0000</pubDate>
-<description>Short posts, published fast, edited never. What this is and what it isn&#x27;t.</description>
-</item>
+
 </channel>
 </rss>
