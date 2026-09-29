@@ -16,11 +16,11 @@ Saigon humidity is rude. You come back from pickleball or a rainy commute and yo
 
 Out of the box it did one thing extremely well: cook shoes.
 
-Even with only one heater element running, it got too hot. Shoe glue. EVA / PEBA midsoles. The adhesives that hold a pair of Barricades together. I learned that the expensive way. Ruined a pair. Not "a little crispy." Ruined.
+There was no switch for "just one heater." The UI doesn't offer that. Shoe glue. EVA / PEBA midsoles. The adhesives that hold a pair of Barricades together. I learned that the expensive way. Ruined a pair. Not "a little crispy." Ruined.
 
-Gemini later told me the heaters are PTC ceramic with bimetal thermal switches, probably hanging out around 65–85°C inside the housing — which is fine if you're drying towels and catastrophic if you're drying modern running shoes. Cool. Great product design. Perfect.
+So I opened the damn thing — which I never would have done without an AI safety blanket walking me through 220V death notes and "don't short those leads" — and discovered there were actually *two* heater elements inside. Gemini later told me they're PTC ceramic with bimetal thermal switches, probably hanging out around 65–85°C in the housing — fine for towels, catastrophic for modern running shoes. Cool. Great product design. Perfect.
 
-So I did the 1337 thing. I opened the cabinet and disconnected both heaters. Wiring cut. Problem solved. No more melting.
+I disconnected one first. Still cooked. Then I cut both. Wiring freed from service. Problem solved. No more melting.
 
 Also: no more drying.
 

@@ -25,7 +25,7 @@
   <div style="text-align:right;margin:-48px 0 32px"><button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">☾ Dark</button></div>
   <div class="eyebrow">Notebook</div>
   <h1>I rewired a shoe dryer with Gemini and almost got yelled at by physics</h1>
-  <div class="post-meta">September 29, 2026 · 9 min</div>
+  <div class="post-meta">September 29, 2026 · 10 min</div>
   <main id="main" class="prose">
     <p>Being married to an engineer can be tough sometimes — especially if he sweats through his shoes, soaking wet, every time he plays pickleball. Sometimes through two pairs.</p>
     <p>This one started with an SD-68 / FujiHome shoe dryer that sux, and somehow turned into the coolest and fucking craziest thing I've ever done.</p>
@@ -33,9 +33,9 @@
     <h3>Chapter 1: The dryer that melts shoes</h3>
     <p>Saigon humidity is rude. You come back from pickleball or a rainy commute and your shoes are a wet crime scene. So I bought one of those upright shoe dryers — the SD-68 — the kind with nozzles that shove air up into each shoe, a little cabinet, timers, even an ozone button for people who think ozone is a personality.</p>
     <p>Out of the box it did one thing extremely well: cook shoes.</p>
-    <p>Even with only one heater element running, it got too hot. Shoe glue. EVA / PEBA midsoles. The adhesives that hold a pair of Barricades together. I learned that the expensive way. Ruined a pair. Not "a little crispy." Ruined.</p>
-    <p>Gemini later told me the heaters are PTC ceramic with bimetal thermal switches, probably hanging out around 65–85°C inside the housing — which is fine if you're drying towels and catastrophic if you're drying modern running shoes. Cool. Great product design. Perfect.</p>
-    <p>So I did the 1337 thing. I opened the cabinet and disconnected both heaters. Wiring cut. Problem solved. No more melting.</p>
+    <p>There was no switch for "just one heater." The UI doesn't offer that. Shoe glue. EVA / PEBA midsoles. The adhesives that hold a pair of Barricades together. I learned that the expensive way. Ruined a pair. Not "a little crispy." Ruined.</p>
+    <p>So I opened the damn thing — which I never would have done without an AI safety blanket walking me through 220V death notes and "don't short those leads" — and discovered there were actually <em>two</em> heater elements inside. Gemini later told me they're PTC ceramic with bimetal thermal switches, probably hanging out around 65–85°C in the housing — fine for towels, catastrophic for modern running shoes. Cool. Great product design. Perfect.</p>
+    <p>I disconnected one first. Still cooked. Then I cut both. Wiring freed from service. Problem solved. No more melting.</p>
     <p>Also: no more drying.</p>
     <p><img src="/blog/assets/shoe-dryer/01-internals-wiring-fans.jpg" alt="Opened cabinet — stock blowers, heater wires freed from service" loading="lazy"></p>
     <h3>Chapter 2: The fans are weak as shit</h3>
