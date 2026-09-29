@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1220">
+<title>Sunday Soft Hands — Crazy Diamond</title>
+<style>
+  :root {
+    --bg: #0b1220;
+    --bg2: #111a2e;
+    --card: #162033;
+    --card2: #1a2740;
+    --line: #2a3a5c;
+    --text: #e8eef8;
+    --muted: #9aabbf;
+    --accent: #3ddc97;
+    --accent2: #5b8cff;
+    --warn: #ffb020;
+    --kiwi: #3ddc97;
+    --jason: #5b8cff;
+    --charles: #ffb020;
+    --nvz: rgba(61, 220, 151, 0.18);
+    --court: #1e3a5f;
+    --court-line: #c5d4e8;
+    --safe-top: env(safe-area-inset-top, 0px);
+    --nav-h: 52px;
+    --radius: 14px;
+    --shadow: 0 8px 28px rgba(0,0,0,.35);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + var(--safe-top) + 12px); }
+  body {
+    margin: 0;
+    background: radial-gradient(1200px 600px at 10% -10%, #1a2d52 0%, transparent 50%),
+                radial-gradient(900px 500px at 100% 0%, #123528 0%, transparent 45%),
+                var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--accent2); }
+  a:hover { color: var(--accent); }
+
+  /* Sticky nav */
+  .topnav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: calc(8px + var(--safe-top)) 10px 8px;
+    background: rgba(11, 18, 32, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    scrollbar-width: none;
+  }
+  .topnav::-webkit-scrollbar { display: none; }
+  .topnav a {
+    flex: 0 0 auto;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+  .topnav a:hover, .topnav a:focus {
+    color: var(--text);
+    background: var(--card);
+    border-color: var(--line);
+  }
+
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 20px 16px 64px;
+  }
+
+  /* Hero */
+  .hero {
+    position: relative;
+    padding: 28px 22px 24px;
+    border-radius: calc(var(--radius) + 4px);
+    background: linear-gradient(145deg, #1a2a48 0%, #122036 55%, #0f2a22 100%);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    margin-bottom: 22px;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: -40% auto auto -20%;
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(61,220,151,.22), transparent 70%);
+    pointer-events: none;
+  }
+  .eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(61,220,151,.12);
+    border: 1px solid rgba(61,220,151,.35);
+    padding: 5px 10px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+  }
+  h1 {
+    margin: 0 0 8px;
+    font-size: clamp(1.55rem, 5.5vw, 2rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  .subtitle {
+    margin: 0 0 16px;
+    color: var(--muted);
+    font-size: 0.98rem;
+  }
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    background: rgba(255,255,255,.06);
+    border: 1px solid var(--line);
+    padding: 6px 10px;
+    border-radius: 999px;
+  }
+  .chip .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+  .dot-c { background: var(--charles); }
+  .dot-k { background: var(--kiwi); }
+  .dot-j { background: var(--jason); }
+
+  /* Sections */
+  section {
+    margin-bottom: 28px;
+    scroll-margin-top: calc(var(--nav-h) + var(--safe-top) + 12px);
+  }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    letter-spacing: -0.01em;
+  }
+  .section-note {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  /* Cards */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.2);
+  }
+  .card h3 {
+    margin: 0 0 6px;
+    font-size: 1.02rem;
+  }
+  .card p { margin: 0 0 10px; color: var(--muted); }
+  .card p:last-child { margin-bottom: 0; }
+
+  /* Timeline */
+  .timeline { display: flex; flex-direction: column; gap: 10px; }
+  .block {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 12px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .block::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--accent);
+  }
+  .block.warm::before { background: #7dd3a0; }
+  .block.split::before { background: linear-gradient(var(--kiwi), var(--jason)); }
+  .block.soft::before { background: var(--accent2); }
+  .block.break::before { background: var(--warn); }
+  .block.game::before { background: #ff6b6b; }
+  .block.scrim::before { background: #c084fc; }
+  .clock {
+    font-variant-numeric: tabular-nums;
+    font-weight: 800;
+    font-size: 13px;
+    color: var(--accent);
+    line-height: 1.3;
+  }
+  .clock small {
+    display: block;
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 11px;
+  }
+  .block-body h3 {
+    margin: 0 0 4px;
+    font-size: 0.98rem;
+  }
+  .block-body p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .tag {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.06);
+    border: 1px solid var(--line);
+    color: var(--text);
+  }
+  .tag.k { border-color: rgba(61,220,151,.45); color: var(--kiwi); }
+  .tag.j { border-color: rgba(91,140,255,.45); color: var(--jason); }
+  .tag.c { border-color: rgba(255,176,32,.45); color: var(--charles); }
+
+  /* Player cards */
+  .player {
+    border-left: 4px solid var(--line);
+  }
+  .player.kiwi { border-left-color: var(--kiwi); }
+  .player.jason { border-left-color: var(--jason); }
+  .player.charles { border-left-color: var(--charles); }
+  .player-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .avatar {
+    width: 42px; height: 42px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    font-size: 14px;
+    color: #0b1220;
+  }
+  .avatar.k { background: var(--kiwi); }
+  .avatar.j { background: var(--jason); }
+  .avatar.c { background: var(--charles); }
+  .player-top h3 { margin: 0; }
+  .role {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .list {
+    margin: 0;
+    padding-left: 18px;
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+  .list li { margin-bottom: 4px; }
+  .list strong { color: var(--text); }
+
+  /* Cue callouts */
+  .cue {
+    margin-top: 12px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: rgba(61,220,151,.08);
+    border: 1px dashed rgba(61,220,151,.45);
+  }
+  .cue.jason-cue {
+    background: rgba(91,140,255,.08);
+    border-color: rgba(91,140,255,.45);
+  }
+  .cue.shared {
+    background: rgba(255,176,32,.08);
+    border-color: rgba(255,176,32,.4);
+  }
+  .cue-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .cue.jason-cue .cue-label { color: var(--jason); }
+  .cue.shared .cue-label { color: var(--charles); }
+  .cue-text {
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .cue p.hint {
+    margin: 6px 0 0;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  /* Drill cards */
+  .drill-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 8px 0 10px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .drill-meta span {
+    background: var(--bg2);
+    border: 1px solid var(--line);
+    padding: 4px 8px;
+    border-radius: 8px;
+  }
+  .steps {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 0.92rem;
+    color: var(--muted);
+  }
+  .steps li { margin-bottom: 6px; }
+  .steps strong { color: var(--text); }
+
+  /* Diagrams */
+  .diagram {
+    background: var(--bg2);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px;
+    margin-top: 12px;
+  }
+  .diagram figcaption {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+  }
+  .diagram svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+  }
+  .legend i {
+    display: inline-block;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    margin-right: 4px;
+    vertical-align: -1px;
+  }
+
+  /* Watch */
+  .watch-list { display: flex; flex-direction: column; gap: 10px; }
+  .watch-item {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 12px;
+    align-items: start;
+    text-decoration: none;
+    color: inherit;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 14px;
+    transition: border-color .15s, transform .15s;
+  }
+  .watch-item:hover {
+    border-color: var(--accent2);
+    transform: translateY(-1px);
+  }
+  .watch-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: rgba(91,140,255,.15);
+    border: 1px solid rgba(91,140,255,.35);
+    display: grid;
+    place-items: center;
+    font-size: 18px;
+  }
+  .watch-item h3 {
+    margin: 0 0 2px;
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+  .watch-item p {
+    margin: 0;
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+  .watch-maps {
+    display: inline-block;
+    margin-top: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  /* Theme box */
+  .theme {
+    background: linear-gradient(135deg, rgba(61,220,151,.1), rgba(91,140,255,.1));
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 22px;
+  }
+  .theme h2 { margin-bottom: 8px; }
+  .theme p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+  .footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    padding: 24px 8px 8px;
+    border-top: 1px solid var(--line);
+    margin-top: 12px;
+  }
+
+  /* Print */
+  @media print {
+    :root { --bg: #fff; --bg2: #f5f7fb; --card: #fff; --card2: #fff; --text: #111; --muted: #444; --line: #ccc; }
+    body { background: #fff; color: #111; font-size: 11pt; }
+    .topnav { display: none !important; }
+    .wrap { max-width: 100%; padding: 0; }
+    .hero, .card, .block, .theme, .watch-item, .diagram {
+      box-shadow: none !important;
+      break-inside: avoid;
+      border-color: #bbb;
+      background: #fff;
+    }
+    a { color: #111; text-decoration: underline; }
+    .cue { border-style: solid; }
+    h1 { font-size: 18pt; }
+    section { page-break-inside: avoid; }
+    .diagram svg { max-height: 260px; }
+  }
+
+  @media (min-width: 640px) {
+    .player-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .player-grid .charles-span { grid-column: 1 / -1; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav" aria-label="Section navigation">
+  <a href="#timeline">Timeline</a>
+  <a href="#kiwi">Kiwi</a>
+  <a href="#jason">Jason</a>
+  <a href="#drills">Drills</a>
+  <a href="#diagrams">Diagrams</a>
+  <a href="#watch">Watch</a>
+</nav>
+
+<div class="wrap">
+
+  <header class="hero">
+    <span class="eyebrow">Asia/Ho_Chi_Minh · ~2 hours</span>
+    <h1>Sunday Soft Hands — Crazy Diamond</h1>
+    <p class="subtitle">Soft hands + get to the kitchen. Charles feeds &amp; coaches. Consistency before cleverness.</p>
+    <div class="meta-row">
+      <span class="chip"><span class="dot dot-c"></span> Charles — coach</span>
+      <span class="chip"><span class="dot dot-k"></span> Kiwi</span>
+      <span class="chip"><span class="dot dot-j"></span> Jason</span>
+      <span class="chip">3 on court · no touch OK</span>
+    </div>
+  </header>
+
+  <div class="theme">
+    <h2>Session theme</h2>
+    <p>
+      Reset progression → kitchen soft game → constrained scoring → mini scrimmage.
+      Not endless 2v1. Paired drills with Charles feeding, then rules that force soft hands.
+      Both players: no touch is normal at this level — don't chase it today.
+    </p>
+  </div>
+
+  <!-- TIMELINE -->
+  <section id="timeline">
+    <div class="section-head">
+      <h2>Timeline</h2>
+      <span class="section-note">~120 min</span>
+    </div>
+    <div class="timeline">
+
+      <article class="block warm">
+        <div class="clock">0–10<small>10 min</small></div>
+        <div class="block-body">
+          <h3>Warmup</h3>
+          <p>Easy feeds, shadow paddle prep, light kitchen catch/dink. Body loose, minds quiet.</p>
+          <div class="tags"><span class="tag c">Charles feeds</span><span class="tag">All</span></div>
+        </div>
+      </article>
+
+      <article class="block split">
+        <div class="clock">10–35<small>25 min</small></div>
+        <div class="block-body">
+          <h3>Split stations</h3>
+          <p>Charles feeds; rotate ~every 6–7 min so both get volume.</p>
+          <div class="tags">
+            <span class="tag k">Kiwi: high-ball freeze</span>
+            <span class="tag j">Jason: early contact</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="block soft">
+        <div class="clock">35–55<small>20 min</small></div>
+        <div class="block-body">
+          <h3>Soft game: resets + kitchen dinks</h3>
+          <p>Paired reset progression, then kitchen soft exchanges. Stay-alive focus.</p>
+          <div class="tags"><span class="tag">Resets</span><span class="tag">Dinks</span></div>
+        </div>
+      </article>
+
+      <article class="block break">
+        <div class="clock">55–65<small>10 min</small></div>
+        <div class="block-body">
+          <h3>Water + ONE cue each</h3>
+          <p>Kiwi: <strong style="color:var(--kiwi)">“paddle up early”</strong> · Jason: <strong style="color:var(--jason)">“hit it before it falls”</strong>. No mid-tilt coaching later.</p>
+        </div>
+      </article>
+
+      <article class="block game">
+        <div class="clock">65–100<small>35 min</small></div>
+        <div class="block-body">
+          <h3>Constrained games</h3>
+          <p>Kiwi: no speed-ups. Jason: late drive = lose the point. Soft wins.</p>
+          <div class="tags"><span class="tag k">No speed-ups</span><span class="tag j">Late drive = lose</span></div>
+        </div>
+      </article>
+
+      <article class="block scrim">
+        <div class="clock">100–120<small>20 min</small></div>
+        <div class="block-body">
+          <h3>Mini scrimmage</h3>
+          <p>Rule: first 2 shots after serve must be drop or reset. Then play free within soft theme.</p>
+          <div class="tags"><span class="tag">Drop / reset first 2</span></div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- PLAYERS -->
+  <section id="players">
+    <div class="section-head">
+      <h2>On court</h2>
+      <span class="section-note">3 people</span>
+    </div>
+    <div class="player-grid">
+
+      <article class="card player kiwi" id="kiwi">
+        <div class="player-top">
+          <div class="avatar k">K</div>
+          <div>
+            <h3>Kiwi</h3>
+            <div class="role">Athletic · chaotic · inconsistent</div>
+          </div>
+        </div>
+        <ul class="list">
+          <li>Loses composure; wild shots under tilt</li>
+          <li>Cannot hit an overhead (just realized) — freeze instead</li>
+          <li><strong>Needs:</strong> high-ball freeze (paddle early, no swing)</li>
+          <li><strong>“Only soft”</strong> constraints; consistency before cleverness</li>
+          <li><strong>Don't coach mid-tilt</strong> — wait for the water break cue</li>
+        </ul>
+        <div class="cue">
+          <div class="cue-label">Primary cue</div>
+          <p class="cue-text">“Paddle up early.”</p>
+          <p class="hint">High ball = freeze / block. No swing. Soft only in constrained games.</p>
+        </div>
+      </article>
+
+      <article class="card player jason" id="jason">
+        <div class="player-top">
+          <div class="avatar j">J</div>
+          <div>
+            <h3>Jason</h3>
+            <div class="role">Capable · hits everything late</div>
+          </div>
+        </div>
+        <ul class="list">
+          <li>Contacts on the way down — slow timing</li>
+          <li><strong>Needs:</strong> contact at waist/chest while ball rising or flat</li>
+          <li>Early paddle prep <em>before</em> bounce</li>
+          <li>No full drives until contact is consistently early</li>
+          <li>Late drive in constrained games = lose the point</li>
+        </ul>
+        <div class="cue jason-cue">
+          <div class="cue-label">Primary cue</div>
+          <p class="cue-text">“Hit it before it falls.”</p>
+          <p class="hint">Prep early. Meet the ball rising/flat at waist–chest. Soft first.</p>
+        </div>
+      </article>
+
+      <article class="card player charles charles-span" id="charles">
+        <div class="player-top">
+          <div class="avatar c">C</div>
+          <div>
+            <h3>Charles</h3>
+            <div class="role">Coach · better player · runs the session</div>
+          </div>
+        </div>
+        <ul class="list">
+          <li>Feeds stations, rotates partners, keeps energy calm</li>
+          <li>Protect Kiwi from mid-tilt coaching — one cue at water break</li>
+          <li>Hold Jason to early contact before any drive license</li>
+          <li>Model reset technique: open face, stable wrist, grip ~3–4/10</li>
+        </ul>
+        <div class="cue shared">
+          <div class="cue-label">Reset mechanics (both)</div>
+          <p class="cue-text">Open face · quiet body · lift with shoulder</p>
+          <p class="hint">Loose grip 3–4/10. Stable wrist. No push — lift. Quiet lower body.</p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- DRILLS -->
+  <section id="drills">
+    <div class="section-head">
+      <h2>Drills</h2>
+      <span class="section-note">Major blocks</span>
+    </div>
+
+    <article class="card">
+      <h3>1. Split stations (10–35)</h3>
+      <div class="drill-meta">
+        <span>25 min</span>
+        <span>Charles feeds</span>
+        <span>Rotate ~6–7 min</span>
+      </div>
+      <ol class="steps">
+        <li><strong>Kiwi — High-ball freeze:</strong> Feed high floaters to forehand/backhand. Paddle up early. Catch/block — no swing. Count 8 clean freezes before any soft punch.</li>
+        <li><strong>Jason — Early contact:</strong> Feed so bounce meets him rising. Cue prep before bounce. Contact waist/chest. Abort any late drive — soft block instead.</li>
+        <li>Rotate so each gets two focused rounds. Charles stays feeder; partner shags / shadows on opposite side.</li>
+      </ol>
+    </article>
+
+    <article class="card">
+      <h3>2. Soft game — reset progression + kitchen (35–55)</h3>
+      <div class="drill-meta">
+        <span>20 min</span>
+        <span>Paired</span>
+        <span>Charles feeds / joins</span>
+      </div>
+      <ol class="steps">
+        <li><strong>Close NVZ catch</strong> — soft catch/block at kitchen line (dead hands).</li>
+        <li><strong>NVZ line block</strong> — open face, absorb, no pop-up.</li>
+        <li><strong>Midcourt lift</strong> — from transition: open face, stable wrist, grip 3–4/10, quiet legs, lift with shoulder (not push).</li>
+        <li><strong>Drop + split + reset</strong> — drop in, split step, then reset the next ball.</li>
+        <li><strong>Stay-alive</strong> — keep ball soft until someone earns kitchen; then dink exchanges.</li>
+      </ol>
+      <div class="cue shared">
+        <div class="cue-label">Reset feel</div>
+        <p class="cue-text">Open paddle · loose grip · shoulder lift</p>
+      </div>
+    </article>
+
+    <article class="card">
+      <h3>3. Constrained games (65–100)</h3>
+      <div class="drill-meta">
+        <span>35 min</span>
+        <span>Scoring on</span>
+        <span>Rules bind soft hands</span>
+      </div>
+      <ol class="steps">
+        <li><strong>Kiwi:</strong> No speed-ups. Any intentional speed-up = lose point. Soft attacks only via placement.</li>
+        <li><strong>Jason:</strong> Drive contacted late (on the way down) = lose point. Early soft drives OK only if contact is early.</li>
+        <li>Charles can play as third / feeder-into-points. Rotate sides. Keep rallies kitchen-oriented.</li>
+      </ol>
+    </article>
+
+    <article class="card">
+      <h3>4. Mini scrimmage (100–120)</h3>
+      <div class="drill-meta">
+        <span>20 min</span>
+        <span>First 2 = drop/reset</span>
+      </div>
+      <ol class="steps">
+        <li>After serve + return, <strong>first 2 shots must be drop or reset</strong>.</li>
+        <li>Then play out the point under soft theme (Kiwi still no reckless speed-ups if composure breaks).</li>
+        <li>Celebrate clean kitchen arrivals over winners.</li>
+      </ol>
+    </article>
+  </section>
+
+  <!-- DIAGRAMS -->
+  <section id="diagrams">
+    <div class="section-head">
+      <h2>Court diagrams</h2>
+      <span class="section-note">C / K / J</span>
+    </div>
+
+    <!-- Diagram 1: Feed stations -->
+    <article class="card">
+      <h3>Diagram 1 — Feed stations</h3>
+      <p>Charles at midcourt feeding. Kiwi on freeze station; Jason on early-contact station. Rotate.</p>
+      <figure class="diagram">
+        <svg viewBox="0 0 320 480" role="img" aria-label="Pickleball court feed stations with C K J positions">
+          <!-- Court -->
+          <rect x="40" y="30" width="240" height="420" rx="4" fill="#1e3a5f" stroke="#c5d4e8" stroke-width="2"/>
+          <!-- NVZ both sides -->
+          <rect x="40" y="195" width="240" height="45" fill="rgba(61,220,151,0.2)" stroke="#3ddc97" stroke-width="1.5"/>
+          <rect x="40" y="240" width="240" height="45" fill="rgba(61,220,151,0.2)" stroke="#3ddc97" stroke-width="1.5"/>
+          <!-- Net -->
+          <line x1="40" y1="240" x2="280" y2="240" stroke="#ffb020" stroke-width="3"/>
+          <!-- Centerline -->
+          <line x1="160" y1="30" x2="160" y2="195" stroke="#c5d4e8" stroke-width="1" stroke-dasharray="4 3"/>
+          <line x1="160" y1="285" x2="160" y2="450" stroke="#c5d4e8" stroke-width="1" stroke-dasharray="4 3"/>
+          <!-- Baselines labels -->
+          <text x="160" y="24" text-anchor="middle" fill="#9aabbf" font-size="10" font-weight="700">BASELINE</text>
+          <text x="160" y="470" text-anchor="middle" fill="#9aabbf" font-size="10" font-weight="700">BASELINE</text>
+          <text x="300" y="228" fill="#3ddc97" font-size="9" font-weight="700">NVZ</text>
+          <!-- Players -->
+          <circle cx="160" cy="300" r="16" fill="#ffb020"/>
+          <text x="160" y="305" text-anchor="middle" fill="#0b1220" font-size="12" font-weight="800">C</text>
+          <text x="160" y="328" text-anchor="middle" fill="#ffb020" font-size="9" font-weight="700">FEED</text>
+          <circle cx="100" cy="140" r="16" fill="#3ddc97"/>
+          <text x="100" y="145" text-anchor="middle" fill="#0b1220" font-size="12" font-weight="800">K</text>
+          <text x="100" y="120" text-anchor="middle" fill="#3ddc97" font-size="9" font-weight="700">FREEZE</text>
+          <circle cx="220" cy="140" r="16" fill="#5b8cff"/>
+          <text x="220" y="145" text-anchor="middle" fill="#0b1220" font-size="12" font-weight="800">J</text>
+          <text x="220" y="120" text-anchor="middle" fill="#5b8cff" font-size="9" font-weight="700">EARLY</text>
+          <!-- Ball paths -->
+          <defs>
+            <marker id="arr1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#e8eef8"/>
+            </marker>
+          </defs>
+          <path d="M150 285 Q120 220 105 160" fill="none" stroke="#e8eef8" stroke-width="2" marker-end="url(#arr1)"/>
+          <path d="M170 285 Q200 220 215 160" fill="none" stroke="#e8eef8" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arr1)"/>
+          <text x="70" y="210" fill="#9aabbf" font-size="8">high float</text>
+          <text x="230" y="210" fill="#9aabbf" font-size="8">rising feed</text>
+        </svg>
+        <figcaption>C feeds from near NVZ/midcourt. K freezes high balls; J meets rising contact. Rotate stations.</figcaption>
+        <div class="legend">
+          <span><i style="background:#ffb020"></i>Charles</span>
+          <span><i style="background:#3ddc97"></i>Kiwi</span>
+          <span><i style="background:#5b8cff"></i>Jason</span>
+        </div>
+      </figure>
+    </article>
+
+    <!-- Diagram 2: Midcourt reset -->
+    <article class="card">
+      <h3>Diagram 2 — Midcourt reset</h3>
+      <p>Open face, stable wrist, loose grip, quiet lower body — lift with shoulder into kitchen.</p>
+      <figure class="diagram">
+        <svg viewBox="0 0 320 480" role="img" aria-label="Midcourt reset drill diagram">
+          <rect x="40" y="30" width="240" height="420" rx="4" fill="#1e3a5f" stroke="#c5d4e8" stroke-width="2"/>
+          <rect x="40" y="195" width="240" height="45" fill="rgba(61,220,151,0.2)" stroke="#3ddc97" stroke-width="1.5"/>
+          <rect x="40" y="240" width="240" height="45" fill="rgba(61,220,151,0.2)" stroke="#3ddc97" stroke-width="1.5"/>
+          <line x1="40" y1="240" x2="280" y2="240" stroke="#ffb020" stroke-width="3"/>
+          <line x1="160" y1="30" x2="160" y2="195" stroke="#c5d4e8" stroke-width="1" stroke-dasharray="4 3"/>
+          <line x1="160" y1="285" x2="160" y2="450" stroke="#c5d4e8" stroke-width="1" stroke-dasharray="4 3"/>
+          <!-- Transition zone marker -->
+          <rect x="40" y="320" width="240" height="50" fill="rgba(91,140,255,0.12)" stroke="#5b8cff" stroke-width="1" stroke-dasharray="4 2"/>
+          <text x="160" y="348" text-anchor="middle" fill="#5b8cff" font-size="9" font-weight="700">TRANSITION / MIDCOURT</text>
+          <!-- Players: C at kitchen feeding pace, K midcourt resetting, J at kitchen target -->
+          <circle cx="160" cy="215" r="16" fill="#ffb020"/>
+          <text x="160" y="220" text-anchor="middle" fill="#0b1220" font-size="12" font-weight="800">C</text>
+          <text x="160" y="198" text-anchor="middle" fill="#ffb020" font-size="8" font-weight="700">PACE FEED</text>
+          <circle cx="120" cy="345" r="16" fill="#3ddc97"/>
+          <text x="120" y="350" text-anchor="middle" fill="#0b1220" font-size="12" font-weight="800">K</text>
+          <text x="120" y="375" text-anchor="middle" fill="#3ddc97" font-size="8" font-weight="700">RESET</text>
+          <circle cx="220" cy="345" r="16" fill="#5b8cff"/>
+          <text x="220" y="350" text-anchor="middle" fill="#0b1220" font-size="12" font-weight="800">J</text>
+          <text x="220" y="375" text-anchor="middle" fill="#5b8cff" font-size="8" font-weight="700">RESET</text>
+          <defs>
+            <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#e8eef8"/>
+            </marker>
+            <marker id="arr2g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#3ddc97"/>
+            </marker>
+          </defs>
+          <!-- Pace in -->
+          <path d="M155 232 Q130 280 125 325" fill="none" stroke="#e8eef8" stroke-width="2" marker-end="url(#arr2)"/>
+          <path d="M165 232 Q195 280 215 325" fill="none" stroke="#e8eef8" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr2)"/>
+          <!-- Soft lift back to kitchen -->
+          <path d="M130 335 Q150 280 155 260" fill="none" stroke="#3ddc97" stroke-width="2.5" marker-end="url(#arr2g)"/>
+          <text x="55" y="290" fill="#9aabbf" font-size="8">pace in</text>
+          <text x="175" y="290" fill="#3ddc97" font-size="8" font-weight="700">soft lift</text>
+        </svg>
+        <figcaption>Pace into midcourt → absorb → lift soft into NVZ. Rotate K/J as resetters.</figcaption>
+      </figure>
+    </article>
+
+    <!-- Diagram 3: Kitchen soft game -->
+    <article class="card">
+      <h3>Diagram 3 — Kitchen soft game</h3>
+      <p>Paired dinks / soft exchanges at the NVZ. Dead hands, no pop-ups.</p>
+      <figure class="diagram">
+        <svg viewBox="0 0 320 480" role="img" aria-label="Kitchen soft game dink diagram">
+          <rect x="40" y="30" width="240" height="420" rx="4" fill="#1e3a5f" stroke="#c5d4e8" stroke-width="2"/>
+          <rect x="40" y="195" width="240" height="45" fill="rgba(61,220,151,0.25)" stroke="#3ddc97" stroke-width="1.5"/>
+          <rect x="40" y="240" width="240" height="45" fill="rgba(61,220,151,0.25)" stroke="#3ddc97" stroke-width="1.5"/>
+          <line x1="40" y1="240" x2="280" y2="240" stroke="#ffb020" stroke-width="3"/>
+          <line x1="160" y1="30" x2="160" y2="195" stroke="#c5d4e8" stroke-width="1" stroke-dasharray="4 3"/>
+          <line x1="160" y1="285" x2="160" y2="450" stroke="#c5d4e8" stroke-width="1" stroke-dasharray="4 3"/>
+          <text x="160" y="185" text-anchor="middle" fill="#3ddc97" font-size="9" font-weight="700">KITCHEN / NVZ</text>
+          <!-- Players at kitchen -->
+          <circle cx="110" cy="215" r="16" fill="#3ddc97"/>
+          <text x="110" y="220" text-anchor="middle" fill="#0b1220" font-size="12" font-weight="800">K</text>
+          <circle cx="210" cy="215" r="16" fill="#5b8cff"/>
+          <text x="210" y="220" text-anchor="middle" fill="#0b1220" font-size="12" font-weight="800">J</text>
+          <circle cx="160" cy="268" r="16" fill="#ffb020"/>
+          <text x="160" y="273" text-anchor="middle" fill="#0b1220" font-size="12" font-weight="800">C</text>
+          <text x="160" y="295" text-anchor="middle" fill="#ffb020" font-size="8" font-weight="700">FEED / JOIN</text>
+          <defs>
+            <marker id="arr3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#3ddc97"/>
+            </marker>
+          </defs>
+          <!-- Cross-court and middle dink arcs -->
+          <path d="M120 228 Q160 250 200 228" fill="none" stroke="#3ddc97" stroke-width="2" marker-end="url(#arr3)"/>
+          <path d="M200 210 Q160 190 120 210" fill="none" stroke="#5b8cff" stroke-width="2" stroke-dasharray="4 3"/>
+          <path d="M160 252 Q160 235 160 232" fill="none" stroke="#ffb020" stroke-width="2"/>
+          <text x="160" y="160" text-anchor="middle" fill="#9aabbf" font-size="9">soft dink exchanges · no pop-ups</text>
+        </svg>
+        <figcaption>K &amp; J at NVZ; C feeds or joins. Stay soft — consistency over winners.</figcaption>
+      </figure>
+    </article>
+
+    <!-- Diagram 4: Constrained scrimmage -->
+    <article class="card">
+      <h3>Diagram 4 — Constrained scrimmage</h3>
+      <p>Serve → return → first two must be drop or reset. Then play soft-themed points.</p>
+      <figure class="diagram">
+        <svg viewBox="0 0 320 480" role="img" aria-label="Constrained scrimmage court diagram">
+          <rect x="40" y="30" width="240" height="420" rx="4" fill="#1e3a5f" stroke="#c5d4e8" stroke-width="2"/>
+          <rect x="40" y="195" width="240" height="45" fill="rgba(61,220,151,0.2)" stroke="#3ddc97" stroke-width="1.5"/>
+          <rect x="40" y="240" width="240" height="45" fill="rgba(61,220,151,0.2)" stroke="#3ddc97" stroke-width="1.5"/>
+          <line x1="40" y1="240" x2="280" y2="240" stroke="#ffb020" stroke-width="3"/>
+          <line x1="160" y1="30" x2="160" y2="195" stroke="#c5d4e8" stroke-width="1" stroke-dasharray="4 3"/>
+          <line x1="160" y1="285" x2="160" y2="450" stroke="#c5d4e8" stroke-width="1" stroke-dasharray="4 3"/>
+          <!-- Positions: C+K one side, J other (or rotate 2v1 soft) -->
+          <circle cx="110" cy="400" r="16" fill="#ffb020"/>
+          <text x="110" y="405" text-anchor="middle" fill="#0b1220" font-size="12" font-weight="800">C</text>
+          <circle cx="210" cy="400" r="16" fill="#3ddc97"/>
+          <text x="210" y="405" text-anchor="middle" fill="#0b1220" font-size="12" font-weight="800">K</text>
+          <circle cx="160" cy="80" r="16" fill="#5b8cff"/>
+          <text x="160" y="85" text-anchor="middle" fill="#0b1220" font-size="12" font-weight="800">J</text>
+          <defs>
+            <marker id="arr4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#e8eef8"/>
+            </marker>
+            <marker id="arr4g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#3ddc97"/>
+            </marker>
+          </defs>
+          <!-- 1 Serve -->
+          <path d="M120 385 Q140 240 155 100" fill="none" stroke="#e8eef8" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr4)"/>
+          <text x="55" y="250" fill="#9aabbf" font-size="8">1.serve</text>
+          <!-- 2 Return -->
+          <path d="M165 95 Q200 240 200 385" fill="none" stroke="#5b8cff" stroke-width="1.5" marker-end="url(#arr4)"/>
+          <text x="235" y="250" fill="#5b8cff" font-size="8">2.return</text>
+          <!-- 3 Drop -->
+          <path d="M200 385 Q180 300 170 260" fill="none" stroke="#3ddc97" stroke-width="2.5" marker-end="url(#arr4g)"/>
+          <text x="210" y="330" fill="#3ddc97" font-size="8" font-weight="700">3.drop</text>
+          <!-- 4 Reset -->
+          <path d="M150 100 Q140 180 150 220" fill="none" stroke="#3ddc97" stroke-width="2.5" marker-end="url(#arr4g)"/>
+          <text x="95" y="160" fill="#3ddc97" font-size="8" font-weight="700">4.reset</text>
+          <text x="160" y="465" text-anchor="middle" fill="#c084fc" font-size="9" font-weight="700">RULE: first 2 after serve = drop or reset</text>
+        </svg>
+        <figcaption>Serve &amp; return free; next two must be drop/reset, then soft-themed point. Rotate who pairs with C.</figcaption>
+      </figure>
+    </article>
+  </section>
+
+  <!-- WATCH -->
+  <section id="watch">
+    <div class="section-head">
+      <h2>Watch</h2>
+      <span class="section-note">Mapped to drills</span>
+    </div>
+    <div class="watch-list">
+
+      <a class="watch-item" href="https://www.youtube.com/watch?v=L26zWFM_GbU" target="_blank" rel="noopener">
+        <div class="watch-icon">▶</div>
+        <div>
+          <h3>Kiwi — overhead basics</h3>
+          <p>Foundation for high balls; today we freeze instead of swinging wild.</p>
+          <span class="watch-maps">→ Split station: high-ball freeze</span>
+        </div>
+      </a>
+
+      <a class="watch-item" href="https://www.youtube.com/watch?v=0MDZX-EFFd0" target="_blank" rel="noopener">
+        <div class="watch-icon">▶</div>
+        <div>
+          <h3>Soft hands / no pop-ups</h3>
+          <p>Dead hands, absorb pace, keep the ball down at the kitchen.</p>
+          <span class="watch-maps">→ Soft game + kitchen dinks</span>
+        </div>
+      </a>
+
+      <a class="watch-item" href="https://youtu.be/Bi1adEUw41A" target="_blank" rel="noopener">
+        <div class="watch-icon">▶</div>
+        <div>
+          <h3>Resets progression (Charles’s)</h3>
+          <p>Close NVZ catch → line block → midcourt lift → drop+split+reset → stay-alive.</p>
+          <span class="watch-maps">→ Soft game reset block (35–55)</span>
+        </div>
+      </a>
+
+      <a class="watch-item" href="https://youtu.be/x98eQ9CT0Ng" target="_blank" rel="noopener">
+        <div class="watch-icon">▶</div>
+        <div>
+          <h3>3-person soft (optional)</h3>
+          <p>Ideas for three on court without making 2v1 the whole session.</p>
+          <span class="watch-maps">→ Constrained games / scrimmage</span>
+        </div>
+      </a>
+
+      <a class="watch-item" href="https://www.playpickleball.com/pickleball-drive-secret-power-vs-timing/" target="_blank" rel="noopener">
+        <div class="watch-icon">📄</div>
+        <div>
+          <h3>Drive timing — power vs timing (Jason)</h3>
+          <p>Article: why early contact beats late power. Prep before the bounce.</p>
+          <span class="watch-maps">→ Jason early-contact station + constrained rule</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    Sunday Soft Hands — Crazy Diamond · Charles Lee · Asia/Ho_Chi_Minh<br>
+    Print this page or Save as PDF from the browser share sheet.
+  </footer>
+
+</div>
+
+<script>
+  // Highlight active nav section on scroll (lightweight, no deps)
+  (function () {
+    var links = document.querySelectorAll('.topnav a');
+    var ids = ['timeline', 'kiwi', 'jason', 'drills', 'diagrams', 'watch'];
+    function sync() {
+      var y = window.scrollY + 80;
+      var current = ids[0];
+      for (var i = 0; i < ids.length; i++) {
+        var el = document.getElementById(ids[i]);
+        if (el && el.offsetTop <= y) current = ids[i];
+      }
+      links.forEach(function (a) {
+        var href = a.getAttribute('href').slice(1);
+        // kiwi/jason both under players; map section ids
+        var match = href === current || (current === 'kiwi' && href === 'kiwi') || (current === 'jason' && href === 'jason');
+        a.style.color = match ? 'var(--text)' : '';
+        a.style.background = match ? 'var(--card)' : '';
+        a.style.borderColor = match ? 'var(--line)' : '';
+      });
+    }
+    window.addEventListener('scroll', sync, { passive: true });
+    sync();
+  })();
+</script>
+</body>
+</html>
