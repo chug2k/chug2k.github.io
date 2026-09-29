@@ -6,6 +6,12 @@
 <description>Short, dated posts on what I'm building, reading, and changing my mind about.</description>
 <language>en</language>
 <atom:link href="https://clpanic.com/feed.xml" rel="self" type="application/rss+xml"/>
-
+<item>
+<title>I rewired a shoe dryer with Gemini and almost got yelled at by physics</title>
+<link>https://clpanic.com/blog/2026-09-29-sd68-shoe-dryer/</link>
+<guid>https://clpanic.com/blog/2026-09-29-sd68-shoe-dryer/</guid>
+<pubDate>Tue, 29 Sep 2026 09:00:00 +0000</pubDate>
+<description>A multi-week SD-68 saga — melted Barricades, eldritch funk, Shopee blowers, WAGOs, and the 5-on/5-off trick that finally works.</description>
+</item>
 </channel>
 </rss>
