@@ -636,6 +636,13 @@
 
         function renderConfirmationLink(confirmation) {
             if (!confirmation) return '';
+            const label = `
+                    #${confirmation.number}
+                    <span class="confirmation-status">${t(confirmation.status)}</span>
+            `;
+            if (!confirmation.file) {
+                return `<span class="confirmation-link" style="pointer-events:none;cursor:default">${label}</span>`;
+            }
             return `
                 <a href="${confirmation.file}" target="_blank" class="confirmation-link">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -644,8 +651,7 @@
                         <line x1="16" y1="13" x2="8" y2="13"/>
                         <line x1="16" y1="17" x2="8" y2="17"/>
                     </svg>
-                    #${confirmation.number}
-                    <span class="confirmation-status">${t(confirmation.status)}</span>
+                    ${label}
                 </a>
             `;
         }

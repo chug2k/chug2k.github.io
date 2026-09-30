@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /admin/
+Disallow: /v/compare/
 
 Sitemap: https://clpanic.com/sitemap.xml
