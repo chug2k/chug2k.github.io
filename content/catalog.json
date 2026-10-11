@@ -1,0 +1,242 @@
+{
+  "writing": [
+    {
+      "title": "Shrinking YouTube Music to 3 MB",
+      "description": "Rebuilding a desktop app in Tauri, then falling down the macOS rabbit holes.",
+      "url": "/youtube-music-3mb/",
+      "kind": "Build notes",
+      "date": "2026-06-22",
+      "excerpt": [
+        "YouTube Music doesn't have an official desktop app. The best community alternative was ytmdesktop — a great project, but it ships about 200 MB of Chromium on disk and holds hundreds of MB of RAM, because that's what Electron apps do. They bundle an entire copy of the Chrome browser inside every app.",
+        "I rewrote it with Tauri, which uses your operating system's existing webview instead of bundling a browser. The result — YTM Yagami — is about 3 MB to download.",
+        "The tradeoff: on macOS you're running Safari's engine instead of Chrome's, and on Windows you're running Edge's. Most of the time this is invisible. Sometimes — as I'll explain below — it's a small nightmare."
+      ]
+    },
+    {
+      "title": "Lottie vs Remotion",
+      "description": "The same animations built twice, with live demos and a verdict on when to use each.",
+      "url": "/lottie-vs-remotion/",
+      "kind": "Explainer",
+      "date": "2026-06-14",
+      "excerpt": [
+        "Two ways to make pixels move, two completely different mental models — and a model that’s now good enough to write either one for you. Here’s the same animation built twice, climbing from trivial to a 30-second launch video, so you can see exactly where each tool wins. Shown, not told.",
+        "Before the demos, the one distinction everything else falls out of. Lottie and Remotion don’t just differ in API — they differ in who does the animating.",
+        "That single difference predicts the whole comparison. Declarative keyframes are unbeatable for small, looping, designer-authored motion that has to live inside an app. A frame-as-a-function is unbeatable when the motion is computed — math, data, hundreds of elements, or a four-minute timeline with audio. The demos below are just that line being drawn, over and over, at rising complexity."
+      ]
+    },
+    {
+      "title": "The Unhurried Guide to Pickleball",
+      "description": "Two fox brothers, fifteen illustrated chapters, and a sport that turns out to be about paying attention.",
+      "url": "/unhurried-guide/",
+      "kind": "Illustrated guide",
+      "date": "2026-06-22",
+      "excerpt": [
+        "There's a sport.",
+        "You hit a plastic ball — a hollow little planet, completely full of holes — with a paddle, over a low net, into a kitchen you are not allowed to cook in. When you hit it right it makes a sound like a tiny door being slammed by a tiny, satisfied man.",
+        "That's the whole sport. You basically know it already.",
+        "You get two guides. They're foxes. I don't know why they're foxes. I asked them and they just told me they’d always been foxes, and they never thought to change."
+      ]
+    },
+    {
+      "title": "The power-foam paddle buying guide",
+      "description": "A closer look at the reviews, rankings, and tradeoffs behind the 2026 paddles.",
+      "url": "/paddle-buying-guide-2026/",
+      "kind": "Research",
+      "date": "2026-06-04",
+      "excerpt": [
+        "The year's most-hyped Gen-4 foam paddles, ranked — synthesized from 350+ YouTube reviews and weighted by how much you can trust the reviewer.",
+        "I had every substantial YouTube review of these paddles transcribed and their claims extracted — 350+ reviews, thousands of individual claims — and then, to sanity-check my picks against the wider community, I aggregated 50 \"best paddles of 2026\" ranking videos into one reliability-weighted meta-ranking. The hard part isn't gathering opinions; it's weighting them. About half of all paddle reviews are sponsored, giveaway-tied, or brand content, and they skew positive (the AI-generated \"Amazon top 5\" videos are worse still — those I threw out entirely). So this guide leans hardest on the independent, lab-testing voices — above all John Kew, the only reviewer publishing instrumented data (CT scans, ball-cannon firepower, RPM/spin-wear) — and discounts the hype. Each section links to the full roundup so you can check the receipts."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "title": "YouTube Music, lighter",
+      "description": "A small desktop app built with Tauri and Rust, with native media keys and track notifications.",
+      "detail": "The write-up follows the webview, IPC, and macOS integration problems behind a roughly 3 MB installer.",
+      "url": "/youtube-music-3mb/",
+      "link_label": "Read the build notes",
+      "secondary_url": "https://github.com/chug2k/ytmdesktop",
+      "secondary_label": "Source code",
+      "medium": "Desktop app · Rust / Tauri"
+    },
+    {
+      "title": "The Unhurried Guide",
+      "description": "An illustrated book about pickleball, told through two fox brothers learning to play.",
+      "detail": "Fifteen chapters turn technique into stories about attention, weight, and joy. An experiment in teaching through characters.",
+      "url": "/unhurried-guide/",
+      "link_label": "Read the book",
+      "medium": "Illustrated book · Writing / web",
+      "image": "/unhurried-guide/images/cover-foxes.png",
+      "image_alt": "Bert and Erne, the two fox brothers from the guide"
+    },
+    {
+      "title": "The Offerings",
+      "description": "An agent called Prízrak builds small web tools, rituals, and games wrapped in Carpathian folklore.",
+      "detail": "A continuing experiment in letting an agent make and ship things: orreries, procedural caves, erasure poetry, and prompts for reflection.",
+      "url": "https://offerings-eight.vercel.app",
+      "link_label": "Explore the collection",
+      "medium": "Agent experiment · Tools / games"
+    },
+    {
+      "title": "Lottie vs Remotion",
+      "description": "Side-by-side implementations of the same animations, from a bouncing ball to a launch video.",
+      "detail": "Working demos make the differences between vector keyframes and frame-driven rendering visible. The comparison is the portfolio piece.",
+      "url": "/lottie-vs-remotion/",
+      "link_label": "Try the demos",
+      "medium": "Interactive comparison · Animation"
+    }
+  ],
+  "apps": [
+    {
+      "title": "jobsearch.quest — your AI job-search council",
+      "description": "Job searching alone is brutal. This runs the proven \"Never Search Alone\" method — but solo: an AI council holds your weekly job-search meeting (wins, blockers, the hot seat, real commitments for next week) so you don't have to wrangle five humans onto a call. Bring your own API key.",
+      "url": "https://jobsearch.quest",
+      "status": "Project",
+      "notes": ""
+    },
+    {
+      "title": "H100s & Burn Rate — an album you can walk around in",
+      "description": "Twenty-three original songs placed as zones on a world map. Wander in, listen, read the story behind each track, and watch — in real time — who else is in the world dancing next to you. It's a record, but you explore it on foot instead of scrolling a tracklist.",
+      "url": "https://h100sandburnrate.vercel.app",
+      "status": "Project",
+      "notes": ""
+    },
+    {
+      "title": "City Picker — where should you live?",
+      "description": "If you work remotely, the world is the menu. Set what you actually care about — cost of living, timezone overlap, climate, visas — and it ranks cities for you. A salary slider recomputes how much you'd save in each place, live.",
+      "url": "https://city-picker-eight.vercel.app",
+      "status": "Project",
+      "notes": ""
+    },
+    {
+      "title": "Grand Kitchen Tour — pickleball as a campaign RPG",
+      "description": "Pickleball in the shape of Baldur's Gate 3. Recruit a party of misfits, fight through six story chapters, earn XP and loot, and face the Sovereign Picklewhip. Every shot is a dice roll; every win levels you up. Beat it and there's a New Game+. The most complete game I've built.",
+      "url": "https://picklegame6-bg3.vercel.app",
+      "status": "Project",
+      "notes": ""
+    },
+    {
+      "title": "DINK — pickleball as a card game",
+      "description": "Play Dink / Drive / Lob cards against a CPU, roll for effectiveness, and drag a tug-of-war bar to your side of the net. You don't need to know a thing about pickleball — but the pressure feels exactly like the real fourth shot.",
+      "url": "https://picklegame5.vercel.app",
+      "status": "Project",
+      "notes": ""
+    },
+    {
+      "title": "Pickleball d20 — the tactical version",
+      "description": "The turn-based, stat-based take: doubles where court position, the two-bounce rule, and kitchen faults all genuinely matter, and a 20-sided die decides whether your shot lands. Closer to chess than to arcade.",
+      "url": "https://picklegame4.vercel.app",
+      "status": "Project",
+      "notes": ""
+    }
+  ],
+  "bench": [
+    {
+      "title": "NomadVibe — an AI quiz that finds your city",
+      "description": "A conversational quiz that learns your priorities and AI-ranks world cities for the life you're describing. The grown-up sibling of City Picker. Fully built — just needs its API keys wired up and a deploy before it can go live.",
+      "url": "",
+      "status": "In progress",
+      "notes": "Next.js · Supabase · OpenAI  —  to finish: add env keys, deploy"
+    },
+    {
+      "title": "Weekly Check-in Generator",
+      "description": "Paste a pile of messy notes; it pulls out the key points and writes a clean, properly-formatted weekly update straight into Notion. Done and working locally — just needs deploying with its keys.",
+      "url": "",
+      "status": "In progress",
+      "notes": "Next.js · Gemini · Notion API  —  to finish: add env keys, deploy"
+    },
+    {
+      "title": "LinkedIn Translator",
+      "description": "Type something honest in plain English; get back peak LinkedIn cringe — 🚀 synergy, humble-brags, the works. Mostly a joke, mostly built. Needs a quick QA pass and a deploy.",
+      "url": "",
+      "status": "In progress",
+      "notes": "Next.js · OpenAI  —  to finish: test the API path, add key, deploy"
+    },
+    {
+      "title": "Directory — my week, written by itself",
+      "description": "A small command-line tool that writes my week for me: it pulls my Claude Code sessions, git commits, and GitHub activity, summarizes them, and publishes a tidy digest to Notion. Replaces the manual retro. It's a CLI, not a site — just needs a README and a schedule.",
+      "url": "",
+      "status": "In progress",
+      "notes": "TypeScript · Node CLI · Notion API  —  to finish: README + cron"
+    },
+    {
+      "title": "AutoDJ — the setlist optimizer",
+      "description": "Hand it a hundred songs and it computes the best order for one continuous DJ mix — scoring every transition for tempo, key, mood, and even geography. It quietly powered the world mixes inside H100s & Burn Rate; it just never got its own front door.",
+      "url": "",
+      "status": "Parked",
+      "notes": "Python · scoring/search  —  could become: an \"how the mixes were ordered\" post"
+    },
+    {
+      "title": "Voice Clone Lab",
+      "description": "A small rig for benchmarking what actually makes a cloned voice sound like you — word-error-rate, real-time speed, and a dashboard for rating naturalness. Built for a workshop; would make a good essay on what's hard about voice cloning.",
+      "url": "",
+      "status": "Parked",
+      "notes": "Python · OmniVoice · WER/RTF eval  —  could become: an essay + the dashboard"
+    },
+    {
+      "title": "Bittersweet Symphony, humanized",
+      "description": "MIDI experiments to make a stiff string cover breathe — nudging timing off the grid, lifting the solo out of the mix. Scripts and audio, no front end. A rabbit hole I enjoyed.",
+      "url": "",
+      "status": "Parked",
+      "notes": "Python · MIDI · SoundFont  —  needs: a way to hear the before/after in a browser"
+    },
+    {
+      "title": "Pickleball video analysis — an honest failure",
+      "description": "I tried to break down phone-recorded matches with vision models — rallies, shots, player stats. It mostly doesn't work, and I wrote down exactly why single-camera vision falls apart. Kept it because the post-mortem is the useful part.",
+      "url": "",
+      "status": "Parked",
+      "notes": "Python · VLM pipeline  —  verdict: wearables/court sensors, not phone cameras"
+    }
+  ],
+  "collections": [
+    {
+      "title": "Video notes",
+      "description": "AI-assisted summaries of talks on software, agents, chess, and pickleball. Screenshots, key ideas, and links back to the source.",
+      "url": "/v/",
+      "link_label": "Browse video notes"
+    },
+    {
+      "title": "Pickleball",
+      "description": "The illustrated guide, paddle research, and a growing collection of drills and match notes.",
+      "url": "/unhurried-guide/",
+      "link_label": "Start with the guide",
+      "links": [
+        {
+          "title": "Paddle buying guide",
+          "url": "/paddle-buying-guide-2026/"
+        },
+        {
+          "title": "Sunday soft hands drill",
+          "url": "/pickleball/sunday-soft-hands.html"
+        }
+      ]
+    }
+  ],
+  "experiments": [
+    {
+      "title": "Earth: The Archive",
+      "description": "An editorial about a Seoul botanical-dye studio and the things it makes.",
+      "url": "/earth/",
+      "kind": "Editorial"
+    },
+    {
+      "title": "OcuD3",
+      "description": "A fictional product page that takes radical transparency to an absurd conclusion.",
+      "url": "/ocud3/",
+      "kind": "Satire"
+    },
+    {
+      "title": "The Verdict: C.L. v. K.J.",
+      "description": "A very formal ruling on a very personal pact between friends.",
+      "url": "/verdict-cl-v-kj/",
+      "kind": "Writing experiment"
+    },
+    {
+      "title": "Japan, Winter 2025",
+      "description": "A bilingual itinerary for nine days in Japan, including a ski trip.",
+      "url": "/japan-2025/",
+      "kind": "Travel"
+    }
+  ]
+}

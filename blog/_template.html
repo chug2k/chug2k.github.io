@@ -1,38 +1,10 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{{TITLE}} — Charles Lee</title>
-<meta name="description" content="{{DESCRIPTION}}">
-<link rel="canonical" href="https://clpanic.com/blog/{{SLUG}}/">
-<meta property="og:type" content="article">
-<meta property="og:site_name" content="Charles Lee">
-<meta property="og:title" content="{{TITLE}}">
-<meta property="og:description" content="{{DESCRIPTION}}">
-<meta property="og:url" content="https://clpanic.com/blog/{{SLUG}}/">
-<meta property="article:published_time" content="{{DATE_ISO}}">
-<meta name="twitter:card" content="summary">
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<link rel="alternate" type="application/rss+xml" title="Charles Lee — blog" href="/feed.xml">
-<link rel="stylesheet" href="/assets/site.css">
-<script src="/assets/site.js" defer></script>
-</head>
-<body>
-<a class="skip-link" href="#main">Skip to content</a>
-<div class="wrap">
-  <a class="back" href="/blog/">← notebook</a>
-  <div style="text-align:right;margin:-48px 0 32px"><button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">☾ Dark</button></div>
-  <div class="eyebrow">Notebook</div>
-  <h1>{{TITLE}}</h1>
-  <div class="post-meta">{{DATE_DISPLAY}} · {{READ_TIME}}</div>
-  <main id="main" class="prose">
-{{CONTENT}}
-  </main>
-  <footer>
-    <div class="foot-nav"><a href="/blog/">All posts</a><a href="/">Home</a><a href="/feed.xml">RSS</a></div>
-    Built with Claude Code. Source at <a href="https://github.com/chug2k/chug2k.github.io">github.com/chug2k/chug2k.github.io</a>.
-  </footer>
-</div>
-</body>
-</html>
+<article class="post">
+  <header class="post-heading">
+    <a class="text-link" href="/blog/">← All writing</a>
+    <h1>{{TITLE}}</h1>
+    <p class="post-meta"><time datetime="{{DATE_ISO}}">{{DATE_DISPLAY}}</time> · {{READ_TIME}} read · Charles Lee</p>
+    <p class="post-description">{{DESCRIPTION}}</p>
+  </header>
+  <div class="prose">{{CONTENT}}</div>
+  <aside class="post-end"><h2>Thanks for reading.</h2><p>More experiments are on the way. Probably.</p><a class="text-link" href="/">More writing →</a></aside>
+</article>

@@ -1,0 +1,6 @@
+Use case: precise-object-edit
+Asset type: transparent cartoon illustration for Charles Lee's personal blog.
+Input images: Image 1 is the edit target, the existing cartoon workshop scene. Image 2 is the official CoderSchool logo reference, only for the jacket patch.
+Primary request: Replace the planet / Planet Express-style patch on the human character's visible orange jacket sleeve with a CoderSchool patch. The patch should be red fabric with the reference's white curly-brace-in-a-circle symbol and the exact word "CoderSchool". Arrange the symbol and word to fit the visible upper sleeve naturally, with the text legible in the full-size illustration. Match the existing cartoon linework, flat colors, perspective, and cloth shading so the badge looks drawn on the jacket, not floating on top.
+Text (verbatim, on the jacket patch only): "CoderSchool"
+Constraints: Change ONLY the jacket patch. Preserve the character's exact face, black hair, glasses, smile, pose, orange jacket, proportions, robot, smoking shoe, alien, paddle, retro computer, desk, skyline, spaceship, composition, colors, and all other details. No planet emblem remains on the jacket. No additional logo elsewhere in the scene. Preserve the existing transparent background and clean alpha edges. Do not crop or reframe. No added captions, watermark, or other text.

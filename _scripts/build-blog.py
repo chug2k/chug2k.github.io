@@ -1,36 +1,17 @@
 #!/usr/bin/env python3
-"""Render blog posts from Markdown to static HTML. Zero dependencies (stdlib only).
+"""Build the static blog, homepage, project catalog, library, and About page.
 
-Authoring workflow:
-    ./_scripts/new-post.sh "A working title"   # creates blog/posts/YYYY-MM-DD-slug.md
-    # ... edit the .md file ...
-    python3 _scripts/build-blog.py              # renders posts + index + feed
-    python3 _scripts/build-sitemap.py           # refresh sitemap
-
-Source format (blog/posts/<date>-<slug>.md):
-    ---
-    title: My post
-    description: One-line summary for cards, meta tags, RSS.
-    date: 2026-09-10
-    ---
-    Markdown body...
-
-Supported Markdown: headings (# -> h2, ## -> h3, ### -> h4), paragraphs,
-**bold**, *italic*, `code`, fenced code blocks, [links](url), ![img](src),
-> quotes, -/* bullets, 1. numbered lists, --- rules.
-
-This script regenerates (all committed to git — GitHub Pages serves them):
-    blog/<slug>/index.html   one page per post
-    blog/index.html           reverse-chron card list
-    feed.xml                  RSS 2.0
+Use new-post.sh to create a draft; serve.py to preview it without writing published
+HTML; then set draft: false and run this script to build. Python stdlib only.
+Edit blog/posts/*.md, content/catalog.json, and _templates/ rather than generated HTML.
 """
 from __future__ import annotations
 import html
 import math
 import re
 from pathlib import Path
-from datetime import datetime, timezone
-from email.utils import format_datetime
+from datetime import datetime
+from site_builder import page, render_hubs, write_page
 
 ROOT = Path(__file__).resolve().parent.parent
 POSTS_DIR = ROOT / "blog" / "posts"
@@ -63,7 +44,17 @@ def parse_post(path: Path) -> dict:
     slug = path.stem  # YYYY-MM-DD-slug
     m = re.match(r"(\d{4}-\d{2}-\d{2})-(.+)", slug)
     file_date = m.group(1) if m else ""
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}-[a-z0-9][a-z0-9-]*", slug):
+        raise ValueError(f"{path.name}: use YYYY-MM-DD-slug.md with lowercase letters, numbers, and hyphens")
+    for field in ("title", "description"):
+        if not meta.get(field):
+            raise ValueError(f"{path.name}: missing {field} in frontmatter")
+    post_date = meta.get("date", file_date)
+    datetime.strptime(post_date, "%Y-%m-%d")
+    if meta.get("draft", "false").lower() not in ("true", "false"):
+        raise ValueError(f"{path.name}: draft must be true or false")
     return {
+        "draft": meta.get("draft", "false").lower() == "true",
         "slug": slug,
         "title": meta.get("title", slug),
         "description": meta.get("description", ""),
@@ -179,48 +170,20 @@ def read_time_minutes(body: str) -> str:
     return f"{max(1, math.ceil(words / 200))} min"
 
 
-INDEX_HEAD = """<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Notebook — Charles Lee</title>
-<meta name="description" content="Short, dated posts on what I'm building, reading, and changing my mind about.">
-<link rel="canonical" href="https://clpanic.com/blog/">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Charles Lee">
-<meta property="og:title" content="Notebook — Charles Lee">
-<meta property="og:description" content="Short, dated posts on what I'm building, reading, and changing my mind about.">
-<meta property="og:url" content="https://clpanic.com/blog/">
-<meta name="twitter:card" content="summary">
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<link rel="alternate" type="application/rss+xml" title="Charles Lee — blog" href="/feed.xml">
-<link rel="stylesheet" href="/assets/site.css">
-<script src="/assets/site.js" defer></script>
-</head>
-<body>
-<a class="skip-link" href="#main">Skip to content</a>
-<div class="wrap">
-  <div class="topbar">
-    <a class="home" href="/">← chug2k</a>
-    <nav aria-label="Sections"><a href="/#writing">Writing</a><a href="/making/">Making</a><a href="/blog/">Blog</a><a href="/v/">Videos</a></nav>
-    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">☾ Dark</button>
-  </div>
-  <div class="eyebrow">Notebook</div>
-  <h1>Short posts, newest first</h1>
-  <p class="lede">What I'm building, reading, and changing my mind about. <a href="/feed.xml" style="color:var(--accent)">RSS</a> available.</p>
-  <main id="main">
-"""
-
-INDEX_TAIL = """  </main>
-  <footer>
-    <div class="foot-nav"><a href="/">Home</a><a href="/feed.xml">RSS</a><a href="/making/">Making</a><a href="/v/">Videos</a></div>
-    Built with Claude Code. Source at <a href="https://github.com/chug2k/chug2k.github.io">github.com/chug2k/chug2k.github.io</a>.
-  </footer>
-</div>
-</body>
-</html>
-"""
+def render_excerpt(body: str) -> str:
+    """Use the opening paragraphs, or an author's explicit <!--more--> break."""
+    if '<!--more-->' in body:
+        return render_markdown(body.split('<!--more-->', 1)[0])
+    paragraphs = []
+    words = 0
+    for paragraph in re.findall(r'<p>.*?</p>', render_markdown(body), flags=re.S):
+        if '<img ' in paragraph:
+            continue
+        paragraphs.append(paragraph)
+        words += len(re.sub(r'<[^>]*>', '', paragraph).split())
+        if words >= 120 or len(paragraphs) >= 4:
+            break
+    return '\n'.join(paragraphs)
 
 
 def fill(template: str, post: dict, content_html: str) -> str:
@@ -234,62 +197,37 @@ def fill(template: str, post: dict, content_html: str) -> str:
             .replace("{{CONTENT}}", content_html.rstrip()))
 
 
-def main() -> int:
-    posts = [parse_post(p) for p in sorted(POSTS_DIR.glob("*.md"))]
-    posts.sort(key=lambda p: p["date"], reverse=True)
-
+def main(output: Path = ROOT, include_drafts: bool = False) -> int:
+    all_posts = [parse_post(p) for p in sorted(POSTS_DIR.glob("*.md"))]
+    posts = [p for p in all_posts if include_drafts or not p["draft"]]
+    posts.sort(key=lambda p: (p["date"], p["slug"]), reverse=True)
     for post in posts:
-        content_html = render_markdown(post["body"])
-        dest = ROOT / "blog" / post["slug"] / "index.html"
-        dest.parent.mkdir(parents=True, exist_ok=True)
-        dest.write_text(fill(TEMPLATE, post, content_html))
+        post["url"] = f'/blog/{post["slug"]}/'
+        post["display_date"] = display_date(post["date"])
+        post["read_time"] = read_time_minutes(post["body"])
+        post["excerpt_html"] = render_excerpt(post["body"])
 
-    # index
-    parts = [INDEX_HEAD]
-    if not posts:
-        parts.append('  <p class="lede" style="margin-top:24px">Nothing here yet. Check back soon.</p>\n')
-    year = None
+    # Validate the catalog before producing any article files.
+    render_hubs(posts, output, preview=include_drafts)
     for post in posts:
-        y = post["date"][:4]
-        if y != year:
-            year = y
-            parts.append(f'  <div class="section-h">{html.escape(y)}</div>\n')
-        parts.append(
-            f'  <a class="section-card" href="/blog/{post["slug"]}/">\n'
-            f'    <div class="meta">{html.escape(display_date(post["date"]))}</div>\n'
-            f'    <h2>{html.escape(post["title"])} →</h2>\n'
-            f'    <p>{html.escape(post["description"])}</p>\n'
-            f'  </a>\n')
-    parts.append(INDEX_TAIL)
-    (ROOT / "blog" / "index.html").write_text("".join(parts))
+        content_html = render_markdown(post["body"].replace('<!--more-->', ''))
+        markup = page(post["title"] + " — Charles Lee", post["description"], post["url"],
+                      fill(TEMPLATE, post, content_html), active="writing", article=True,
+                      extra_head=f'<meta property="article:published_time" content="{post["date"]}">',
+                      preview=include_drafts)
+        write_page(output, post["url"], markup)
 
-    # feed
-    items = []
-    for post in posts:
-        try:
-            dt = datetime.fromisoformat(post["date"] + "T09:00:00+00:00")
-        except ValueError:
-            dt = datetime.now(timezone.utc)
-        items.append(
-            "<item>\n"
-            f"<title>{html.escape(post['title'])}</title>\n"
-            f"<link>https://clpanic.com/blog/{post['slug']}/</link>\n"
-            f"<guid>https://clpanic.com/blog/{post['slug']}/</guid>\n"
-            f"<pubDate>{format_datetime(dt)}</pubDate>\n"
-            f"<description>{html.escape(post['description'])}</description>\n"
-            "</item>")
-    feed = ('<?xml version="1.0" encoding="UTF-8"?>\n'
-            '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n'
-            "<channel>\n"
-            "<title>Charles Lee — notebook</title>\n"
-            "<link>https://clpanic.com/blog/</link>\n"
-            "<description>Short, dated posts on what I'm building, reading, and changing my mind about.</description>\n"
-            "<language>en</language>\n"
-            '<atom:link href="https://clpanic.com/feed.xml" rel="self" type="application/rss+xml"/>\n'
-            + "\n".join(items) + "\n</channel>\n</rss>\n")
-    (ROOT / "feed.xml").write_text(feed)
+    # A previously published post switched to draft must stop serving its old body.
+    # Keep the route with a noindex notice; never delete an author's files or assets.
+    if not include_drafts:
+        for post in all_posts:
+            if post["draft"] and (output / "blog" / post["slug"] / "index.html").exists():
+                path = f'/blog/{post["slug"]}/'
+                write_page(output, path, page("Post unavailable — Charles Lee", "This post is not currently published.", path,
+                    '<header class="page-heading"><h1>Transmission interrupted.</h1><p>This post isn’t currently published.</p><a href="/blog/">Back to writing →</a></header>',
+                    active="writing", extra_head='<meta name="robots" content="noindex,nofollow">'))
 
-    print(f"rendered {len(posts)} post(s) + index + feed")
+    print(f"Rendered {len(posts)} post(s), homepage, writing, projects, library, and about" + (" (preview)" if include_drafts else ""))
     return 0
 
 

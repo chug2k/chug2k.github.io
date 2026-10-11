@@ -1,12 +1,17 @@
-name: Render blog
+name: Render site
 on:
   push:
     branches: [main]
-    paths: ["blog/posts/**"]
+    paths: ["blog/posts/**", "blog/_template.html", "_templates/**", "content/**", "_scripts/**", "assets/**", ".github/workflows/blog.yml"]
   workflow_dispatch:
 
 permissions:
   contents: write
+  pages: write
+
+concurrency:
+  group: render-site
+  cancel-in-progress: false
 
 jobs:
   render:
@@ -20,10 +25,11 @@ jobs:
           python-version: "3.x"
       - run: python3 _scripts/build-blog.py
       - run: python3 _scripts/build-sitemap.py
+      - run: python3 _scripts/check-site.py
       - run: |
           git config user.name "blog-bot"
           git config user.email "blog-bot@users.noreply.github.com"
-          git add blog/ feed.xml sitemap.xml
+          git add index.html blog/ making/index.html about/index.html library/index.html sitemap.xml
           git diff --cached --quiet && echo "nothing to render" && exit 0
           git commit -m "Render blog ($(date -u +%F))"
           # Another push may have landed while we worked — rebase, rebuild,
@@ -31,6 +37,11 @@ jobs:
           git pull --rebase origin main
           python3 _scripts/build-blog.py
           python3 _scripts/build-sitemap.py
-          git add blog/ feed.xml sitemap.xml
+          git add index.html blog/ making/index.html about/index.html library/index.html sitemap.xml
           git diff --cached --quiet || git commit -m "Render blog ($(date -u +%F))" --amend --no-edit
           git push
+      # GITHUB_TOKEN commits do not trigger branch-based Pages builds themselves.
+      - name: Rebuild GitHub Pages from the rendered branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method POST "repos/${GITHUB_REPOSITORY}/pages/builds"

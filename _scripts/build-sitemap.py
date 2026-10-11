@@ -18,6 +18,8 @@ STATIC = [
     ("/", "weekly", "1.0"),
     ("/blog/", "weekly", "0.9"),
     ("/making/", "monthly", "0.8"),
+    ("/about/", "monthly", "0.6"),
+    ("/library/", "monthly", "0.7"),
     ("/v/", "weekly", "0.8"),
     ("/unhurried-guide/", "monthly", "0.7"),
     ("/japan-2025/", "yearly", "0.6"),
@@ -71,6 +73,8 @@ def main() -> int:
                 continue
             idx = sub / "index.html"
             if not idx.exists():
+                continue
+            if 'name="robots" content="noindex' in idx.read_text():
                 continue
             m = re.match(r"(\d{4}-\d{2}-\d{2})", sub.name)
             lm = m.group(1) if m else today
