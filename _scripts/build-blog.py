@@ -33,14 +33,13 @@ def parse_post(path: Path) -> dict:
     text = path.read_text()
     meta: dict[str, str] = {}
     body = text
-    if text.startswith("---"):
-        end = text.find("---", 3)
-        if end != -1:
-            for line in text[3:end].strip().splitlines():
-                if ":" in line:
-                    k, v = line.split(":", 1)
-                    meta[k.strip().lower()] = v.strip()
-            body = text[end + 3:].lstrip("\n")
+    frontmatter = re.match(r"\A---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|\Z)", text)
+    if frontmatter:
+        for line in frontmatter.group(1).splitlines():
+            if ":" in line:
+                k, v = line.split(":", 1)
+                meta[k.strip().lower()] = v.strip()
+        body = text[frontmatter.end():].lstrip("\n")
     slug = path.stem  # YYYY-MM-DD-slug
     m = re.match(r"(\d{4}-\d{2}-\d{2})-(.+)", slug)
     file_date = m.group(1) if m else ""

@@ -4,6 +4,18 @@ A static site at [clpanic.com](https://clpanic.com). Markdown posts, one project
 
 ## Write a post
 
+Open the [writing room](https://clpanic.com/admin/), also linked as **Write** in the site footer. Add a title, a short summary, and your article. Type `/` for headings, lists, quotes, or images; select text to format it.
+
+- Drafts save automatically in the browser. **New post** keeps your current draft; **My drafts** lets you switch between them.
+- **Download** saves a Markdown copy. **Import Markdown** opens one. Use these to move drafts between devices or between the local preview and the live site; each browser and site keeps its own drafts.
+- **Connect GitHub** has the one-time setup instructions. Create a fine-grained token for only `chug2k.github.io`, with **Contents → Read and write**, and paste it into the editor. The token stays in that browser and is sent only to GitHub.
+- **Publish** sends the article to GitHub. The site rebuilds automatically, and the newest article appears first. Allow a minute or two.
+- **Existing articles** opens a local working copy of a Markdown post. Existing source opens in Markdown mode to preserve its formatting and excerpt breaks. Publishing updates the original URL. **Load latest** fetches a fresh copy from GitHub and keeps your previous copy in **My drafts**.
+
+The editor will not silently replace another article with the same URL or overwrite a version changed elsewhere. Drafts stay local until you publish. Images can use a hosted URL; repository image files can be added with the workflow below.
+
+### Write in a local Markdown file
+
 ```sh
 ./_scripts/new-post.sh "A working title"
 python3 _scripts/serve.py
@@ -34,7 +46,7 @@ The homepage shows opening paragraphs from the actual article (up to four paragr
 
 Put photos in `blog/assets/<post-name>/` and refer to them as `![A useful description](/blog/assets/<post-name>/photo.jpg)`.
 
-## Publish
+## Publish from a local file
 
 1. Change `draft: true` to `draft: false`.
 2. Build and check:
@@ -53,7 +65,7 @@ Posts without a `draft` field remain published for compatibility with the browse
 
 This is a public repository: Markdown committed here is public even when marked as a draft. Keep genuinely private drafts outside the repository.
 
-The existing `/admin/` browser editor still works. It saves drafts in browser storage and its **Publish** action writes a published Markdown post to GitHub. Use a GitHub token with access only to this repository. The local workflow above needs no token.
+The local workflow uses your existing Git access and needs no editor token.
 
 ## Update projects or navigation
 

@@ -131,6 +131,13 @@ class PublishingTests(unittest.TestCase):
             blog.main(self.output)
         self.assertFalse(self.output.exists())
 
+    def test_dashes_in_title_do_not_end_frontmatter(self):
+        self.post("2026-10-01-post", "A thought --- continued", body="The whole article.")
+        blog.main(self.output)
+        article = (self.output / "blog/2026-10-01-post/index.html").read_text()
+        self.assertIn("A thought --- continued", article)
+        self.assertIn("The whole article.", article)
+
 
 if __name__ == "__main__":
     unittest.main()
