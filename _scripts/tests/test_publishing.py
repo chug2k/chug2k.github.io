@@ -138,6 +138,41 @@ class PublishingTests(unittest.TestCase):
         self.assertIn("A thought --- continued", article)
         self.assertIn("The whole article.", article)
 
+    def test_tables_render_in_posts_with_formatting_and_alignment(self):
+        body = """# At a glance
+
+| Paddle | Price | Verdict |
+| :--- | ---: | :---: |
+| **Spitfire** | $109.99 | [Demo](https://example.com) |
+| `<b>` | $220 | Soft \\| stable |
+
+The story continues.
+"""
+        self.post("2026-10-01-post", "A comparison", body=body)
+        blog.main(self.output)
+        article = (self.output / "blog/2026-10-01-post/index.html").read_text()
+        self.assertIn('role="region" aria-label="At a glance table" tabindex="0"', article)
+        self.assertIn('<th scope="col" class="table-align-right">Price</th>', article)
+        self.assertIn('<td class="table-align-left"><strong>Spitfire</strong></td>', article)
+        self.assertIn('<td class="table-align-center"><a href="https://example.com">Demo</a></td>', article)
+        self.assertIn('<code>&lt;b&gt;</code>', article)
+        self.assertIn('Soft | stable</td>', article)
+        self.assertIn('<p>The story continues.</p>', article)
+        home = (self.output / "index.html").read_text()
+        self.assertNotIn("Scroll sideways", home)
+
+    def test_table_optional_outer_pipes_and_short_rows(self):
+        result = blog.render_markdown("Name | Price\n--- | ---:\nFirst | $100\nSecond |\nThird | $200 | extra\n# Next section")
+        self.assertEqual(result.count('<table>'), 1)
+        self.assertIn('<td class="table-align-right"></td>', result)
+        self.assertNotIn('extra', result)
+        self.assertIn('<h2>Next section</h2>', result)
+
+    def test_pipe_prose_and_fenced_examples_are_not_tables(self):
+        for body in ("A | B\nnot | separators", "A | B\n--- | --- | ---", "```md\n| A | B |\n| --- | --- |\n```"):
+            with self.subTest(body=body):
+                self.assertNotIn('<table>', blog.render_markdown(body))
+
 
 if __name__ == "__main__":
     unittest.main()

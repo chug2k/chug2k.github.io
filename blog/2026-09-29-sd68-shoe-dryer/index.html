@@ -83,7 +83,45 @@
     <p><img src="/blog/assets/shoe-dryer/22-connectors-wago-listing.jpg" alt="WAGO 221-413 search + PCT clones for midnight parallel wiring" loading="lazy"></p>
     <p>Gemini wanted a PWM controller at one point. I looked at the listings, felt the subplot expanding, and chose a basic on/off switch instead. Rejected the ESP32 + SHT31 + MOSFET humidity-closed-loop fanfic. Simple was enough.</p>
     <h4>Parts / price list (approx, Shopee VN, Sep 2026)</h4>
-    <p>| What | Rough price | Notes | | --- | --- | --- | | 2× high-speed 12V 7530 blowers (~0.56A, ~6k RPM, dual ball) | ~170k₫ each (VIP lower) | The whole point | | 12V ~2A wall adapter | ~51k₫ | External power; don't feed new fans from the SD-68 board | | DC 5.5×2.1 female barrel / pigtail bits | ~15k₫ | Screw terminals or prewired female | | Lever connectors (WAGO 221-413 or PCT 3-port clones) | ~27k–57k₫ for a small pack of clones; real WAGOs way more | Parallel the two fans; red=+ / black=−; tape off yellow/blue | | Inline on/off switch (KCD1 rocker) | cheap | Skipped PWM drama | | <strong>Ballpark total</strong> | <strong>under ~500k₫</strong> | Plus the dryer you already own and the Barricades you already murdered |</p>
+    <div class="table-scroll" role="region" aria-label="Parts / price list (approx, Shopee VN, Sep 2026) table" tabindex="0">
+      <table><thead><tr>
+        <th scope="col" class="table-align-left">What</th>
+        <th scope="col" class="table-align-left">Rough price</th>
+        <th scope="col" class="table-align-left">Notes</th>
+      </tr></thead><tbody>
+        <tr>
+          <td class="table-align-left">2× high-speed 12V 7530 blowers (~0.56A, ~6k RPM, dual ball)</td>
+          <td class="table-align-left">~170k₫ each (VIP lower)</td>
+          <td class="table-align-left">The whole point</td>
+        </tr>
+        <tr>
+          <td class="table-align-left">12V ~2A wall adapter</td>
+          <td class="table-align-left">~51k₫</td>
+          <td class="table-align-left">External power; don't feed new fans from the SD-68 board</td>
+        </tr>
+        <tr>
+          <td class="table-align-left">DC 5.5×2.1 female barrel / pigtail bits</td>
+          <td class="table-align-left">~15k₫</td>
+          <td class="table-align-left">Screw terminals or prewired female</td>
+        </tr>
+        <tr>
+          <td class="table-align-left">Lever connectors (WAGO 221-413 or PCT 3-port clones)</td>
+          <td class="table-align-left">~27k–57k₫ for a small pack of clones; real WAGOs way more</td>
+          <td class="table-align-left">Parallel the two fans; red=+ / black=−; tape off yellow/blue</td>
+        </tr>
+        <tr>
+          <td class="table-align-left">Inline on/off switch (KCD1 rocker)</td>
+          <td class="table-align-left">cheap</td>
+          <td class="table-align-left">Skipped PWM drama</td>
+        </tr>
+        <tr>
+          <td class="table-align-left"><strong>Ballpark total</strong></td>
+          <td class="table-align-left"><strong>under ~500k₫</strong></td>
+          <td class="table-align-left">Plus the dryer you already own and the Barricades you already murdered</td>
+        </tr>
+      </tbody></table>
+    </div>
+    <p class="table-hint">Scroll sideways to compare all columns.</p>
     <p>Prices move. Vouchers lie. Your cart will have 90 unrelated things in it. That's fine.</p>
     <h3>Chapter 6: First power-on (loud, wet, confusing)</h3>
     <p>Wired the new blowers in parallel off the external supply. Red to +, black to −, yellow/blue insulated and ignored. WAGO levers. Bench test first so I didn't invent a fire inside the plastic tomb.</p>

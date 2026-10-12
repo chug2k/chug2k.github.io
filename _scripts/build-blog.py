@@ -86,6 +86,39 @@ def render_inline(text: str) -> str:
     return out
 
 
+def table_cells(line: str) -> list[str]:
+    """Split a pipe row, keeping escaped pipes inside their cells."""
+    text = line.strip()
+    cells, cell = [], []
+    i = 0
+    while i < len(text):
+        if text[i] == "\\" and i + 1 < len(text) and text[i + 1] in "\\|":
+            cell.append(text[i + 1])
+            i += 2
+            continue
+        if text[i] == "|":
+            cells.append("".join(cell).strip())
+            cell = []
+        else:
+            cell.append(text[i])
+        i += 1
+    cells.append("".join(cell).strip())
+    if text.startswith("|"):
+        cells.pop(0)
+    # A delimiter at the end leaves an empty final segment; an escaped pipe does not.
+    if text.endswith("|") and cells[-1] == "":
+        cells.pop()
+    return cells
+
+
+def table_alignments(line: str) -> list[str]:
+    cells = table_cells(line)
+    if not cells or not all(re.fullmatch(r":?-{3,}:?", cell) for cell in cells):
+        return []
+    return ["center" if cell.startswith(":") and cell.endswith(":") else
+            "right" if cell.endswith(":") else "left" for cell in cells]
+
+
 def render_markdown(body: str) -> str:
     lines = body.splitlines()
     out: list[str] = []
@@ -94,6 +127,8 @@ def render_markdown(body: str) -> str:
     fence_lang = ""
     fence_buf: list[str] = []
     list_tag = ""  # "ul" | "ol" | ""
+    skip_until = 0
+    section_title = "Article"
 
     def flush_para():
         if para:
@@ -106,7 +141,9 @@ def render_markdown(body: str) -> str:
             out.append(f"    </{list_tag}>")
             list_tag = ""
 
-    for line in lines:
+    for index, line in enumerate(lines):
+        if index < skip_until:
+            continue
         stripped = line.strip()
         if stripped.startswith("```"):
             if not in_fence:
@@ -128,6 +165,31 @@ def render_markdown(body: str) -> str:
             flush_para()
             close_list()
             continue
+        if "|" in line and index + 1 < len(lines):
+            headers = table_cells(line)
+            alignments = table_alignments(lines[index + 1])
+            if alignments and len(headers) == len(alignments):
+                flush_para()
+                close_list()
+                label = html.escape(f"{section_title} table", quote=True)
+                out.append(f'    <div class="table-scroll" role="region" aria-label="{label}" tabindex="0">')
+                out.append("      <table><thead><tr>")
+                for cell, align in zip(headers, alignments):
+                    out.append(f'        <th scope="col" class="table-align-{align}">{render_inline(cell)}</th>')
+                out.append("      </tr></thead><tbody>")
+                end = index + 2
+                while end < len(lines) and "|" in lines[end] and not re.match(r"\s*(?:```|#{1,6}\s|>\s|[-*]\s|\d+[.)]\s)", lines[end]):
+                    cells = table_cells(lines[end])
+                    cells = (cells + [""] * len(headers))[:len(headers)]
+                    out.append("        <tr>")
+                    for cell, align in zip(cells, alignments):
+                        out.append(f'          <td class="table-align-{align}">{render_inline(cell)}</td>')
+                    out.append("        </tr>")
+                    end += 1
+                out.append("      </tbody></table>\n    </div>")
+                out.append('    <p class="table-hint">Scroll sideways to compare all columns.</p>')
+                skip_until = end
+                continue
         if stripped in ("---", "***"):
             flush_para()
             close_list()
@@ -137,6 +199,7 @@ def render_markdown(body: str) -> str:
         if h:
             flush_para()
             close_list()
+            section_title = h.group(2)
             level = len(h.group(1)) + 1  # # -> h2 (h1 is the post title)
             out.append(f"    <h{level}>{render_inline(h.group(2))}</h{level}>")
             continue

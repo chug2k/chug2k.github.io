@@ -40,7 +40,16 @@ Start with what happened.
 # What I learned
 ```
 
-The title becomes the page heading. In the body, `#` becomes a section heading, `##` a subsection, and `###` a smaller heading. Paragraphs, bold, emphasis, links, images, code blocks, quotes, and simple lists are supported. This is intentionally a small Markdown renderer; tables and raw HTML are not supported.
+The title becomes the page heading. In the body, `#` becomes a section heading, `##` a subsection, and `###` a smaller heading. Paragraphs, bold, emphasis, links, images, code blocks, quotes, simple lists, and pipe tables are supported. Raw HTML is displayed as text.
+
+Tables use ordinary Markdown and scroll horizontally on small screens. Colons in the separator row set column alignment; use `\|` for a literal pipe inside a cell. The writing room preserves imported tables in Markdown mode.
+
+```markdown
+| Paddle | Price | Best for |
+| --- | ---: | --- |
+| **Spitfire** | $109.99 | Budget power |
+| **Jelly Bean 2** | $169.99 | Touch and resets |
+```
 
 The homepage shows opening paragraphs from the actual article (up to four paragraphs, stopping after roughly 120 words). Add `<!--more-->` on its own line where you want an exact excerpt break; that marker is hidden on the full article.
 
