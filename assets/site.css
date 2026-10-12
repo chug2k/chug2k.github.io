@@ -153,6 +153,11 @@ summary span { display: block; font-family: var(--sans); font-size: .75rem; font
 .prose a { color: var(--accent); }
 .prose blockquote { margin-inline: 0; padding: var(--space-lg); background: var(--teal-soft); color: var(--ink); }
 .prose blockquote p:last-child { margin: 0; }
+.prose li > ul, .prose li > ol { margin-block: var(--space-xs) 0; }
+.prose li + li { margin-top: .25rem; }
+.prose .contains-task-list { padding-left: var(--space-lg); }
+.prose .task-list-item { list-style: none; }
+.prose .task-list-item-checkbox { accent-color: var(--accent); width: 1rem; height: 1rem; margin: 0 .5rem 0 -1.5rem; vertical-align: middle; }
 .prose code { font: .8em/1.6 var(--font-code); background: var(--teal-soft); color: var(--ink); padding: .1em .2em; overflow-wrap: anywhere; }
 .prose pre { padding: var(--space-md); overflow: auto; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); }
 .prose pre code { padding: 0; background: var(--paper); color: var(--ink); }

@@ -1,5 +1,7 @@
 """Exercise author-facing publishing behavior against isolated source/output trees."""
 from pathlib import Path
+from html.parser import HTMLParser
+import hashlib
 import importlib.util
 import shutil
 import sys
@@ -13,6 +15,24 @@ import site_builder
 spec = importlib.util.spec_from_file_location("blog_builder", SCRIPTS / "build-blog.py")
 blog = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(blog)
+
+
+class RenderedContent(HTMLParser):
+    def __init__(self, source):
+        super().__init__()
+        self.tags = []
+        self.list_depth = self.max_list_depth = 0
+        self.feed(source)
+
+    def handle_starttag(self, tag, attrs):
+        self.tags.append((tag, dict(attrs)))
+        if tag in ("ul", "ol"):
+            self.list_depth += 1
+            self.max_list_depth = max(self.max_list_depth, self.list_depth)
+
+    def handle_endtag(self, tag):
+        if tag in ("ul", "ol"):
+            self.list_depth -= 1
 
 
 class PublishingTests(unittest.TestCase):
@@ -172,6 +192,60 @@ The story continues.
         for body in ("A | B\nnot | separators", "A | B\n--- | --- | ---", "```md\n| A | B |\n| --- | --- |\n```"):
             with self.subTest(body=body):
                 self.assertNotIn('<table>', blog.render_markdown(body))
+
+    def test_visual_editor_markdown_retains_lists_checks_strike_and_link_queries(self):
+        body = """# Main section
+
+Some **bold**, *italic*, ~~struck~~, and [a link](https://example.org/?a=1&b=2).
+
+* Parent item
+  * Child item
+* [x] Done
+* [ ] To do
+
+> A quote.
+
+![A photo](/assets/favicon.svg)
+"""
+        rendered = blog.render_markdown(body)
+        tree = RenderedContent(rendered)
+        self.assertEqual(tree.max_list_depth, 2)
+        self.assertIn('<s>struck</s>', rendered)
+        self.assertIn('<h2>Main section</h2>', rendered)
+        self.assertEqual([a['href'] for t, a in tree.tags if t == 'a'], ['https://example.org/?a=1&b=2'])
+        checks = [a for t, a in tree.tags if t == 'input']
+        self.assertEqual(len(checks), 2)
+        self.assertTrue(all(a['type'] == 'checkbox' and 'disabled' in a for a in checks))
+        self.assertIn('checked', checks[0])
+        self.assertNotIn('checked', checks[1])
+        self.assertIn(('img', {'src': '/assets/favicon.svg', 'alt': 'A photo', 'loading': 'lazy'}), tree.tags)
+
+    def test_raw_html_and_unsafe_link_protocols_do_not_execute(self):
+        rendered = blog.render_markdown('<script>alert(1)</script>\n\n[Click](javascript:alert(1))\n\n![file](file:///etc/passwd)')
+        tree = RenderedContent(rendered)
+        self.assertFalse(any(t in ('script', 'iframe') for t, a in tree.tags))
+        self.assertFalse(any(a.get('href', '').startswith('javascript:') or a.get('src', '').startswith('file:') for t, a in tree.tags))
+        self.assertIn('&lt;script&gt;', rendered)
+
+    def test_excerpt_marker_in_code_is_preserved(self):
+        body = 'Opening.\n\n```html\n<!--more-->\n```\n\nStill the intro.\n\n<!--more-->\n\nThe rest.'
+        rendered = blog.render_markdown(body)
+        self.assertEqual(rendered.count('&lt;!--more--&gt;'), 1)
+        self.assertNotIn('<p>&lt;!--more--&gt;</p>', rendered)
+        excerpt = blog.render_excerpt(body)
+        self.assertIn('Still the intro.', excerpt)
+        self.assertNotIn('The rest.', excerpt)
+
+    def test_generated_page_identifies_the_exact_published_source(self):
+        path = self.post('2026-10-01-post', 'A saved revision', body='Café 🐩')
+        blog.main(self.output)
+        article = (self.output / 'blog/2026-10-01-post/index.html').read_text()
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        self.assertIn(f'name="article-source-sha256" content="{digest}"', article)
+        path.write_text(path.read_text().replace('Café', 'Changed'))
+        blog.main(self.output)
+        article = (self.output / 'blog/2026-10-01-post/index.html').read_text()
+        self.assertNotIn(digest, article)
 
 
 if __name__ == "__main__":

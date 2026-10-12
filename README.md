@@ -1,18 +1,21 @@
 # Charles Lee’s blog & workshop
 
-A static site at [clpanic.com](https://clpanic.com). Markdown posts, one project catalog, shared HTML templates, and Python’s standard library. No package installation is needed to write, build, or preview it.
+A static site at [clpanic.com](https://clpanic.com). Markdown posts, one project catalog, and shared HTML templates. The browser writing room needs no local tools. Local builds use Python 3 and Node.js 22 or newer; the Markdown renderer is bundled in the repository, so no package installation is needed for normal builds or previews.
 
 ## Write a post
 
-Open the [writing room](https://clpanic.com/admin/), also linked as **Write** in the site footer. Add a title, a short summary, and your article. Type `/` for headings, lists, quotes, or images; select text to format it.
+Open the [writing room](https://clpanic.com/admin/), also linked as **Write** in the site footer. Add a title, a short summary, and your article. **Insert / Format** gives you headings, lists, tables, photos, and an excerpt break; you can also type `/` or select text to format it.
 
-- Drafts save automatically in the browser. **New post** keeps your current draft; **My drafts** lets you switch between them.
-- **Download** saves a Markdown copy. **Import Markdown** opens one. Use these to move drafts between devices or between the local preview and the live site; each browser and site keeps its own drafts.
-- **Connect GitHub** has the one-time setup instructions. Create a fine-grained token for only `chug2k.github.io`, with **Contents → Read and write**, and paste it into the editor. The token stays in that browser and is sent only to GitHub.
-- **Publish** sends the article to GitHub. The site rebuilds automatically, and the newest article appears first. Allow a minute or two.
-- **Existing articles** opens a local working copy of a Markdown post. Existing source opens in Markdown mode to preserve its formatting and excerpt breaks. Publishing updates the original URL. **Load latest** fetches a fresh copy from GitHub and keeps your previous copy in **My drafts**.
+- Drafts save automatically in this browser. **My drafts** lets you search, switch, and archive them. Conflicting edits from another tab are kept as separate recovery copies.
+- Under **More**, **New post** keeps your current draft. **Download backup** and **Import draft** move a complete draft, including local photos, between devices. Each browser and site keeps its own drafts; they do not sync automatically.
+- Add photos from your device, clipboard, or a hosted URL. Device photos stay local until you publish. Add useful alt text and an optional caption using the image controls.
+- **Preview & publish** shows the article using the same layout and Markdown renderer as the live site. Review the title, date, and destination, then choose **Publish now**. The date orders articles; it does not schedule publication.
+- **Connect GitHub** explains the setup. Create a fine-grained token for only `chug2k.github.io`, with **Contents → Read and write**, and paste it into the editor. The token stays in that browser and is sent only to GitHub. Reconnect when it expires.
+- **Existing articles** opens a local working copy. Publishing updates the original URL. **Load latest** fetches the GitHub version and keeps your previous local copy.
 
-The editor will not silently replace another article with the same URL or overwrite a version changed elsewhere. Drafts stay local until you publish. Images can use a hosted URL; repository image files can be added with the workflow below.
+Publishing uploads the photos and article, then GitHub rebuilds the site. Allow a minute or two. The editor only confirms **Live** after the served article matches the saved source; **Check again** retries that check. A local preview may be unable to check the live site across domains, in which case use the live-site link. If a network response is lost, retrying reconciles the saved GitHub copy before writing again.
+
+The editor preserves source sections that cannot safely round-trip through visual editing. Those sections show as preserved Markdown blocks and remain editable in **Markdown** mode. Tables and excerpt breaks have visual editing support. Opening an article alone does not rewrite its source. If storage fails, the status tells you; download a backup before closing the tab.
 
 ### Write in a local Markdown file
 
@@ -40,9 +43,9 @@ Start with what happened.
 # What I learned
 ```
 
-The title becomes the page heading. In the body, `#` becomes a section heading, `##` a subsection, and `###` a smaller heading. Paragraphs, bold, emphasis, links, images, code blocks, quotes, simple lists, and pipe tables are supported. Raw HTML is displayed as text.
+The title becomes the page heading. In the body, `#` becomes a section heading, `##` a subsection, and `###` a smaller heading. Paragraphs, bold, emphasis, strikethrough, links, images, code blocks, quotes, nested lists, checklists, and pipe tables are supported. Raw HTML is displayed as text. Preview and publication use the same bundled Markdown renderer and article template.
 
-Tables use ordinary Markdown and scroll horizontally on small screens. Colons in the separator row set column alignment; use `\|` for a literal pipe inside a cell. The writing room preserves imported tables in Markdown mode.
+Tables use ordinary Markdown and scroll horizontally on small screens. Colons in the separator row set column alignment; use `\|` for a literal pipe inside a cell.
 
 ```markdown
 | Paddle | Price | Best for |
@@ -94,6 +97,8 @@ Standalone articles use their first repository commit dates (June 2026) for the 
 
 Run `python3 _scripts/build-blog.py` after editing sources. Avoid editing generated `index.html` files; the next build replaces them. Existing standalone guides, experiments, and video pages retain their own layouts and URLs.
 
+If you change the Markdown implementation (`_scripts/markdown-renderer.js`) or article template (`blog/_template.html`), rebuild the shared renderer with `bash _scripts/build-markdown.sh` before building the site. That maintenance command installs its pinned build packages in a temporary folder and produces `assets/markdown.mjs`; normal writing does not require it. GitHub’s Render site workflow rebuilds it automatically. The writer loads that same module so formatting cannot drift between its preview and the published article.
+
 ## A publishing habit that fits this site
 
 Aim for one useful post a week, even if it is short. There are three natural recurring subjects: **things I built**, **things I tried**, and **things I changed my mind about**. A specific incident is a stronger opening than an introduction to a whole topic.
@@ -110,3 +115,15 @@ python3 _scripts/check-site.py
 ```
 
 The first exercises publication, drafts, metadata, and build determinism in temporary directories. The second validates the generated site's local links, assets, page structure, and sitemap XML.
+
+For writing-room changes:
+
+```sh
+bash _scripts/build-admin.sh
+npm ci --prefix admin
+cd admin
+npx playwright install chromium
+npm test
+```
+
+The browser suite starts its own temporary server and uses fresh browser storage. All GitHub calls are mocked, so tests do not publish articles or need credentials. It covers concurrent drafts, startup failure, visual formatting, photo backups, authentication, uncertain writes, and live-revision checks, including mobile viewport emulation. GitHub Actions runs it when the writer or shared formatting changes. Rebuild the admin bundle after editing `admin/src/`, `admin/writer.css`, or its dependencies; the build also updates the page's cache fingerprints.

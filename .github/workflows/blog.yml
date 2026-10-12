@@ -23,21 +23,27 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.x"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - run: bash _scripts/build-markdown.sh
+      - run: python3 -m unittest discover -s _scripts/tests
       - run: python3 _scripts/build-blog.py
       - run: python3 _scripts/build-sitemap.py
       - run: python3 _scripts/check-site.py
       - run: |
           git config user.name "blog-bot"
           git config user.email "blog-bot@users.noreply.github.com"
-          git add index.html blog/ making/index.html about/index.html library/index.html sitemap.xml
+          git add index.html blog/ making/index.html about/index.html library/index.html sitemap.xml assets/markdown.mjs assets/markdown-LICENSE.txt
           git diff --cached --quiet && echo "nothing to render" && exit 0
           git commit -m "Render blog ($(date -u +%F))"
           # Another push may have landed while we worked — rebase, rebuild,
           # and only then push, so rapid successive publishes don't fail.
           git pull --rebase origin main
+          bash _scripts/build-markdown.sh
           python3 _scripts/build-blog.py
           python3 _scripts/build-sitemap.py
-          git add index.html blog/ making/index.html about/index.html library/index.html sitemap.xml
+          git add index.html blog/ making/index.html about/index.html library/index.html sitemap.xml assets/markdown.mjs assets/markdown-LICENSE.txt
           git diff --cached --quiet || git commit -m "Render blog ($(date -u +%F))" --amend --no-edit
           git push
       # GITHUB_TOKEN commits do not trigger branch-based Pages builds themselves.

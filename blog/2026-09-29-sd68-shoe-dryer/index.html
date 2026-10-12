@@ -13,7 +13,7 @@
   <meta property="og:description" content="A multi-week SD-68 saga — melted Barricades, eldritch funk, Shopee blowers, WAGOs, and the 5-on/5-off trick that finally works.">
   <meta property="og:url" content="https://clpanic.com/blog/2026-09-29-sd68-shoe-dryer/">
   <meta name="twitter:card" content="summary">
-  <meta property="article:published_time" content="2026-09-29">
+  <meta property="article:published_time" content="2026-09-29"><meta name="article-source-sha256" content="ea74b4e8bb6743fb69caad3fe070906a39f6bad56038d0d3004ff275ef85a927">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/site.css">
   <script src="/assets/site.js"></script>
@@ -37,129 +37,134 @@
     <p class="post-meta"><time datetime="2026-09-29">September 29, 2026</time> · 10 min read · Charles Lee</p>
     <p class="post-description">A multi-week SD-68 saga — melted Barricades, eldritch funk, Shopee blowers, WAGOs, and the 5-on/5-off trick that finally works.</p>
   </header>
-  <div class="prose">    <p>Being married to an engineer can be tough sometimes — especially if he sweats through his shoes, soaking wet, every time he plays pickleball. Sometimes through two pairs.</p>
-    <p>This one started with an SD-68 / FujiHome shoe dryer that sux, and somehow turned into the coolest and fucking craziest thing I've ever done.</p>
-    <p>This is the saga. Bring a snack.</p>
-    <h3>Chapter 1: The dryer that melts shoes</h3>
-    <p>Saigon humidity is rude. You come back from pickleball or a rainy commute and your shoes are a wet crime scene. So I bought one of those upright shoe dryers — the SD-68 — the kind with nozzles that shove air up into each shoe, a little cabinet, timers, even an ozone button for people who think ozone is a personality.</p>
-    <p>Out of the box it did one thing extremely well: cook shoes.</p>
-    <p>There was no switch for "just one heater." The UI doesn't offer that. Shoe glue. EVA / PEBA midsoles. The adhesives that hold a pair of Barricades together. I learned that the expensive way. Ruined a pair. Not "a little crispy." Ruined.</p>
-    <p>So I opened the damn thing — which I never would have done without an AI safety blanket walking me through 220V death notes and "don't short those leads" — and discovered there were actually <em>two</em> heater elements inside. Gemini later told me they're PTC ceramic with bimetal thermal switches, probably hanging out around 65–85°C in the housing — fine for towels, catastrophic for modern running shoes. Cool. Great product design. Perfect.</p>
-    <p><img src="/blog/assets/shoe-dryer/01-internals-wiring-fans.jpg" alt="Opened cabinet: two heater stacks, two stock blowers, the crime scene" loading="lazy"></p>
-    <p>I disconnected one first. Still cooked. Then I cut both. Wiring freed from service. Problem solved. No more melting.</p>
-    <p>Also: no more drying.</p>
-    <p><img src="/blog/assets/shoe-dryer/05-heater-housing-connector.jpg" alt="Heater leads before (and after) the cut" loading="lazy"></p>
-    <h3>Chapter 2: The fans are weak as shit</h3>
-    <p>With heaters gone, all I had left were the stock blowers. Generic 12V 7530 centrifugal fans. Looking at the labels and Gemini's guesses: maybe 2,000–2,500 RPM, under 8 CFM, drawing something pathetic like 0.15–0.25A each. They whispered air. They did not dry shoes.</p>
-    <p>What they <em>did</em> do was keep the midsoles politely humid while delivering nice fresh oxygen to whatever was living in there.</p>
-    <p>Not "a little sweaty" foul. Eldritch-horror-morning-breath-after-vomiting-from-too-much-booze foul. The kind of smell that makes you renegotiate your relationship with the concept of footwear.</p>
-    <p><img src="/blog/assets/shoe-dryer/24-installed-blower-label.jpg" alt="Stock-era 12V 7530 label — politely useless CFM" loading="lazy"></p>
-    <p><img src="/blog/assets/shoe-dryer/04-control-board-wiring.jpg" alt="Control board: two relays, connectors, vibes" loading="lazy"></p>
-    <p>Gemini also pointed out that once you disconnect the PTCs, those cream heater housings become airflow bricks. Dense ceramic honeycomb / fin matrix sitting in the path like a traffic cone. Predicted 40–70% more nozzle air if you gut them. I tried to understand how. The assembly was glued, fused, metal/ceramic, and I am not dying for a shoe dryer. The housings stayed. The fans stayed weak. The smell got worse.</p>
-    <p><img src="/blog/assets/shoe-dryer/07-heater-element-housing.jpg" alt="PTC fins still in the duct = airflow brick once heaters are gone" loading="lazy"></p>
-    <h3>Chapter 3: Floor fan era (eldritch farts, confined)</h3>
-    <p>For a while I gave up on the cabinet as a machine and used it as... furniture that holds shoes while a massive floor fan screams at them.</p>
-    <p>That works alright. The ergonomics are so bad. You have to balance the insoles like you're playing Jenga with laundry. Point the fan. Reposition. Forget. Come back. Still damp in the toe box.</p>
-    <p><img src="/blog/assets/shoe-dryer/25-shoes-before-after.jpg" alt="Adidas on the TROTEC floor fan, insoles playing Jenga on the tile" loading="lazy"></p>
-    <p>When I kept the shoes <em>inside</em> the dryer cabinet with the door open and the floor fan blasting into it, it just recirculated funk into every plastic corner. Eldritch farts, confined. The cabinet became a smell amplifier. I moved things around. I hated it. Jihye hated it. The shoes were technically drying but my life was worse.</p>
-    <p>There had to be a better way that didn't involve dedicating a corner of the apartment to a festival of wet rubber.</p>
-    <h3>Chapter 4: Fuck this is harder than software</h3>
-    <p>I went back to Gemini with photos. Internals. PCB. Heater housings. Thermal snap switches. Blower labels. The whole crime scene.</p>
-    <p>Gemini kept reminding me the cabinet has lethal 220V AC in it, which is correct and also the kind of thing you want a chatbot to say more than once when you're holding a phone over an open appliance at 1am.</p>
-    <p>It also kept contradicting itself — including about whether to open the front door to "help airflow" on a unit that exhausts top/rear. I called it out. ("Yes you just fucking told me to open the door.") Gemini admitted it. Bottom-to-top path; opening the front short-circuits the intended flow. Keep the door closed. Ask me how I know.</p>
-    <p><img src="/blog/assets/shoe-dryer/06-heater-thermostat-closeup.jpg" alt="Snap-switch / thermostat area — the little metal liar" loading="lazy"></p>
-    <p>Somewhere in this stretch I said out loud: fuck this is harder than software. Because it is. Software doesn't smell like ozone and shoe bacteria. Software doesn't have a bimetal disc deciding your night.</p>
-    <h3>Chapter 5: Shopee shopping montage</h3>
-    <p>Gemini said the stock board maybe supplies 0.5–0.8A total at 12V. So you cannot hang serious blowers off it unless you enjoy magic smoke.</p>
-    <p>We went hunting on Shopee for 7530 centrifugal upgrades. Dual ball bearing, not sleeve. 12V preferred over the weird 24V listings that were often slower anyway. Spec tables in Chinese. Titles that say 5V/12V/24V like a personality disorder.</p>
-    <p><img src="/blog/assets/shoe-dryer/08-product-spec-screenshot.jpg" alt="Variant picker: every size and voltage at once" loading="lazy"></p>
-    <p><img src="/blog/assets/shoe-dryer/15-blower-comparison.jpg" alt="The money table: 12V / 0.56A / 6000 RPM / 6.72W / dual ball" loading="lazy"></p>
-    <p><img src="/blog/assets/shoe-dryer/14-blower-specs.jpg" alt="Same listing family — ball bearing + wiring colors (R+/B−/Y/Blue)" loading="lazy"></p>
-    <p>The ones I actually bought landed around: 12V, ~0.56A each, ~6.72W, 6,000 RPM ±10%, dual ball, ~49 dBA, standard 75×75×30mm footprint, 39×30mm outlet. Loud in a way that feels like progress.</p>
-    <p>Then the support cast:</p>
-    <p><img src="/blog/assets/shoe-dryer/17-power-adapter-listing.jpg" alt="12V 2A wall wart — stock board said no" loading="lazy"></p>
-    <p><img src="/blog/assets/shoe-dryer/20-power-supply-listing.jpg" alt="5.5×2.1 DC barrel / screw-terminal world" loading="lazy"></p>
-    <p><img src="/blog/assets/shoe-dryer/21-fan-parts-listing.jpg" alt="KCD1 rocker switches — basic on/off, no PWM subplot" loading="lazy"></p>
-    <p><img src="/blog/assets/shoe-dryer/22-connectors-wago-listing.jpg" alt="WAGO 221-413 search + PCT clones for midnight parallel wiring" loading="lazy"></p>
-    <p>Gemini wanted a PWM controller at one point. I looked at the listings, felt the subplot expanding, and chose a basic on/off switch instead. Rejected the ESP32 + SHT31 + MOSFET humidity-closed-loop fanfic. Simple was enough.</p>
-    <h4>Parts / price list (approx, Shopee VN, Sep 2026)</h4>
-    <div class="table-scroll" role="region" aria-label="Parts / price list (approx, Shopee VN, Sep 2026) table" tabindex="0">
-      <table><thead><tr>
-        <th scope="col" class="table-align-left">What</th>
-        <th scope="col" class="table-align-left">Rough price</th>
-        <th scope="col" class="table-align-left">Notes</th>
-      </tr></thead><tbody>
-        <tr>
-          <td class="table-align-left">2× high-speed 12V 7530 blowers (~0.56A, ~6k RPM, dual ball)</td>
-          <td class="table-align-left">~170k₫ each (VIP lower)</td>
-          <td class="table-align-left">The whole point</td>
-        </tr>
-        <tr>
-          <td class="table-align-left">12V ~2A wall adapter</td>
-          <td class="table-align-left">~51k₫</td>
-          <td class="table-align-left">External power; don't feed new fans from the SD-68 board</td>
-        </tr>
-        <tr>
-          <td class="table-align-left">DC 5.5×2.1 female barrel / pigtail bits</td>
-          <td class="table-align-left">~15k₫</td>
-          <td class="table-align-left">Screw terminals or prewired female</td>
-        </tr>
-        <tr>
-          <td class="table-align-left">Lever connectors (WAGO 221-413 or PCT 3-port clones)</td>
-          <td class="table-align-left">~27k–57k₫ for a small pack of clones; real WAGOs way more</td>
-          <td class="table-align-left">Parallel the two fans; red=+ / black=−; tape off yellow/blue</td>
-        </tr>
-        <tr>
-          <td class="table-align-left">Inline on/off switch (KCD1 rocker)</td>
-          <td class="table-align-left">cheap</td>
-          <td class="table-align-left">Skipped PWM drama</td>
-        </tr>
-        <tr>
-          <td class="table-align-left"><strong>Ballpark total</strong></td>
-          <td class="table-align-left"><strong>under ~500k₫</strong></td>
-          <td class="table-align-left">Plus the dryer you already own and the Barricades you already murdered</td>
-        </tr>
-      </tbody></table>
-    </div>
-    <p class="table-hint">Scroll sideways to compare all columns.</p>
-    <p>Prices move. Vouchers lie. Your cart will have 90 unrelated things in it. That's fine.</p>
-    <h3>Chapter 6: First power-on (loud, wet, confusing)</h3>
-    <p>Wired the new blowers in parallel off the external supply. Red to +, black to −, yellow/blue insulated and ignored. WAGO levers. Bench test first so I didn't invent a fire inside the plastic tomb.</p>
-    <p><img src="/blog/assets/shoe-dryer/26-bench-test-setup.jpg" alt="Bench haul: blower, WAGOs, DC pigtail — test before the plastic tomb" loading="lazy"></p>
-    <p>Dude, it's so much louder which is awesome. But honestly it didn't <em>feel</em> that much more air in my hand at first. Gemini had to explain: centrifugal blowers are a narrow high-pressure jet, not an 18-inch floor fan. Paper test. Aim matters.</p>
-    <p>Installed them. Ran both for about an hour. Shoes still soaked.</p>
-    <p>So the problem wasn't only "fans too weak." It was also geometry and humidity. Shoes sitting wrong. Air dispersing around them instead of flushing the cavities. Balcony RH hanging at 80–90%. Fan-only drying in Saigon is a character-building exercise.</p>
-    <p>I reconnected one heater.</p>
-    <p>Gemini's pitch: warm the 85% RH air by ~8–10°C and the effective humidity drops; the strong blowers keep it from becoming the old stagnant hot spots. Target feel: roughly 35–42°C air, not "melt the Barricades again" air.</p>
-    <p>Twelve minutes later: shoes surprisingly not hot. Air inside was warm. That was the first moment it felt like the machine and I were on the same team.</p>
-    <h3>Chapter 7: Ozone, regret, and going back outside</h3>
-    <p>I moved the unit indoors once because I'm an optimist.</p>
-    <p>It smelled like ass. Heated shoe bacteria. Isovaleric acid. Warm synthetic/EVA off-gassing. Gemini said put it back outside. Correct.</p>
-    <p>Then I tried the ozone function, because the button exists and buttons demand to be pressed. Room smelled like ozone mixed with shoe. I asked Gemini if I was going to die. Gemini said ventilate and don't hang out in ozone soup. Ozone helped the insole smell a bit. It did not dry anything. Ozone is not airflow. Learned that with my nose.</p>
-    <p><img src="/blog/assets/shoe-dryer/03-power-supply-transformer.jpg" alt="UV/ozone ballast (电子镇流器) — the button that smells like regret" loading="lazy"></p>
-    <h3>Chapter 8: The timer epiphany</h3>
-    <p>Here's the part the product almost understood and then fumbled.</p>
-    <p>The SD-68 has a 12-hour intermittent mode: about 5 minutes on, 5 minutes off, for up to 12 hours. Or you can run continuous, but continuous maxes out around 6 hours.</p>
-    <p>With the weak stock fans, 6 hours of continuous did nothing useful. The intermittent mode was even more nothing — brief wheezes of warm disappointment.</p>
-    <p>What I actually needed was <strong>long air</strong>. Like 12 hours of pure blow. Continuous fans. And <em>then</em> a little heat that doesn't cook the glue.</p>
-    <p>Now the fans are on separate power, so they can run forever. The heater stays on the stock 5-on / 5-off cycle.</p>
-    <p>And the surprise: the stronger airflow doesn't cook the shoes as much. The intermittent heat just lightly warms them. That bit of warmth is enough to help shit evaporate. It's glorious.</p>
-    <p>Same cabinet. Same intermittent firmware / bimetal nonsense. Different air. Suddenly the mode that was useless becomes the whole point.</p>
-    <p><img src="/blog/assets/shoe-dryer/27-internals-full-view.jpg" alt="Full guts, cover in hand — same cabinet, different air" loading="lazy"></p>
-    <h3>Chapter 9: What I didn't do (and might still)</h3>
-    <p>Gemini kept offering boss-fight upgrades:</p>
-    <ul>
-      <li>Swap the thermal snap disc for a 40–45°C normally-closed KSD301-style switch</li>
-      <li>Inline SCR / dimmer games with PTC heaters (nonlinear, cursed)</li>
-      <li>ESP32 + humidity sensor + MOSFET cutout when dry enough</li>
-      <li>Tuya / Sonoff smart relay subplot</li>
-    </ul>
-    <p><img src="/blog/assets/shoe-dryer/16-handheld-component-label.jpg" alt="Waveshare ESP32-S3 AMOLED brick — the humidity-closed-loop fanfic he skipped" loading="lazy"></p>
-    <p>I didn't do those. Yet. The separate continuous fans + one intermittent heater is already a win. If I touch the mains thermostat path again, I'll do it sober, outdoors, and with less trust in chatbot door advice.</p>
-    <h3>Epilogue</h3>
-    <p>I started by cutting two wires so my shoes wouldn't melt. I ended with a louder machine, a Shopee cart full of blowers and lever nuts, a balcony that smells less like eldritch brunch, and a weird respect for airflow.</p>
-    <p>God this is the coolest and fucking craziest thing I've ever done.</p>
-    <p>Also: do not trust a chatbot about opening the door on a bottom-to-top exhaust path. Ask me how I know.</p></div>
+  <div class="prose"><p>Being married to an engineer can be tough sometimes — especially if he sweats through his shoes, soaking wet, every time he plays pickleball. Sometimes through two pairs.</p>
+<p>This one started with an SD-68 / FujiHome shoe dryer that sux, and somehow turned into the coolest and fucking craziest thing I've ever done.</p>
+<p>This is the saga. Bring a snack.</p>
+<h3>Chapter 1: The dryer that melts shoes</h3>
+<p>Saigon humidity is rude. You come back from pickleball or a rainy commute and your shoes are a wet crime scene. So I bought one of those upright shoe dryers — the SD-68 — the kind with nozzles that shove air up into each shoe, a little cabinet, timers, even an ozone button for people who think ozone is a personality.</p>
+<p>Out of the box it did one thing extremely well: cook shoes.</p>
+<p>There was no switch for &quot;just one heater.&quot; The UI doesn't offer that. Shoe glue. EVA / PEBA midsoles. The adhesives that hold a pair of Barricades together. I learned that the expensive way. Ruined a pair. Not &quot;a little crispy.&quot; Ruined.</p>
+<p>So I opened the damn thing — which I never would have done without an AI safety blanket walking me through 220V death notes and &quot;don't short those leads&quot; — and discovered there were actually <em>two</em> heater elements inside. Gemini later told me they're PTC ceramic with bimetal thermal switches, probably hanging out around 65–85°C in the housing — fine for towels, catastrophic for modern running shoes. Cool. Great product design. Perfect.</p>
+<p><img src="/blog/assets/shoe-dryer/01-internals-wiring-fans.jpg" alt="Opened cabinet: two heater stacks, two stock blowers, the crime scene" loading="lazy"></p>
+<p>I disconnected one first. Still cooked. Then I cut both. Wiring freed from service. Problem solved. No more melting.</p>
+<p>Also: no more drying.</p>
+<p><img src="/blog/assets/shoe-dryer/05-heater-housing-connector.jpg" alt="Heater leads before (and after) the cut" loading="lazy"></p>
+<h3>Chapter 2: The fans are weak as shit</h3>
+<p>With heaters gone, all I had left were the stock blowers. Generic 12V 7530 centrifugal fans. Looking at the labels and Gemini's guesses: maybe 2,000–2,500 RPM, under 8 CFM, drawing something pathetic like 0.15–0.25A each. They whispered air. They did not dry shoes.</p>
+<p>What they <em>did</em> do was keep the midsoles politely humid while delivering nice fresh oxygen to whatever was living in there.</p>
+<p>Not &quot;a little sweaty&quot; foul. Eldritch-horror-morning-breath-after-vomiting-from-too-much-booze foul. The kind of smell that makes you renegotiate your relationship with the concept of footwear.</p>
+<p><img src="/blog/assets/shoe-dryer/24-installed-blower-label.jpg" alt="Stock-era 12V 7530 label — politely useless CFM" loading="lazy"></p>
+<p><img src="/blog/assets/shoe-dryer/04-control-board-wiring.jpg" alt="Control board: two relays, connectors, vibes" loading="lazy"></p>
+<p>Gemini also pointed out that once you disconnect the PTCs, those cream heater housings become airflow bricks. Dense ceramic honeycomb / fin matrix sitting in the path like a traffic cone. Predicted 40–70% more nozzle air if you gut them. I tried to understand how. The assembly was glued, fused, metal/ceramic, and I am not dying for a shoe dryer. The housings stayed. The fans stayed weak. The smell got worse.</p>
+<p><img src="/blog/assets/shoe-dryer/07-heater-element-housing.jpg" alt="PTC fins still in the duct = airflow brick once heaters are gone" loading="lazy"></p>
+<h3>Chapter 3: Floor fan era (eldritch farts, confined)</h3>
+<p>For a while I gave up on the cabinet as a machine and used it as... furniture that holds shoes while a massive floor fan screams at them.</p>
+<p>That works alright. The ergonomics are so bad. You have to balance the insoles like you're playing Jenga with laundry. Point the fan. Reposition. Forget. Come back. Still damp in the toe box.</p>
+<p><img src="/blog/assets/shoe-dryer/25-shoes-before-after.jpg" alt="Adidas on the TROTEC floor fan, insoles playing Jenga on the tile" loading="lazy"></p>
+<p>When I kept the shoes <em>inside</em> the dryer cabinet with the door open and the floor fan blasting into it, it just recirculated funk into every plastic corner. Eldritch farts, confined. The cabinet became a smell amplifier. I moved things around. I hated it. Jihye hated it. The shoes were technically drying but my life was worse.</p>
+<p>There had to be a better way that didn't involve dedicating a corner of the apartment to a festival of wet rubber.</p>
+<h3>Chapter 4: Fuck this is harder than software</h3>
+<p>I went back to Gemini with photos. Internals. PCB. Heater housings. Thermal snap switches. Blower labels. The whole crime scene.</p>
+<p>Gemini kept reminding me the cabinet has lethal 220V AC in it, which is correct and also the kind of thing you want a chatbot to say more than once when you're holding a phone over an open appliance at 1am.</p>
+<p>It also kept contradicting itself — including about whether to open the front door to &quot;help airflow&quot; on a unit that exhausts top/rear. I called it out. (&quot;Yes you just fucking told me to open the door.&quot;) Gemini admitted it. Bottom-to-top path; opening the front short-circuits the intended flow. Keep the door closed. Ask me how I know.</p>
+<p><img src="/blog/assets/shoe-dryer/06-heater-thermostat-closeup.jpg" alt="Snap-switch / thermostat area — the little metal liar" loading="lazy"></p>
+<p>Somewhere in this stretch I said out loud: fuck this is harder than software. Because it is. Software doesn't smell like ozone and shoe bacteria. Software doesn't have a bimetal disc deciding your night.</p>
+<h3>Chapter 5: Shopee shopping montage</h3>
+<p>Gemini said the stock board maybe supplies 0.5–0.8A total at 12V. So you cannot hang serious blowers off it unless you enjoy magic smoke.</p>
+<p>We went hunting on Shopee for 7530 centrifugal upgrades. Dual ball bearing, not sleeve. 12V preferred over the weird 24V listings that were often slower anyway. Spec tables in Chinese. Titles that say 5V/12V/24V like a personality disorder.</p>
+<p><img src="/blog/assets/shoe-dryer/08-product-spec-screenshot.jpg" alt="Variant picker: every size and voltage at once" loading="lazy"></p>
+<p><img src="/blog/assets/shoe-dryer/15-blower-comparison.jpg" alt="The money table: 12V / 0.56A / 6000 RPM / 6.72W / dual ball" loading="lazy"></p>
+<p><img src="/blog/assets/shoe-dryer/14-blower-specs.jpg" alt="Same listing family — ball bearing + wiring colors (R+/B−/Y/Blue)" loading="lazy"></p>
+<p>The ones I actually bought landed around: 12V, ~0.56A each, ~6.72W, 6,000 RPM ±10%, dual ball, ~49 dBA, standard 75×75×30mm footprint, 39×30mm outlet. Loud in a way that feels like progress.</p>
+<p>Then the support cast:</p>
+<p><img src="/blog/assets/shoe-dryer/17-power-adapter-listing.jpg" alt="12V 2A wall wart — stock board said no" loading="lazy"></p>
+<p><img src="/blog/assets/shoe-dryer/20-power-supply-listing.jpg" alt="5.5×2.1 DC barrel / screw-terminal world" loading="lazy"></p>
+<p><img src="/blog/assets/shoe-dryer/21-fan-parts-listing.jpg" alt="KCD1 rocker switches — basic on/off, no PWM subplot" loading="lazy"></p>
+<p><img src="/blog/assets/shoe-dryer/22-connectors-wago-listing.jpg" alt="WAGO 221-413 search + PCT clones for midnight parallel wiring" loading="lazy"></p>
+<p>Gemini wanted a PWM controller at one point. I looked at the listings, felt the subplot expanding, and chose a basic on/off switch instead. Rejected the ESP32 + SHT31 + MOSFET humidity-closed-loop fanfic. Simple was enough.</p>
+<h4>Parts / price list (approx, Shopee VN, Sep 2026)</h4>
+<div class="table-scroll" role="region" aria-label="Parts / price list (approx, Shopee VN, Sep 2026) table" tabindex="0">
+<table>
+<thead>
+<tr>
+<th scope="col" class="table-align-left">What</th>
+<th scope="col" class="table-align-left">Rough price</th>
+<th scope="col" class="table-align-left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="table-align-left">2× high-speed 12V 7530 blowers (~0.56A, ~6k RPM, dual ball)</td>
+<td class="table-align-left">~170k₫ each (VIP lower)</td>
+<td class="table-align-left">The whole point</td>
+</tr>
+<tr>
+<td class="table-align-left">12V ~2A wall adapter</td>
+<td class="table-align-left">~51k₫</td>
+<td class="table-align-left">External power; don't feed new fans from the SD-68 board</td>
+</tr>
+<tr>
+<td class="table-align-left">DC 5.5×2.1 female barrel / pigtail bits</td>
+<td class="table-align-left">~15k₫</td>
+<td class="table-align-left">Screw terminals or prewired female</td>
+</tr>
+<tr>
+<td class="table-align-left">Lever connectors (WAGO 221-413 or PCT 3-port clones)</td>
+<td class="table-align-left">~27k–57k₫ for a small pack of clones; real WAGOs way more</td>
+<td class="table-align-left">Parallel the two fans; red=+ / black=−; tape off yellow/blue</td>
+</tr>
+<tr>
+<td class="table-align-left">Inline on/off switch (KCD1 rocker)</td>
+<td class="table-align-left">cheap</td>
+<td class="table-align-left">Skipped PWM drama</td>
+</tr>
+<tr>
+<td class="table-align-left"><strong>Ballpark total</strong></td>
+<td class="table-align-left"><strong>under ~500k₫</strong></td>
+<td class="table-align-left">Plus the dryer you already own and the Barricades you already murdered</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="table-hint">Scroll sideways to compare all columns.</p>
+<p>Prices move. Vouchers lie. Your cart will have 90 unrelated things in it. That's fine.</p>
+<h3>Chapter 6: First power-on (loud, wet, confusing)</h3>
+<p>Wired the new blowers in parallel off the external supply. Red to +, black to −, yellow/blue insulated and ignored. WAGO levers. Bench test first so I didn't invent a fire inside the plastic tomb.</p>
+<p><img src="/blog/assets/shoe-dryer/26-bench-test-setup.jpg" alt="Bench haul: blower, WAGOs, DC pigtail — test before the plastic tomb" loading="lazy"></p>
+<p>Dude, it's so much louder which is awesome. But honestly it didn't <em>feel</em> that much more air in my hand at first. Gemini had to explain: centrifugal blowers are a narrow high-pressure jet, not an 18-inch floor fan. Paper test. Aim matters.</p>
+<p>Installed them. Ran both for about an hour. Shoes still soaked.</p>
+<p>So the problem wasn't only &quot;fans too weak.&quot; It was also geometry and humidity. Shoes sitting wrong. Air dispersing around them instead of flushing the cavities. Balcony RH hanging at 80–90%. Fan-only drying in Saigon is a character-building exercise.</p>
+<p>I reconnected one heater.</p>
+<p>Gemini's pitch: warm the 85% RH air by ~8–10°C and the effective humidity drops; the strong blowers keep it from becoming the old stagnant hot spots. Target feel: roughly 35–42°C air, not &quot;melt the Barricades again&quot; air.</p>
+<p>Twelve minutes later: shoes surprisingly not hot. Air inside was warm. That was the first moment it felt like the machine and I were on the same team.</p>
+<h3>Chapter 7: Ozone, regret, and going back outside</h3>
+<p>I moved the unit indoors once because I'm an optimist.</p>
+<p>It smelled like ass. Heated shoe bacteria. Isovaleric acid. Warm synthetic/EVA off-gassing. Gemini said put it back outside. Correct.</p>
+<p>Then I tried the ozone function, because the button exists and buttons demand to be pressed. Room smelled like ozone mixed with shoe. I asked Gemini if I was going to die. Gemini said ventilate and don't hang out in ozone soup. Ozone helped the insole smell a bit. It did not dry anything. Ozone is not airflow. Learned that with my nose.</p>
+<p><img src="/blog/assets/shoe-dryer/03-power-supply-transformer.jpg" alt="UV/ozone ballast (电子镇流器) — the button that smells like regret" loading="lazy"></p>
+<h3>Chapter 8: The timer epiphany</h3>
+<p>Here's the part the product almost understood and then fumbled.</p>
+<p>The SD-68 has a 12-hour intermittent mode: about 5 minutes on, 5 minutes off, for up to 12 hours. Or you can run continuous, but continuous maxes out around 6 hours.</p>
+<p>With the weak stock fans, 6 hours of continuous did nothing useful. The intermittent mode was even more nothing — brief wheezes of warm disappointment.</p>
+<p>What I actually needed was <strong>long air</strong>. Like 12 hours of pure blow. Continuous fans. And <em>then</em> a little heat that doesn't cook the glue.</p>
+<p>Now the fans are on separate power, so they can run forever. The heater stays on the stock 5-on / 5-off cycle.</p>
+<p>And the surprise: the stronger airflow doesn't cook the shoes as much. The intermittent heat just lightly warms them. That bit of warmth is enough to help shit evaporate. It's glorious.</p>
+<p>Same cabinet. Same intermittent firmware / bimetal nonsense. Different air. Suddenly the mode that was useless becomes the whole point.</p>
+<p><img src="/blog/assets/shoe-dryer/27-internals-full-view.jpg" alt="Full guts, cover in hand — same cabinet, different air" loading="lazy"></p>
+<h3>Chapter 9: What I didn't do (and might still)</h3>
+<p>Gemini kept offering boss-fight upgrades:</p>
+<ul>
+<li>Swap the thermal snap disc for a 40–45°C normally-closed KSD301-style switch</li>
+<li>Inline SCR / dimmer games with PTC heaters (nonlinear, cursed)</li>
+<li>ESP32 + humidity sensor + MOSFET cutout when dry enough</li>
+<li>Tuya / Sonoff smart relay subplot</li>
+</ul>
+<p><img src="/blog/assets/shoe-dryer/16-handheld-component-label.jpg" alt="Waveshare ESP32-S3 AMOLED brick — the humidity-closed-loop fanfic he skipped" loading="lazy"></p>
+<p>I didn't do those. Yet. The separate continuous fans + one intermittent heater is already a win. If I touch the mains thermostat path again, I'll do it sober, outdoors, and with less trust in chatbot door advice.</p>
+<h3>Epilogue</h3>
+<p>I started by cutting two wires so my shoes wouldn't melt. I ended with a louder machine, a Shopee cart full of blowers and lever nuts, a balcony that smells less like eldritch brunch, and a weird respect for airflow.</p>
+<p>God this is the coolest and fucking craziest thing I've ever done.</p>
+<p>Also: do not trust a chatbot about opening the door on a bottom-to-top exhaust path. Ask me how I know.</p></div>
   <aside class="post-end"><h2>Thanks for reading.</h2><p>More experiments are on the way. Probably.</p><a class="text-link" href="/">More writing →</a></aside>
 </article>
 </main>

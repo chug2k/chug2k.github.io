@@ -1,0 +1,38 @@
+name: Check writing room
+on:
+  push:
+    branches: [main]
+    paths: ["admin/**", "_scripts/build-admin.sh", "_scripts/markdown-renderer.js", "assets/markdown.mjs", "assets/site.css", "blog/_template.html", ".github/workflows/writing-room.yml"]
+  pull_request:
+    paths: ["admin/**", "_scripts/build-admin.sh", "_scripts/markdown-renderer.js", "assets/markdown.mjs", "assets/site.css", "blog/_template.html", ".github/workflows/writing-room.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: writing-room-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  browser-regressions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: admin/package-lock.json
+      - run: npm ci --prefix admin --no-audit --no-fund
+      - run: bash _scripts/build-admin.sh
+      - name: Check that the deployed editor bundle is current
+        run: git diff --exit-code -- admin/app.js admin/app.css admin/index.html admin/app.js.LICENSE.txt
+      - run: npx playwright install --with-deps chromium
+        working-directory: admin
+      - run: npm test --prefix admin
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: writing-room-browser-evidence
+          path: admin/test-results/

@@ -27,7 +27,7 @@ def main():
             nonlocal previous
             sources = [*ROOT.glob("blog/posts/*.md"), *ROOT.glob("_templates/*.html"),
                        *ROOT.glob("content/*.json"), ROOT / "blog/_template.html", ROOT / "_scripts/build-blog.py",
-                       ROOT / "_scripts/site_builder.py"]
+                       ROOT / "_scripts/site_builder.py", ROOT / "assets/markdown.mjs"]
             snapshot = tuple((str(p), p.stat().st_mtime_ns) for p in sorted(sources))
             if snapshot != previous:
                 importlib.reload(site_builder)

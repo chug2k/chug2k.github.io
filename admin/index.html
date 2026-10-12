@@ -1,169 +1,275 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Write — Charles Lee</title>
-<meta name="robots" content="noindex, nofollow">
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="./app.css">
-<!-- app.js is a prebuilt esbuild bundle (see _scripts/build-admin.sh).
-     No runtime CDN: everything the editor needs ships from this folder. -->
-<script type="module" src="./app.js"></script>
-<style>
-  :root {
-    --bg: #f5f1e8; --paper: #faf7f0; --ink: #1a1816;
-    --muted: #6b655c; --rule: #d9d2c3; --accent: #cc5429;
-  }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--ink);
-    font-family: "Charter", "Georgia", serif; font-size: 18px; }
-  .bar {
-    position: sticky; top: 0; z-index: 20;
-    display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
-    padding: 10px 20px; background: var(--paper);
-    border-bottom: 1px solid var(--rule);
-    font-family: "Inter", -apple-system, sans-serif; font-size: 13px;
-  }
-  .bar a.home { color: var(--muted); text-decoration: none; }
-  .bar a.home:hover { color: var(--accent); }
-  .bar .spacer { flex: 1; }
-  .bar .status { color: var(--muted); font-size: 12px; }
-  .bar #status { flex-basis: 100%; order: 2; }
-  .btn {
-    font-family: inherit; font-size: 13px; font-weight: 600;
-    border: 1px solid var(--rule); border-radius: 8px;
-    background: var(--paper); color: var(--ink);
-    padding: 8px 12px; min-height: 42px; cursor: pointer;
-  }
-  .btn:hover { border-color: var(--accent); color: var(--accent); }
-  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
-  .btn.primary:hover { filter: brightness(1.08); color: #fff; }
-  .btn:disabled { opacity: 0.5; cursor: default; }
-  .sheet { max-width: 760px; margin: 0 auto; padding: 24px 24px 48px; }
-  #title {
-    width: 100%; border: none; outline: none; resize: none; overflow: hidden;
-    background: transparent; color: var(--ink);
-    font-family: "Charter", "Georgia", serif;
-    font-size: clamp(32px, 5.5vw, 46px); font-weight: 700; line-height: 1.12;
-    padding: 0; margin: 0 0 8px;
-  }
-  #title::placeholder { color: #b9b0a1; }
-  #dek {
-    width: 100%; border: none; outline: none; resize: none; overflow: hidden;
-    background: transparent; color: var(--muted);
-    font-family: "Charter", "Georgia", serif; font-size: 20px; line-height: 1.45;
-    padding: 0; margin: 0 0 6px;
-  }
-  #dek::placeholder { color: #c6bdaD; }
-  .meta-row {
-    display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center;
-    font-family: "Inter", sans-serif; font-size: 12.5px; color: var(--muted);
-    padding: 14px 0; margin-bottom: 8px;
-    border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
-  }
-  .meta-row input {
-    font: inherit; color: var(--ink); background: transparent;
-    border: none; border-bottom: 1px dashed var(--rule); outline: none;
-    padding: 2px 4px; min-width: 0;
-  }
-  .meta-row input:focus { border-bottom-color: var(--accent); }
-  #editor { min-height: 50vh; cursor: text; }
-  #editor .bn-container { --bn-colors-editor-background: transparent; --bn-colors-editor-text: var(--ink); --bn-font-family: "Charter", "Georgia", serif; }
-  #editor .bn-editor { min-height: 50vh; padding: 8px 0; font-size: 20px; line-height: 1.7; }
-  .drawer {
-    font-family: "Inter", sans-serif; font-size: 13px;
-    max-width: 760px; margin: 0 auto; padding: 0 24px 40px;
-  }
-  .drawer details { border: 1px solid var(--rule); border-radius: 10px; background: var(--paper); margin-bottom: 12px; }
-  .drawer summary { cursor: pointer; padding: 12px 16px; color: var(--muted); }
-  .drawer .body { padding: 0 16px 16px; }
-  .drawer label { display: block; margin: 10px 0 4px; color: var(--muted); font-size: 12px; }
-  .drawer input[type=text], .drawer input[type=password] {
-    width: 100%; font: inherit; padding: 8px 10px; color: var(--ink);
-    border: 1px solid var(--rule); border-radius: 8px; background: var(--bg);
-  }
-  .postlist { list-style: none; margin: 8px 0 0; padding: 0; }
-  .postlist li { display: flex; gap: 10px; align-items: baseline; padding: 7px 0; border-top: 1px solid var(--rule); }
-  .postlist button.link { background: none; border: none; padding: 8px 0; min-height: 44px; cursor: pointer;
-    font: inherit; color: var(--ink); text-align: left; overflow-wrap: anywhere; }
-  .postlist button.link:hover { color: var(--accent); }
-  .postlist .d { color: var(--muted); font-size: 12px; white-space: nowrap; }
-  #mdPreview { white-space: pre-wrap; font-size: 12px; background: var(--bg);
-    border: 1px solid var(--rule); border-radius: 8px; padding: 12px; max-height: 300px; overflow: auto; }
-  .linklike {
-    background: none; border: none; padding: 0; cursor: pointer;
-    font: inherit; color: var(--accent); text-decoration: underline;
-  }
-  .hint { color: var(--muted); font-size: 12.5px; line-height: 1.6; }
-  .hint code { font-size: 12px; }
-
-  [hidden] { display: none !important; }
-  button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
-  .writer-intro { max-width: 760px; margin: 28px auto 0; padding: 0 24px; }
-  .writer-intro h1 { font-size: 24px; margin: 0 0 8px; }
-  .writer-intro p { margin: 0; }
-  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-  .writing-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 12px 0 20px; font: 12px Inter, sans-serif; color: var(--muted); }
-  #markdownSource { width: 100%; min-height: 55vh; resize: vertical; font: 15px/1.7 ui-monospace, monospace; padding: 16px; border: 1px solid var(--rule); border-radius: 8px; background: var(--paper); color: var(--ink); }
-  .postlist button[aria-current=true] { color: var(--accent); font-weight: 700; }
-  .postlist li { align-items: center; }
-  .postlist .d { margin-left: auto; }
-  details { scroll-margin-top: 140px; }
-  #publishedLink { font-size: 12px; }
-  @media (max-width: 480px) { .bar { padding: 8px 12px; } .bar .btn { font-size: 12px; padding: 8px; } .bar #connectBtn { margin-left: auto; } .bar .spacer { display: none; } #slug { width: 100%; } .meta-row label { max-width: 100%; } }
-</style>
-</head>
-<body>
-<div class="bar">
-  <a class="home" href="/">← Blog</a>
-  <button class="btn" id="newBtn" type="button">New post</button>
-  <button class="btn" id="draftsBtn" type="button">My drafts</button>
-  <button class="btn" id="downloadBtn" type="button">Download</button>
-  <span class="spacer"></span>
-  <button class="btn" id="connectBtn" type="button">Connect GitHub</button>
-  <button class="btn primary" id="publishBtn" type="button" disabled>Publish</button>
-  <span class="status" id="status" role="status" aria-live="polite">Loading editor…</span>
-  <a id="publishedLink" href="/" target="_blank" rel="noopener" hidden>Open article ↗</a>
-</div>
-
-<header class="writer-intro"><h1>The writing room.</h1><p class="hint">Start writing. Drafts save on this device as you go. Connect GitHub when you’re ready to publish.</p></header>
-<main class="sheet" id="sheet">
-  <label class="sr-only" for="title">Article title</label><textarea id="title" rows="1" placeholder="Title"></textarea>
-  <label class="sr-only" for="dek">Short summary</label><textarea id="dek" rows="1" placeholder="A sentence about why this is worth reading"></textarea>
-  <div class="meta-row">
-    <label>Date <input id="date" type="date"></label>
-    <details><summary>Article URL</summary><label>URL name <input id="slug" type="text" placeholder="Created from your title" spellcheck="false"></label><p class="hint">Lowercase words separated by hyphens. Existing article URLs stay the same when you edit.</p></details>
-  </div>
-  <div class="writing-tools"><button class="btn" id="modeBtn" type="button">Markdown</button><span id="words"></span><button class="btn" id="reloadBtn" type="button" hidden>Load latest</button></div>
-  <div id="editor"></div>
-  <div id="sourceBox" hidden><label class="sr-only" for="markdownSource">Article Markdown</label><textarea id="markdownSource" spellcheck="true"></textarea></div>
-  <p class="hint">In the visual editor, type <code>/</code> for headings, lists, quotes, and images, or select text to format it. Use Markdown for an exact excerpt break: <code>&lt;!--more--&gt;</code>.</p>
-</main>
-
-<div class="drawer" id="drawer">
-  <details id="draftsDrawer" open><summary>My drafts</summary><div class="body">
-    <p class="hint">Saved in this browser. Download a Markdown backup to keep a copy or move to another device.</p>
-    <ul class="postlist" id="draftlist"></ul>
-    <button class="btn" id="importBtn" type="button">Import Markdown</button><input id="importFile" type="file" accept=".md,.markdown,text/markdown,text/plain" hidden>
-  </div></details>
-  <details><summary>Existing articles</summary><div class="body"><p class="hint">Open an article to make a local working copy. Publishing updates the same article.</p><ul class="postlist" id="postlist"></ul></div></details>
-  <details id="connectionDrawer"><summary>GitHub connection</summary><div class="body">
-    <div id="signedOut">
-      <p class="hint">One-time setup for this browser:</p>
-      <ol class="hint"><li><a id="createTokenLink" href="https://github.com/settings/personal-access-tokens/new?name=Charles+Lee+blog&amp;target_name=chug2k&amp;contents=write&amp;expires_in=90" target="_blank" rel="noopener">Create a GitHub token</a>.</li><li>Choose <b>Only select repositories → chug2k.github.io</b>. Repository permissions: <b>Contents → Read and write</b>.</li><li>Generate the token and paste it below. It stays in this browser and is sent only to GitHub.</li></ol>
-      <label for="tokenInput">GitHub token</label><input type="password" id="tokenInput" placeholder="github_pat_…" autocomplete="off">
-      <p><button class="btn primary" id="signinBtn" type="button">Connect</button></p><p class="hint" id="authError" role="alert"></p>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Write — Charles Lee</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./app.css?v=4d16dcb3f6d7c972" />
+    <link rel="stylesheet" href="./writer.css?v=37a4bff10fa85a01" />
+  </head>
+  <body>
+    <div id="bootStatus" role="status">
+      Opening your drafts…
+      <button id="retryBoot" hidden type="button" onclick="location.reload()">
+        Try again
+      </button>
     </div>
-    <div id="signedIn" hidden><p class="hint">Connected as <b id="userLogin"></b>. <button class="linklike" id="signoutBtn" type="button">Disconnect</button></p></div>
-    <p class="hint">Publish saves the article to GitHub. The site rebuilds automatically; allow a minute or two for it to appear.</p>
-    <details><summary>Repository settings</summary><div class="body">
-      <label for="owner">Owner</label><input type="text" id="owner" value="chug2k">
-      <label for="repo">Repository</label><input type="text" id="repo" value="chug2k.github.io">
-      <label for="branch">Branch</label><input type="text" id="branch" value="main">
-    </div></details>
-  </div></details>
-  <details><summary>Markdown export preview</summary><div class="body"><pre id="mdPreview">(write something)</pre></div></details>
-</div>
-</body>
+    <noscript
+      >This writing room needs JavaScript. Your saved drafts remain in this
+      browser.</noscript
+    >
+    <fieldset id="app" disabled inert aria-busy="true">
+      <header class="bar">
+        <a class="home" href="/">← Blog</a
+        ><button id="draftsBtn" type="button">My drafts</button>
+        <details id="moreMenu">
+          <summary>More</summary>
+          <div class="menu">
+            <button id="newBtn" type="button">New post</button
+            ><button id="downloadBtn" type="button">Download backup</button>
+            <button id="importBtn" type="button">Import draft</button
+            ><button id="connectBtn" type="button">Connect GitHub</button>
+          </div>
+        </details>
+        <button class="primary" id="reviewBtn" type="button">
+          Preview &amp; publish
+        </button>
+        <span id="status" role="status" aria-live="polite"
+          >Restoring draft…</span
+        >
+        <a id="publishedLink" target="_blank" rel="noopener" hidden
+          >Open live site ↗</a
+        ><button id="checkLiveBtn" type="button" hidden>Check again</button>
+      </header>
+      <main class="sheet" id="sheet">
+        <h1 class="room-title">The writing room.</h1>
+        <label class="sr-only" for="title">Article title</label
+        ><textarea id="title" rows="1" placeholder="Title"></textarea>
+        <label class="sr-only" for="dek">Short summary</label
+        ><textarea
+          id="dek"
+          rows="1"
+          placeholder="A short summary for your readers"
+        ></textarea>
+        <p class="hint save-hint">
+          Drafts save in this browser. Download a backup to move to another
+          device.
+        </p>
+        <div class="writing-tools">
+          <details id="insertMenu">
+            <summary>Insert / Format</summary>
+            <div class="menu insert-menu">
+              <button type="button" data-insert="paragraph">Paragraph</button
+              ><button type="button" data-insert="heading">Heading</button>
+              <button type="button" data-insert="bulletListItem">
+                Bullet list</button
+              ><button type="button" data-insert="numberedListItem">
+                Numbered list
+              </button>
+              <button type="button" data-insert="checkListItem">
+                Checklist</button
+              ><button type="button" data-insert="quote">Quote</button>
+              <button type="button" data-insert="codeBlock">Code block</button
+              ><button type="button" data-insert="table">Table</button>
+              <button type="button" id="photoBtn">Photo from device</button
+              ><button type="button" data-insert="image">Image URL</button>
+              <button type="button" data-insert="excerptBreak">
+                Excerpt break</button
+              ><button type="button" data-insert="divider">Divider</button>
+              <button type="button" data-style="bold">Bold</button
+              ><button type="button" data-style="italic">Italic</button
+              ><button type="button" data-style="strike">Strikethrough</button
+              ><button type="button" id="linkBtn">Link</button>
+            </div>
+          </details>
+          <button id="modeBtn" type="button">Markdown</button
+          ><span id="words"></span>
+          <button id="reloadBtn" type="button" hidden>Load latest</button>
+        </div>
+        <p id="sourceNotice" class="notice" hidden></p>
+        <div id="tableTools" class="context-tools" hidden>
+          <span>Table:</span><button id="addRow" type="button">Add row</button
+          ><button id="addColumn" type="button">Add column</button
+          ><button id="removeRow" type="button">Remove last row</button
+          ><button id="removeColumn" type="button">Remove last column</button>
+        </div>
+        <div id="imageTools" class="context-tools" hidden>
+          <label>Alt text <input id="imageAlt" type="text" /></label
+          ><label>Caption <input id="imageCaption" type="text" /></label>
+        </div>
+        <div id="editor"></div>
+        <div id="sourceBox" hidden>
+          <label class="sr-only" for="markdownSource">Article Markdown</label
+          ><textarea id="markdownSource" spellcheck="true"></textarea>
+        </div>
+        <p class="hint">
+          Select text to format it, or use Insert / Format. You can also type /
+          for commands. An excerpt break marks the end of the homepage
+          introduction.
+        </p>
+        <details id="metadata">
+          <summary>Publication details</summary>
+          <div class="body">
+            <label>Date <input id="date" type="date" /></label>
+            <p class="hint">
+              This is the article date. Publishing is immediate, even if this
+              date is in the future.
+            </p>
+            <label
+              >URL name
+              <input
+                id="slug"
+                type="text"
+                placeholder="Created from your title"
+                spellcheck="false"
+            /></label>
+            <p class="hint">
+              Lowercase words separated by hyphens. Existing article URLs stay
+              the same.
+            </p>
+          </div>
+        </details>
+      </main>
+      <aside id="drawer" class="drawer">
+        <details id="draftsDrawer">
+          <summary>My drafts</summary>
+          <div class="body">
+            <label class="sr-only" for="draftSearch">Search drafts</label
+            ><input
+              type="search"
+              id="draftSearch"
+              placeholder="Search drafts"
+            />
+            <label class="check"
+              ><input id="showArchived" type="checkbox" /> Show archived
+              drafts</label
+            >
+            <p id="undoNotice" hidden>
+              Draft archived.
+              <button id="undoArchive" type="button">Undo</button>
+            </p>
+            <ul id="draftlist" class="postlist"></ul>
+          </div>
+        </details>
+        <details>
+          <summary>Existing articles</summary>
+          <div class="body">
+            <p class="hint">
+              Open a local working copy. Publishing updates the same article.
+            </p>
+            <button id="refreshPosts" type="button">Refresh articles</button>
+            <ul id="postlist" class="postlist"></ul>
+          </div>
+        </details>
+        <details id="connectionDrawer">
+          <summary>GitHub connection</summary>
+          <div class="body">
+            <div id="signedOut">
+              <p class="hint">
+                Connect this browser using a GitHub token. Tokens expire;
+                reconnect here when needed. Drafts and photos stay on this
+                device until you explicitly publish.
+              </p>
+              <ol class="hint">
+                <li>
+                  <a
+                    id="createTokenLink"
+                    href="https://github.com/settings/personal-access-tokens/new?name=Charles+Lee+blog&amp;target_name=chug2k&amp;contents=write&amp;expires_in=90"
+                    target="_blank"
+                    rel="noopener"
+                    >Create a GitHub token</a
+                  >.
+                </li>
+                <li>
+                  Select only <b>chug2k.github.io</b> with
+                  <b>Contents → Read and write</b>. Choose an expiration date.
+                </li>
+                <li>Copy the token and paste it below.</li>
+              </ol>
+              <label for="tokenInput">GitHub token</label
+              ><input
+                type="password"
+                id="tokenInput"
+                autocomplete="off"
+                placeholder="github_pat_…"
+              />
+              <button class="primary" id="signinBtn" type="button">
+                Connect and check access
+              </button>
+            </div>
+            <div id="signedIn" hidden>
+              <p>
+                Connected as <b id="userLogin"></b>.
+                <button id="signoutBtn" type="button">Disconnect</button>
+              </p>
+            </div>
+            <p id="authError" role="alert"></p>
+            <details>
+              <summary>Repository settings</summary>
+              <div class="body">
+                <label>Owner <input id="owner" value="chug2k" /></label
+                ><label
+                  >Repository
+                  <input id="repo" value="chug2k.github.io" /></label
+                ><label>Branch <input id="branch" value="main" /></label
+                ><label
+                  >Live site URL
+                  <input id="siteUrl" type="url" value="https://clpanic.com"
+                /></label>
+              </div>
+            </details>
+          </div>
+        </details>
+      </aside>
+      <input
+        id="importFile"
+        type="file"
+        accept=".md,.markdown,.zip"
+        hidden
+      /><input
+        id="photoFile"
+        type="file"
+        accept="image/jpeg,image/png,image/webp,image/gif"
+        multiple
+        hidden
+      />
+    </fieldset>
+    <dialog id="reviewDialog" aria-labelledby="reviewTitle">
+      <div class="review-top">
+        <h2 id="reviewTitle">Preview &amp; publish</h2>
+        <button id="closeReview" type="button">Back to writing</button>
+      </div>
+      <div id="reviewMeta"></div>
+      <div class="preview-controls">
+        <button id="desktopPreview" type="button">Desktop</button
+        ><button id="mobilePreview" type="button">Mobile</button
+        ><button id="themePreview" type="button">Dark preview</button>
+      </div>
+      <iframe
+        id="previewFrame"
+        title="Article preview"
+        sandbox="allow-same-origin"
+      ></iframe>
+      <p id="reviewStatus" role="status"></p>
+      <button id="publishBtn" class="primary" type="button">Publish now</button>
+    </dialog>
+    <script>
+      window.writerBoot = { ready: false };
+      function bootFailure() {
+        if (window.writerBoot.ready) return;
+        document.getElementById("bootStatus").firstChild.textContent =
+          "The writing room could not load. Your saved drafts are unchanged. Check your connection and try again. ";
+        document.getElementById("retryBoot").hidden = false;
+      }
+      const bootTimeout = setTimeout(bootFailure, 20000);
+      import("./app.js?v=58ff41b0e8b98059")
+        .then(() => {
+          clearTimeout(bootTimeout);
+          if (!window.writerBoot.ready) bootFailure();
+        })
+        .catch(bootFailure);
+    </script>
+  </body>
 </html>
