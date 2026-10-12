@@ -1427,6 +1427,23 @@ on("themePreview", async () => {
 $("reviewDialog").addEventListener("cancel", (e) => {
   if (busy) e.preventDefault();
 });
+// Action menus should not remain over the editor or publication controls.
+for (const id of ["moreMenu", "insertMenu"]) {
+  const menu = $(id);
+  menu.addEventListener("click", (event) => {
+    if (event.target.closest("button")) menu.open = false;
+  });
+  document.addEventListener("pointerdown", (event) => {
+    if (!menu.contains(event.target)) menu.open = false;
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && menu.open) {
+      menu.open = false;
+      menu.querySelector("summary").focus();
+      event.preventDefault();
+    }
+  });
+}
 window.addEventListener("resize", () => {
   for (const id of ["title", "dek"]) autoGrow($(id));
 });

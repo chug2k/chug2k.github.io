@@ -943,6 +943,20 @@ async function test(name, fn) {
     );
     await s.close();
   });
+  await test("action menus dismiss after selection, outside clicks, and Escape", async () => {
+    const s = await setup();
+    await menu(s.p);
+    await s.p.locator("#connectBtn").click();
+    assert.equal(await s.p.locator("#moreMenu").getAttribute("open"), null);
+    await menu(s.p);
+    await s.p.locator("#title").click();
+    assert.equal(await s.p.locator("#moreMenu").getAttribute("open"), null);
+    await s.p.locator("#insertMenu > summary").click();
+    await s.p.keyboard.press("Escape");
+    assert.equal(await s.p.locator("#insertMenu").getAttribute("open"), null);
+    assert.equal(await s.p.locator("#insertMenu > summary").evaluate(el => el === document.activeElement), true);
+    await s.close();
+  });
   await browser.close();
   await new Promise((r) => server.close(r));
   console.log(

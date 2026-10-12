@@ -264,7 +264,7 @@
         document.getElementById("retryBoot").hidden = false;
       }
       const bootTimeout = setTimeout(bootFailure, 20000);
-      import("./app.js?v=58ff41b0e8b98059")
+      import("./app.js?v=84e5743529b7da52")
         .then(() => {
           clearTimeout(bootTimeout);
           if (!window.writerBoot.ready) bootFailure();
