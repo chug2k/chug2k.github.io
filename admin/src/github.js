@@ -32,7 +32,7 @@ export async function gitBlobSha(input) {
     .join("");
 }
 export const repoKey = (c) => `${c.owner}/${c.repo}/${c.branch}`;
-export function github(config, token, onExpired) {
+export function github(config, token, onExpired, extraHeaders = {}) {
   // Capture all configuration and credentials once for the entire operation.
   const c = { ...config },
     base = `https://api.github.com/repos/${encodeURIComponent(c.owner)}/${encodeURIComponent(c.repo)}`;
@@ -48,6 +48,7 @@ export function github(config, token, onExpired) {
         Accept: "application/vnd.github+json",
         "Content-Type": "application/json",
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...extraHeaders,
       },
     });
     if (r.status === 401) {

@@ -2,9 +2,9 @@ name: Check writing room
 on:
   push:
     branches: [main]
-    paths: ["admin/**", "_scripts/build-admin.sh", "_scripts/markdown-renderer.js", "assets/markdown.mjs", "assets/site.css", "blog/_template.html", ".github/workflows/writing-room.yml"]
+    paths: ["admin/**", "cloud/**", "_scripts/build-admin.sh", "_scripts/markdown-renderer.js", "assets/markdown.mjs", "assets/site.css", "blog/_template.html", ".github/workflows/writing-room.yml"]
   pull_request:
-    paths: ["admin/**", "_scripts/build-admin.sh", "_scripts/markdown-renderer.js", "assets/markdown.mjs", "assets/site.css", "blog/_template.html", ".github/workflows/writing-room.yml"]
+    paths: ["admin/**", "cloud/**", "_scripts/build-admin.sh", "_scripts/markdown-renderer.js", "assets/markdown.mjs", "assets/site.css", "blog/_template.html", ".github/workflows/writing-room.yml"]
   workflow_dispatch:
 
 permissions:
@@ -15,6 +15,21 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  cloud-regressions:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: cloud
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24.22.0"
+          cache: npm
+          cache-dependency-path: cloud/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - run: npm test
+      - run: npx cf deploy --dry-run
   browser-regressions:
     runs-on: ubuntu-latest
     steps:

@@ -6,16 +6,19 @@ A static site at [clpanic.com](https://clpanic.com). Markdown posts, one project
 
 Open the [writing room](https://clpanic.com/admin/), also linked as **Write** in the site footer. Add a title, a short summary, and your article. **Insert / Format** gives you headings, lists, tables, photos, and an excerpt break; you can also type `/` or select text to format it.
 
-- Drafts save automatically in this browser. **My drafts** lets you search, switch, and archive them. Conflicting edits from another tab are kept as separate recovery copies.
-- Under **More**, **New post** keeps your current draft. **Download backup** and **Import draft** move a complete draft, including local photos, between devices. Each browser and site keeps its own drafts; they do not sync automatically.
-- Add photos from your device, clipboard, or a hosted URL. Device photos stay local until you publish. Add useful alt text and an optional caption using the image controls.
+- Sign in with the account allowed for this writing room: `cl@clpanic.com`. Cloudflare Access protects `/admin` and its API.
+- Drafts and photos save privately in Cloudflare. **Saved to cloud** means the server has acknowledged the save. Open the same writing room on another device to continue. Conflicting edits are kept as separate recovery copies.
+- **New post** keeps your current draft. **Download backup** and **Import draft** export and restore a complete draft, including photos. Original browser drafts are copied into the cloud on first sign-in; their local originals remain available for recovery.
+- Add photos from your device, clipboard, or a hosted URL. Uploaded photos stay private until you publish. Add useful alt text and an optional caption using the image controls.
 - **Preview & publish** shows the article using the same layout and Markdown renderer as the live site. Review the title, date, and destination, then choose **Publish now**. The date orders articles; it does not schedule publication.
-- **Connect GitHub** explains the setup. Create a fine-grained token for only `chug2k.github.io`, with **Contents → Read and write**, and paste it into the editor. The token stays in that browser and is sent only to GitHub. Reconnect when it expires.
-- **Existing articles** opens a local working copy. Publishing updates the original URL. **Load latest** fetches the GitHub version and keeps your previous local copy.
+- **Account** shows the signed-in author and sync status. Publishing credentials are held by the server; there is no token to paste into each browser.
+- **Existing articles** opens a private working copy. Publishing updates the original URL. **Load latest** fetches the GitHub version and keeps your previous copy.
 
 Publishing uploads the photos and article, then GitHub rebuilds the site. Allow a minute or two. The editor only confirms **Live** after the served article matches the saved source; **Check again** retries that check. A local preview may be unable to check the live site across domains, in which case use the live-site link. If a network response is lost, retrying reconciles the saved GitHub copy before writing again.
 
-The editor preserves source sections that cannot safely round-trip through visual editing. Those sections show as preserved Markdown blocks and remain editable in **Markdown** mode. Tables and excerpt breaks have visual editing support. Opening an article alone does not rewrite its source. If storage fails, the status tells you; download a backup before closing the tab.
+The editor preserves source sections that cannot safely round-trip through visual editing. Those sections show as preserved Markdown blocks and remain editable in **Markdown** mode. Tables and excerpt breaks have visual editing support. Opening an article alone does not rewrite its source. If a connection drops, the latest working text and pending save are kept on the device and retried. Do not clear browser storage while a save is pending; download a backup before leaving if you cannot reconnect. A fresh page needs a connection and a valid sign-in to open the cloud library.
+
+Cloud infrastructure and deployment instructions are in [cloud/README.md](cloud/README.md). The cloud Worker and Access application must be configured before deploying this version of the editor.
 
 ### Write in a local Markdown file
 
@@ -126,4 +129,4 @@ npx playwright install chromium
 npm test
 ```
 
-The browser suite starts its own temporary server and uses fresh browser storage. All GitHub calls are mocked, so tests do not publish articles or need credentials. It covers concurrent drafts, startup failure, visual formatting, photo backups, authentication, uncertain writes, and live-revision checks, including mobile viewport emulation. GitHub Actions runs it when the writer or shared formatting changes. Rebuild the admin bundle after editing `admin/src/`, `admin/writer.css`, or its dependencies; the build also updates the page's cache fingerprints.
+The browser suites start temporary servers and use fresh browser storage. All cloud and GitHub calls are mocked, so tests do not publish articles or need credentials. The original editor regressions explicitly enable local storage only on loopback; separate cloud tests exercise cross-device saves, photos, migration, offline recovery, and expired sessions through the real browser adapter. `npm ci --prefix cloud && npm test --prefix cloud` exercises authentication and actual SQLite/R2 bindings inside the Workers runtime. GitHub Actions runs both suites. Rebuild the admin bundle after editing `admin/src/`, `admin/writer.css`, or its dependencies; the build also updates the page's cache fingerprints.

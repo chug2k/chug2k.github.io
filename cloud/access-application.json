@@ -1,0 +1,15 @@
+{
+  "type": "self_hosted",
+  "name": "Clpanic writing room",
+  "domain": "clpanic.com/admin",
+  "session_duration": "168h",
+  "allowed_idps": ["68630008-7e94-4789-9d3c-ff1e80d7e983"],
+  "auto_redirect_to_identity": false,
+  "http_only_cookie_attribute": true,
+  "same_site_cookie_attribute": "lax",
+  "options_preflight_bypass": false,
+  "app_launcher_visible": false,
+  "policies": [
+    { "id": "55ec6aaa-778d-457d-b53d-a1fbd4eb6e1c", "precedence": 1 }
+  ]
+}

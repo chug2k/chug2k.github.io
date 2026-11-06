@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node tests/writer.cjs"
+    "test": "node tests/writer.cjs && node tests/cloud.cjs && node tests/layout.cjs"
   },
   "dependencies": {
     "@blocknote/core": "0.54.2",

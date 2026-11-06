@@ -2,227 +2,383 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content"
+    />
     <title>Write — Charles Lee</title>
     <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#fdfdfc" />
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="/unhurried-guide/fonts/newsreader.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/assets/fonts/bricolage-grotesque.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <link rel="stylesheet" href="./app.css?v=4d16dcb3f6d7c972" />
-    <link rel="stylesheet" href="./writer.css?v=37a4bff10fa85a01" />
+    <link rel="stylesheet" href="./writer.css?v=a4747987ff777325" />
+    <script>
+      // Restore a collapsed sidebar before first paint. Only layout.js writes this key.
+      try {
+        if (
+          matchMedia("(min-width: 60rem)").matches &&
+          localStorage.getItem("writer.sidebar") === "closed"
+        )
+          document.documentElement.dataset.sidebar = "closed";
+      } catch {}
+    </script>
   </head>
   <body>
+    <svg class="sprite" aria-hidden="true" focusable="false">
+      <defs>
+        <symbol id="i-sidebar" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.75" y="3.75" width="14.5" height="12.5" rx="2.25" /><path d="M7.75 3.75v12.5" /></symbol>
+        <symbol id="i-collapse" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 6 5.5 10l4 4M15 6l-4 4 4 4" /></symbol>
+        <symbol id="i-search" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.75" cy="8.75" r="5" /><path d="m12.5 12.5 4 4" /></symbol>
+        <symbol id="i-plus" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4.5v11M4.5 10h11" /></symbol>
+        <symbol id="i-more" viewBox="0 0 20 20" fill="currentColor" stroke="none"><circle cx="4.5" cy="10" r="1.4" /><circle cx="10" cy="10" r="1.4" /><circle cx="15.5" cy="10" r="1.4" /></symbol>
+        <symbol id="i-calendar" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="14" height="12" rx="2" /><path d="M3 8.5h14M7 3v3M13 3v3" /></symbol>
+        <symbol id="i-link" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m8.25 11.75 3.5-3.5" /><path d="m9.5 6.25 1.25-1.25a3.18 3.18 0 0 1 4.5 4.5L14 10.75" /><path d="M10.5 13.75 9.25 15a3.18 3.18 0 0 1-4.5-4.5L6 9.25" /></symbol>
+        <symbol id="i-import" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3.5v8.5M6.5 8.5 10 12l3.5-3.5" /><path d="M3.5 12.5v2a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-2" /></symbol>
+        <symbol id="i-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m8 5.5 4.5 4.5L8 14.5" /></symbol>
+        <symbol id="i-refresh" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15.75 9.25A5.9 5.9 0 0 0 5 6.25" /><path d="M4.25 10.75A5.9 5.9 0 0 0 15 13.75" /><path d="M4.75 3v3.25H8M15.25 17v-3.25H12" /></symbol>
+        <symbol id="i-list" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M8 6h8.5M8 10h8.5M8 14h8.5" /><circle cx="4.25" cy="6" r="1" fill="currentColor" stroke="none" /><circle cx="4.25" cy="10" r="1" fill="currentColor" stroke="none" /><circle cx="4.25" cy="14" r="1" fill="currentColor" stroke="none" /></symbol>
+        <symbol id="i-numbered" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h7.5M9 10h7.5M9 14h7.5" /><path d="M3.5 4.75 4.75 4v3.75" /><path d="M3.5 12.25c.2-.75 2-.9 2 .2 0 .9-2 1.5-2 2.55h2.1" /></symbol>
+        <symbol id="i-check" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3.75" width="5.5" height="5.5" rx="1.25" /><path d="m4.4 6.6 1.05 1 1.75-2" /><rect x="3" y="10.75" width="5.5" height="5.5" rx="1.25" /><path d="M11.5 6.5h5.5M11.5 13.5h5.5" /></symbol>
+        <symbol id="i-code" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 6 3 10l4 4M13 6l4 4-4 4" /></symbol>
+        <symbol id="i-table" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="14" height="12" rx="1.75" /><path d="M3 8h14M3 12h14M8.5 4v12" /></symbol>
+        <symbol id="i-image" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="14" height="12" rx="2" /><circle cx="7.5" cy="8.25" r="1.25" /><path d="m3.5 14 4-3.5 3 2.5 2.25-1.75L16.5 14" /></symbol>
+        <symbol id="i-divider" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 10h14" /></symbol>
+        <symbol id="i-excerpt" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="6" r="2" /><circle cx="5.5" cy="14" r="2" /><path d="M7.2 7.1 16.5 14M7.2 12.9 16.5 6" /></symbol>
+      </defs>
+    </svg>
+    <a class="skip" href="#title">Skip to article</a>
     <div id="bootStatus" role="status">
       Opening your drafts…
-      <button id="retryBoot" hidden type="button" onclick="location.reload()">
+      <a id="bootSignIn" href="/admin/" hidden>Sign in again</a
+      ><button id="retryBoot" hidden type="button" onclick="location.reload()">
         Try again
       </button>
     </div>
     <noscript
-      >This writing room needs JavaScript. Your saved drafts remain in this
-      browser.</noscript
+      >The writing room needs JavaScript. Your drafts are unchanged.</noscript
     >
-    <fieldset id="app" disabled inert aria-busy="true">
-      <header class="bar">
-        <a class="home" href="/">← Blog</a
-        ><button id="draftsBtn" type="button">My drafts</button>
-        <details id="moreMenu">
-          <summary>More</summary>
-          <div class="menu">
-            <button id="newBtn" type="button">New post</button
-            ><button id="downloadBtn" type="button">Download backup</button>
-            <button id="importBtn" type="button">Import draft</button
-            ><button id="connectBtn" type="button">Connect GitHub</button>
+    <fieldset id="app" class="app" disabled inert aria-busy="true">
+      <div class="workspace">
+        <header class="bar topbar">
+          <button
+            id="draftsBtn"
+            class="icon-btn"
+            type="button"
+            aria-controls="drawer"
+            aria-keyshortcuts="Control+\ Meta+\"
+            title="Drafts (Ctrl+\ or ⌘\)"
+          >
+            <svg class="i" aria-hidden="true"><use href="#i-sidebar" /></svg
+            ><span class="sr-only">Drafts</span>
+          </button>
+          <div class="status-line">
+            <span id="status" role="status" aria-live="polite"
+              >Restoring draft…</span
+            ><span id="words"></span
+            ><a id="publishedLink" target="_blank" rel="noopener" hidden
+              >Open live site ↗</a
+            ><button id="checkLiveBtn" class="text-btn" type="button" hidden>
+              Check again</button
+            ><button id="reloadBtn" class="text-btn" type="button" hidden>
+              Load latest
+            </button>
           </div>
-        </details>
-        <button class="primary" id="reviewBtn" type="button">
-          Preview &amp; publish
-        </button>
-        <span id="status" role="status" aria-live="polite"
-          >Restoring draft…</span
-        >
-        <a id="publishedLink" target="_blank" rel="noopener" hidden
-          >Open live site ↗</a
-        ><button id="checkLiveBtn" type="button" hidden>Check again</button>
-      </header>
-      <main class="sheet" id="sheet">
-        <h1 class="room-title">The writing room.</h1>
-        <label class="sr-only" for="title">Article title</label
-        ><textarea id="title" rows="1" placeholder="Title"></textarea>
-        <label class="sr-only" for="dek">Short summary</label
-        ><textarea
-          id="dek"
-          rows="1"
-          placeholder="A short summary for your readers"
-        ></textarea>
-        <p class="hint save-hint">
-          Drafts save in this browser. Download a backup to move to another
-          device.
-        </p>
-        <div class="writing-tools">
-          <details id="insertMenu">
-            <summary>Insert / Format</summary>
-            <div class="menu insert-menu">
-              <button type="button" data-insert="paragraph">Paragraph</button
-              ><button type="button" data-insert="heading">Heading</button>
-              <button type="button" data-insert="bulletListItem">
-                Bullet list</button
-              ><button type="button" data-insert="numberedListItem">
-                Numbered list
-              </button>
-              <button type="button" data-insert="checkListItem">
-                Checklist</button
-              ><button type="button" data-insert="quote">Quote</button>
-              <button type="button" data-insert="codeBlock">Code block</button
-              ><button type="button" data-insert="table">Table</button>
-              <button type="button" id="photoBtn">Photo from device</button
-              ><button type="button" data-insert="image">Image URL</button>
-              <button type="button" data-insert="excerptBreak">
-                Excerpt break</button
-              ><button type="button" data-insert="divider">Divider</button>
-              <button type="button" data-style="bold">Bold</button
-              ><button type="button" data-style="italic">Italic</button
-              ><button type="button" data-style="strike">Strikethrough</button
-              ><button type="button" id="linkBtn">Link</button>
+          <div class="bar-actions">
+            <details id="insertMenu" class="menu-root">
+              <summary class="tool-btn" title="Insert a block. You can also type / in the article.">
+                <svg class="i" aria-hidden="true"><use href="#i-plus" /></svg
+                ><span class="tool-label">Insert</span>
+              </summary>
+              <div class="menu insert-menu">
+                <div class="menu-group" role="group" aria-labelledby="insertBlocks">
+                  <p class="menu-label" id="insertBlocks">Blocks</p>
+                  <button type="button" data-insert="paragraph"><span class="glyph" aria-hidden="true">¶</span>Paragraph</button>
+                  <button type="button" data-insert="heading"><span class="glyph" aria-hidden="true">H</span>Heading</button>
+                  <button type="button" data-insert="bulletListItem"><svg class="glyph" aria-hidden="true"><use href="#i-list" /></svg>Bullet list</button>
+                  <button type="button" data-insert="numberedListItem"><svg class="glyph" aria-hidden="true"><use href="#i-numbered" /></svg>Numbered list</button>
+                  <button type="button" data-insert="checkListItem"><svg class="glyph" aria-hidden="true"><use href="#i-check" /></svg>Checklist</button>
+                  <button type="button" data-insert="quote"><span class="glyph glyph-serif" aria-hidden="true">“</span>Quote</button>
+                  <button type="button" data-insert="codeBlock"><svg class="glyph" aria-hidden="true"><use href="#i-code" /></svg>Code block</button>
+                  <button type="button" data-insert="table"><svg class="glyph" aria-hidden="true"><use href="#i-table" /></svg>Table</button>
+                  <button type="button" data-insert="divider"><svg class="glyph" aria-hidden="true"><use href="#i-divider" /></svg>Divider</button>
+                  <button type="button" data-insert="excerptBreak"><svg class="glyph" aria-hidden="true"><use href="#i-excerpt" /></svg><span class="item-text">Excerpt break<small>Ends the homepage introduction</small></span></button>
+                </div>
+                <div class="menu-group" role="group" aria-labelledby="insertMedia">
+                  <p class="menu-label" id="insertMedia">Media</p>
+                  <button type="button" id="photoBtn"><svg class="glyph" aria-hidden="true"><use href="#i-image" /></svg>Photo from device</button>
+                  <button type="button" data-insert="image"><svg class="glyph" aria-hidden="true"><use href="#i-link" /></svg>Image URL</button>
+                </div>
+                <div class="menu-group" role="group" aria-labelledby="insertStyle">
+                  <p class="menu-label" id="insertStyle">Text style</p>
+                  <button type="button" data-style="bold"><span class="glyph glyph-bold" aria-hidden="true">B</span>Bold</button>
+                  <button type="button" data-style="italic"><span class="glyph glyph-italic" aria-hidden="true">I</span>Italic</button>
+                  <button type="button" data-style="strike"><span class="glyph glyph-strike" aria-hidden="true">S</span>Strikethrough</button>
+                  <button type="button" id="linkBtn"><svg class="glyph" aria-hidden="true"><use href="#i-link" /></svg>Link</button>
+                </div>
+              </div>
+            </details>
+            <button id="modeBtn" class="tool-btn" type="button">Markdown</button>
+            <button
+              class="primary"
+              id="reviewBtn"
+              type="button"
+              aria-haspopup="dialog"
+            >
+              Publish
+            </button>
+            <details id="moreMenu" class="menu-root">
+              <summary class="icon-btn" title="More actions">
+                <svg class="i" aria-hidden="true"><use href="#i-more" /></svg
+                ><span class="sr-only">More actions</span>
+              </summary>
+              <div class="menu more-menu">
+                <button id="downloadBtn" type="button">Download backup</button>
+                <a class="menu-link" href="/" target="_blank" rel="noopener"
+                  >Open the blog ↗</a
+                >
+              </div>
+            </details>
+          </div>
+        </header>
+        <main class="sheet" id="sheet">
+          <div class="doc">
+            <h1 class="sr-only">Writing room</h1>
+            <p id="sourceNotice" class="notice" hidden></p>
+            <label class="sr-only" for="title">Article title</label
+            ><textarea id="title" rows="1" placeholder="Untitled"></textarea>
+            <label class="sr-only" for="dek">Short summary</label
+            ><textarea
+              id="dek"
+              rows="1"
+              placeholder="Add a short summary"
+            ></textarea>
+            <div
+              id="metadata"
+              class="props"
+              role="group"
+              aria-label="Publication details"
+            >
+              <div class="prop" id="dateProp">
+                <label class="prop-label" for="date"
+                  ><svg class="i" aria-hidden="true"><use href="#i-calendar" /></svg
+                  >Date</label
+                ><input id="date" type="date" aria-describedby="dateHint" />
+                <p class="prop-hint" id="dateHint">
+                  Publishing is immediate. This date does not schedule it.
+                </p>
+              </div>
+              <div class="prop">
+                <label class="prop-label" for="slug"
+                  ><svg class="i" aria-hidden="true"><use href="#i-link" /></svg
+                  >URL name</label
+                ><input
+                  id="slug"
+                  type="text"
+                  placeholder="Made from the title"
+                  spellcheck="false"
+                  autocapitalize="off"
+                  autocomplete="off"
+                  aria-describedby="slugHint"
+                />
+                <p class="prop-hint" id="slugHint">
+                  Lowercase words with hyphens. A published URL does not
+                  change.
+                </p>
+              </div>
             </div>
-          </details>
-          <button id="modeBtn" type="button">Markdown</button
-          ><span id="words"></span>
-          <button id="reloadBtn" type="button" hidden>Load latest</button>
-        </div>
-        <p id="sourceNotice" class="notice" hidden></p>
-        <div id="tableTools" class="context-tools" hidden>
-          <span>Table:</span><button id="addRow" type="button">Add row</button
-          ><button id="addColumn" type="button">Add column</button
-          ><button id="removeRow" type="button">Remove last row</button
-          ><button id="removeColumn" type="button">Remove last column</button>
-        </div>
-        <div id="imageTools" class="context-tools" hidden>
-          <label>Alt text <input id="imageAlt" type="text" /></label
-          ><label>Caption <input id="imageCaption" type="text" /></label>
-        </div>
-        <div id="editor"></div>
-        <div id="sourceBox" hidden>
-          <label class="sr-only" for="markdownSource">Article Markdown</label
-          ><textarea id="markdownSource" spellcheck="true"></textarea>
-        </div>
-        <p class="hint">
-          Select text to format it, or use Insert / Format. You can also type /
-          for commands. An excerpt break marks the end of the homepage
-          introduction.
-        </p>
-        <details id="metadata">
-          <summary>Publication details</summary>
-          <div class="body">
-            <label>Date <input id="date" type="date" /></label>
-            <p class="hint">
-              This is the article date. Publishing is immediate, even if this
-              date is in the future.
-            </p>
-            <label
-              >URL name
-              <input
-                id="slug"
-                type="text"
-                placeholder="Created from your title"
-                spellcheck="false"
-            /></label>
-            <p class="hint">
-              Lowercase words separated by hyphens. Existing article URLs stay
-              the same.
-            </p>
+            <div id="editor"></div>
+            <div id="sourceBox" hidden>
+              <label class="sr-only" for="markdownSource">Article Markdown</label
+              ><textarea id="markdownSource" spellcheck="true"></textarea>
+            </div>
+            <div
+              id="tableTools"
+              class="context-tools"
+              role="group"
+              aria-label="Table"
+              hidden
+            >
+              <span class="ctx-label" aria-hidden="true"
+                ><svg class="i"><use href="#i-table" /></svg>Table</span
+              ><button id="addRow" type="button">Add row</button
+              ><button id="addColumn" type="button">Add column</button
+              ><button id="removeRow" type="button">Remove last row</button
+              ><button id="removeColumn" type="button">
+                Remove last column
+              </button>
+            </div>
+            <div
+              id="imageTools"
+              class="context-tools"
+              role="group"
+              aria-label="Image"
+              hidden
+            >
+              <label>Alt text <input id="imageAlt" type="text" /></label
+              ><label>Caption <input id="imageCaption" type="text" /></label>
+            </div>
           </div>
-        </details>
-      </main>
-      <aside id="drawer" class="drawer">
-        <details id="draftsDrawer">
-          <summary>My drafts</summary>
-          <div class="body">
+        </main>
+      </div>
+      <div class="scrim" aria-hidden="true"></div>
+      <nav id="drawer" class="sidebar" aria-label="Drafts and articles">
+        <div class="side-head">
+          <a class="home brand" href="/" target="_blank" rel="noopener"
+            ><img src="/assets/favicon.svg" alt="" width="20" height="20" /><span
+              >Charles Lee</span
+            ><span class="sr-only"> (opens the blog in a new tab)</span></a
+          ><button
+            id="sidebarClose"
+            class="icon-btn"
+            type="button"
+            aria-controls="drawer"
+            aria-keyshortcuts="Control+\ Meta+\"
+            title="Hide sidebar (Ctrl+\ or ⌘\)"
+          >
+            <svg class="i" aria-hidden="true"><use href="#i-collapse" /></svg
+            ><span class="sr-only">Hide sidebar</span>
+          </button>
+        </div>
+        <div class="side-tools">
+          <div class="side-search">
             <label class="sr-only" for="draftSearch">Search drafts</label
+            ><svg class="i" aria-hidden="true"><use href="#i-search" /></svg
             ><input
               type="search"
               id="draftSearch"
               placeholder="Search drafts"
+              autocomplete="off"
+              enterkeyhint="search"
             />
-            <label class="check"
-              ><input id="showArchived" type="checkbox" /> Show archived
-              drafts</label
-            >
-            <p id="undoNotice" hidden>
-              Draft archived.
-              <button id="undoArchive" type="button">Undo</button>
-            </p>
-            <ul id="draftlist" class="postlist"></ul>
           </div>
-        </details>
-        <details>
-          <summary>Existing articles</summary>
-          <div class="body">
-            <p class="hint">
-              Open a local working copy. Publishing updates the same article.
-            </p>
-            <button id="refreshPosts" type="button">Refresh articles</button>
-            <ul id="postlist" class="postlist"></ul>
-          </div>
-        </details>
-        <details id="connectionDrawer">
-          <summary>GitHub connection</summary>
-          <div class="body">
-            <div id="signedOut">
-              <p class="hint">
-                Connect this browser using a GitHub token. Tokens expire;
-                reconnect here when needed. Drafts and photos stay on this
-                device until you explicitly publish.
+          <button id="newBtn" class="side-item" type="button">
+            <svg class="i" aria-hidden="true"><use href="#i-plus" /></svg>New
+            article
+          </button>
+        </div>
+        <div class="side-scroll">
+          <details id="draftsDrawer" class="side-section" open>
+            <summary>
+              <svg class="i chev" aria-hidden="true"><use href="#i-chevron" /></svg
+              >Drafts
+            </summary>
+            <div class="body">
+              <p id="undoNotice" hidden>
+                Draft archived.
+                <button id="undoArchive" class="text-btn" type="button">
+                  Undo
+                </button>
               </p>
-              <ol class="hint">
-                <li>
-                  <a
-                    id="createTokenLink"
-                    href="https://github.com/settings/personal-access-tokens/new?name=Charles+Lee+blog&amp;target_name=chug2k&amp;contents=write&amp;expires_in=90"
-                    target="_blank"
-                    rel="noopener"
-                    >Create a GitHub token</a
-                  >.
-                </li>
-                <li>
-                  Select only <b>chug2k.github.io</b> with
-                  <b>Contents → Read and write</b>. Choose an expiration date.
-                </li>
-                <li>Copy the token and paste it below.</li>
-              </ol>
-              <label for="tokenInput">GitHub token</label
-              ><input
-                type="password"
-                id="tokenInput"
-                autocomplete="off"
-                placeholder="github_pat_…"
-              />
-              <button class="primary" id="signinBtn" type="button">
-                Connect and check access
+              <ul id="draftlist" class="postlist"></ul>
+            </div>
+          </details>
+          <details id="postsDrawer" class="side-section">
+            <summary>
+              <svg class="i chev" aria-hidden="true"><use href="#i-chevron" /></svg
+              >Published
+            </summary>
+            <div class="body">
+              <ul id="postlist" class="postlist"></ul>
+              <button id="refreshPosts" class="side-item quiet" type="button">
+                <svg class="i" aria-hidden="true"><use href="#i-refresh" /></svg
+                >Refresh list
               </button>
             </div>
-            <div id="signedIn" hidden>
-              <p>
-                Connected as <b id="userLogin"></b>.
-                <button id="signoutBtn" type="button">Disconnect</button>
+          </details>
+        </div>
+        <div class="side-foot">
+          <label class="side-item check"
+            ><input id="showArchived" type="checkbox" />Show archived
+            drafts</label
+          >
+          <button id="importBtn" class="side-item" type="button">
+            <svg class="i" aria-hidden="true"><use href="#i-import" /></svg
+            >Import draft
+          </button>
+          <details id="accountMenu" class="menu-root account">
+            <summary id="connectBtn" class="side-item">Account</summary>
+            <div class="menu account-menu" role="group" aria-label="Account">
+              <p class="account-who">
+                <span id="cloudUserName"></span
+                ><span id="cloudUserEmail"></span>
               </p>
+              <p id="cloudSyncStatus" aria-live="polite"></p>
+              <p class="account-note">
+                Drafts and photos are private. Only Publish changes the blog.
+              </p>
+              <a id="cloudSignIn" href="/admin/">Sign in again</a>
+              <button id="cloudSignOut" type="button">Sign out</button>
             </div>
-            <p id="authError" role="alert"></p>
-            <details>
-              <summary>Repository settings</summary>
+          </details>
+          <div class="compat">
+            <details id="connectionDrawer">
+              <summary>GitHub connection</summary>
               <div class="body">
-                <label>Owner <input id="owner" value="chug2k" /></label
-                ><label
-                  >Repository
-                  <input id="repo" value="chug2k.github.io" /></label
-                ><label>Branch <input id="branch" value="main" /></label
-                ><label
-                  >Live site URL
-                  <input id="siteUrl" type="url" value="https://clpanic.com"
-                /></label>
+                <div id="signedOut">
+                  <p class="hint">
+                    Local regression suite only: connect with a GitHub token.
+                    <a
+                      id="createTokenLink"
+                      href="https://github.com/settings/personal-access-tokens/new?name=Charles+Lee+blog&amp;target_name=chug2k&amp;contents=write&amp;expires_in=90"
+                      target="_blank"
+                      rel="noopener"
+                      >Create a token</a
+                    >
+                  </p>
+                  <label for="tokenInput">GitHub token</label
+                  ><input
+                    type="password"
+                    id="tokenInput"
+                    autocomplete="off"
+                    placeholder="github_pat_…"
+                  />
+                  <button class="primary" id="signinBtn" type="button">
+                    Connect and check access
+                  </button>
+                </div>
+                <div id="signedIn" hidden>
+                  <p>
+                    Connected as <b id="userLogin"></b>.
+                    <button id="signoutBtn" type="button">Disconnect</button>
+                  </p>
+                </div>
+                <p id="authError" role="alert"></p>
+                <details>
+                  <summary>Repository settings</summary>
+                  <div class="body">
+                    <label>Owner <input id="owner" value="chug2k" /></label
+                    ><label
+                      >Repository
+                      <input id="repo" value="chug2k.github.io" /></label
+                    ><label>Branch <input id="branch" value="main" /></label
+                    ><label
+                      >Live site URL
+                      <input
+                        id="siteUrl"
+                        type="url"
+                        value="https://clpanic.com"
+                    /></label>
+                  </div>
+                </details>
               </div>
             </details>
           </div>
-        </details>
-      </aside>
+        </div>
+      </nav>
       <input
         id="importFile"
         type="file"
@@ -239,32 +395,58 @@
     <dialog id="reviewDialog" aria-labelledby="reviewTitle">
       <div class="review-top">
         <h2 id="reviewTitle">Preview &amp; publish</h2>
-        <button id="closeReview" type="button">Back to writing</button>
+        <div class="preview-controls" role="group" aria-label="Preview">
+          <button id="desktopPreview" type="button" aria-pressed="true">
+            Desktop</button
+          ><button id="mobilePreview" type="button" aria-pressed="false">
+            Mobile</button
+          ><button id="themePreview" type="button">Dark preview</button>
+        </div>
+        <button id="closeReview" class="tool-btn" type="button">
+          Back to writing
+        </button>
       </div>
-      <div id="reviewMeta"></div>
-      <div class="preview-controls">
-        <button id="desktopPreview" type="button">Desktop</button
-        ><button id="mobilePreview" type="button">Mobile</button
-        ><button id="themePreview" type="button">Dark preview</button>
+      <div class="review-body">
+        <div class="review-stage">
+          <iframe
+            id="previewFrame"
+            title="Article preview"
+            sandbox="allow-same-origin"
+          ></iframe>
+        </div>
+        <div class="review-side">
+          <div id="reviewMeta"></div>
+          <p id="reviewStatus" role="status"></p>
+          <button id="publishBtn" class="primary" type="button">
+            Publish now
+          </button>
+        </div>
       </div>
-      <iframe
-        id="previewFrame"
-        title="Article preview"
-        sandbox="allow-same-origin"
-      ></iframe>
-      <p id="reviewStatus" role="status"></p>
-      <button id="publishBtn" class="primary" type="button">Publish now</button>
     </dialog>
     <script>
       window.writerBoot = { ready: false };
-      function bootFailure() {
+      function bootFailure(error) {
         if (window.writerBoot.ready) return;
+        const message = error && error.message ? String(error.message) : "";
+        // entry.js shows the detail beside its recovery downloads (#bootRecovery).
+        // Repeat it here only when that section is missing.
+        const detail =
+          message && !document.getElementById("bootRecovery")
+            ? " " + message
+            : "";
         document.getElementById("bootStatus").firstChild.textContent =
-          "The writing room could not load. Your saved drafts are unchanged. Check your connection and try again. ";
+          "The writing room could not load." +
+          detail +
+          " Your saved drafts are unchanged." +
+          (message ? " " : " Check your connection and try again. ");
         document.getElementById("retryBoot").hidden = false;
+        document.getElementById("bootSignIn").hidden = !(
+          error &&
+          (error.auth || /sign in/i.test(message))
+        );
       }
       const bootTimeout = setTimeout(bootFailure, 20000);
-      import("./app.js?v=84e5743529b7da52")
+      import("./app.js?v=2cf30e37eace7a09")
         .then(() => {
           clearTimeout(bootTimeout);
           if (!window.writerBoot.ready) bootFailure();

@@ -1,0 +1,9 @@
+{
+  "accountId": "7570f967f72d784e09771c8e5d6cb860",
+  "zoneId": "f92ac56c2411df8fff9b18d31f306602",
+  "applicationId": "3f25e5fe-b28c-46ca-84df-dd585cac8204",
+  "policyId": "55ec6aaa-778d-457d-b53d-a1fbd4eb6e1c",
+  "identityProviderId": "68630008-7e94-4789-9d3c-ff1e80d7e983",
+  "signIn": "email one-time code",
+  "allowedEmail": "cl@clpanic.com"
+}

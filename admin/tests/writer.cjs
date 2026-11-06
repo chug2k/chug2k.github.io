@@ -56,6 +56,10 @@ async function newDraft(p) {
   await menu(p);
   await p.locator("#newBtn").click();
 }
+async function openDrafts(p) {
+  if (!(await p.locator("#draftSearch").isVisible()))
+    await p.locator("#draftsBtn").click();
+}
 async function toggle(p) {
   const visible = await p.locator("#sourceBox").isVisible();
   await p.locator("#modeBtn").click();
@@ -98,13 +102,11 @@ async function publish(p) {
   );
 }
 async function imported(p, body, name = "2026-10-12-imported.md") {
-  await p
-    .locator("#importFile")
-    .setInputFiles({
-      name,
-      mimeType: "text/markdown",
-      buffer: Buffer.from(body),
-    });
+  await p.locator("#importFile").setInputFiles({
+    name,
+    mimeType: "text/markdown",
+    buffer: Buffer.from(body),
+  });
   await p.waitForFunction(
     () =>
       document.querySelector("#title").value === "Imported" &&
@@ -121,6 +123,9 @@ async function setup(options = {}) {
     ...options.context,
   });
   c.setDefaultTimeout(8000);
+  await c.addInitScript(() => {
+    window.__WRITER_LOCAL_TEST__ = true;
+  });
   const model = {
     files: new Map(),
     writes: [],
@@ -286,7 +291,7 @@ async function test(name, fn) {
     assert(rows.some((d) => d.title === "Only A"));
     await p.reload();
     await ready(p);
-    await p.locator("#draftsBtn").click();
+    await openDrafts(p);
     await p
       .locator(".draft-open")
       .filter({ hasText: "Tab B original" })
@@ -347,7 +352,8 @@ async function test(name, fn) {
       },
     });
     await source(s.p, "Local", "Local body");
-    await s.p.getByText("Existing articles", { exact: true }).click();
+    if ((await s.p.locator("#postsDrawer").getAttribute("open")) === null)
+      await s.p.locator("#postsDrawer > summary").click();
     await s.p.locator("#postlist button").click();
     await s.p.waitForFunction(() =>
       document
@@ -454,13 +460,11 @@ async function test(name, fn) {
     assert(files["article.md"]);
     assert(Object.keys(files).some((n) => n.startsWith("blog/assets/")));
     assert(!strFromU8(files["article.md"]).includes("blob:"));
-    await s.p
-      .locator("#importFile")
-      .setInputFiles({
-        name: "backup.zip",
-        mimeType: "application/zip",
-        buffer: archive,
-      });
+    await s.p.locator("#importFile").setInputFiles({
+      name: "backup.zip",
+      mimeType: "application/zip",
+      buffer: archive,
+    });
     await s.p.waitForFunction(
       () => document.querySelector("#status").textContent === "Imported backup",
     );
@@ -571,13 +575,11 @@ async function test(name, fn) {
     await source(s.p, "Large photo", "Photo story.");
     await toggle(s.p);
     const large = Buffer.concat([png, Buffer.alloc(1100000)]);
-    await s.p
-      .locator("#photoFile")
-      .setInputFiles({
-        name: "large.png",
-        mimeType: "image/png",
-        buffer: large,
-      });
+    await s.p.locator("#photoFile").setInputFiles({
+      name: "large.png",
+      mimeType: "image/png",
+      buffer: large,
+    });
     await s.p.locator("img.bn-visual-media").waitFor();
     await saved(s.p);
     await signin(s.p);
@@ -613,7 +615,7 @@ async function test(name, fn) {
     });
     assert.equal(await s.p.locator("#title").inputValue(), "Legacy draft");
     assert(await s.p.evaluate(() => localStorage.getItem("bn.drafts.v1")));
-    await s.p.locator("#draftsBtn").click();
+    await openDrafts(s.p);
     await s.p
       .getByRole("button", { name: "Archive Legacy draft", exact: true })
       .click();
@@ -665,13 +667,11 @@ async function test(name, fn) {
         ),
         "utf8",
       );
-    await s.p
-      .locator("#importFile")
-      .setInputFiles({
-        name: "2026-10-11-vol2.md",
-        mimeType: "text/markdown",
-        buffer: Buffer.from(full),
-      });
+    await s.p.locator("#importFile").setInputFiles({
+      name: "2026-10-11-vol2.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from(full),
+    });
     await s.p.waitForFunction(
       () =>
         !document.querySelector("#importFile").value &&
@@ -775,13 +775,11 @@ async function test(name, fn) {
     await publish(s.p);
     await s.p.locator("#closeReview").click();
     const archive = await download(s.p);
-    await s.p
-      .locator("#importFile")
-      .setInputFiles({
-        name: "backup.zip",
-        mimeType: "application/zip",
-        buffer: archive,
-      });
+    await s.p.locator("#importFile").setInputFiles({
+      name: "backup.zip",
+      mimeType: "application/zip",
+      buffer: archive,
+    });
     await s.p.waitForFunction(
       () => !document.querySelector("#importFile").value,
     );
@@ -838,13 +836,14 @@ async function test(name, fn) {
             type: "image/png",
           }),
         );
+        const rect = el.getBoundingClientRect();
         el.dispatchEvent(
           new DragEvent("drop", {
             dataTransfer: transfer,
             bubbles: true,
             cancelable: true,
-            clientX: 100,
-            clientY: 300,
+            clientX: rect.left + 20,
+            clientY: rect.top + Math.min(80, rect.height - 1),
           }),
         );
       },
@@ -855,13 +854,11 @@ async function test(name, fn) {
     );
     await saved(s.p);
     assert.equal(s.model.writes.length, 0);
-    await s.p
-      .locator("#photoFile")
-      .setInputFiles({
-        name: "fake.png",
-        mimeType: "image/png",
-        buffer: Buffer.from("not an image"),
-      });
+    await s.p.locator("#photoFile").setInputFiles({
+      name: "fake.png",
+      mimeType: "image/png",
+      buffer: Buffer.from("not an image"),
+    });
     await s.p.waitForFunction(() =>
       document
         .querySelector("#status")
@@ -923,13 +920,11 @@ async function test(name, fn) {
         });
       };
     });
-    await s.p
-      .locator("#importFile")
-      .setInputFiles({
-        name: "2026-10-12-imported.md",
-        mimeType: "text/markdown",
-        buffer: Buffer.from(post("Imported body.")),
-      });
+    await s.p.locator("#importFile").setInputFiles({
+      name: "2026-10-12-imported.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from(post("Imported body.")),
+    });
     await s.p.waitForFunction(() => typeof window.finishImport === "function");
     assert.equal(await s.p.locator("#title").isDisabled(), true);
     await s.p.keyboard.type("Must not be lost");
@@ -954,7 +949,12 @@ async function test(name, fn) {
     await s.p.locator("#insertMenu > summary").click();
     await s.p.keyboard.press("Escape");
     assert.equal(await s.p.locator("#insertMenu").getAttribute("open"), null);
-    assert.equal(await s.p.locator("#insertMenu > summary").evaluate(el => el === document.activeElement), true);
+    assert.equal(
+      await s.p
+        .locator("#insertMenu > summary")
+        .evaluate((el) => el === document.activeElement),
+      true,
+    );
     await s.close();
   });
   await browser.close();

@@ -38,6 +38,27 @@ export async function openStorage() {
     listeners.forEach((fn) => fn({ id, local: true }));
   };
   return {
+    async metaGet(id) {
+      return request(db.transaction("meta").objectStore("meta").get(id));
+    },
+    async metaList(prefix) {
+      const values = await request(
+        db.transaction("meta").objectStore("meta").getAll(),
+      );
+      return values.filter((value) => value.id.startsWith(prefix));
+    },
+    async metaPut(value) {
+      const tx = db.transaction("meta", "readwrite"),
+        done = finished(tx);
+      tx.objectStore("meta").put(value);
+      await done;
+    },
+    async metaDelete(id) {
+      const tx = db.transaction("meta", "readwrite"),
+        done = finished(tx);
+      tx.objectStore("meta").delete(id);
+      await done;
+    },
     onChange(fn) {
       listeners.add(fn);
       return () => listeners.delete(fn);

@@ -15,6 +15,8 @@ import {
 import { zipSync, unzipSync, strToU8, strFromU8 } from "fflate";
 import { renderPreviewDocument } from "../../assets/markdown.mjs";
 import { openStorage } from "./storage.js";
+import { cloudRequest, cloudGithub, openCloudStorage } from "./cloud.js";
+import { initWriterLayout } from "./layout.js";
 import {
   createEditor,
   parseDocument,
@@ -27,6 +29,12 @@ import { github, repoKey, digest, decodeText } from "./github.js";
 
 const $ = (id) => document.getElementById(id),
   h = React.createElement;
+// The historical regression suite can exercise local recovery in isolation.
+// This opt-in is deliberately unavailable on any deployed hostname.
+const localTest =
+  ["127.0.0.1", "localhost", "[::1]"].includes(location.hostname) &&
+  window.__WRITER_LOCAL_TEST__ === true;
+let cloudSession;
 const stored = (k, f = "") => {
   try {
     return localStorage.getItem(k) || f;
@@ -52,15 +60,16 @@ const slugify = (s) =>
     .replace(/^-|-$/g, "")
     .slice(0, 60)
     .replace(/-+$/, "");
-const config = () => ({
-  owner: $("owner").value.trim(),
-  repo: $("repo").value.trim(),
-  branch: $("branch").value.trim() || "main",
-  siteUrl: $("siteUrl").value.trim().replace(/\/$/, ""),
-});
-for (const k of ["owner", "repo", "branch", "siteUrl"])
+const config = () =>
+  cloudSession?.config || {
+    owner: $("owner").value.trim(),
+    repo: $("repo").value.trim(),
+    branch: $("branch").value.trim() || "main",
+    siteUrl: $("siteUrl").value.trim().replace(/\/$/, ""),
+  };
+for (const k of localTest ? ["owner", "repo", "branch", "siteUrl"] : [])
   if (stored("bn." + k)) $(k).value = stored("bn." + k);
-let token = stored("bn.token"),
+let token = localTest ? stored("bn.token") : "",
   authChecked = "",
   storage,
   active,
@@ -87,6 +96,7 @@ const urls = new Map(),
   volatileAssets = new Map();
 const say = (text) => {
   $("status").textContent = text;
+  if ($("cloudSyncStatus")) $("cloudSyncStatus").textContent = text;
 };
 const action =
   (fn) =>
@@ -133,7 +143,7 @@ function markChanged() {
   revision++;
   say("Saving…");
   clearTimeout(saveTimer);
-  saveTimer = setTimeout(() => persist(), 250);
+  saveTimer = setTimeout(() => persist(), storage?.cloud ? 1000 : 250);
   updateWords();
 }
 function updateWords() {
@@ -163,6 +173,9 @@ function persist() {
         version = revision;
       try {
         const value = await capture();
+        // Journal the latest article before any photo or recovery-copy network
+        // operation. Even a failure in those prerequisite writes is recoverable.
+        await storage.stage?.(value, target.revision || 0);
         for (const id of value.assetIds || [])
           if (volatileAssets.has(id)) {
             await storage.putAsset(volatileAssets.get(id));
@@ -207,15 +220,19 @@ function persist() {
           if (result.conflict) {
             $("sourceNotice").hidden = false;
             $("sourceNotice").textContent =
-              "Another tab saved a different version. Both versions are safe in My drafts; you are editing a recovery copy.";
-            say("Saved a recovery copy — another tab changed this draft.");
-          } else if (revision === version) say("Saved on this device");
+              "Another tab or device saved a different version. Both versions are safe in My drafts; you are editing a recovery copy.";
+            say("Saved a recovery copy — another device changed this draft.");
+          } else if (revision === version)
+            say(storage.cloud ? "Saved to cloud" : "Saved on this device");
         }
         await renderDrafts();
         return true;
       } catch (error) {
         say(
-          "Couldn’t save on this device. Download backup keeps your latest writing and photos.",
+          storage.cloud
+            ? error.message ||
+                "Cloud save is pending. Download a backup before leaving."
+            : "Couldn’t save on this device. Download backup keeps your latest writing and photos.",
         );
         return false;
       }
@@ -308,7 +325,11 @@ async function installDraft(d, nav = navVersion) {
     remember("bn.activeDraft", active.id);
     modeUI();
     publicationUI();
-    say(d.recoveryLabel || "Saved on this device");
+    window.writerLayout?.sync();
+    say(
+      d.recoveryLabel ||
+        (storage.cloud ? "Saved to cloud" : "Saved on this device"),
+    );
     window.scrollTo({ top: 0 });
   } finally {
     if (nav === navVersion) {
@@ -324,7 +345,10 @@ async function openDraft(id) {
     const nav = cancelOpen();
     await flushRequired();
     const d = await storage.get(id);
-    if (d && nav === navVersion) await installDraft(d, nav);
+    if (d && nav === navVersion) {
+      await installDraft(d, nav);
+      await renderDrafts();
+    }
   } finally {
     transition(false);
   }
@@ -509,15 +533,17 @@ function insert(type) {
       ],
     };
   if (["excerptBreak", "image", "divider"].includes(type)) value.props = {};
+  let inserted;
   if (current.type === "paragraph" && !current.content?.length)
-    editor.updateBlock(current, value);
+    inserted = editor.updateBlock(current, value);
   else
-    editor.insertBlocks(
+    [inserted] = editor.insertBlocks(
       [value, { type: "paragraph", content: "" }],
       current,
       "after",
     );
   $("insertMenu").open = false;
+  editor.setTextCursorPosition(inserted, "start");
   editor.focus();
   contextTools();
 }
@@ -605,9 +631,11 @@ async function localPhoto(file) {
     try {
       await storage.putAsset(value);
       volatileAssets.delete(id);
-    } catch {
+    } catch (error) {
       say(
-        "Photo is only in memory: storage is full. Download backup before closing this page.",
+        storage.cloud
+          ? "Photo upload is pending. Keep this page open or download a backup; saving will retry."
+          : "Photo is only in memory: storage is full. Download backup before closing this page.",
       );
     }
     markChanged();
@@ -799,9 +827,18 @@ function expired(usedToken) {
   connect();
 }
 function client(c = config(), t = token) {
+  if (!localTest) return cloudGithub();
   return github(c, t, expired);
 }
 function showAuth() {
+  if (!localTest) {
+    $("connectBtn").textContent = "Account";
+    if ($("cloudUserName"))
+      $("cloudUserName").textContent = cloudSession?.user.name || "Charles";
+    if ($("cloudUserEmail"))
+      $("cloudUserEmail").textContent = cloudSession?.user.email || "";
+    return;
+  }
   const connected = !!token;
   $("signedOut").hidden = connected;
   $("signedIn").hidden = !connected;
@@ -810,10 +847,12 @@ function showAuth() {
     : "Connect GitHub";
 }
 function connect() {
+  // The cloud account is a native disclosure; its summary handles toggling.
+  if (!localTest) return;
   if ($("reviewDialog").open) $("reviewDialog").close();
   $("connectionDrawer").open = true;
   $("connectionDrawer").scrollIntoView({ behavior: "smooth" });
-  if (!token) $("tokenInput").focus({ preventScroll: true });
+  if (localTest && !token) $("tokenInput").focus({ preventScroll: true });
 }
 async function checkAuth() {
   const c = config(),
@@ -1037,7 +1076,7 @@ async function publish() {
     throw new Error(
       "This article belongs to a different repository. Restore its repository settings before publishing.",
     );
-  if (!token) {
+  if (localTest && !token) {
     say(
       "Connect this browser to GitHub to publish. Your draft and photos are saved.",
     );
@@ -1220,8 +1259,71 @@ async function checkLive(manual = true) {
   publicationUI();
 }
 
-storage = await openStorage();
-await storage.migrate((k) => stored(k));
+initWriterLayout();
+const localStorageDB = await openStorage();
+try {
+  if (localTest) {
+    storage = localStorageDB;
+    document.documentElement.dataset.localTest = "true";
+  } else {
+    cloudSession = await cloudRequest("session");
+    storage = await openCloudStorage(localStorageDB, cloudSession, say);
+    // The cloud Worker owns publishing credentials. Retire browser PATs only
+    // after sign-in succeeds; never send them to the cloud service.
+    localStorage.removeItem("bn.token");
+  }
+  await storage.migrate((k) => stored(k));
+} catch (error) {
+  // Recovery must not depend on a working cloud session or successful boot.
+  // In particular an oversized/interrupted save must remain exportable.
+  const entries = (await localStorageDB.metaList("cloud:")).filter(
+    (x) => x.working,
+  );
+  const drafts = entries.length
+    ? entries.map((x) => x.working)
+    : await localStorageDB.list();
+  const recovery = document.createElement("section");
+  recovery.id = "bootRecovery";
+  const message = document.createElement("p");
+  message.textContent = error.message;
+  recovery.append(message);
+  for (const d of drafts) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = `Download recovery: ${d.title || "Untitled"}`;
+    button.onclick = async () => {
+      try {
+        const files = {
+          "article.md": strToU8(backupSource(d)),
+          "draft.json": strToU8(JSON.stringify(d)),
+        };
+        const missing = [];
+        for (const id of d.assetIds || []) {
+          const a = await localStorageDB.getAsset(id);
+          if (a) files[a.path] = new Uint8Array(await a.blob.arrayBuffer());
+          else missing.push(id);
+        }
+        if (missing.length)
+          files["MISSING_PHOTOS.txt"] = strToU8(
+            "These cloud photos were not cached on this device. Reconnect before making a complete backup:\n" +
+              missing.join("\n"),
+          );
+        downloadBlob(
+          new Blob([zipSync(files, { level: 0 })], { type: "application/zip" }),
+          filename(d).replace(/\.md$/, "-recovery.zip"),
+        );
+        message.textContent = missing.length
+          ? "Writing downloaded. Some photos are only in the cloud; reconnect for a complete backup."
+          : "Recovery backup downloaded. Import it after signing in to restore this draft.";
+      } catch (backupError) {
+        message.textContent = backupError.message;
+      }
+    };
+    recovery.append(button);
+  }
+  $("bootStatus").append(recovery);
+  throw error;
+}
 editor = createEditor({ uploadFile: localPhoto, resolveFileUrl: resolvePhoto });
 function Toolbar() {
   return h(
@@ -1345,7 +1447,8 @@ on("importBtn", () => $("importFile").click());
 on("importFile", () => importDraft($("importFile").files[0]), "change");
 on("draftsBtn", () => {
   $("draftsDrawer").open = true;
-  $("draftsDrawer").scrollIntoView({ behavior: "smooth" });
+  if (!window.writerLayout)
+    $("draftsDrawer").scrollIntoView({ behavior: "smooth" });
   $("draftSearch").focus({ preventScroll: true });
 });
 on("draftSearch", renderDrafts, "input");
@@ -1365,6 +1468,7 @@ on("undoArchive", async () => {
 });
 on("connectBtn", connect);
 on("signinBtn", async () => {
+  if (!localTest) return;
   const t = $("tokenInput").value.trim();
   if (!t) return;
   $("signinBtn").disabled = true;
@@ -1389,13 +1493,14 @@ on("signinBtn", async () => {
   }
 });
 on("signoutBtn", () => {
+  if (!localTest) return;
   token = "";
   authChecked = "";
   remember("bn.token", "");
   showAuth();
   say("Disconnected. Drafts and photos remain on this device.");
 });
-for (const k of ["owner", "repo", "branch", "siteUrl"])
+for (const k of localTest ? ["owner", "repo", "branch", "siteUrl"] : [])
   on(
     k,
     () => {
@@ -1508,3 +1613,38 @@ if (token)
     $("authError").textContent = error.message;
     say(error.message);
   });
+if (storage.cloud) {
+  if ($("cloudSignOut"))
+    on("cloudSignOut", async () => {
+      safeToNavigate();
+      await flushRequired();
+      location.assign("/cdn-cgi/access/logout");
+    });
+  const retry = () => {
+    if (
+      !busy &&
+      !loading &&
+      !transitioning &&
+      !assetBusy &&
+      revision !== savedRevision
+    )
+      persist();
+  };
+  window.addEventListener("online", retry);
+  setInterval(retry, 10000);
+  // Refresh the library, never replace the document being edited. A stale
+  // document save forks on the server and preserves the other device's copy.
+  let refreshing = false;
+  const refreshLibrary = async () => {
+    if (refreshing || document.hidden || busy || loading) return;
+    refreshing = true;
+    try {
+      await renderDrafts();
+    } catch {
+    } finally {
+      refreshing = false;
+    }
+  };
+  window.addEventListener("focus", refreshLibrary);
+  setInterval(refreshLibrary, 30000);
+}
