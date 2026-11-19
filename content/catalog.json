@@ -118,8 +118,8 @@
     },
     {
       "title": "DINK — pickleball as a card game",
-      "description": "Play Dink / Drive / Lob cards against a CPU, roll for effectiveness, and drag a tug-of-war bar to your side of the net. You don't need to know a thing about pickleball — but the pressure feels exactly like the real fourth shot.",
-      "url": "https://picklegame5.vercel.app",
+      "description": "You and the computer each start with a dink, a drive, and a lob. Match a shot and your hand shrinks. Counter it and you draw a card. Leave your opponent without a reply to score. First to five wins.",
+      "url": "https://dink-three-shots.fikaride.workers.dev/",
       "status": "Project",
       "notes": ""
     },
