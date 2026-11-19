@@ -96,9 +96,16 @@
       "notes": ""
     },
     {
-      "title": "H100s & Burn Rate — an album you can walk around in",
-      "description": "Twenty-three original songs placed as zones on a world map. Wander in, listen, read the story behind each track, and watch — in real time — who else is in the world dancing next to you. It's a record, but you explore it on foot instead of scrolling a tracklist.",
-      "url": "https://h100sandburnrate.vercel.app",
+      "title": "H100s & Burn Rate — the album",
+      "description": "Twenty-three original songs that started as places on a world map. Press play for “A Million Open Windows,” choose any track, or send someone a link straight to your favorite.",
+      "url": "https://clpanic.com/h100s-listener/",
+      "status": "Project",
+      "notes": ""
+    },
+    {
+      "title": "AutoDJ · Switchback",
+      "description": "A 15-minute electronic mix for a focus session or a workout. Four original tracks crossfade as the pace rises and settles. A two-note bell tells you when the session is over. Play, skip to a chapter, or download the MP3.",
+      "url": "https://clpanic.com/autodj-switchback/",
       "status": "Project",
       "notes": ""
     },
@@ -106,6 +113,13 @@
       "title": "City Picker — where should you live?",
       "description": "If you work remotely, the world is the menu. Set your salary and put your priorities in order to see how 17 cities rank. The savings estimates use November 2025 household budgets.",
       "url": "https://clpanic.com/city-picker/",
+      "status": "Project",
+      "notes": ""
+    },
+    {
+      "title": "NomadVibe — find a city for your household",
+      "description": "Compare 65 cities against your household budget, working hours and local job needs. See exactly why a city qualifies or misses, then change one assumption and try again. Costs are estimates and job examples are dated.",
+      "url": "https://nomadvibe.fikaride.workers.dev/",
       "status": "Project",
       "notes": ""
     },
@@ -131,6 +145,13 @@
       "notes": ""
     },
     {
+      "title": "Pickle: Mind Game",
+      "description": "Ten pickleball decisions, four ways to play each ball. Read the court, choose your shot and aim, then see why a middle reset, a speed-up or a block fits that particular rally. Replay the ones you missed.",
+      "url": "https://clpanic.com/pickle-mind-game/",
+      "status": "Project",
+      "notes": ""
+    },
+    {
       "title": "Pickleball d20 — the tactical version",
       "description": "The turn-based, stat-based take: doubles where court position, the two-bounce rule, and kitchen faults all genuinely matter, and a 20-sided die decides whether your shot lands. Closer to chess than to arcade.",
       "url": "https://picklegame4.vercel.app",
@@ -140,18 +161,11 @@
   ],
   "bench": [
     {
-      "title": "NomadVibe — an AI quiz that finds your city",
-      "description": "A conversational quiz that learns your priorities and AI-ranks world cities for the life you're describing. The grown-up sibling of City Picker. Fully built — just needs its API keys wired up and a deploy before it can go live.",
-      "url": "",
-      "status": "In progress",
-      "notes": "Next.js · Supabase · OpenAI  —  to finish: add env keys, deploy"
-    },
-    {
       "title": "Weekly Check-in Generator",
-      "description": "Paste a pile of messy notes; it pulls out the key points and writes a clean, properly-formatted weekly update straight into Notion. Done and working locally — just needs deploying with its keys.",
+      "description": "Turn messy notes into a seven-section weekly update. The private editor keeps drafts in your browser and exports Markdown. A configured installation can also save to Notion.",
       "url": "",
-      "status": "In progress",
-      "notes": "Next.js · Gemini · Notion API  —  to finish: add env keys, deploy"
+      "status": "Private pilot",
+      "notes": "Markdown export · Optional Gemini and Notion integrations"
     },
     {
       "title": "Directory — my week, written by itself",
@@ -159,13 +173,6 @@
       "url": "",
       "status": "In progress",
       "notes": "TypeScript · Node CLI · Notion API  —  to finish: README + cron"
-    },
-    {
-      "title": "AutoDJ — the setlist optimizer",
-      "description": "Hand it a hundred songs and it computes the best order for one continuous DJ mix — scoring every transition for tempo, key, mood, and even geography. It quietly powered the world mixes inside H100s & Burn Rate; it just never got its own front door.",
-      "url": "",
-      "status": "Parked",
-      "notes": "Python · scoring/search  —  could become: an \"how the mixes were ordered\" post"
     },
     {
       "title": "Voice Clone Lab",
