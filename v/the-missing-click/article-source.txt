@@ -1,0 +1,37 @@
+---
+title: The missing click
+slug: the-missing-click
+kind: Listening exercise
+date: 2026-11-19
+eyebrow: Field Notes · Listening studies
+lede: Tap four beats on the table. When one click disappears, can you keep your finger landing in the same place?
+description: A 48-second listening exercise with a steady pulse, a missing click, and a way to hear whether you kept time.
+source_audio: source.wav
+source_waveform: figures/source-waveform.png
+source_credit: Original listening exercise, script and pulse sounds. The spoken cues use the eSpeak NG synthesizer.
+tags: [sound, rhythm]
+---
+
+## Set the pulse || Find beat one {#pulse}
+
+The higher click marks the beginning of each group of four. Tap once for every click. At this pace, two taps take one second.
+
+:::figure src=figures/full.png ts=00:08 alt="Four evenly spaced sound bursts. The first is higher in pitch."
+One bar of the opening pattern. Read the four beat positions from left to right.
+:::
+
+## Leave a space || Keep tapping through three {#gap}
+
+The third click drops out. Your finger still has a job on that beat. Listen for the fourth click to land with your next tap.
+
+:::figure src=figures/gap.png ts=00:24 alt="Sound on beats one, two and four. The third position is flat."
+The flat line at three lasts half a second. The next bar starts on schedule.
+:::
+
+## Check your timing || Catch the returning click {#return}
+
+Start with the gap again and count two bars. On the third bar, the missing click comes back. If it meets your finger, you carried the beat through the silence. If it lands between taps, replay the gap and count all four beats aloud.
+
+:::figure src=figures/return.png ts=00:45 alt="The previously empty third position now has a sound burst."
+The returning click lands on beat three, five seconds into the final example.
+:::

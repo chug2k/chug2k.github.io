@@ -1,0 +1,13 @@
+{
+  "title": "The missing click",
+  "description": "A 48-second listening exercise with a steady pulse, a missing click, and a way to hear whether you kept time.",
+  "kind": "Listening exercise",
+  "date": "2026-11-19",
+  "slug": "the-missing-click",
+  "tags": [
+    "sound",
+    "rhythm"
+  ],
+  "source_audio": "source.wav",
+  "duration_seconds": 48.0
+}

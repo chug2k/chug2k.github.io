@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The missing click</title>
+<style>
+:root{--bg:#f5f1e8;--paper:#faf7f0;--ink:#1a1816;--muted:#6b655c;--rule:#d9d2c3;--accent:#cc5429;--accent-soft:#f4d8c5;--code-bg:#2b2723;--code-ink:#f0e6d6}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Charter","Georgia","Iowan Old Style",serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 96px}
+header.hero{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font-family:"Inter",sans-serif;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.lede{font-size:21px;line-height:1.5;margin:0 0 24px;max-width:660px}
+.byline{font-family:"Inter",sans-serif;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.byline strong{color:var(--ink);font-weight:600}
+.watch{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);text-decoration:none;padding:10px 18px;border-radius:8px}
+.watch:hover{background:#b3461f}.watch::before{content:"▶";font-size:11px}
+.back{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:28px 32px;margin:0 0 48px}
+.tldr-label{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tldr h2{font-family:"Inter",sans-serif;font-size:22px;margin:0 0 14px;line-height:1.3}
+.tldr ol{margin:14px 0 0;padding-left:22px;font-size:17px}.tldr ol li{margin-bottom:8px}.tldr ol li b,.tldr ol li strong{color:var(--accent);font-weight:600}
+section{margin-bottom:56px}
+h2.section{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h3.heading{font-family:"Inter",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.15;margin:0 0 18px}
+h4.sub{font-family:"Inter",sans-serif;font-size:20px;font-weight:600;margin:32px 0 12px}
+p{margin:0 0 18px}
+figure{margin:26px 0 30px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#000}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);padding:12px 16px;background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px}
+figcaption .ts{font-feature-settings:"tnum";background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:3px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
+blockquote{margin:30px 0;padding:4px 0 4px 24px;border-left:3px solid var(--accent);font-size:22px;line-height:1.4;font-style:italic}
+blockquote cite{display:block;margin-top:12px;font-family:"Inter",sans-serif;font-size:13px;font-style:normal;color:var(--muted)}
+.callout{margin:26px 0;padding:20px 24px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-family:"Inter",sans-serif;font-size:16px;line-height:1.5}
+.callout .label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.steps{counter-reset:stepc;margin:22px 0;padding:0;list-style:none}
+.steps li{counter-increment:stepc;font-family:"Inter",sans-serif;padding:14px 0 14px 52px;position:relative;border-bottom:1px solid var(--rule)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(stepc,decimal-leading-zero);position:absolute;left:0;top:16px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.steps li b{font-size:16px;display:block;margin-bottom:4px}.steps li span{font-size:14px;color:var(--muted);line-height:1.5}
+.prompt{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:14px 18px;font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:14px;line-height:1.55;margin:18px 0;white-space:pre-wrap;overflow-x:auto}
+code{font-family:"JetBrains Mono","SF Mono","Menlo",monospace;font-size:.88em;background:#ece4d5;padding:1px 5px;border-radius:3px}
+.alin-player{background:linear-gradient(135deg,#faf7f0 0%,#f4e6d6 100%);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin:8px 0 26px;display:flex;flex-direction:column;gap:8px}
+.alin-label{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px}
+.alin-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(204,84,41,.18)}
+.alin-player audio{width:100%;height:34px}
+.pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0 8px}
+.pill{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.pill h5{font-family:"Inter",sans-serif;font-size:16px;font-weight:600;margin:0 0 8px}
+.pill p{font-family:"Inter",sans-serif;font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:28px;margin-top:56px;font-family:"Inter",sans-serif;font-size:13px;color:var(--muted)}
+footer p{margin-bottom:6px}
+@media(max-width:600px){.wrap{padding:32px 18px 64px}h1{font-size:30px}.lede{font-size:18px}h3.heading{font-size:23px}blockquote{font-size:18px}}
+
+.timed{--bg:#f7f3e9;--paper:#fffdf6;--ink:#212923;--muted:#545c52;--rule:#cbcbbd;--accent:#91421d;--dark:#262c27;--light:#eae2c4;--hot:#efa363;--sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
+.timed .wrap{max-width:776px;padding:46px 26px 62px}
+.timed a{color:var(--accent);text-underline-offset:.2em}
+.timed a:focus-visible,.timed audio:focus-visible{outline:3px solid #ae541f;outline-offset:3px}
+.timed .skip{position:absolute;left:8px;top:8px;transform:translateY(-200%);font:600 16px var(--sans);background:white;padding:10px;z-index:2}
+.timed .skip:focus{transform:none}
+.timed header.hero{border:0;padding:0;margin:0 0 40px}
+.timed .eyebrow{font:700 12px/1.4 var(--sans);letter-spacing:.14em;border-top:2px solid var(--ink);padding-top:14px;margin-bottom:28px;color:var(--accent)}
+.timed h1{font:normal clamp(44px,8.4vw,78px)/.99 Georgia,"Times New Roman",serif;letter-spacing:-.058em;margin:0 0 17px;text-wrap:balance}
+.timed .lede{font:normal clamp(19px,2.6vw,24px)/1.44 Georgia,serif;max-width:610px;margin-bottom:24px;text-wrap:pretty}
+.timed .byline:empty{display:none}
+.timed .deck{background:var(--dark);color:var(--light);padding:17px 22px 12px;border-radius:10px}
+.timed .deck-bar,.timed .transcript-head,.timed footer{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.timed .deck-bar h2{font:600 16px/1.2 var(--sans);margin:0}
+.timed .runtime,.timed .ts,.timed .cue-time{font:600 13px/1.2 ui-monospace,"SFMono-Regular",Consolas,monospace;font-variant-numeric:tabular-nums}
+.timed .runtime{color:var(--hot)}
+.timed .wave-map{display:flex;height:50px;margin:12px 1px 6px;position:relative;isolation:isolate}
+.timed .wave-map img{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;z-index:-1}
+.timed .wave-cue{min-width:0;flex-basis:0;border-left:1px solid #a4a18b55}
+.timed .wave-cue:last-of-type{border-right:1px solid #a4a18b55}
+.timed .wave-cue:hover,.timed .wave-cue:focus-visible{background:#efa36333;outline-color:var(--hot);outline-offset:0}
+.timed .playhead{position:absolute;inset-block:0;width:2px;background:#fff4d1;pointer-events:none}
+.timed .deck audio{display:block;width:100%;height:42px;color-scheme:dark}
+.timed #audio-status{font:14px var(--sans);margin:8px 0}
+.timed .reader-links{display:flex;gap:20px;flex-wrap:wrap}
+.timed .reader-links a,.timed .transcript-head a,.timed footer a{display:inline-flex;align-items:center;min-height:44px;font:600 13px var(--sans)}
+.timed section:not(.transcript){margin:0 0 38px}
+.timed h2.section{font:700 11px/1.5 var(--sans);letter-spacing:.14em;margin-bottom:5px}
+.timed h3.heading,.timed .transcript-head h2{font:normal clamp(28px,4.4vw,37px)/1.13 Georgia,serif;letter-spacing:-.035em;margin-bottom:10px}
+.timed section p{max-width:65ch}
+.timed figure{margin:18px 0 0;border:1px solid var(--rule);border-radius:6px;background:var(--dark)}
+.timed figcaption{align-items:center;gap:10px;font:14px/1.42 var(--sans);color:var(--muted);padding:8px 12px}
+.timed figcaption .ts,.timed .cue-time{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;white-space:nowrap;text-decoration:none}
+.timed figcaption .ts{color:var(--ink);background:#f1dfca;padding:0 10px;border-radius:4px;letter-spacing:0}
+.timed figcaption .ts:hover,.timed .cue-time:hover{text-decoration:underline}
+.timed .ts::before,.timed .cue-time::before{content:"";border-block:4px solid transparent;border-left:6px solid currentColor}
+.timed .transcript{border-top:2px solid var(--ink);padding-top:20px;margin:44px 0 0}
+.timed .transcript-head h2{margin:0}
+.timed .cue-help{font:14px/1.45 var(--sans);color:var(--muted);margin:5px 0 14px}
+.timed .cue-list{list-style:none;padding:0;margin:0}
+.timed .cue-list li{display:grid;grid-template-columns:64px 1fr;gap:11px;align-items:baseline;padding:7px 9px 7px 0;border-top:1px solid var(--rule);scroll-margin:20px;font:17px/1.5 Georgia,serif}
+.timed .cue-list li:target{outline:1px solid var(--accent);outline-offset:-1px}
+.timed .cue-list li[aria-current=time]{background:#f0e6d4}
+.timed .cue-time{color:var(--accent)}
+.timed .sound{color:var(--muted);font-style:italic}
+.timed noscript a{display:inline-block;font:14px var(--sans)}
+.timed footer{margin-top:34px;padding-top:13px;font:13px/1.5 var(--sans);align-items:baseline}
+.timed footer p{max-width:60ch;margin:0}
+.timed footer a{flex-shrink:0}
+@media(max-width:600px){
+ .timed .wrap{padding:20px 17px 46px}
+ .timed .eyebrow{margin-bottom:24px}
+ .timed .deck{padding:15px 12px 10px}
+ .timed header.hero{margin-bottom:26px}
+ .timed .wave-map{height:44px}
+ .timed figcaption{font-size:13px}
+ .timed .cue-list li{grid-template-columns:54px 1fr;gap:8px}
+ .timed footer{display:block}
+}
+@media print{
+ @page{margin:15mm}
+ .timed{background:white;color:black;font-size:11pt;line-height:1.3}
+ .timed .wrap{max-width:none;padding:0}
+ .timed .skip,.timed .deck,.timed .reader-links,.timed .transcript-head a,.timed .cue-help,.timed footer a,.timed noscript{display:none!important}
+ .timed header.hero,.timed section:not(.transcript){margin:0 0 4mm}
+ .timed .eyebrow{margin:0 0 4mm;padding-top:2mm;font-size:8pt}
+ .timed h1{font-size:31pt}
+ .timed .lede{font-size:13pt;margin-bottom:4mm;max-width:none}
+ .timed section:not(.transcript),.timed figure,.timed li{break-inside:avoid}
+ .timed h3.heading,.timed .transcript-head h2{font-size:18pt}
+ .timed section p{margin:0 0 2mm;max-width:none}
+ .timed figure{margin:2mm 0}
+ .timed figure img{max-height:15mm;object-fit:fill}
+ .timed figcaption,.timed .cue-list li{font-size:10pt}
+ .timed figcaption{padding:1mm 2mm}
+ .timed figcaption .ts,.timed .cue-time{min-height:0;color:black;background:none}
+ .timed .ts::before,.timed .cue-time::before{display:none}
+ .timed .transcript{break-before:page;margin:0;padding-top:3mm}
+ .timed .cue-list{margin-top:5mm}
+ .timed .cue-list li{padding:3mm 0}
+ .timed .cue-list li:target,.timed .cue-list li[aria-current=time]{background:none;outline:none}
+ .timed footer{margin-top:6mm}
+}
+</style></head>
+<body class="timed"><main class="wrap" id="top">
+<a class="skip" href="#transcript">Skip to transcript</a>
+<header class="hero">
+<div class="eyebrow">Field Notes · Listening studies</div>
+<h1>The missing click</h1>
+<p class="lede">Tap four beats on the table. When one click disappears, can you keep your finger landing in the same place?</p>
+<div class="byline"></div>
+<div class="deck" id="listen"><div class="deck-bar"><h2>Source audio</h2><span class="runtime">0:48</span></div><nav class="wave-map" aria-label="Play a passage from the waveform"><img src="figures/source-waveform.png" alt=""><a class="wave-cue" data-seek="0" href="#t-0" aria-label="Play source from 0:00" style="flex-grow:8" title="Play from 0:00"></a><a class="wave-cue" data-seek="8" href="#t-8" aria-label="Play source from 0:08" style="flex-grow:8" title="Play from 0:08"></a><a class="wave-cue" data-seek="16" href="#t-16" aria-label="Play source from 0:16" style="flex-grow:8" title="Play from 0:16"></a><a class="wave-cue" data-seek="24" href="#t-24" aria-label="Play source from 0:24" style="flex-grow:8" title="Play from 0:24"></a><a class="wave-cue" data-seek="32" href="#t-32" aria-label="Play source from 0:32" style="flex-grow:8" title="Play from 0:32"></a><a class="wave-cue" data-seek="40" href="#t-40" aria-label="Play source from 0:40" style="flex-grow:5" title="Play from 0:40"></a><a class="wave-cue" data-seek="45" href="#t-45" aria-label="Play source from 0:45" style="flex-grow:3" title="Play from 0:45"></a><span class="playhead" hidden></span></nav><audio id="source-player" src="source.wav" aria-label="Source audio" preload="metadata" controls><a href="source.wav">Open the audio file</a></audio><p id="audio-status" role="status" hidden></p></div><div class="reader-links"><a href="#transcript">Read transcript ↓</a><a href="source.wav" download>Download audio</a></div>
+</header>
+
+<section id="pulse"><h2 class="section">Set the pulse</h2><h3 class="heading">Find beat one</h3><p>The higher click marks the beginning of each group of four. Tap once for every click. At this pace, two taps take one second.</p>
+<figure><img src="figures/full.png" alt="Four evenly spaced sound bursts. The first is higher in pitch."><figcaption><span>One bar of the opening pattern. Read the four beat positions from left to right.</span><a class="ts" data-seek="8" href="#t-8" aria-label="Play source from 0:08">0:08</a></figcaption></figure></section><section id="gap"><h2 class="section">Leave a space</h2><h3 class="heading">Keep tapping through three</h3><p>The third click drops out. Your finger still has a job on that beat. Listen for the fourth click to land with your next tap.</p>
+<figure><img src="figures/gap.png" alt="Sound on beats one, two and four. The third position is flat."><figcaption><span>The flat line at three lasts half a second. The next bar starts on schedule.</span><a class="ts" data-seek="24" href="#t-24" aria-label="Play source from 0:24">0:24</a></figcaption></figure></section><section id="return"><h2 class="section">Check your timing</h2><h3 class="heading">Catch the returning click</h3><p>Start with the gap again and count two bars. On the third bar, the missing click comes back. If it meets your finger, you carried the beat through the silence. If it lands between taps, replay the gap and count all four beats aloud.</p>
+<figure><img src="figures/return.png" alt="The previously empty third position now has a sound burst."><figcaption><span>The returning click lands on beat three, five seconds into the final example.</span><a class="ts" data-seek="45" href="#t-45" aria-label="Play source from 0:45">0:45</a></figcaption></figure></section>
+<section class="transcript" id="transcript" aria-labelledby="transcript-title"><div class="transcript-head"><h2 id="transcript-title">Source transcript</h2><a href="transcript.txt" download>Plain text</a></div><p class="cue-help">Choose a time to listen. Copy its link to share that moment.</p><ol class="cue-list"><li id="t-0" data-cue="0"><a class="cue-time" data-seek="0" href="#t-0" aria-label="Play source from 0:00">0:00</a><div><span>Tap four beats on the table. The high click marks one. Let your hand follow the next four bars.</span><noscript> <a href="source.wav#t=0">Open audio at 0:00</a></noscript></div></li><li id="t-8" data-cue="8"><a class="cue-time" data-seek="8" href="#t-8" aria-label="Play source from 0:08">0:08</a><div><span class="sound">[Four bars of four evenly spaced clicks. The first click in each bar is higher.]</span><noscript> <a href="source.wav#t=8">Open audio at 0:08</a></noscript></div></li><li id="t-16" data-cue="16"><a class="cue-time" data-seek="16" href="#t-16" aria-label="Play source from 0:16">0:16</a><div><span>Keep tapping. I’m leaving a space on beat three. The fourth click will tell you whether you kept time.</span><noscript> <a href="source.wav#t=16">Open audio at 0:16</a></noscript></div></li><li id="t-24" data-cue="24"><a class="cue-time" data-seek="24" href="#t-24" aria-label="Play source from 0:24">0:24</a><div><span class="sound">[Four bars. Beat three is silent in each bar.]</span><noscript> <a href="source.wav#t=24">Open audio at 0:24</a></noscript></div></li><li id="t-32" data-cue="32"><a class="cue-time" data-seek="32" href="#t-32" aria-label="Play source from 0:32">0:32</a><div><span>One more try. The gap lasts two bars. Keep tapping until the missing click comes back under your finger.</span><noscript> <a href="source.wav#t=32">Open audio at 0:32</a></noscript></div></li><li id="t-40" data-cue="40"><a class="cue-time" data-seek="40" href="#t-40" aria-label="Play source from 0:40">0:40</a><div><span class="sound">[Two bars with a gap. A third bar begins with two clicks.]</span><noscript> <a href="source.wav#t=40">Open audio at 0:40</a></noscript></div></li><li id="t-45" data-cue="45"><a class="cue-time" data-seek="45" href="#t-45" aria-label="Play source from 0:45">0:45</a><div><span class="sound">[The third click returns. The pattern continues to the end of the fourth bar.]</span><noscript> <a href="source.wav#t=45">Open audio at 0:45</a></noscript></div></li></ol></section><footer><p>Original listening exercise, script and pulse sounds. The spoken cues use the eSpeak NG synthesizer.</p><a href="#top">Back to top ↑</a></footer>
+</main>
+<script>
+/* pause any other audio when one starts */
+document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause();});},true);
+</script><script>(() => {
+  const audio = document.getElementById("source-player");
+  const status = document.getElementById("audio-status");
+  const playhead = document.querySelector(".playhead");
+  const cues = Array.from(document.querySelectorAll("[data-cue]"));
+  let pendingTime = null;
+  let pendingPlay = false;
+  let checkingRanges = false;
+  let checkedRanges = false;
+  let currentCue = null;
+
+  function highlight() {
+    const now = audio.currentTime;
+    let active = null;
+    for (const cue of cues) {
+      if (Number(cue.dataset.cue) > now) break;
+      active = cue;
+    }
+    if (active !== currentCue) {
+      if (currentCue) currentCue.removeAttribute("aria-current");
+      if (active) active.setAttribute("aria-current", "time");
+      currentCue = active;
+    }
+    if (playhead && Number.isFinite(audio.duration)) {
+      playhead.hidden = now === 0;
+      playhead.style.left = Math.min(100, 100 * now / audio.duration) + "%";
+    }
+  }
+
+  function startPlayback() {
+    status.hidden = true;
+    audio.play().catch(() => {
+      status.textContent = "Use the audio player to start listening.";
+      status.hidden = false;
+    });
+  }
+
+  async function checkServer() {
+    checkingRanges = true;
+    try {
+      // Basic file servers may return 200 for Range. Native seeking then stays
+      // at zero. Reuse that full response as a locally seekable media resource.
+      const reply = await fetch(audio.currentSrc, {headers:{Range:"bytes=0-0"}});
+      if (!reply.ok) throw new Error("Audio request failed");
+      checkedRanges = true;
+      if (reply.status === 200) {
+        const blob = await reply.blob();
+        checkingRanges = false;
+        audio.src = URL.createObjectURL(blob);
+        audio.load();
+      } else {
+        checkingRanges = false;
+        applyTime();
+      }
+    } catch {
+      checkingRanges = false;
+      pendingTime = null;
+      pendingPlay = false;
+      status.textContent = "The source could not be loaded. Try the audio download or read the transcript.";
+      status.hidden = false;
+    }
+  }
+
+  function applyTime() {
+    if (pendingTime === null || audio.readyState < 1 || checkingRanges) return;
+    if (pendingTime >= audio.duration) {
+      pendingTime = null;
+      pendingPlay = false;
+      return;
+    }
+    const ranges = audio.seekable;
+    if (pendingTime > 0 && !checkedRanges && /^https?:/.test(audio.currentSrc) &&
+        (!ranges.length || ranges.end(ranges.length - 1) < pendingTime)) {
+      checkServer();
+      return;
+    }
+    audio.currentTime = pendingTime;
+    pendingTime = null;
+    if (pendingPlay) startPlayback();
+    pendingPlay = false;
+    highlight();
+  }
+
+  function seek(time, play) {
+    pendingTime = time;
+    pendingPlay = play || !audio.paused;
+    if (play && audio.readyState < 1 && !checkingRanges) startPlayback();
+    applyTime();
+  }
+
+  function readFragment() {
+    const match = /^#t-(\d+)$/.exec(location.hash);
+    if (match) seek(Number(match[1]), false);
+  }
+
+  document.addEventListener("click", event => {
+    const link = event.target.closest("a[data-seek]");
+    if (!link || event.defaultPrevented || event.button !== 0 ||
+        event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    if (location.hash !== link.hash) history.pushState(null, "", link.hash);
+    seek(Number(link.dataset.seek), true);
+  });
+
+  audio.addEventListener("loadedmetadata", applyTime);
+  audio.addEventListener("timeupdate", highlight);
+  audio.addEventListener("seeked", highlight);
+  audio.addEventListener("error", () => {
+    status.textContent = "The audio could not load. You can still read the full transcript.";
+    status.hidden = false;
+  });
+  window.addEventListener("hashchange", readFragment);
+  readFragment();
+})();
+</script>
+</body></html>
