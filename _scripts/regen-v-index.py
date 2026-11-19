@@ -293,6 +293,10 @@ def render_entry(meta: dict, slug: str) -> str:
     kind = html.escape(meta.get("kind", "Talk"))
     duration = meta.get("duration_minutes")
     duration_part = f"· {duration} min " if duration else ""
+    seconds = meta.get("duration_seconds")
+    if not duration and isinstance(seconds, (int, float)) and seconds > 0:
+        duration = seconds / 60
+        duration_part = f"· {seconds:g} sec "
     disp_date = meta.get("video_date") or meta.get("date", "")
     date_str = fmt_date(disp_date)
     views = meta.get("views")
