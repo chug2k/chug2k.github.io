@@ -94,7 +94,7 @@ footer p{margin-bottom:6px}
 .timed .cue-help{font:14px/1.45 var(--sans);color:var(--muted);margin:5px 0 14px}
 .timed .cue-list{list-style:none;padding:0;margin:0}
 .timed .cue-list li{display:grid;grid-template-columns:64px 1fr;gap:11px;align-items:baseline;padding:7px 9px 7px 0;border-top:1px solid var(--rule);scroll-margin:20px;font:17px/1.5 Georgia,serif}
-.timed .cue-list li:target{outline:1px solid var(--accent);outline-offset:-1px}
+html:not(.has-timed-source) .timed .cue-list li:target,.timed .cue-list li[data-linked]{outline:1px solid var(--accent);outline-offset:-1px}
 .timed .cue-list li[aria-current=time]{background:#f0e6d4}
 .timed .cue-time{color:var(--accent)}
 .timed .sound{color:var(--muted);font-style:italic}
@@ -133,7 +133,7 @@ footer p{margin-bottom:6px}
  .timed .transcript{break-before:page;margin:0;padding-top:3mm}
  .timed .cue-list{margin-top:5mm}
  .timed .cue-list li{padding:3mm 0}
- .timed .cue-list li:target,.timed .cue-list li[aria-current=time]{background:none;outline:none}
+ .timed .cue-list li:target,.timed .cue-list li[data-linked],.timed .cue-list li[aria-current=time]{background:none;outline:none}
  .timed footer{margin-top:6mm}
 }
 </style></head>
@@ -161,11 +161,19 @@ document.addEventListener("play",function(e){document.querySelectorAll("audio").
   const status = document.getElementById("audio-status");
   const playhead = document.querySelector(".playhead");
   const cues = Array.from(document.querySelectorAll("[data-cue]"));
+  document.documentElement.classList.add("has-timed-source");
   let pendingTime = null;
   let pendingPlay = false;
   let checkingRanges = false;
   let checkedRanges = false;
   let currentCue = null;
+  let linkedCue = null;
+
+  function markLink(time) {
+    if (linkedCue) linkedCue.removeAttribute("data-linked");
+    linkedCue = time === null ? null : document.getElementById("t-" + time);
+    if (linkedCue) linkedCue.setAttribute("data-linked", "");
+  }
 
   function highlight() {
     const now = audio.currentTime;
@@ -198,7 +206,7 @@ document.addEventListener("play",function(e){document.querySelectorAll("audio").
     try {
       // Basic file servers may return 200 for Range. Native seeking then stays
       // at zero. Reuse that full response as a locally seekable media resource.
-      const reply = await fetch(audio.currentSrc, {headers:{Range:"bytes=0-0"}});
+      const reply = await fetch(audio.currentSrc, {cache:"no-store", headers:{Range:"bytes=0-0"}});
       if (!reply.ok) throw new Error("Audio request failed");
       checkedRanges = true;
       if (reply.status === 200) {
@@ -240,6 +248,7 @@ document.addEventListener("play",function(e){document.querySelectorAll("audio").
   }
 
   function seek(time, play) {
+    markLink(time);
     pendingTime = time;
     pendingPlay = play || !audio.paused;
     if (play && audio.readyState < 1 && !checkingRanges) startPlayback();
@@ -249,6 +258,7 @@ document.addEventListener("play",function(e){document.querySelectorAll("audio").
   function readFragment() {
     const match = /^#t-(\d+)$/.exec(location.hash);
     if (match) seek(Number(match[1]), false);
+    else markLink(null);
   }
 
   document.addEventListener("click", event => {
