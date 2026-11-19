@@ -104,8 +104,15 @@
     },
     {
       "title": "City Picker — where should you live?",
-      "description": "If you work remotely, the world is the menu. Set what you actually care about — cost of living, timezone overlap, climate, visas — and it ranks cities for you. A salary slider recomputes how much you'd save in each place, live.",
-      "url": "https://city-picker-eight.vercel.app",
+      "description": "If you work remotely, the world is the menu. Set your salary and put your priorities in order to see how 17 cities rank. The savings estimates use November 2025 household budgets.",
+      "url": "https://clpanic.com/city-picker/",
+      "status": "Project",
+      "notes": ""
+    },
+    {
+      "title": "LinkedIn Translator",
+      "description": "Type something honest in plain English and get back peak LinkedIn cringe — 🚀 synergy, humble-brags, the works. The public version uses phrase rules in your browser.",
+      "url": "https://clpanic.com/linkedin-translator/",
       "status": "Project",
       "notes": ""
     },
@@ -145,13 +152,6 @@
       "url": "",
       "status": "In progress",
       "notes": "Next.js · Gemini · Notion API  —  to finish: add env keys, deploy"
-    },
-    {
-      "title": "LinkedIn Translator",
-      "description": "Type something honest in plain English; get back peak LinkedIn cringe — 🚀 synergy, humble-brags, the works. Mostly a joke, mostly built. Needs a quick QA pass and a deploy.",
-      "url": "",
-      "status": "In progress",
-      "notes": "Next.js · OpenAI  —  to finish: test the API path, add key, deploy"
     },
     {
       "title": "Directory — my week, written by itself",
