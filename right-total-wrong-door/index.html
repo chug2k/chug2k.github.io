@@ -110,7 +110,7 @@
   <a class="skip" href="#lesson">Skip to exercise</a>
   <header><div class="wrap"><p>8-minute exercise</p><nav aria-label="Exercise links">
     <a href="#instructor" id="key-link">Instructor key</a>
-    <a class="remote" hidden href="index.html" download="right-total-wrong-door.html">Save HTML</a>
+    <a class="remote" hidden id="save-html" download="right-total-wrong-door.html">Save HTML</a>
   </nav></div></header>
   <main class="wrap" id="lesson">
     <div class="intro"><h1>Right Total,<br><em>Wrong Door</em></h1>
@@ -170,9 +170,9 @@
       <p>The people move first. Before the runner moves a pack, predict how many lunches each table needs.</p>
       <template id="packing-player">
         <video controls playsinline preload="none" width="960" height="720" poster="/lesson-films/six-lunches/poster.webp" aria-label="Six lunches change trays">
-          <source src="/lesson-films/six-lunches/film.mp4" type="video/mp4">
+          <source src="/lesson-films/six-lunches/film.mp4?v=9595626a" type="video/mp4">
           <track kind="captions" srclang="en" label="English" src="/lesson-films/six-lunches/captions.vtt">
-          <a href="/lesson-films/six-lunches/film.mp4">Download the tray animation.</a>
+          <a href="/lesson-films/six-lunches/film.mp4?v=9595626a">Download the tray animation.</a>
         </video>
       </template>
       <div id="packing-screen"></div>
@@ -193,7 +193,7 @@
     <a class="remote" hidden href="/blog/2026-11-25-a-fare-a-film-and-a-coastline/">Read the lesson guide</a>
     <a class="remote" hidden href="right-total-wrong-door.pdf" download>Download phone handout (PDF)</a>
   </div></footer>
-  <script>
+  <script id="lesson-code">
     'use strict';
     const cueIds = ['ARR','ORB','DRF'];
     const cueNames = {ARR:'Arrival', ORB:'Orbit', DRF:'Drift'};
@@ -323,8 +323,13 @@
       loadSheet();
     });
     byId('key-link').addEventListener('click',()=>{ byId('instructor').open=true; });
-    if (location.hash==='#instructor') byId('instructor').open=true;
-    if (location.protocol==='https:' || location.protocol==='http:') {
+    const saveLink = byId('save-html');
+    if (saveLink && (location.protocol==='https:' || location.protocol==='http:')) {
+      // Save the unplayed exercise, including its own inline code and styles.
+      const starter = document.documentElement.cloneNode(true);
+      starter.querySelectorAll('.remote, script:not(#lesson-code)').forEach(node => node.remove());
+      const file = new Blob(['<!doctype html>\n', starter.outerHTML], {type:'text/html;charset=utf-8'});
+      saveLink.href = URL.createObjectURL(file);
       for (const link of document.querySelectorAll('.remote')) link.hidden=false;
       const film=byId('packing-film');
       const screen=byId('packing-screen');
@@ -334,6 +339,7 @@
       });
       if (location.hash==='#packing-film') film.open=true;
     }
+    if (location.hash==='#instructor') byId('instructor').open=true;
     loadSheet();
   </script>
 </body>
