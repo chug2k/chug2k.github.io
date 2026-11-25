@@ -89,6 +89,46 @@
   ],
   "apps": [
     {
+      "title": "The Rillwake Ferry",
+      "description": "The island’s mail is due on the first ferry. Type “hold the red plate” to give Mica the lampkeeper her first order, then find a way through two tide gates together.",
+      "url": "https://clpanic.com/rillwake-ferry/",
+      "kind": "Game",
+      "status": "Project",
+      "notes": ""
+    },
+    {
+      "title": "LarpVC — the launch film",
+      "description": "Watch the recovered launch film for a venture capital game played with imaginary money. It’s 44 seconds, silent, with a portrait cut for phones.",
+      "url": "https://clpanic.com/larpvc-trailer/",
+      "kind": "Film",
+      "status": "Project",
+      "notes": ""
+    },
+    {
+      "title": "NoFoody",
+      "description": "Order phở and tangerine tea from a fictional kitchen in Sài Gòn. Follow the scooter across the map and collect your receipt for 0₫.",
+      "url": "https://clpanic.com/nofoody/",
+      "kind": "Simulation",
+      "status": "Project",
+      "notes": ""
+    },
+    {
+      "title": "Tasks vs. Agents — a 101",
+      "description": "Follow a fictional request for read access in this May course. Decide what the agent can approve on its own, then see what lands in Friday’s digest.",
+      "url": "https://clpanic.com/agents-lesson/",
+      "kind": "Course",
+      "status": "Project",
+      "notes": ""
+    },
+    {
+      "title": "The Stamp Drawer",
+      "description": "In this standalone exercise, a scripted model asks how many rings are on the Fern stamp. Count them, then send the number back with the right request ID.",
+      "url": "https://clpanic.com/stamp-drawer/",
+      "kind": "Exercise",
+      "status": "Project",
+      "notes": ""
+    },
+    {
       "title": "jobsearch.quest — your AI job-search council",
       "description": "Job searching alone is brutal. This runs the proven \"Never Search Alone\" method — but solo: an AI council holds your weekly job-search meeting (wins, blockers, the hot seat, real commitments for next week) so you don't have to wrangle five humans onto a call. Sign in to start your first session free.",
       "url": "https://www.jobsearch.quest/",
