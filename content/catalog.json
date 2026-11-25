@@ -129,6 +129,14 @@
       "notes": ""
     },
     {
+      "title": "Three Cheapest Crossings",
+      "description": "Query a fictional ferry ledger in this original lesson. The starter returns one sailing. Find the three cheapest, then add tied fares and put the lower sailing ID first.",
+      "url": "https://clpanic.com/three-cheapest-crossings/",
+      "kind": "Beginner SQL",
+      "status": "Project",
+      "notes": ""
+    },
+    {
       "title": "jobsearch.quest — your AI job-search council",
       "description": "Job searching alone is brutal. This runs the proven \"Never Search Alone\" method — but solo: an AI council holds your weekly job-search meeting (wins, blockers, the hot seat, real commitments for next week) so you don't have to wrangle five humans onto a call. Sign in to start your first session free.",
       "url": "https://www.jobsearch.quest/",
