@@ -1,0 +1,51 @@
+{
+  "night": {
+    "title": "Night service",
+    "routes": [
+      {
+        "name": "Canal",
+        "trips": [
+          {"number": "C7", "stops": [
+            {"name": "Moss", "time": "22:16", "transfer": false},
+            {"name": "Bell", "time": "22:22", "transfer": true}
+          ]},
+          {"number": "C9", "stops": [
+            {"name": "Pier", "time": "22:40", "transfer": false}
+          ]}
+        ]
+      },
+      {
+        "name": "Hill",
+        "trips": [
+          {"number": "H4", "stops": [
+            {"name": "Bell", "time": "22:05", "transfer": true},
+            {"name": "Observatory", "time": "22:12", "transfer": false}
+          ]}
+        ]
+      }
+    ]
+  },
+  "diversion": {
+    "title": "Bridge diversion",
+    "routes": [
+      {
+        "name": "Hill",
+        "trips": [
+          {"number": "H8", "stops": []},
+          {"number": "H9", "stops": [
+            {"name": "Tower", "time": "23:06", "transfer": false},
+            {"name": "Market", "time": "23:13", "transfer": true}
+          ]}
+        ]
+      },
+      {
+        "name": "Canal",
+        "trips": [
+          {"number": "C8", "stops": [
+            {"name": "Quay", "time": "22:58", "transfer": false}
+          ]}
+        ]
+      }
+    ]
+  }
+}

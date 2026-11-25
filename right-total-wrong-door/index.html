@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Repack 35 lunches and repair a 36-second film. An eight-minute lesson on checking which quantity belongs to which label.">
+  <link rel="canonical" href="https://clpanic.com/right-total-wrong-door/">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src 'self' data:; media-src 'self'; connect-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Right Total, Wrong Door</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink:#182e2a; --muted:#4a5c51; --brick:#8b3824; --paper:#fffdf6;
+      --ground:#f1efe4; --line:#c7cbbb; --sage:#e5eddd; --warm:#f7e8dc;
+      --serif:"STIX Two Text",Georgia,serif; --sans:"Atkinson Hyperlegible Next","Helvetica Neue",Arial,sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--ground);color:var(--ink);font:1rem/1.5 var(--sans)}
+    .wrap{width:min(100% - 3rem,54rem);margin-inline:auto}
+    a{color:var(--ink);text-underline-offset:.23em;text-decoration-thickness:1px}
+    a:hover{color:var(--brick)}
+    ::selection{background:#f0ca97;color:var(--ink)}
+    :focus-visible{outline:3px solid #176963;outline-offset:3px}
+    [hidden]{display:none!important}
+    .skip{position:absolute;left:.5rem;top:-8rem;padding:.65rem;background:white;z-index:5}
+    .skip:focus{top:.5rem}
+    header{border-bottom:1px solid var(--line)}
+    header .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:3.55rem}
+    header p,header nav{margin:0}
+    header p{font-weight:700;font-size:.88rem}
+    header nav{display:flex;align-items:center;gap:1.15rem;font-size:.88rem}
+    header a{display:inline-flex;align-items:center;min-height:44px}
+    h1,h2,h3,p{margin:0}
+    h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.06}
+    h1{font-size:clamp(3.3rem,8.8vw,6.25rem);letter-spacing:-.063em;line-height:.92}
+    h1 em{color:var(--brick);font-weight:500}
+    .intro{padding:clamp(1.9rem,5vw,3.95rem) 0 clamp(1.45rem,3.8vw,2.7rem)}
+    .intro p{margin-top:1.1rem;max-width:40rem;font-size:clamp(1rem,2vw,1.15rem)}
+    .card{background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--ink);border-radius:2px;
+      padding:clamp(1.1rem,4vw,2.2rem);margin-bottom:1.15rem}
+    .kicker{font-size:.73rem;line-height:1.3;font-weight:750;text-transform:uppercase;letter-spacing:.11em;color:var(--brick)}
+    h2{font-size:clamp(1.85rem,4.2vw,2.75rem);letter-spacing:-.048em;margin:.35rem 0 .7rem}
+    h3{font-size:1.32rem;letter-spacing:-.025em;margin-bottom:.43rem}
+    .split{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(13.5rem,.8fr);align-items:start;gap:clamp(1rem,4vw,2.5rem)}
+    .brief{max-width:44rem}
+    .slip{background:var(--sage);padding:.82rem 1rem .68rem;border-left:3px solid #62765f}
+    table{border-collapse:collapse;width:100%;text-align:left;font-variant-numeric:tabular-nums}
+    caption{color:var(--muted);font-weight:700;text-align:left;font-size:.85rem;padding-bottom:.36rem}
+    th,td{padding:.4rem .1rem;border-bottom:1px solid var(--line);vertical-align:middle}
+    th{font-weight:650}
+    .slip td,.master td{text-align:right}
+    .slip tfoot th,.slip tfoot td{border:0;font-weight:700;padding-top:.5rem}
+    .slip tfoot td{font-size:1.3rem}
+    fieldset{border:0;margin:1.18rem 0 0;padding:0;min-width:0}
+    legend{font-weight:700;padding:0 0 .5rem}
+    .buttons{display:flex;flex-wrap:wrap;gap:.55rem}
+    button{min-height:44px;border:1px solid var(--ink);border-radius:.25rem;padding:.58rem .95rem;background:var(--paper);
+      color:var(--ink);font:650 .96rem/1.3 var(--sans);cursor:pointer}
+    button:hover{background:var(--sage)}
+    button[aria-pressed="true"]{background:var(--ink);color:white;box-shadow:inset 0 0 0 2px var(--paper)}
+    .primary{background:var(--ink);color:#fff}
+    .primary:hover{background:#324b40}
+    .feedback{border-left:4px solid var(--brick);background:var(--warm);padding:.75rem .9rem;margin-top:.8rem}
+    .feedback.good{border-color:#3f6650;background:var(--sage)}
+    .feedback strong{display:block}
+    .feedback ul{padding-left:1.22rem;margin:.3rem 0 0}
+    .feedback:empty{display:none}
+    details{border-top:1px solid var(--line);margin-top:1rem}
+    summary{color:var(--ink);cursor:pointer;font-weight:700;min-height:44px;padding:.65rem .05rem;line-height:1.45}
+    details[open] summary{margin-bottom:.15rem}
+    .math{font-variant-numeric:tabular-nums;background:var(--sage);padding:.8rem .95rem;border-radius:2px}
+    .math p+p{margin-top:.25rem}
+    .transfer-head{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+    .which{font:700 .83rem var(--sans);color:var(--muted)}
+    .boards{display:grid;grid-template-columns:1fr 1.14fr;gap:1.15rem;margin:1.15rem 0 1rem;align-items:start}
+    .board{border:1px solid var(--line);padding:1rem 1.1rem;border-radius:2px}
+    .board.master{background:#eff2e8}
+    .board caption{font-size:1rem;color:var(--ink);padding:0 0 .45rem}
+    .board thead th{font-size:.79rem;color:var(--muted);padding-top:.2rem}
+    .board tr:last-child td,.board tbody tr:last-child th{border-bottom:0}
+    .board td:last-child,.board thead th:last-child{text-align:right}
+    abbr.code{display:inline-block;min-width:2.5rem;font:700 .85rem/1.4 ui-monospace,monospace;letter-spacing:.015em;text-decoration:none}
+    .cue-name{font-size:.9rem;color:var(--muted);font-weight:400}
+    .master td{font-weight:700}
+    input{width:4.35rem;max-width:100%;min-height:44px;padding:.35rem .45rem;text-align:center;
+      border:1.5px solid #65756a;border-radius:.2rem;background:#fff;color:var(--ink);font:700 1.1rem/1.3 var(--sans)}
+    input[aria-invalid="true"]{border-color:var(--brick)}
+    .runtime{display:flex;justify-content:space-between;align-items:center;gap:.5rem;flex-wrap:wrap;border-bottom:1px solid var(--line);padding:0 0 .7rem;margin-bottom:.9rem;color:var(--muted)}
+    .runtime strong{font-size:1.16rem;color:var(--ink);font-variant-numeric:tabular-nums}
+    .test{border-left:3px solid var(--brick);padding:.05rem 0 .05rem 1rem;margin:1.65rem 0}
+    .test p{max-width:45rem}
+    .test p+p{margin-top:.45rem}
+    #instructor{background:#e7e9df;border:1px solid var(--line);padding:0 clamp(1rem,3vw,1.5rem);margin-bottom:1.35rem}
+    #instructor summary{padding:1rem 0;font-size:1.09rem}
+    #instructor .inner{padding:0 0 1.15rem;max-width:44rem}
+    #instructor p+p{margin-top:.65rem}
+    footer{border-top:1px solid var(--line);padding:.85rem 0 1.7rem;font-size:.85rem;color:var(--muted)}
+    footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;align-items:center;gap:.4rem}
+    footer a{display:inline-flex;align-items:center;min-height:44px}
+    .packing-film video{display:block;width:min(100%,35rem);height:auto;border:1px solid var(--line);margin:.6rem 0}
+    @media(max-width:42rem){.split,.boards{grid-template-columns:1fr}.boards{gap:.7rem}.slip{max-width:none}.wrap{width:min(100% - 2rem,54rem)}
+      .board{padding:.8rem .9rem}.intro p{max-width:32rem}.card{padding:1.1rem}.split{gap:.85rem}}
+    @media(max-width:23rem){header nav{gap:.65rem}header p,header nav{font-size:.79rem}.wrap{width:calc(100% - 1.4rem)}.card{padding:.9rem}}
+    @media print{body,.card{background:white}.wrap{width:100%}header,.buttons,.skip,.remote,footer{display:none!important}
+      .intro{padding:0 0 .8rem}h1{font-size:2.5rem}.card{break-inside:avoid;padding:1rem}details{break-inside:avoid}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#lesson">Skip to exercise</a>
+  <header><div class="wrap"><p>8-minute exercise</p><nav aria-label="Exercise links">
+    <a href="#instructor" id="key-link">Instructor key</a>
+    <a class="remote" hidden href="index.html" download="right-total-wrong-door.html">Save HTML</a>
+  </nav></div></header>
+  <main class="wrap" id="lesson">
+    <div class="intro"><h1>Right Total,<br><em>Wrong Door</em></h1>
+      <p>Practice checking the quantity attached to each label. Start with a lunch delivery, then take the same decision to a film editing desk.</p>
+    </div>
+    <section class="card" aria-labelledby="lunch-title">
+      <div class="split">
+        <div><p class="kicker">Worked example</p><h2 id="lunch-title">Send the lunch trays?</h2>
+          <p>At a print fair, the Ink table ordered 17 lunch packs and the Fold table ordered 18. After packing, six people move from Fold to Ink. Each person gets one pack.</p>
+        </div>
+        <div class="slip"><table><caption>Packing slip at the door</caption><tbody>
+          <tr><th scope="row">Ink table</th><td>17 packs</td></tr>
+          <tr><th scope="row">Fold table</th><td>18 packs</td></tr>
+        </tbody><tfoot><tr><th scope="row">Total packed</th><td>35</td></tr></tfoot></table></div>
+      </div>
+      <fieldset><legend>What would you tell the runner?</legend><div class="buttons">
+        <button type="button" data-lunch="send" aria-pressed="false">Send as packed</button>
+        <button type="button" data-lunch="hold" aria-pressed="false">Hold and repack</button>
+      </div></fieldset>
+      <div class="feedback" id="lunch-feedback" role="status" aria-live="polite" aria-atomic="true"></div>
+      <details id="worked"><summary>See the worked calculation</summary><div class="math">
+        <p><strong>Ink needs 23.</strong> It started with 17 people and gained six.</p>
+        <p><strong>Fold needs 12.</strong> It started with 18 and lost six.</p>
+        <p>Move six closed packs from Fold to Ink. Both 17 + 18 and 23 + 12 equal 35.</p>
+      </div></details>
+    </section>
+    <section class="card" aria-labelledby="cut-title">
+      <div class="transfer-head"><p class="kicker">Your turn</p><p class="which" id="which" role="status" aria-live="polite">Sheet A · 1 of 4</p></div>
+      <h2 id="cut-title">Lock the film cut</h2>
+      <p class="brief">A planetarium editor has approved three cue lengths. The exported list puts the cues in a different order. Decide whether to lock it. If a cue is wrong, edit its seconds and check again.</p>
+      <form id="cut-form" novalidate>
+        <div class="boards">
+          <div class="board master"><table><caption>Approved cue sheet</caption>
+            <thead><tr><th scope="col">Cue</th><th scope="col">Seconds</th></tr></thead>
+            <tbody id="approved">
+              <tr><th scope="row"><abbr class="code" title="Arrival">ARR</abbr> <span class="cue-name">Arrival</span></th><td>11</td></tr>
+              <tr><th scope="row"><abbr class="code" title="Orbit">ORB</abbr> <span class="cue-name">Orbit</span></th><td>18</td></tr>
+              <tr><th scope="row"><abbr class="code" title="Drift">DRF</abbr> <span class="cue-name">Drift</span></th><td>7</td></tr>
+            </tbody></table></div>
+          <div class="board"><table><caption>Export for sign-off</caption>
+            <thead><tr><th scope="col">Cue</th><th scope="col">Seconds</th></tr></thead>
+            <tbody id="exported">
+              <tr><th scope="row"><label for="time-DRF"><abbr class="code" title="Drift">DRF</abbr> <span class="cue-name">Drift</span></label></th><td><input id="time-DRF" aria-label="Drift seconds" inputmode="numeric" maxlength="3" value="11"></td></tr>
+              <tr><th scope="row"><label for="time-ARR"><abbr class="code" title="Arrival">ARR</abbr> <span class="cue-name">Arrival</span></label></th><td><input id="time-ARR" aria-label="Arrival seconds" inputmode="numeric" maxlength="3" value="18"></td></tr>
+              <tr><th scope="row"><label for="time-ORB"><abbr class="code" title="Orbit">ORB</abbr> <span class="cue-name">Orbit</span></label></th><td><input id="time-ORB" aria-label="Orbit seconds" inputmode="numeric" maxlength="3" value="7"></td></tr>
+            </tbody></table></div>
+        </div>
+        <p class="runtime"><span>Exported / approved run time</span><strong id="runtime">36 / 36 s</strong></p>
+        <div class="buttons"><button class="primary" type="submit">Check this cut</button>
+          <button id="next-sheet" type="button">Next practice sheet</button></div>
+      </form>
+      <div class="feedback" id="cut-feedback" role="status" aria-live="polite" aria-atomic="true"></div>
+      <noscript><p>Write your corrections in export order and open the instructor key to check sheet A.</p></noscript>
+    </section>
+    <details id="packing-film" class="remote card packing-film" hidden>
+      <summary>Watch six lunches change trays</summary>
+      <p>The people move first. Before the runner moves a pack, predict how many lunches each table needs.</p>
+      <template id="packing-player">
+        <video controls playsinline preload="none" width="960" height="720" poster="/lesson-films/six-lunches/poster.webp" aria-label="Six lunches change trays">
+          <source src="/lesson-films/six-lunches/film.mp4" type="video/mp4">
+          <track kind="captions" srclang="en" label="English" src="/lesson-films/six-lunches/captions.vtt">
+          <a href="/lesson-films/six-lunches/film.mp4">Download the tray animation.</a>
+        </video>
+      </template>
+      <div id="packing-screen"></div>
+      <p>Ink starts with 17 packs and Fold with 18. After six people switch from Fold to Ink, six packs follow. Ink now has 23, Fold has 12, and the runner still carries 35 lunches.</p>
+    </details>
+    <section class="test" aria-labelledby="test-title"><h3 id="test-title">A test for your next handoff</h3>
+      <p>Take a passing sheet. Move one unit from one nonempty group to another. The total must still pass, and the two group checks must now fail. Restore the counts and reorder the rows. Everything should pass again.</p>
+      <p>Try it with two shelves that need five and eight books. Shelving four and nine keeps all 13 books in the room. Which shelf is short?</p>
+    </section>
+    <details id="instructor"><summary>Instructor key &amp; timing</summary><div class="inner">
+      <p><strong>Run it in pairs.</strong> Give learners two minutes to call the lunch slip, four to repair a film export and two to design a check. Ask what a totals-only test would miss.</p>
+      <p><strong>Lunch.</strong> Hold the trays. Ink needs 23 and Fold needs 12. Sending the original slip leaves Ink six short and Fold six over.</p>
+      <p><strong>Film.</strong> <span id="key-transfer">On sheet A, the corrected export reads DRF 7 s, ARR 11 s and ORB 18 s. Both cuts run for 36 s.</span> Sorting the quantities also gives the same list. A cue can carry the wrong value even when every value appears once.</p>
+      <p><strong>Debrief.</strong> Match the IDs and units. Flag a missing, extra or repeated ID. Then subtract expected from actual for each ID. Every difference must be zero. On the shelves, the first is one short and the second one over.</p>
+    </div></details>
+  </main>
+  <footer><div class="wrap"><span>Fictional classroom data · Teaching edition 1.0</span>
+    <a class="remote" hidden href="/blog/2026-11-25-a-fare-a-film-and-a-coastline/">Read the lesson guide</a>
+    <a class="remote" hidden href="right-total-wrong-door.pdf" download>Download phone handout (PDF)</a>
+  </div></footer>
+  <script>
+    'use strict';
+    const cueIds = ['ARR','ORB','DRF'];
+    const cueNames = {ARR:'Arrival', ORB:'Orbit', DRF:'Drift'};
+    const sheets = [
+      {name:'A', seconds:[11,18,7], order:['DRF','ARR','ORB']},
+      {name:'B', seconds:[14,9,20], order:['ORB','DRF','ARR']},
+      {name:'C', seconds:[8,16,21], order:['ARR','DRF','ORB']},
+      {name:'D', seconds:[13,10,19], order:['DRF','ORB','ARR']}
+    ];
+    let sheetIndex = 0;
+    let target = {};
+    const byId = id => document.getElementById(id);
+    const total = numbers => numbers.reduce((sum, n) => sum+n, 0);
+    function element(tag, words) {
+      const node=document.createElement(tag);
+      if (words !== undefined) node.textContent=words;
+      return node;
+    }
+    function feedback(id, good, title, explanation, lines=[]) {
+      const box=byId(id);
+      box.classList.toggle('good',good);
+      box.replaceChildren(element('strong',title), element('p',explanation));
+      if (lines.length) {
+        const list=element('ul');
+        for (const line of lines) list.append(element('li',line));
+        box.append(list);
+      }
+    }
+    for (const button of document.querySelectorAll('[data-lunch]')) {
+      button.addEventListener('click', () => {
+        for (const choice of document.querySelectorAll('[data-lunch]'))
+          choice.setAttribute('aria-pressed',String(choice===button));
+        if (button.dataset.lunch==='hold')
+          feedback('lunch-feedback',true,'Hold is the right call.','Move six packs from Fold to Ink. The runner then delivers 23 and 12, with 35 packs in all.');
+        else
+          feedback('lunch-feedback',false,'The trays would reach the wrong people.','The count of 35 passes. Ink would still be six short and Fold six over. Reconsider the packing slip.');
+      });
+    }
+    function cueHeader(id, editable) {
+      const cell=element('th');
+      cell.scope='row';
+      const label=element(editable?'label':'span');
+      if (editable) label.htmlFor='time-'+id;
+      const code=element('abbr',id);
+      code.className='code';
+      code.title=cueNames[id];
+      const name=element('span',cueNames[id]);
+      name.className='cue-name';
+      label.append(code,' ',name);
+      cell.append(label);
+      return cell;
+    }
+    function getEntries() {
+      return sheets[sheetIndex].order.map(id => {
+        const input=byId('time-'+id);
+        const raw=input.value.trim();
+        return {id,input,value:/^[0-9]{1,3}$/.test(raw) ? Number(raw) : null};
+      });
+    }
+    function updateTotal() {
+      const entries=getEntries();
+      const filled=entries.every(entry => entry.value!==null);
+      byId('runtime').textContent=(filled?total(entries.map(entry => entry.value)):'—')+' / '+total(sheets[sheetIndex].seconds)+' s';
+    }
+    function loadSheet() {
+      const sheet=sheets[sheetIndex];
+      target=Object.fromEntries(cueIds.map((id,i) => [id,sheet.seconds[i]]));
+      const approved=byId('approved'), exported=byId('exported');
+      approved.replaceChildren();
+      exported.replaceChildren();
+      for (const id of cueIds) {
+        const row=element('tr');
+        row.append(cueHeader(id,false), element('td',target[id]));
+        approved.append(row);
+      }
+      sheet.order.forEach((id,i) => {
+        const row=element('tr'), cell=element('td'), input=element('input');
+        input.id='time-'+id;
+        input.setAttribute('aria-label',cueNames[id]+' seconds');
+        input.inputMode='numeric';
+        input.maxLength=3;
+        input.autocomplete='off';
+        input.value=target[sheet.order[(i+1)%sheet.order.length]];
+        cell.append(input);
+        row.append(cueHeader(id,true),cell);
+        exported.append(row);
+      });
+      byId('which').textContent='Sheet '+sheet.name+' · '+(sheetIndex+1)+' of '+sheets.length;
+      const answer=sheet.order.map(id => id+' '+target[id]+' s');
+      byId('key-transfer').textContent='On sheet '+sheet.name+', the corrected export reads '+answer[0]+', '+answer[1]+' and '+answer[2]+'. Both cuts run for '+total(sheet.seconds)+' s.';
+      byId('cut-feedback').replaceChildren();
+      updateTotal();
+    }
+    byId('exported').addEventListener('input', event => {
+      event.target.removeAttribute('aria-invalid');
+      byId('cut-feedback').replaceChildren();
+      updateTotal();
+    });
+    byId('cut-form').addEventListener('submit', event => {
+      event.preventDefault();
+      const entries=getEntries();
+      const missing=entries.filter(entry => entry.value===null);
+      for (const entry of entries) entry.input.setAttribute('aria-invalid',String(entry.value===null));
+      if (missing.length) {
+        feedback('cut-feedback',false,'Finish the cue sheet.','Enter whole seconds from 0 to 999 for '+missing.map(entry=>entry.id).join(', ')+'.');
+        missing[0].input.focus();
+        return;
+      }
+      const actualTotal=total(entries.map(entry=>entry.value));
+      const expectedTotal=total(sheets[sheetIndex].seconds);
+      const errors=entries.filter(entry=>entry.value!==target[entry.id]);
+      if (!errors.length) {
+        feedback('cut-feedback',true,'Ready to lock.','All three cue lengths match their approved IDs. The cut runs for '+expectedTotal+' s.');
+        return;
+      }
+      const explanation=actualTotal===expectedTotal
+        ? 'The '+expectedTotal+' s run time matches. These cues still need a correction.'
+        : 'The export runs for '+actualTotal+' s. The approved run time is '+expectedTotal+' s.';
+      const differences=errors.map(entry => {
+        const gap=entry.value-target[entry.id];
+        return entry.id+' ('+cueNames[entry.id]+') is '+Math.abs(gap)+' s '+(gap>0?'over.':'short.');
+      });
+      feedback('cut-feedback',false,'Hold this cut.',explanation,differences);
+    });
+    byId('next-sheet').addEventListener('click', () => {
+      sheetIndex=(sheetIndex+1)%sheets.length;
+      loadSheet();
+    });
+    byId('key-link').addEventListener('click',()=>{ byId('instructor').open=true; });
+    if (location.hash==='#instructor') byId('instructor').open=true;
+    if (location.protocol==='https:' || location.protocol==='http:') {
+      for (const link of document.querySelectorAll('.remote')) link.hidden=false;
+      const film=byId('packing-film');
+      const screen=byId('packing-screen');
+      film.addEventListener('toggle',()=>{
+        if (film.open && !screen.firstElementChild) screen.append(byId('packing-player').content.cloneNode(true));
+        if (!film.open) screen.querySelector('video')?.pause();
+      });
+      if (location.hash==='#packing-film') film.open=true;
+    }
+    loadSheet();
+  </script>
+</body>
+</html>
