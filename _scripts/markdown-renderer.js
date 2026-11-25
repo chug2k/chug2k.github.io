@@ -55,6 +55,10 @@ export function renderMarkdown(body) {
   return md.render(excerptParts(body).join("\n\n"));
 }
 
+export function renderInline(body) {
+  return md.renderInline(String(body || ""));
+}
+
 export function renderExcerpt(body) {
   const parts = excerptParts(body);
   if (parts.length > 1) return md.render(parts[0]);

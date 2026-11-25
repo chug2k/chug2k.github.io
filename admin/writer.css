@@ -1749,3 +1749,19 @@ html:not([data-layout]) #sidebarClose {
     transition: none;
   }
 }
+.sheet[data-lesson="true"] { padding: 8px clamp(8px, 2vw, 24px) 0; }
+.sheet[data-lesson="true"] .doc { max-width: 1100px; padding-block: 8px; }
+.sheet[data-lesson="true"]:not([data-details="open"]) :is(#title,#dek,#metadata) { display: none; }
+.lesson-tools { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+.lesson-tools label { display: flex; align-items: center; gap: 7px; font-size: .875rem; }
+.lesson-tools select { font: inherit; color: inherit; background: var(--paper,#fff); border: 1px solid #bcb9b3; border-radius: 5px; padding: 5px 7px; max-width: min(44vw,22rem); }
+.lesson-tip { margin: 7px 0 11px; font-size: .85rem; color: #57534e; }
+#lessonFrame { display: block; width: 100%; height: max(26rem,calc(100dvh - 157px)); border: 1px solid #c9c3b8; border-radius: 5px; background: #f4f1ea; }
+@media (max-width: 600px) {
+  .sheet[data-lesson="true"] .doc { padding-inline: 8px; }
+  .lesson-tools { display: grid; grid-template-columns: minmax(0, 1fr) auto auto auto; gap: 2px; }
+  .lesson-tools label { min-width: 0; font-size: .875rem; }
+  .lesson-tools label span { display: none; }
+  .lesson-tools select { width: 100%; max-width: none; }
+  #lessonFrame { height: max(22rem,calc(100dvh - 168px)); }
+}

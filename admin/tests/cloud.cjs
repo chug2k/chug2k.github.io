@@ -23,8 +23,8 @@ function model() {
     denied: false,
   };
 }
-async function context(m) {
-  const c = await browser.newContext();
+async function context(m, options = {}) {
+  const c = await browser.newContext(options);
   await c.route("**/admin/api/**", async (route) => {
     const req = route.request(),
       url = new URL(req.url()),
@@ -165,6 +165,7 @@ async function run(name, fn) {
         ".mjs": "text/javascript",
         ".html": "text/html",
         ".css": "text/css",
+        ".svg": "image/svg+xml",
         ".woff2": "font/woff2",
       };
       res.setHeader(
@@ -180,6 +181,8 @@ async function run(name, fn) {
   await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
   base = `http://127.0.0.1:${server.address().port}`;
   browser = await chromium.launch({ headless: true });
+  await run("the visual lesson survives reload, syncs privately and publishes its prose", () =>
+    require("./lesson.cjs")({ root, base, model, context }));
   await run("drafts and private photos open on a separate device", async () => {
     const m = model(),
       a = await context(m),

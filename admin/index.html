@@ -25,7 +25,7 @@
       crossorigin
     />
     <link rel="stylesheet" href="./app.css?v=4d16dcb3f6d7c972" />
-    <link rel="stylesheet" href="./writer.css?v=a4747987ff777325" />
+    <link rel="stylesheet" href="./writer.css?v=22016084110aa5f3" />
     <script>
       // Restore a collapsed sidebar before first paint. Only layout.js writes this key.
       try {
@@ -201,6 +201,16 @@
               </div>
             </div>
             <div id="editor"></div>
+            <section id="lessonEditor" aria-label="Edit the lesson" hidden>
+              <div class="lesson-tools">
+                <label><span>Section</span><select id="lessonSection" aria-label="Lesson section"></select></label>
+                <button type="button" class="tool-btn" id="lessonBold" data-format="bold" aria-label="Bold"><b>B</b></button>
+                <button type="button" class="tool-btn" id="lessonItalic" data-format="italic" aria-label="Italic"><i>I</i></button>
+                <button type="button" class="tool-btn" id="lessonDetails" aria-expanded="false">Post details</button>
+              </div>
+              <p class="lesson-tip">Edit any heading or paragraph. Your draft saves as you type.</p>
+              <iframe id="lessonFrame" title="Editable What is an agent? lesson" sandbox="allow-same-origin" referrerpolicy="no-referrer"></iframe>
+            </section>
             <div id="sourceBox" hidden>
               <label class="sr-only" for="markdownSource">Article Markdown</label
               ><textarea id="markdownSource" spellcheck="true"></textarea>
@@ -446,7 +456,7 @@
         );
       }
       const bootTimeout = setTimeout(bootFailure, 20000);
-      import("./app.js?v=2cf30e37eace7a09")
+      import("./app.js?v=a1fe0d6f1f12832a")
         .then(() => {
           clearTimeout(bootTimeout);
           if (!window.writerBoot.ready) bootFailure();

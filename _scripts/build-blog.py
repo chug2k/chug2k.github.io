@@ -14,11 +14,12 @@ import math
 import re
 from pathlib import Path
 from datetime import datetime
-from site_builder import page, render_hubs, write_page
+from site_builder import escape, page, render_hubs, write_page
 
 ROOT = Path(__file__).resolve().parent.parent
 POSTS_DIR = ROOT / "blog" / "posts"
 TEMPLATE = (ROOT / "blog" / "_template.html").read_text()
+AGENT_LESSON = "2026-11-25-what-is-an-agent"
 
 _MONTHS = ["", "January", "February", "March", "April", "May", "June", "July",
            "August", "September", "October", "November", "December"]
@@ -114,10 +115,19 @@ def main(output: Path = ROOT, include_drafts: bool = False) -> int:
         raise ValueError("The article template changed. Run bash _scripts/build-markdown.sh before building.")
     for index, post in enumerate(posts):
         post["excerpt_html"], post["article_html"] = rendered[index * 2:index * 2 + 2]
+        if post["slug"] == AGENT_LESSON:
+            post.update(excerpt_html=f'<p>{escape(post["description"])}</p>',
+                        kind="Interactive lesson", read_time="")
 
     # Validate the catalog before producing any article files.
     render_hubs(posts, output, preview=include_drafts)
     for post in posts:
+        if post["slug"] == AGENT_LESSON:
+            markup = post["article_html"]
+            if include_drafts:
+                markup = markup.replace("</head>", '<meta name="robots" content="noindex,nofollow"></head>', 1)
+            write_page(output, post["url"], markup)
+            continue
         markup = page(post["title"] + " — Charles Lee", post["description"], post["url"],
                       post["article_html"], active="writing", article=True,
                       extra_head=(f'<meta property="article:published_time" content="{post["date"]}">'

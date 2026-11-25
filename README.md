@@ -20,6 +20,12 @@ The editor preserves source sections that cannot safely round-trip through visua
 
 Cloud infrastructure and deployment instructions are in [cloud/README.md](cloud/README.md). The cloud Worker and Access application must be configured before deploying this version of the editor.
 
+### Edit the interactive agent lesson
+
+Open [the lesson in the Writing Room](https://clpanic.com/admin/?edit=what-is-an-agent) and select a heading or paragraph to write directly on the page. **Section** jumps between topics. **Saved to cloud** confirms that your private draft has synced. **Preview** runs the exercises with your draft text. Choose **Publish changes** in that preview to update the existing article.
+
+The manuscript lives in `blog/posts/2026-11-25-what-is-an-agent.md`. Named passages connect the prose to the lesson layout and exercises in `assets/lessons/what-is-an-agent.template.txt`. The preview and the site build use the same renderer.
+
 ### Write in a local Markdown file
 
 ```sh

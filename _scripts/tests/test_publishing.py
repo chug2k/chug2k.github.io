@@ -259,6 +259,25 @@ Some **bold**, *italic*, ~~struck~~, and [a link](https://example.org/?a=1&b=2).
         article = (self.output / 'blog/2026-10-01-post/index.html').read_text()
         self.assertNotIn(digest, article)
 
+    def test_interactive_lesson_republishes_visual_edits_at_its_original_url(self):
+        slug = "2026-11-25-what-is-an-agent"
+        source = self.original_posts / f"{slug}.md"
+        path = self.posts / source.name
+        manuscript = source.read_text()
+        marker = "<!-- passage: standfirst -->\n"
+        start = manuscript.index(marker) + len(marker)
+        end = manuscript.index("\n\n", start)
+        path.write_text(manuscript[:start] + "Choose **one** <paper boat>." + manuscript[end:])
+        blog.main(self.output)
+        article = (self.output / "blog" / slug / "index.html").read_text()
+        self.assertIn("Choose <strong>one</strong> &lt;paper boat&gt;.", article)
+        self.assertIn('id="toy-advance"', article)
+        self.assertIn('href="/admin/?edit=what-is-an-agent"', article)
+        self.assertNotIn("data-passage=", article)
+        self.assertEqual(article.count('<section class="reveal"'), 13)
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        self.assertIn(f'name="article-source-sha256" content="{digest}"', article)
+
 
 if __name__ == "__main__":
     unittest.main()
