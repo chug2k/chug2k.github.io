@@ -3,6 +3,7 @@ from pathlib import Path
 from html.parser import HTMLParser
 import hashlib
 import importlib.util
+import json
 import shutil
 import sys
 import tempfile
@@ -44,6 +45,15 @@ class PublishingTests(unittest.TestCase):
         self.posts.mkdir(parents=True)
         for name in ("_templates", "content"):
             shutil.copytree(site_builder.ROOT / name, self.root / name)
+        catalog_path = self.root / "content/catalog.json"
+        catalog = json.loads(catalog_path.read_text())
+        catalog["writing"] = [
+            {"title": "July field guide", "url": "/july-guide/", "date": "2026-07-01",
+             "kind": "Guide", "description": "A standalone guide."},
+            {"title": "June field guide", "url": "/june-guide/", "date": "2026-06-10",
+             "kind": "Guide", "description": "An earlier standalone guide."},
+        ]
+        catalog_path.write_text(json.dumps(catalog))
         self.original_root = site_builder.ROOT
         self.original_posts = blog.POSTS_DIR
         site_builder.ROOT = self.root
@@ -103,9 +113,9 @@ class PublishingTests(unittest.TestCase):
         blog.main(self.output)
         for path in ("index.html", "blog/index.html"):
             page = (self.output / path).read_text()
-            self.assertLess(page.index("Shrinking YouTube Music"), page.index("June notebook entry"))
-            self.assertLess(page.index("June notebook entry"), page.index("Lottie vs Remotion"))
-            self.assertLess(page.index("Lottie vs Remotion"), page.index("Older notebook entry"))
+            self.assertLess(page.index("July field guide"), page.index("June notebook entry"))
+            self.assertLess(page.index("June notebook entry"), page.index("June field guide"))
+            self.assertLess(page.index("June field guide"), page.index("Older notebook entry"))
 
     def test_homepage_excerpt_uses_article_body_and_respects_explicit_break(self):
         body = "The **opening** paragraph.\n\nA second paragraph.\n\n<!--more-->\n\nThe rest of the story."
