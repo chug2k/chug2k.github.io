@@ -14,6 +14,8 @@ import {
 } from "@blocknote/react";
 import { zipSync, unzipSync, strToU8, strFromU8 } from "fflate";
 import { renderPreviewDocument } from "../../assets/markdown.mjs";
+import { lessonPath, readPassages } from "../../assets/lesson-copy.mjs";
+import { lessonMarkup, prepareLesson } from "./lesson.js";
 import { openStorage } from "./storage.js";
 import { cloudRequest, cloudGithub, openCloudStorage } from "./cloud.js";
 import { initWriterLayout } from "./layout.js";
@@ -112,6 +114,24 @@ const action =
 const on = (id, fn, event = "click") =>
   $(id).addEventListener(event, action(fn));
 const snapshot = () => structuredClone(active);
+const isLesson = (draft) => draft?.path === lessonPath;
+const journalKey = (id) => "writing-room:lesson-pending:" + id;
+function journalLesson(draft) {
+  const { markdown, title, dek, date, slug, revision } = draft;
+  try { sessionStorage.setItem(journalKey(draft.id), JSON.stringify({ markdown, title, dek, date, slug, revision })); } catch {}
+}
+function restoreLesson(draft) {
+  try {
+    const pending = JSON.parse(sessionStorage.getItem(journalKey(draft.id)) || "null");
+    if (!pending) return false;
+    if (["markdown", "title", "dek", "date", "slug"].every((k) => draft[k] === pending[k])) {
+      sessionStorage.removeItem(journalKey(draft.id));
+      return false;
+    }
+    Object.assign(draft, pending, { pristine: false });
+    return true;
+  } catch { return false; }
+}
 const filename = (d) =>
   `${d.date || today()}-${d.slug || slugify(d.title) || "untitled"}.md`;
 const pathFor = (d) => d.path || `blog/posts/${filename(d)}`;
@@ -139,6 +159,7 @@ const publicationState = (d) =>
 function markChanged() {
   if (loading || !active) return;
   active.pristine = false;
+  if (isLesson(active)) journalLesson(active);
   if (active.attempt?.acceptedAt) active.unpublishedChanges = true;
   revision++;
   say("Saving…");
@@ -147,7 +168,8 @@ function markChanged() {
   updateWords();
 }
 function updateWords() {
-  const value = active?.markdown || "";
+  const markdown = active?.markdown || "";
+  const value = isLesson(active) ? [...readPassages(markdown).values()].join(" ") : markdown;
   $("words").textContent = value.trim()
     ? `${value.trim().split(/\s+/).length} words`
     : "";
@@ -206,11 +228,18 @@ function persist() {
         }
         const result = await storage.save(value, target.revision || 0);
         if (active === target) {
+          const priorId = active.id;
           active.id = result.draft.id;
           active.revision = result.draft.revision;
           active.updatedAt = result.draft.updatedAt;
           active.recoveryOf = result.draft.recoveryOf;
           active.recoveryLabel = result.draft.recoveryLabel;
+          if (isLesson(active)) {
+            if (revision !== version) journalLesson(active);
+            if (revision === version || active.id !== priorId) {
+              try { sessionStorage.removeItem(journalKey(priorId)); } catch {}
+            }
+          }
           if (revision === version) {
             active.markdown = value.markdown;
             active.bodyDirty = false;
@@ -264,11 +293,16 @@ function cancelOpen() {
   return navVersion;
 }
 function modeUI() {
-  $("editor").hidden = active.sourceMode;
-  $("sourceBox").hidden = !active.sourceMode;
+  const lesson = isLesson(active);
+  $("sheet").dataset.lesson = String(lesson);
+  $("lessonEditor").hidden = !lesson;
+  $("editor").hidden = active.sourceMode || lesson;
+  $("sourceBox").hidden = !active.sourceMode || lesson;
+  $("modeBtn").hidden = lesson;
+  $("reviewBtn").textContent = lesson ? "Preview" : "Publish";
   $("markdownSource").value = active.markdown || "";
   $("modeBtn").textContent = active.sourceMode ? "Visual editor" : "Markdown";
-  $("insertMenu").hidden = active.sourceMode;
+  $("insertMenu").hidden = active.sourceMode || lesson;
   $("reloadBtn").hidden = !active.path && !active.attempt?.path;
   updateWords();
   contextTools();
@@ -278,10 +312,22 @@ async function installDraft(d, nav = navVersion) {
   $("sheet").inert = true;
   try {
     d = structuredClone(d);
+    const lesson = isLesson(d);
+    const recovered = lesson && restoreLesson(d);
+    let mountLesson;
+    if (lesson) {
+      d.sourceMode = false;
+      mountLesson = await prepareLesson(d, (manuscript) => {
+        if (loading || active !== installedDraft) return;
+        active.markdown = manuscript;
+        markChanged();
+      });
+    }
     if (d.markdown == null && d.blocks?.length)
       d.markdown = await legacyMarkdown(d.blocks);
     let blocks;
-    if (
+    if (lesson) blocks = [];
+    else if (
       d.blocks?.length &&
       !d.sourceMode &&
       (!d.legacy || legacyCompatible(d.blocks))
@@ -309,9 +355,19 @@ async function installDraft(d, nav = navVersion) {
       $("sourceNotice").hidden = !d.recoveryLabel;
       $("sourceNotice").textContent = d.recoveryLabel || "";
     }
-    editor.replaceBlocks(editor.document, blocks);
-    viewBlocks = JSON.stringify(editor.document);
-    active.blocks = editor.document;
+    const installedDraft = active;
+    if (lesson) {
+      active.blocks = null;
+      $("sheet").dataset.details = "closed";
+      $("lessonDetails").setAttribute("aria-expanded", "false");
+      mountLesson($("lessonFrame"), $("lessonSection"), [$("lessonBold"), $("lessonItalic")]);
+    } else {
+      $("lessonFrame").onload = null;
+      $("lessonFrame").removeAttribute("srcdoc");
+      editor.replaceBlocks(editor.document, blocks);
+      viewBlocks = JSON.stringify(editor.document);
+      active.blocks = editor.document;
+    }
     for (const [id, key] of [
       ["title", "title"],
       ["dek", "dek"],
@@ -323,6 +379,10 @@ async function installDraft(d, nav = navVersion) {
     revision = 0;
     savedRevision = 0;
     remember("bn.activeDraft", active.id);
+    const url = new URL(location.href);
+    if (lesson) url.searchParams.set("edit", "what-is-an-agent");
+    else if (url.searchParams.get("edit") === "what-is-an-agent") url.searchParams.delete("edit");
+    if (url.href !== location.href) history.replaceState(history.state, "", url);
     modeUI();
     publicationUI();
     window.writerLayout?.sync();
@@ -331,6 +391,7 @@ async function installDraft(d, nav = navVersion) {
         (storage.cloud ? "Saved to cloud" : "Saved on this device"),
     );
     window.scrollTo({ top: 0 });
+    if (recovered) queueMicrotask(() => { if (active === installedDraft) markChanged(); });
   } finally {
     if (nav === navVersion) {
       loading = false;
@@ -487,7 +548,7 @@ async function switchMode() {
   await persist();
 }
 function onEditorChange() {
-  if (loading || active?.sourceMode || !active) return;
+  if (loading || active?.sourceMode || !active || isLesson(active)) return;
   const blocks = editor.document,
     signature = JSON.stringify(blocks);
   if (signature === viewBlocks) return;
@@ -498,7 +559,7 @@ function onEditorChange() {
   contextTools();
 }
 function contextTools() {
-  if (!active || active.sourceMode) {
+  if (!active || active.sourceMode || isLesson(active)) {
     $("tableTools").hidden = true;
     $("imageTools").hidden = true;
     return;
@@ -881,7 +942,7 @@ async function refreshPosts() {
         button = document.createElement("button");
       button.type = "button";
       button.className = "draft-open";
-      button.textContent = file.name.replace(/\.md$/, "");
+      button.textContent = file.path === lessonPath ? "What is an agent?" : file.name.replace(/\.md$/, "");
       button.disabled = busy;
       button.onclick = action(() => openPost(file.path));
       li.append(button);
@@ -893,20 +954,24 @@ async function refreshPosts() {
       list.textContent = error.message;
   }
 }
-async function openPost(path, latest = false) {
-  safeToNavigate();
+async function openPost(path, latest = false, startup = false) {
+  if (!startup) safeToNavigate();
   const nav = cancelOpen();
   await flushRequired();
   const c = config();
   if (!latest) {
-    const existing = (await storage.list())
+    const candidates = (await storage.list())
       .filter(
         (d) =>
           !d.archived &&
           d.path === path &&
           repoKey(d.config || {}) === repoKey(c),
       )
-      .sort((a, b) => b.updatedAt - a.updatedAt)[0];
+      .sort((a, b) => b.updatedAt - a.updatedAt);
+    const existing = path === lessonPath
+      ? candidates.find((d) => d.id === stored("bn.activeDraft")) ||
+        candidates.find((d) => !d.recoveryLabel?.startsWith("Original source before editing")) || candidates[0]
+      : candidates[0];
     if (existing && nav === navVersion) {
       await installDraft(existing, nav);
       return;
@@ -961,7 +1026,7 @@ async function openPost(path, latest = false) {
       say(
         latest
           ? "Latest GitHub copy opened. Your previous version remains in My drafts."
-          : "Opened a local working copy.",
+          : storage.cloud ? "Saved to cloud" : "Opened a local working copy.",
       );
     }
     await renderDrafts();
@@ -1007,11 +1072,12 @@ async function preview() {
     const description = document.createElement("p");
     description.textContent = d.dek || "Add a short summary before publishing.";
     const hint = document.createElement("p");
-    hint.textContent =
+    hint.textContent = isLesson(d) ? "This preview includes your saved edits." :
       "Publishing is immediate. The article date does not schedule publication.";
     $("reviewMeta").append(summary, description, dest, hint);
-    $("publishBtn").textContent = d.path ? "Update article now" : "Publish now";
-    $("reviewStatus").textContent =
+    $("themePreview").hidden = isLesson(d);
+    $("publishBtn").textContent = isLesson(d) ? "Publish changes" : d.path ? "Update article now" : "Publish now";
+    $("reviewStatus").textContent = isLesson(d) ? "Your edits stay private until you publish." :
       "Review your article. Local photos are uploaded only when you publish.";
     await refreshPreview();
     $("reviewDialog").showModal();
@@ -1022,6 +1088,17 @@ async function preview() {
 async function refreshPreview() {
   const d = reviewSnapshot;
   if (!d) return;
+  if (isLesson(d)) {
+    const doc = new DOMParser().parseFromString(await lessonMarkup(d), "text/html");
+    const policy = doc.createElement("meta");
+    policy.httpEquiv = "Content-Security-Policy";
+    policy.content = "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src data: " + location.origin + "; media-src " + location.origin + "; connect-src 'none'; form-action 'none'; base-uri 'none'";
+    doc.head.prepend(policy);
+    $("previewFrame").setAttribute("sandbox", "allow-scripts");
+    $("previewFrame").srcdoc = "<!doctype html>" + doc.documentElement.outerHTML;
+    return;
+  }
+  $("previewFrame").setAttribute("sandbox", "allow-same-origin");
   let markup = renderPreviewDocument({
     title: d.title || "Untitled",
     description: d.dek || "",
@@ -1516,6 +1593,12 @@ on("reloadBtn", () => openPost(active.path || active.attempt.path, true));
 on("reviewBtn", preview);
 on("closeReview", () => $("reviewDialog").close());
 on("publishBtn", publish);
+on("lessonDetails", () => {
+  const open = $("sheet").dataset.details !== "open";
+  $("sheet").dataset.details = open ? "open" : "closed";
+  $("lessonDetails").setAttribute("aria-expanded", String(open));
+  if (open) $("title").focus();
+});
 on("checkLiveBtn", () => checkLive(true));
 on("desktopPreview", () => {
   $("previewFrame").style.maxWidth = "100%";
@@ -1581,7 +1664,8 @@ let initial =
   drafts
     .filter((d) => !d.archived)
     .sort((a, b) => b.updatedAt - a.updatedAt)[0];
-if (!initial)
+const directLesson = new URLSearchParams(location.search).get("edit") === "what-is-an-agent";
+if (!initial && !directLesson)
   initial = (
     await storage.save(
       {
@@ -1599,7 +1683,15 @@ if (!initial)
       0,
     )
   ).draft;
-await installDraft(initial);
+if (directLesson) {
+  try {
+    await openPost(lessonPath, false, true);
+  } catch (error) {
+    // Keep other drafts intact when a direct article link cannot be opened.
+    $("bootStatus").textContent = "Could not open the lesson. " + error.message + " Refresh to retry.";
+    throw error;
+  }
+} else await installDraft(initial);
 await renderDrafts();
 showAuth();
 $("app").disabled = false;

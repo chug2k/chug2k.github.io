@@ -9,7 +9,7 @@ cd "$WORK"
 npm ci --omit=dev --no-audit --no-fund --cache "${npm_config_cache:-$WORK/npm-cache}"
 export NODE_PATH="$WORK/node_modules"
 ./node_modules/.bin/esbuild "$ROOT/admin/src/entry.js" \
-  --bundle --minify --format=esm --external:../../assets/markdown.mjs --outfile="$ROOT/admin/app.js"
+  --bundle --minify --format=esm --external:../../assets/markdown.mjs --external:../../assets/lesson-copy.mjs --outfile="$ROOT/admin/app.js"
 ./node_modules/.bin/esbuild "$ROOT/admin/src/editor.css" \
   --bundle --minify --conditions=style,browser,module,default,import \
   --loader:.woff=empty --loader:.woff2=file '--asset-names=fonts/[name]' \

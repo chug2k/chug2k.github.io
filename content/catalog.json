@@ -1,16 +1,6 @@
 {
   "writing": [
     {
-      "title": "What is an agent?",
-      "description": "Charles Lee’s original Tasks vs. Agents lesson, with a vending machine, a simulated account manager, and an agent you can wire yourself.",
-      "url": "/blog/2026-11-25-what-is-an-agent/",
-      "kind": "Interactive lesson",
-      "date": "2026-11-25",
-      "excerpt": [
-        "Who starts the work? Who decides what happens next? Try the same vending machine three ways. Then give an account manager forty fictional accounts, advance the clock, and watch which ones it leaves alone."
-      ]
-    },
-    {
       "title": "Shrinking YouTube Music to 3 MB",
       "description": "Rebuilding a desktop app in Tauri, then falling down the macOS rabbit holes.",
       "url": "/youtube-music-3mb/",
