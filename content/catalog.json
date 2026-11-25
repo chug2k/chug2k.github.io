@@ -121,6 +121,14 @@
       "notes": ""
     },
     {
+      "title": "Agents 101 in eleven lines of Python",
+      "description": "A model says it’s reading a file. Has anyone opened it yet? Make four decisions in Python, then follow the requests and file contents through two recorded runs.",
+      "url": "/agents-101/",
+      "kind": "Interactive lesson",
+      "status": "Project",
+      "notes": ""
+    },
+    {
       "title": "The Stamp Drawer",
       "description": "In this standalone exercise, a scripted model asks how many rings are on the Fern stamp. Count them, then send the number back with the right request ID.",
       "url": "https://clpanic.com/stamp-drawer/",
