@@ -147,6 +147,22 @@
       "notes": ""
     },
     {
+      "title": "Right Total, Wrong Door",
+      "description": "Six people change tables at a print fair. Decide whether to send the lunch trays, then repair a film cut that has the right running time and three wrong cues.",
+      "url": "/right-total-wrong-door/",
+      "kind": "Eight-minute lesson",
+      "status": "Project",
+      "notes": ""
+    },
+    {
+      "title": "The Last Tram",
+      "description": "A timetable visits Bell twice. Predict which stops Ruby will yield, trace a transfer, and fix the iterator in the downloadable exercise.",
+      "url": "/last-tram-ruby/",
+      "kind": "Ruby lesson",
+      "status": "Project",
+      "notes": ""
+    },
+    {
       "title": "jobsearch.quest — your AI job-search council",
       "description": "Job searching alone is brutal. This runs the proven \"Never Search Alone\" method — but solo: an AI council holds your weekly job-search meeting (wins, blockers, the hot seat, real commitments for next week) so you don't have to wrangle five humans onto a call. Sign in to start your first session free.",
       "url": "https://www.jobsearch.quest/",
@@ -255,6 +271,19 @@
     }
   ],
   "collections": [
+    {
+      "title": "Hands-on lessons",
+      "description": "Supervise an agent, repair a film, write a Ruby iterator, query ferry fares, or measure a coastline. Each exercise lets you make a prediction and check it.",
+      "url": "/blog/2026-11-25-what-is-an-agent/",
+      "link_label": "What is an agent?",
+      "links": [
+        { "title": "Right Total, Wrong Door", "url": "/right-total-wrong-door/" },
+        { "title": "The Last Tram · Ruby", "url": "/last-tram-ruby/" },
+        { "title": "Three Cheapest Crossings · SQL", "url": "https://clpanic.com/three-cheapest-crossings/" },
+        { "title": "The Coastline Problem · Prízrak", "url": "https://offerings-eight.vercel.app/the-coastline-problem" },
+        { "title": "Read the three-lesson guide", "url": "/blog/2026-11-25-a-fare-a-film-and-a-coastline/" }
+      ]
+    },
     {
       "title": "Video notes",
       "description": "AI-assisted summaries of talks on software, agents, chess, and pickleball. Screenshots, key ideas, and links back to the source.",

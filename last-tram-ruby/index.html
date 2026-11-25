@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#103b3b">
+  <meta name="description" content="Build a Ruby iterator for a pocket tram timetable. Predict the stop order, follow map and select, and try an Enumerator one stop at a time.">
+  <link rel="canonical" href="https://clpanic.com/last-tram-ruby/">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="tram.css">
+  <script src="tram.js" defer></script>
+  <title>The Last Tram · A Ruby exercise · Charles Lee’s workshop</title>
+</head>
+<body>
+  <a class="skip" href="#predict">Skip to the prediction</a>
+  <header class="top wrap">
+    <a class="return" href="/library/">← Lesson shelf</a>
+    <nav aria-label="Lesson sections"><a href="#predict">Predict</a><a href="#trace">Trace</a><a href="#kit">Ruby kit</a></nav>
+  </header>
+  <main class="wrap">
+    <section class="hero" aria-labelledby="title">
+      <div class="hero-copy">
+        <p class="eyebrow">Ruby workshop · Enumerable</p>
+        <h1 id="title">The Last Tram</h1>
+        <p class="intro">A pocket timetable lists routes, trips, and stops. Give it one Ruby method that hands the reader a single stop at a time.</p>
+        <a class="button bright" href="#predict">Predict the stops <span aria-hidden="true">↓</span></a>
+      </div>
+      <section class="ticket" id="timetable" aria-labelledby="ticket-title">
+        <div class="ticket-head">
+          <p class="eyebrow" id="ticket-title">Pocket timetable</p>
+          <label for="service">Choose a service</label>
+          <select id="service" disabled><option value="night">Night service</option><option value="diversion">Bridge diversion</option></select>
+        </div>
+        <div id="routes" class="routes"></div>
+        <p class="ticket-foot">⇄ Transfer stop <span>Times are local to the fictional network.</span></p>
+      </section>
+    </section>
+
+    <section class="lesson-section" id="predict" aria-labelledby="predict-title">
+      <div class="section-copy">
+        <h2 id="predict-title">Predict the stop order</h2>
+        <p>Read each route in print order. Finish its trips from top to bottom and each trip’s stops from left to right. Keep repeated visits. A trip with no stops yields nothing.</p>
+      </div>
+      <div class="surface">
+        <form id="prediction-form" hidden>
+          <label for="prediction">Which names will this return?</label>
+          <pre class="snippet"><code>timetable.map { |stop| stop.fetch("name") }</code></pre>
+          <p class="hint" id="format">Type the stop names separated by commas.</p>
+          <input id="prediction" type="text" aria-describedby="format" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="First stop, next stop, …">
+          <button class="button dark" type="submit">Check my prediction</button>
+          <p id="grade" class="feedback" aria-live="polite"></p>
+          <button id="other-service" class="text-button" type="button" hidden>Try the other timetable</button>
+        </form>
+        <p id="loading" hidden>Loading the timetables…</p>
+        <noscript><p>The prediction and step controls use JavaScript. The Ruby kit includes both timetables and runs offline. <a href="#kit">Open the kit instructions.</a></p></noscript>
+      </div>
+    </section>
+
+    <section class="lesson-section" id="trace" aria-labelledby="trace-title">
+      <div class="section-copy">
+        <h2 id="trace-title">Follow one yield</h2>
+        <p><code>each</code> supplies the stop record, including its name, time, and transfer flag. <code>map</code> collects what a block returns. <code>select</code> keeps each original stop whose block returns a truthy value.</p>
+        <p>Call <code>each</code> without a block to get an <code>Enumerator</code>. Its <code>next</code> method advances one stop each time.</p>
+        <a href="#timetable">Read the timetable again ↑</a>
+      </div>
+      <div class="trace-platform" id="trace-panel" hidden>
+        <div class="panel-heading">
+          <label for="mode">Trace a Ruby call</label>
+          <select id="mode"><option value="next">Enumerator#next</option><option value="map">Enumerable#map</option><option value="select">Enumerable#select</option></select>
+        </div>
+        <pre class="snippet"><code id="call-code"></code></pre>
+        <p class="trace-step" id="trace-step"></p>
+        <h3 id="trace-title-now"></h3>
+        <p id="trace-detail"></p>
+        <div id="trace-value" class="readout" hidden><p id="value-label"></p><pre><code id="value"></code></pre></div>
+        <div class="actions">
+          <button class="button bright" id="advance" type="button">Call next →</button>
+          <button class="text-button" id="rewind" type="button" disabled>Rewind</button>
+        </div>
+        <p class="sr" role="status" id="trace-status"></p>
+      </div>
+    </section>
+
+    <section class="lesson-section" id="kit" aria-labelledby="kit-title">
+      <div class="section-copy">
+        <h2 id="kit-title">Write the Ruby</h2>
+        <p>The starter yields an entire route. Run the checks, then fix <code>TramTimetable#each</code> so the caller receives one original stop record per visit. Return the timetable after yielding to a block.</p>
+        <a class="button dark" href="last-tram-ruby.zip" download>Download the Ruby kit <span aria-hidden="true">↓</span></a>
+        <p class="hint kit-hint">ZIP · Starter, two timetables, six checks, and a worked answer</p>
+      </div>
+      <div class="surface kit-detail">
+        <h3>Run the independent checks</h3>
+        <p>Unzip the kit, enter the <code>last-tram-ruby</code> folder, and run the starter. After editing <code>starter.rb</code>, rerun the same command. The second command checks the supplied answer.</p>
+        <pre class="snippet"><code>ruby check.rb
+ruby check.rb --answer</code></pre>
+        <details>
+          <summary>Open the worked method</summary>
+          <pre class="snippet"><code id="answer-method">def each
+  return enum_for(:each) unless block_given?
+
+  @routes.each do |route|
+    route.fetch("trips").each do |trip|
+      trip.fetch("stops").each do |stop|
+        yield stop
+      end
+    end
+  end
+  self
+end</code></pre>
+          <p>Each block takes one step down the timetable. Only the innermost block holds a stop record. The early return creates a cursor for a caller who wants to choose when to advance.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="notes" aria-labelledby="notes-title">
+      <h2 id="notes-title">Notes from the workshop</h2>
+      <p>This November 2026 exercise, its fictional timetable, and its code were developed for Charles Lee’s workshop with Codex. Its historical starting point was CoderSchool’s Advanced Ruby course. Harley Trung authored the linked assignment commit on 11 July 2016. <a href="https://github.com/coderschool/advanced_ruby_assignment_1/commit/2fb416b6dd8720b2926731f2da4092e8e5a47bb3">CoderSchool’s 2016 assignment</a>.</p>
+      <p>Ruby’s reference explains how <code>each</code> feeds <code>Enumerable</code>, how <code>enum_for</code> creates a cursor, and how <code>next</code> signals the end of an iteration. <a href="https://docs.ruby-lang.org/en/4.0/Enumerable.html">Enumerable</a> · <a href="https://docs.ruby-lang.org/en/4.0/Object.html#method-i-enum_for">Object#enum_for</a> · <a href="https://docs.ruby-lang.org/en/4.0/Enumerator.html">Enumerator</a>.</p>
+    </section>
+  </main>
+  <footer class="wrap"><span>The Last Tram · Charles Lee’s workshop</span><a class="return" href="/library/">← Lesson shelf</a></footer>
+</body>
+</html>

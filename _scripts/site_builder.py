@@ -101,7 +101,8 @@ def render_hubs(posts: list[dict], output: Path, *, preview: bool = False) -> No
             for item in value:
                 validate(item)
     validate(catalog)
-    articles = sorted([*posts, *catalog['writing']], key=lambda item: item.get('date', ''), reverse=True)
+    articles = sorted([*posts, *catalog['writing']],
+                      key=lambda item: (item.get('date', ''), item['url']), reverse=True)
     home = template("home.html", ARTICLES=''.join(blog_entry(p) for p in articles[:8]) or '<p>No articles yet.</p>',
                     ARCHIVE_LINK='<a class="text-link archive-link" href="/blog/">All posts →</a>' if len(articles) > 8 else '')
     write_page(output, '/', page('Charles Lee — Blog', 'Software, AI, pickleball, and whatever I take apart next. Articles and build notes by Charles Lee.', '/', home, active='writing', preview=preview))

@@ -110,10 +110,12 @@ class PublishingTests(unittest.TestCase):
     def test_posts_and_standalone_articles_share_one_chronology(self):
         self.post("2026-06-18-middle", "June notebook entry")
         self.post("2026-06-01-older", "Older notebook entry")
+        self.post("2026-07-01-same-day", "Same-day notebook entry")
         blog.main(self.output)
         for path in ("index.html", "blog/index.html"):
             page = (self.output / path).read_text()
-            self.assertLess(page.index("July field guide"), page.index("June notebook entry"))
+            self.assertLess(page.index("July field guide"), page.index("Same-day notebook entry"))
+            self.assertLess(page.index("Same-day notebook entry"), page.index("June notebook entry"))
             self.assertLess(page.index("June notebook entry"), page.index("June field guide"))
             self.assertLess(page.index("June field guide"), page.index("Older notebook entry"))
 
