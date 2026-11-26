@@ -90,7 +90,7 @@
   "apps": [
     {
       "title": "Fikaride Pocket",
-      "description": "Name a moth and start a simulated ride. Ten seconds of pedaling warms its egg enough to hatch. Come back for its first meal.",
+      "description": "Start a simulated ride to warm a moth egg. It hatches after ten seconds of pedaling. Come back for its first meal.",
       "url": "/fikaride-pocket/",
       "kind": "Game",
       "status": "Project",
