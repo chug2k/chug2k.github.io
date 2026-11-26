@@ -33,6 +33,8 @@ def page(title: str, description: str, path: str, content: str, *, active: str =
         ("writing", "Blog", "/"), ("projects", "Projects", "/making/"), ("about", "About", "/about/")])
     return template("base.html", TITLE=escape(title), DESCRIPTION=escape(description), PATH=escape(path),
                     NAV=nav, CONTENT=content, OG_TYPE="article" if article else "website",
+                    WRITER_URL="/admin/?edit=" + escape(path.strip("/").split("/")[-1]) if article else "/admin/",
+                    WRITER_LABEL="Edit this post" if article else "Write",
                     EXTRA_HEAD=extra_head + ('<meta name="robots" content="noindex,nofollow">' if preview else ''),
                     PREVIEW_BANNER='<div class="preview-banner">Local preview · includes drafts · not published</div>' if preview else '')
 

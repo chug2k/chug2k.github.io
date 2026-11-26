@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Revise one moment in a short scene. Keep the original, your rewrite, and the words that make a reader draw an inference.">
+  <title>The revision desk · Creative Writing Practice</title>
+  <link rel="stylesheet" href="desk.css">
+  <script src="desk.js" defer></script>
+</head>
+<body>
+  <main>
+    <a class="back" href="https://clpanic.com/blog/2026-11-26-who-gets-the-spare-key/">← Read the lesson</a>
+    <header>
+      <h1>The revision desk</h1>
+      <p>Keep the ending. Change the moment just before it. Give the reader something to notice.</p>
+    </header>
+    <noscript><p>Enable JavaScript to save a draft and check your quotation. The linked lesson also works as a paper exercise.</p></noscript>
+    <div class="choices">
+      <div><label for="scene">Starting scene</label>
+        <select id="scene"><option value="radio">The radio repair</option><option value="concert">The last chair</option><option value="own">My own scene</option></select>
+      </div>
+      <span id="saved" role="status" aria-live="polite"></span>
+    </div>
+    <div class="drafts">
+      <section aria-labelledby="before-heading">
+        <h2 id="before-heading"><label for="before">First draft</label></h2>
+        <p id="before-help">Read through to the last thing that happens.</p>
+        <textarea id="before" rows="8" aria-describedby="before-help" readonly></textarea>
+      </section>
+      <section aria-labelledby="after-heading">
+        <h2 id="after-heading"><label for="revision">Your revision</label></h2>
+        <p id="after-help">Let the reader infer what the character feels.</p>
+        <textarea id="revision" rows="8" aria-describedby="after-help" placeholder="Write your scene here."></textarea>
+        <button type="button" class="quiet" id="copy">Start from the first draft</button>
+      </section>
+    </div>
+    <section class="reader" aria-labelledby="reader-heading">
+      <h2 id="reader-heading">Read it as a stranger</h2>
+      <label for="inference">What might the reader infer?</label>
+      <input type="text" id="inference" autocomplete="off">
+      <div class="quote-label"><label for="clue">Which words give that clue?</label>
+        <button type="button" class="quiet" id="quote">Use selected words</button></div>
+      <input type="text" id="clue" aria-describedby="quote-help" autocomplete="off">
+      <p class="small" id="quote-help">Type a quotation or select it in your revision.</p>
+      <div class="actions">
+        <button type="button" id="check">Check my clue</button>
+        <button type="button" id="download" class="secondary">Download both drafts</button>
+      </div>
+      <div id="feedback" role="status" aria-live="polite"></div>
+    </section>
+    <footer><span>Drafts save in this browser.</span> <a href="revision-desk.zip" download>Get the offline desk</a></footer>
+  </main>
+</body>
+</html>
