@@ -1420,7 +1420,7 @@
           <button class="toy-btn ghost" id="toy-reset">↺ Reset</button>
         </div>
         <div class="toy-counters">
-          <div class="toy-count"><b id="toy-swept">0</b><span>swept</span></div>
+          <div class="toy-count"><b id="toy-swept">0</b><span>account-days swept</span></div>
           <div class="toy-count acted"><b id="toy-acted">0</b><span>acted on</span></div>
         </div>
       </div>
@@ -1987,8 +1987,7 @@
     let accounts = [];
     let people = [];
     let day = 1;
-    let swept = 0;
-    let acted = 0;
+    let completedSweeps = 0;
     let logRows = [];
     let pendingEscalations = []; // queued so we don't lose them
     let running = false;
@@ -2076,16 +2075,16 @@
     function pushLog(kind, day, headline, detail) {
       logRows.unshift({ kind, day, headline, detail });
       renderLog();
-      acted++;
-      actedEl.textContent = acted;
     }
     function renderLog() {
-      if (logRows.length === 0) {
+      const actions = logRows.length;
+      const monthlyPace = completedSweeps === 0 ? 0 : actions * 30 / completedSweeps;
+      actedEl.textContent = actions;
+      logSub.textContent = `${actions} action${actions === 1 ? '' : 's'} over ${completedSweeps} day${completedSweeps === 1 ? '' : 's'} · ${monthlyPace.toFixed(1)}/mo pace`;
+      if (actions === 0) {
         logEl.innerHTML = '<div class="log-empty">No actions yet. The AM is on the clock.</div>';
-        logSub.textContent = 'empty — most days it does nothing';
         return;
       }
-      logSub.textContent = `${logRows.length} action${logRows.length===1?'':'s'} over ${day} day${day===1?'':'s'} · ${(acted/Math.max(day,1)*30).toFixed(1)}/mo pace`;
       logEl.innerHTML = '';
       logRows.forEach(r => {
         const row = document.createElement('div');
@@ -2137,8 +2136,8 @@
       });
 
       schedule(() => {
-        swept += accounts.length;
-        sweptEl.textContent = swept.toLocaleString();
+        completedSweeps++;
+        sweptEl.textContent = (completedSweeps * accounts.length).toLocaleString();
 
         obsLine(`swept 40 · ${surfacedIdx.size === 0 ? '0 surfaced — staying quiet' : surfacedIdx.size + ' surfaced for closer look'}`);
 
@@ -2281,14 +2280,16 @@
     }
 
     function updateNarration() {
-      if (day > 60) {
+      const acted = logRows.length;
+      const swept = completedSweeps * accounts.length;
+      if (completedSweeps >= 60) {
         narrationEl.innerHTML = `<b>Two months in.</b> Swept ${swept.toLocaleString()} account-days. Acted on ${acted}. That ratio — ${(acted/swept*100).toFixed(1)}% — is what "managed agent" buys you: someone watching everything, surfacing the ${acted} things that matter. <span class="who">— now imagine the LLM behind it isn't a script — it's making this call live, with reasons.</span>`;
       } else if (acted >= 6) {
-        narrationEl.innerHTML = `<b>${acted} actions across ${day-1} days.</b> Notice the shape: most are within authority (sent, routed, applied), a few are <em>drafted</em> and waiting on you, the strategic ones got <em>escalated</em>. That ladder is the "managed" part. <span class="who">— the agent earned its keep on the small stuff and asked permission for the big stuff.</span>`;
+        narrationEl.innerHTML = `<b>${acted} actions across ${completedSweeps} days.</b> Notice the shape: most are within authority (sent, routed, applied), a few are <em>drafted</em> and waiting on you, the strategic ones got <em>escalated</em>. That ladder is the "managed" part. <span class="who">— the agent earned its keep on the small stuff and asked permission for the big stuff.</span>`;
       } else if (acted >= 1) {
         narrationEl.innerHTML = `<b>First surface.</b> Out of ${swept.toLocaleString()} checks, the AM found ${acted} thing${acted===1?'':'s'} worth acting on. Most days it'll do nothing. That restraint is the whole product. <span class="who">— keep going. The pattern shows up around day 15.</span>`;
       } else {
-        narrationEl.innerHTML = `<b>Day ${day-1} swept. Nothing surfaced.</b> That's the agent working — looking at everything, deciding nothing needs you. A chatbot can't do "nothing." <span class="who">— keep advancing. Interesting things are scheduled for day 3, 7, 11.</span>`;
+        narrationEl.innerHTML = `<b>Day ${completedSweeps} swept. Nothing surfaced.</b> That's the agent working — looking at everything, deciding nothing needs you. A chatbot can't do "nothing." <span class="who">— keep advancing. Interesting things are scheduled for day 3, 7, 11.</span>`;
       }
     }
 
@@ -2317,6 +2318,7 @@
         pushLog('escalate', e.day, `✗ Rejected · ${e.name}`, `You rejected: ${e.title}. AM noted, will revisit on next signal.`);
       }
       currentEsc = null;
+      updateNarration();
       schedule(showNextEscalation, 250);
     }
     escApprove.addEventListener('click', () => resolveEsc(true));
@@ -2335,9 +2337,9 @@
       pendingTimers.clear();
       daysRemaining = 0; running = false;
       advBtn.disabled = false; run30Btn.disabled = false;
-      day = 1; swept = 0; acted = 0; logRows = []; pendingEscalations = []; currentEsc = null;
+      day = 1; completedSweeps = 0; logRows = []; pendingEscalations = []; currentEsc = null;
       escModal.classList.remove('show');
-      sweptEl.textContent = '0'; actedEl.textContent = '0';
+      sweptEl.textContent = '0';
       dayLabel.textContent = `Day 1 — ${dateForDay(1)}`;
       diaryEl.innerHTML = '<div class="diary-empty">Press <b>Advance 1 day</b> to start the AM\'s first day.</div>';
       seedAccounts();
@@ -2349,6 +2351,7 @@
     /* ---------- init ---------- */
     seedAccounts();
     renderBook();
+    renderLog();
     dayLabel.textContent = `Day 1 — ${dateForDay(1)}`;
   })();
 
