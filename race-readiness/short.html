@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Trace a sprint forecast to its fictional swim, bike and run sessions in a restored September 2026 dashboard.">
+<meta name="theme-color" content="#f4f3eb"><title>Short sessions · Race Readiness</title>
+<link rel="icon" href="data:,"><link rel="stylesheet" href="assets/sheet.css"></head>
+<body><a class="skip" href="#sources">Skip to forecast sources</a>
+<main><header class="intro">
+  <div class="mast"><div><i class="mark" aria-hidden="true"></i> Sports data archive</div><span>September 2026</span></div>
+  <div class="hero"><h1>Race Readiness</h1><p>Trace a sprint forecast back to the fictional sessions that supplied its pace and power.</p></div>
+</header>
+<section aria-labelledby="block-title" class="block">
+  <div class="block-top"><h2 id="block-title">Training block</h2><nav aria-label="Choose a training block"><a href="index.html">June baseline</a><a href="july.html">July replay</a><a href="short.html" aria-current="page">Short sessions</a></nav></div>
+  <p>A 400 m swim, a ride one second short of an hour and a single 30-minute run test the selection rules.</p>
+</section>
+<section class="result" aria-label="Sample sprint finish range">
+  <div><p class="kicker">Sample sprint · finish range</p><h2 id="finish">Insufficient data</h2><p class="transition">A finish range needs both bounds for all three legs.</p></div>
+  <div class="course" aria-label="Sample sprint distances">
+    <span><b>750</b> m swim</span><span><b>20</b> km bike</span><span><b>5</b> km run</span>
+  </div>
+</section>
+<section id="sources" aria-labelledby="source-title">
+  <div class="section-head"><h2 id="source-title">Forecast sources</h2><p>90-day lookback · as of 31 Jul 2026</p></div>
+  <div class="legs"><article class="leg swim" aria-label="Swim leg">
+      <header><h3>Swim</h3><span>0.75 km</span></header>
+      <p class="leg-range"><span class="missing">Range unavailable</span></p><dl><div class="measure"><dt>Pace from the longest swim</dt><dd>No qualifying pace</dd></div></dl>
+    </article><article class="leg bike" aria-label="Bike leg">
+      <header><h3>Bike</h3><span>20 km</span></header>
+      <p class="leg-range"><span class="missing">Range unavailable</span></p><dl><div class="measure"><dt>Best ride average at 60 min+</dt><dd>No qualifying power</dd></div></dl>
+    </article><article class="leg run" aria-label="Run leg">
+      <header><h3>Run</h3><span>5 km</span></header>
+      <p class="leg-range">0h26m <small>fast bound only</small></p><dl><div class="measure"><dt>Best 30-minute pace</dt><dd>5:20 / km<a class="record-link" href="#record-C-R1"><time datetime="2026-07-29">29 Jul 2026</time> · Track laps<span aria-hidden="true"> ↘</span></a></dd></div><div class="measure"><dt>Best 60-minute pace</dt><dd>No qualifying window</dd></div></dl>
+    </article></div>
+  <details><summary>Read the engine’s explanations</summary><ul class="explanations"><li><b>Swim</b> No measured pace from a qualifying swim over 400 m.</li><li><b>Bike</b> No ride of at least 60 min with recorded average power.</li><li><b>Run</b> 30-min best pace on 2026-07-29, extrapolated, no 60-min pace available</li></ul></details>
+</section>
+<section id="ledger" aria-labelledby="ledger-title">
+  <div class="section-head"><h2 id="ledger-title">Fictional session ledger</h2><a class="json-link" href="reference/short.json">Reference JSON <span aria-hidden="true">↗</span></a></div>
+  <table><caption class="sr-only">All fictional source activities in the Short sessions block</caption>
+  <thead><tr><th scope="col">Session</th><th scope="col">Sport</th><th scope="col">Local date</th><th scope="col">Distance</th><th scope="col">Moving time</th><th scope="col">Avg power</th></tr></thead>
+  <tbody><tr id="record-C-S1" tabindex="-1">
+      <th scope="row"><span class="record-id swim">C-S1</span>Pool warm-up</th>
+      <td class="sport-cell">Swim</td><td class="date-cell"><time datetime="2026-07-26">26 Jul 2026</time></td>
+      <td data-label="Distance">0.4 km</td><td data-label="Moving time">7 min 20 s</td>
+      <td data-label="Avg power">—</td></tr><tr id="record-C-B1" tabindex="-1">
+      <th scope="row"><span class="record-id bike">C-B1</span>Short canal ride</th>
+      <td class="sport-cell">Bike</td><td class="date-cell"><time datetime="2026-07-27">27 Jul 2026</time></td>
+      <td data-label="Distance">22 km</td><td data-label="Moving time">59 min 59 s</td>
+      <td data-label="Avg power">175 W</td></tr><tr id="record-C-R1" tabindex="-1">
+      <th scope="row"><span class="record-id run">C-R1</span>Track laps</th>
+      <td class="sport-cell">Run</td><td class="date-cell"><time datetime="2026-07-29">29 Jul 2026</time></td>
+      <td data-label="Distance">5.625 km</td><td data-label="Moving time">30 min</td>
+      <td data-label="Avg power">—</td></tr></tbody></table>
+</section>
+<footer><div><h2>From the original dashboard</h2><a class="kit-link" href="race-readiness-offline.zip" download>Download offline kit</a></div><p>The local FastAPI dashboard calculated splits from recent activity records. Its explanations printed August 21 for the swim and September 4 for the ride regardless of which sessions won. This edition runs the repaired Python forecast on fictional records and publishes its output for each block.</p></footer>
+</main></body></html>

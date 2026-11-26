@@ -1,0 +1,84 @@
+{
+  "edition": "moon-post-night-desk-v1",
+  "reference": {
+    "id": "reference",
+    "voice": "slt",
+    "stretch": 1.0,
+    "parts": [
+      "Please leave your letters on the counter. I will take them when the bell rings."
+    ]
+  },
+  "rounds": [
+    {
+      "title": "Last collection",
+      "target": "Keep the door open until the bell rings.",
+      "question": "Which reading would you play at the post office door?",
+      "readings": [
+        {
+          "id": "1-a",
+          "voice": "slt",
+          "stretch": 1.0,
+          "gap_ms": 540,
+          "parts": [
+            "Keep the door",
+            "open until the bell rings."
+          ]
+        },
+        {
+          "id": "1-b",
+          "voice": "rms",
+          "stretch": 1.0,
+          "parts": [
+            "Keep the door open until the bell rings."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "The ferry run",
+      "target": "Send the red parcel on the night ferry.",
+      "question": "Which reading would you send to the ferry crew?",
+      "readings": [
+        {
+          "id": "2-a",
+          "voice": "rms",
+          "stretch": 1.04,
+          "parts": [
+            "Send the red parcel on the night ferry."
+          ]
+        },
+        {
+          "id": "2-b",
+          "voice": "slt",
+          "stretch": 1.0,
+          "parts": [
+            "Send the red parcel on the noon ferry."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Return address",
+      "target": "Write Quill Lane on the return label.",
+      "question": "Which reading would help someone address this parcel?",
+      "readings": [
+        {
+          "id": "3-a",
+          "voice": "rms",
+          "stretch": 0.91,
+          "parts": [
+            "Write Quill Lane on the return label."
+          ]
+        },
+        {
+          "id": "3-b",
+          "voice": "rms",
+          "stretch": 1.12,
+          "parts": [
+            "Write Quill Lane on the blue return label."
+          ]
+        }
+      ]
+    }
+  ]
+}

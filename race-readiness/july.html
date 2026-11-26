@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Trace a sprint forecast to its fictional swim, bike and run sessions in a restored September 2026 dashboard.">
+<meta name="theme-color" content="#f4f3eb"><title>July replay · Race Readiness</title>
+<link rel="icon" href="data:,"><link rel="stylesheet" href="assets/sheet.css"></head>
+<body><a class="skip" href="#sources">Skip to forecast sources</a>
+<main><header class="intro">
+  <div class="mast"><div><i class="mark" aria-hidden="true"></i> Sports data archive</div><span>September 2026</span></div>
+  <div class="hero"><h1>Race Readiness</h1><p>Trace a sprint forecast back to the fictional sessions that supplied its pace and power.</p></div>
+</header>
+<section aria-labelledby="block-title" class="block">
+  <div class="block-top"><h2 id="block-title">Training block</h2><nav aria-label="Choose a training block"><a href="index.html">June baseline</a><a href="july.html" aria-current="page">July replay</a><a href="short.html">Short sessions</a></nav></div>
+  <p>The reference paces and power repeat on new dates. The selected ride now lasts 73 min 30 s.</p>
+</section>
+<section class="result" aria-label="Sample sprint finish range">
+  <div><p class="kicker">Sample sprint · finish range</p><h2 id="finish">1h26m <span>–</span> 1h33m</h2><p class="transition">Includes the original 5–6 min transition allowance.</p></div>
+  <div class="course" aria-label="Sample sprint distances">
+    <span><b>750</b> m swim</span><span><b>20</b> km bike</span><span><b>5</b> km run</span>
+  </div>
+</section>
+<section id="sources" aria-labelledby="source-title">
+  <div class="section-head"><h2 id="source-title">Forecast sources</h2><p>90-day lookback · as of 31 Jul 2026</p></div>
+  <div class="legs"><article class="leg swim" aria-label="Swim leg">
+      <header><h3>Swim</h3><span>0.75 km</span></header>
+      <p class="leg-range">0h13m <span>–</span> 0h15m</p><dl><div class="measure"><dt>Pace from the longest swim</dt><dd>1:50 / 100 m over 1.2 km<a class="record-link" href="#record-B-S2"><time datetime="2026-07-05">5 Jul 2026</time> · Buoy loop<span aria-hidden="true"> ↘</span></a></dd></div></dl>
+    </article><article class="leg bike" aria-label="Bike leg">
+      <header><h3>Bike</h3><span>20 km</span></header>
+      <p class="leg-range">0h38m <span>–</span> 0h39m</p><dl><div class="measure"><dt>Best ride average at 60 min+</dt><dd>160 W over 73 min 30 s<a class="record-link" href="#record-B-B2"><time datetime="2026-07-14">14 Jul 2026</time> · Viaduct ride<span aria-hidden="true"> ↘</span></a></dd></div></dl>
+    </article><article class="leg run" aria-label="Run leg">
+      <header><h3>Run</h3><span>5 km</span></header>
+      <p class="leg-range">0h29m <span>–</span> 0h33m</p><dl><div class="measure"><dt>Best 30-minute pace</dt><dd>5:20 / km<a class="record-link" href="#record-B-R1"><time datetime="2026-07-18">18 Jul 2026</time> · Track laps<span aria-hidden="true"> ↘</span></a></dd></div><div class="measure"><dt>Best 60-minute pace</dt><dd>5:40 / km<a class="record-link" href="#record-B-R2"><time datetime="2026-07-23">23 Jul 2026</time> · Orchard loop<span aria-hidden="true"> ↘</span></a></dd></div></dl>
+    </article></div>
+  <details><summary>Read the engine’s explanations</summary><ul class="explanations"><li><b>Swim</b> 1:50/100m over 1.2 km on 2026-07-05</li><li><b>Bike</b> 160 W average over 73 min 30 s on 2026-07-14, using the dashboard&#x27;s power-to-speed fit</li><li><b>Run</b> 30-min best pace on 2026-07-18, 60-min best pace on 2026-07-23, extrapolated, plus the multi-leg fatigue adjustment</li></ul></details>
+</section>
+<section id="ledger" aria-labelledby="ledger-title">
+  <div class="section-head"><h2 id="ledger-title">Fictional session ledger</h2><a class="json-link" href="reference/july.json">Reference JSON <span aria-hidden="true">↗</span></a></div>
+  <table><caption class="sr-only">All fictional source activities in the July replay block</caption>
+  <thead><tr><th scope="col">Session</th><th scope="col">Sport</th><th scope="col">Local date</th><th scope="col">Distance</th><th scope="col">Moving time</th><th scope="col">Avg power</th></tr></thead>
+  <tbody><tr id="record-B-S1" tabindex="-1">
+      <th scope="row"><span class="record-id swim">B-S1</span>Pool lengths</th>
+      <td class="sport-cell">Swim</td><td class="date-cell"><time datetime="2026-07-02">2 Jul 2026</time></td>
+      <td data-label="Distance">0.8 km</td><td data-label="Moving time">13 min 20 s</td>
+      <td data-label="Avg power">—</td></tr><tr id="record-B-S2" tabindex="-1">
+      <th scope="row"><span class="record-id swim">B-S2</span>Buoy loop</th>
+      <td class="sport-cell">Swim</td><td class="date-cell"><time datetime="2026-07-05">5 Jul 2026</time></td>
+      <td data-label="Distance">1.2 km</td><td data-label="Moving time">22 min</td>
+      <td data-label="Avg power">—</td></tr><tr id="record-B-B1" tabindex="-1">
+      <th scope="row"><span class="record-id bike">B-B1</span>Canal ride</th>
+      <td class="sport-cell">Bike</td><td class="date-cell"><time datetime="2026-07-09">9 Jul 2026</time></td>
+      <td data-label="Distance">34 km</td><td data-label="Moving time">75 min</td>
+      <td data-label="Avg power">145 W</td></tr><tr id="record-B-B2" tabindex="-1">
+      <th scope="row"><span class="record-id bike">B-B2</span>Viaduct ride</th>
+      <td class="sport-cell">Bike</td><td class="date-cell"><time datetime="2026-07-14">14 Jul 2026</time></td>
+      <td data-label="Distance">28 km</td><td data-label="Moving time">73 min 30 s</td>
+      <td data-label="Avg power">160 W</td></tr><tr id="record-B-R1" tabindex="-1">
+      <th scope="row"><span class="record-id run">B-R1</span>Track laps</th>
+      <td class="sport-cell">Run</td><td class="date-cell"><time datetime="2026-07-18">18 Jul 2026</time></td>
+      <td data-label="Distance">5.625 km</td><td data-label="Moving time">30 min</td>
+      <td data-label="Avg power">—</td></tr><tr id="record-B-R2" tabindex="-1">
+      <th scope="row"><span class="record-id run">B-R2</span>Orchard loop</th>
+      <td class="sport-cell">Run</td><td class="date-cell"><time datetime="2026-07-23">23 Jul 2026</time></td>
+      <td data-label="Distance">10.588 km</td><td data-label="Moving time">60 min</td>
+      <td data-label="Avg power">—</td></tr></tbody></table>
+</section>
+<footer><div><h2>From the original dashboard</h2><a class="kit-link" href="race-readiness-offline.zip" download>Download offline kit</a></div><p>The local FastAPI dashboard calculated splits from recent activity records. Its explanations printed August 21 for the swim and September 4 for the ride regardless of which sessions won. This edition runs the repaired Python forecast on fictional records and publishes its output for each block.</p></footer>
+</main></body></html>

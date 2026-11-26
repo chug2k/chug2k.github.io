@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#182c40"><title>Credits &amp; field notes · The Moon Post</title><link rel="icon" href="data:,"><link rel="stylesheet" href="desk.css"></head>
+<body>
+<header class="top"><div class="wrap nav"><span class="byline"><span class="envelope" aria-hidden="true"></span><span><span class="byline-prefix">A lesson by </span>Charles Lee</span></span><a href="index.html">Return to the listening desk</a></div></header>
+<main class="wrap notes">
+<h1>Credits &amp; field notes</h1>
+<p>The Moon Post grew out of Charles Lee’s May 26, 2026 listening evaluator. The original dashboard paired a word-error comparison with separate judgments of naturalness and voice similarity. The November 2026 public edition recreates that exercise with a fictional night desk.</p>
+<h2>The sounds in the desk</h2>
+<p>Each WAV is a fresh reading of a new script. Carnegie Mellon’s Flite 2.2 generated all seven clips using its bundled SLT and RMS US English voices. Each voice reads text directly. One reading joins two short phrases with a timed gap. Levels are matched across the desk.</p>
+<p>Carnegie Mellon’s ARCTIC voice notices permit commercial and noncommercial use, with attribution, preservation of notices and conditions on modifications and endorsement. The public edition distributes the rendered WAVs. The accompanying notices identify the unmodified synthesis engine and voice sources. <a href="sources/CMU-ARCTIC-SLT.txt">SLT voice license</a> · <a href="sources/CMU-ARCTIC-RMS.txt">RMS voice license</a> · <a href="sources/FLITE-COPYING.txt">Flite license</a> · <a href="sources/VOICE-NOTICES.txt">Bundled voice notices</a> · <a href="https://www.cs.cmu.edu/~awb/papers/ssw5/arctic.pdf">Kominek &amp; Black’s ARCTIC paper</a> · <a href="https://github.com/festvox/flite/tree/e9e2e37c329dbe98bfeb27a1828ef9a71fa84f88">Pinned Flite source</a></p>
+<h2>What Whisper measured</h2>
+<p>Whisper base.en transcribed the seven finished WAVs independently on a CPU using whisper.cpp 1.9.4. Recognition happened during preparation. Every listener hears the same recordings and sees the same transcripts, including in an unzipped offline copy. Your own scores and notes stay in your browser or in the files you download.</p>
+<p>Across the six candidate readings, the written orders and Whisper differ by 5 edits in 46 intended words (10.87%). Two edits are already present in the voice scripts. Comparing Whisper directly with those scripts gives 3 edits in 47 scripted words (6.38%). The reference has its own transcript and is excluded from these totals. <a href="https://github.com/ggml-org/whisper.cpp">whisper.cpp</a> · <a href="https://github.com/openai/whisper">Whisper model and license</a></p>
+<p>The scoring rule ignores capitalization and punctuation, then counts the fewest substitutions, deletions and insertions between the two word lists. Tied alignments prefer a substitution, followed by a deletion and then an insertion. A similar-sounding word can still earn a full edit.</p>
+<details class="method"><summary>Open the scripts, measured transcripts and reproduction notes (contains answers)</summary><ul>
+<li><a href="sources/dispatches.json">Rendering instructions for all seven recordings</a></li>
+<li><a href="sources/recognition.json">Raw Whisper text, clip hashes, flags and model revision</a></li>
+<li><a href="sources/measurements.json">Word alignments, PCM measurements and corpus totals</a></li>
+<li><a href="sources/REPRODUCE.md">Reproduce the recordings and measurements</a></li>
+</ul></details>
+<h2>Edition credits</h2>
+<p>The lesson copy, scripts, browser code, postal artwork, measurements and worksheet were created for Charles Lee’s public edition with Codex. The complete lesson may be hosted and copied for offline listening with the accompanying source notices. The waveform under each play button comes from the recording beside it.</p>
+<p>Newsreader by Production Type and Bricolage Grotesque by Mathieu Triay and contributors are included locally under the SIL Open Font License 1.1. <a href="fonts/OFL-newsreader.txt">Newsreader notice</a> · <a href="fonts/OFL-bricolage-grotesque.txt">Bricolage notice</a></p>
+<p><a href="index.html">Return to the listening desk</a></p>
+</main></body></html>

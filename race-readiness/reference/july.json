@@ -1,0 +1,176 @@
+{
+  "block": "july",
+  "as_of": "2026-07-31",
+  "race": {
+    "id": "fictional-sprint",
+    "name": "Sample sprint",
+    "date": "2026-08-09",
+    "where": "Fictional course",
+    "legs": [
+      {
+        "sport": "Swim",
+        "distance_km": 0.75
+      },
+      {
+        "sport": "Ride",
+        "distance_km": 20
+      },
+      {
+        "sport": "Run",
+        "distance_km": 5
+      }
+    ]
+  },
+  "fictional_activities": [
+    {
+      "detail": {
+        "id": "B-S1",
+        "name": "Pool lengths",
+        "type": "Swim",
+        "start_date_local": "2026-07-02T08:00:00",
+        "distance": 800,
+        "moving_time": 800
+      }
+    },
+    {
+      "detail": {
+        "id": "B-S2",
+        "name": "Buoy loop",
+        "type": "OpenWaterSwim",
+        "start_date_local": "2026-07-05T08:00:00",
+        "distance": 1200,
+        "moving_time": 1320
+      }
+    },
+    {
+      "detail": {
+        "id": "B-B1",
+        "name": "Canal ride",
+        "type": "Ride",
+        "start_date_local": "2026-07-09T08:00:00",
+        "distance": 34000,
+        "moving_time": 4500,
+        "icu_average_watts": 145
+      }
+    },
+    {
+      "detail": {
+        "id": "B-B2",
+        "name": "Viaduct ride",
+        "type": "VirtualRide",
+        "start_date_local": "2026-07-14T08:00:00",
+        "distance": 28000,
+        "moving_time": 4410,
+        "icu_average_watts": 160
+      }
+    },
+    {
+      "detail": {
+        "id": "B-R1",
+        "name": "Track laps",
+        "type": "Run",
+        "start_date_local": "2026-07-18T08:00:00",
+        "distance": 5625,
+        "moving_time": 1800,
+        "total_elevation_gain": 12
+      },
+      "velocity_segments": [
+        [
+          1800,
+          3.125
+        ]
+      ]
+    },
+    {
+      "detail": {
+        "id": "B-R2",
+        "name": "Orchard loop",
+        "type": "TrailRun",
+        "start_date_local": "2026-07-23T08:00:00",
+        "distance": 10588,
+        "moving_time": 3600,
+        "total_elevation_gain": 34
+      },
+      "velocity_segments": [
+        [
+          3600,
+          2.9411764705882355
+        ]
+      ]
+    }
+  ],
+  "form_projection": {
+    "inputs": {
+      "run_pace_30min_s_per_km": 320.0,
+      "run_pace_60min_s_per_km": 340.0,
+      "run_longest_km": 10.59,
+      "bike_watts_60min_plus": 160,
+      "bike_longest_km": 34.0,
+      "swim_per_100m_s": 110.0,
+      "swim_longest_km": 1.2,
+      "sources": {
+        "run_pace_30min_s_per_km": {
+          "activity_id": "B-R1",
+          "date": "2026-07-18",
+          "moving_seconds": 1800
+        },
+        "run_pace_60min_s_per_km": {
+          "activity_id": "B-R2",
+          "date": "2026-07-23",
+          "moving_seconds": 3600
+        },
+        "run_longest_km": {
+          "activity_id": "B-R2",
+          "date": "2026-07-23",
+          "moving_seconds": 3600
+        },
+        "bike_watts_60min_plus": {
+          "activity_id": "B-B2",
+          "date": "2026-07-14",
+          "moving_seconds": 4410
+        },
+        "bike_longest_km": {
+          "activity_id": "B-B1",
+          "date": "2026-07-09",
+          "moving_seconds": 4500
+        },
+        "swim_per_100m_s": {
+          "activity_id": "B-S2",
+          "date": "2026-07-05",
+          "moving_seconds": 1320
+        },
+        "swim_longest_km": {
+          "activity_id": "B-S2",
+          "date": "2026-07-05",
+          "moving_seconds": 1320
+        }
+      }
+    },
+    "legs": [
+      {
+        "sport": "Swim",
+        "km": 0.75,
+        "fast": "0h13m",
+        "slow": "0h15m",
+        "basis": "1:50/100m over 1.2 km on 2026-07-05"
+      },
+      {
+        "sport": "Bike",
+        "km": 20,
+        "fast": "0h38m",
+        "slow": "0h39m",
+        "basis": "160 W average over 73 min 30 s on 2026-07-14, using the dashboard's power-to-speed fit"
+      },
+      {
+        "sport": "Run",
+        "km": 5,
+        "fast": "0h29m",
+        "slow": "0h33m",
+        "basis": "30-min best pace on 2026-07-18, 60-min best pace on 2026-07-23, extrapolated, plus the multi-leg fatigue adjustment"
+      }
+    ],
+    "complete": true,
+    "finish_fast": "1h26m",
+    "finish_slow": "1h33m"
+  }
+}

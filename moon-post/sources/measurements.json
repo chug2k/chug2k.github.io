@@ -1,0 +1,261 @@
+{
+  "edition": "moon-post-night-desk-v1",
+  "recognizer": "whisper.cpp version: 1.9.4",
+  "clips": {
+    "reference": {
+      "sha256": "49b04d72b89151e77d0c440c0559b1f9e9c9a0e9fc67c48f9ae14588540053b3",
+      "script": "Please leave your letters on the counter. I will take them when the bell rings.",
+      "whisper": "Please leave your letters on the counter, I will take them when the bell rings.",
+      "rate_hz": 16000,
+      "frames": 77601,
+      "seconds": 4.850062,
+      "rms_dbfs": -20.0,
+      "peak_dbfs": -7.23,
+      "estimated_median_voiced_hz": 167,
+      "order_to_whisper": {
+        "errors": 0,
+        "words": 15,
+        "changes": []
+      },
+      "order_to_script": {
+        "errors": 0,
+        "words": 15,
+        "changes": []
+      },
+      "script_to_whisper": {
+        "errors": 0,
+        "words": 15,
+        "changes": []
+      }
+    },
+    "1-a": {
+      "sha256": "2fd17fd97eccb6aad1f47dfd3276372c3e93a43148ac64ce6d248035a5f0d507",
+      "script": "Keep the door open until the bell rings.",
+      "whisper": "Keep the door. Open until the bell rings.",
+      "rate_hz": 16000,
+      "frames": 57962,
+      "seconds": 3.622625,
+      "rms_dbfs": -20.0,
+      "peak_dbfs": -7.01,
+      "estimated_median_voiced_hz": 174,
+      "order_to_whisper": {
+        "errors": 0,
+        "words": 8,
+        "changes": []
+      },
+      "order_to_script": {
+        "errors": 0,
+        "words": 8,
+        "changes": []
+      },
+      "script_to_whisper": {
+        "errors": 0,
+        "words": 8,
+        "changes": []
+      }
+    },
+    "1-b": {
+      "sha256": "8bd5d16f731c7e061ed572f667422e0f428784b130082c1d2cc1b9117e4b82d4",
+      "script": "Keep the door open until the bell rings.",
+      "whisper": "Keep the door open until the bell rings.",
+      "rate_hz": 16000,
+      "frames": 43611,
+      "seconds": 2.725687,
+      "rms_dbfs": -20.0,
+      "peak_dbfs": -6.53,
+      "estimated_median_voiced_hz": 100,
+      "order_to_whisper": {
+        "errors": 0,
+        "words": 8,
+        "changes": []
+      },
+      "order_to_script": {
+        "errors": 0,
+        "words": 8,
+        "changes": []
+      },
+      "script_to_whisper": {
+        "errors": 0,
+        "words": 8,
+        "changes": []
+      }
+    },
+    "2-a": {
+      "sha256": "a1a9cbd81359759214c9c5a9db060d9e8861b2f626cf8e12d8ce9a74e9c67fea",
+      "script": "Send the red parcel on the night ferry.",
+      "whisper": "Send the red parcel on the night fairy.",
+      "rate_hz": 16000,
+      "frames": 40625,
+      "seconds": 2.539062,
+      "rms_dbfs": -20.0,
+      "peak_dbfs": -5.26,
+      "estimated_median_voiced_hz": 100,
+      "order_to_whisper": {
+        "errors": 1,
+        "words": 8,
+        "changes": [
+          [
+            "substitution",
+            "ferry",
+            "fairy"
+          ]
+        ]
+      },
+      "order_to_script": {
+        "errors": 0,
+        "words": 8,
+        "changes": []
+      },
+      "script_to_whisper": {
+        "errors": 1,
+        "words": 8,
+        "changes": [
+          [
+            "substitution",
+            "ferry",
+            "fairy"
+          ]
+        ]
+      }
+    },
+    "2-b": {
+      "sha256": "2d49dea385a231072a6b027b496608fc57c270f0186bab0fa92e6172f1ec6d7e",
+      "script": "Send the red parcel on the noon ferry.",
+      "whisper": "Send the red parcel on the noon ferry.",
+      "rate_hz": 16000,
+      "frames": 41577,
+      "seconds": 2.598562,
+      "rms_dbfs": -20.0,
+      "peak_dbfs": -9.4,
+      "estimated_median_voiced_hz": 174,
+      "order_to_whisper": {
+        "errors": 1,
+        "words": 8,
+        "changes": [
+          [
+            "substitution",
+            "night",
+            "noon"
+          ]
+        ]
+      },
+      "order_to_script": {
+        "errors": 1,
+        "words": 8,
+        "changes": [
+          [
+            "substitution",
+            "night",
+            "noon"
+          ]
+        ]
+      },
+      "script_to_whisper": {
+        "errors": 0,
+        "words": 8,
+        "changes": []
+      }
+    },
+    "3-a": {
+      "sha256": "09c252623cd153d31e70953a4f830289100abd5cfeda4973fa3c1fdbe0173873",
+      "script": "Write Quill Lane on the return label.",
+      "whisper": "Right quill lane on the return label.",
+      "rate_hz": 16000,
+      "frames": 38629,
+      "seconds": 2.414312,
+      "rms_dbfs": -20.0,
+      "peak_dbfs": -6.26,
+      "estimated_median_voiced_hz": 105,
+      "order_to_whisper": {
+        "errors": 1,
+        "words": 7,
+        "changes": [
+          [
+            "substitution",
+            "write",
+            "right"
+          ]
+        ]
+      },
+      "order_to_script": {
+        "errors": 0,
+        "words": 7,
+        "changes": []
+      },
+      "script_to_whisper": {
+        "errors": 1,
+        "words": 7,
+        "changes": [
+          [
+            "substitution",
+            "write",
+            "right"
+          ]
+        ]
+      }
+    },
+    "3-b": {
+      "sha256": "41da5e934f4e94b92a6755d09eded7558fe430d53ef65d96932c1b359b525b1e",
+      "script": "Write Quill Lane on the blue return label.",
+      "whisper": "Right quill lane on the blue return label",
+      "rate_hz": 16000,
+      "frames": 50938,
+      "seconds": 3.183625,
+      "rms_dbfs": -20.0,
+      "peak_dbfs": -6.71,
+      "estimated_median_voiced_hz": 105,
+      "order_to_whisper": {
+        "errors": 2,
+        "words": 7,
+        "changes": [
+          [
+            "substitution",
+            "write",
+            "right"
+          ],
+          [
+            "insertion",
+            "",
+            "blue"
+          ]
+        ]
+      },
+      "order_to_script": {
+        "errors": 1,
+        "words": 7,
+        "changes": [
+          [
+            "insertion",
+            "",
+            "blue"
+          ]
+        ]
+      },
+      "script_to_whisper": {
+        "errors": 1,
+        "words": 8,
+        "changes": [
+          [
+            "substitution",
+            "write",
+            "right"
+          ]
+        ]
+      }
+    }
+  },
+  "candidate_totals": {
+    "order_to_whisper": {
+      "errors": 5,
+      "words": 46
+    },
+    "order_to_script": {
+      "errors": 2,
+      "words": 46
+    },
+    "script_to_whisper": {
+      "errors": 3,
+      "words": 47
+    }
+  }
+}

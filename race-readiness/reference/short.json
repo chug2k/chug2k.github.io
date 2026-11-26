@@ -1,0 +1,122 @@
+{
+  "block": "short",
+  "as_of": "2026-07-31",
+  "race": {
+    "id": "fictional-sprint",
+    "name": "Sample sprint",
+    "date": "2026-08-09",
+    "where": "Fictional course",
+    "legs": [
+      {
+        "sport": "Swim",
+        "distance_km": 0.75
+      },
+      {
+        "sport": "Ride",
+        "distance_km": 20
+      },
+      {
+        "sport": "Run",
+        "distance_km": 5
+      }
+    ]
+  },
+  "fictional_activities": [
+    {
+      "detail": {
+        "id": "C-S1",
+        "name": "Pool warm-up",
+        "type": "Swim",
+        "start_date_local": "2026-07-26T08:00:00",
+        "distance": 400,
+        "moving_time": 440
+      }
+    },
+    {
+      "detail": {
+        "id": "C-B1",
+        "name": "Short canal ride",
+        "type": "Ride",
+        "start_date_local": "2026-07-27T08:00:00",
+        "distance": 22000,
+        "moving_time": 3599,
+        "icu_average_watts": 175
+      }
+    },
+    {
+      "detail": {
+        "id": "C-R1",
+        "name": "Track laps",
+        "type": "Run",
+        "start_date_local": "2026-07-29T08:00:00",
+        "distance": 5625,
+        "moving_time": 1800,
+        "total_elevation_gain": 12
+      },
+      "velocity_segments": [
+        [
+          1800,
+          3.125
+        ]
+      ]
+    }
+  ],
+  "form_projection": {
+    "inputs": {
+      "run_pace_30min_s_per_km": 320.0,
+      "run_pace_60min_s_per_km": null,
+      "run_longest_km": 5.62,
+      "bike_watts_60min_plus": null,
+      "bike_longest_km": 22.0,
+      "swim_per_100m_s": null,
+      "swim_longest_km": 0,
+      "sources": {
+        "run_pace_30min_s_per_km": {
+          "activity_id": "C-R1",
+          "date": "2026-07-29",
+          "moving_seconds": 1800
+        },
+        "run_pace_60min_s_per_km": null,
+        "run_longest_km": {
+          "activity_id": "C-R1",
+          "date": "2026-07-29",
+          "moving_seconds": 1800
+        },
+        "bike_watts_60min_plus": null,
+        "bike_longest_km": {
+          "activity_id": "C-B1",
+          "date": "2026-07-27",
+          "moving_seconds": 3599
+        },
+        "swim_per_100m_s": null,
+        "swim_longest_km": null
+      }
+    },
+    "legs": [
+      {
+        "sport": "Swim",
+        "km": 0.75,
+        "fast": null,
+        "slow": null,
+        "basis": "No measured pace from a qualifying swim over 400 m."
+      },
+      {
+        "sport": "Bike",
+        "km": 20,
+        "fast": null,
+        "slow": null,
+        "basis": "No ride of at least 60 min with recorded average power."
+      },
+      {
+        "sport": "Run",
+        "km": 5,
+        "fast": "0h26m",
+        "slow": null,
+        "basis": "30-min best pace on 2026-07-29, extrapolated, no 60-min pace available"
+      }
+    ],
+    "complete": false,
+    "finish_fast": "0h05m",
+    "finish_slow": "0h06m"
+  }
+}
