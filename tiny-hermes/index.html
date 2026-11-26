@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#fbf7ee"><meta name="description" content="Teach a local briefing a preference and see what follows it into a fresh session."><title>Tiny Hermes — The briefing room</title>
+<link rel="stylesheet" href="./tokens.css"><link rel="stylesheet" href="./briefing.css"><script defer src="./briefing.js"></script></head>
+<body><header><div class="wrap mast"><a href="./index.html" class="brand">Tiny Hermes</a><a href="./tiny-hermes.zip" download>Download offline kit ↓</a></div></header>
+<main class="wrap"><div class="lead"><div><h1>The briefing room<span aria-hidden="true">.</span></h1>
+<p class="lede">Teach a briefing how you like it written. Open a fresh session and see which details travel with it.</p></div>
+<aside class="scope"><strong>Inside this lesson</strong><p>A fixed set of rules reads three fictional notes. Memory and results stay in this browser. You move the simulated clock. There’s no live AI or background delivery.</p></aside></div>
+<div class="paper-grid"><section class="source"><div class="kicker">Source material</div><h2>Project notes</h2><p class="subtle" id="edition"></p><div id="notes"></div><button id="update" class="quiet">Apply note update</button></section>
+<section class="builder"><div class="kicker">Memory</div><h2>Teach the next session</h2><label for="preference">Briefing preference</label><select id="preference"><option value="blockers">Blockers first, with owners</option><option value="ready">Ready work first, with owners</option></select>
+<div class="actions"><button id="save-pref">Save preference</button><button id="forget" class="quiet" disabled>Forget preference</button></div>
+<p id="memory" class="ledger"></p>
+<details id="procedure-box"><summary>Reusable procedure</summary><p>Save the lesson’s three-step routine. Each fresh run can read it alongside your preference.</p><ol id="routine"></ol><button class="quiet" id="save-skill">Save procedure</button><p id="skill-state"></p></details>
+<div class="run"><button class="primary" id="run">Start fresh session →</button></div></section></div>
+<section class="comparison"><div class="section-line"><div><div class="kicker">The output</div><h2>Briefing comparison</h2></div><button class="quiet" id="download" disabled>Download comparison</button></div>
+<div class="two"><article><h3>Before memory</h3><p class="context" id="before-label"></p><div class="report" id="before"></div></article>
+<article><h3>Fresh session</h3><p class="context" id="after-label"></p><div class="report" id="after"></div></article></div>
+<details class="trace" id="trace-box"><summary>Inspect the run</summary><ol id="trace"></ol></details></section>
+<section class="schedule"><div><div class="kicker">Local schedule</div><h2>Run it one minute later</h2><p>The clock advances only when you move it. A due job rereads the current notes and saves one fresh briefing to the local outbox.</p></div>
+<div class="clock"><span>Simulated time</span><strong id="time">09:00</strong><div class="actions"><button id="schedule">Schedule in 1 minute</button><button class="quiet" id="advance">Advance 1 minute</button></div><p id="job"></p></div>
+<div class="outbox"><h3>Outbox</h3><div id="outbox"></div></div></section>
+<p id="message" role="status" aria-live="polite"></p>
+<details class="guide"><summary>Try the fresh-session check</summary><ol><li>Choose <b>Save preference</b> with <b>Blockers first, with owners</b> selected, then <b>Start fresh session</b>. Compare Atlas, Cedar, Beacon against the original note order. The two blockers now name their owners.</li><li>Under <b>Reusable procedure</b>, choose <b>Save procedure</b>. Choose <b>Apply note update</b> and <b>Start fresh session</b>. Beacon is now blocked and Atlas is ready. <b>Inspect the run</b> lists the preference, routine and note revision it read.</li><li>Choose <b>Schedule in 1 minute</b>, then <b>Advance 1 minute</b>. The outbox gains one briefing. Reload to find it again. <b>Download comparison</b> exports both versions and the trace.</li></ol>
+<p>This teaching edition was built from the October 2026 Tiny Hermes episode plan. The plan proposed a model API and worker. This browser edition uses a deterministic formatter and a manual clock.</p></details>
+</main><footer class="wrap"><span>Tiny Hermes</span><span>Local briefing lesson</span></footer></body></html>

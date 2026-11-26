@@ -197,13 +197,14 @@ function editsRow(title, score) {
 
 function resultCard(clip, answer, round, j) {
   const article = node("article", undefined, "result");
-  article.append(node("h4", "Reading " + LETTERS[j]));
+  article.append(node("h4", "Reading " + LETTERS[j]),
+    node("p", "Your ratings · Naturalness " + answer.naturalness + "/5 · Voice similarity " + answer.similarity + "/5", "metric"));
   const list = node("dl");
   addTerm(list, "Synthesis script", clip.script);
   addTerm(list, "Whisper transcript", clip.whisper);
   article.append(list, editsRow("Order to script", clip.order_to_script),
-    editsRow("Script to Whisper", clip.script_to_whisper),
-    node("p", "Dispatch WER " + scoreText(clip.order_to_whisper), "metric"));
+    editsRow("Transcription WER · " + scoreText(clip.script_to_whisper), clip.script_to_whisper),
+    node("p", "Dispatch WER (order to Whisper) · " + scoreText(clip.order_to_whisper), "metric"));
   if (answer.heard.trim()) {
     const yours = node("p", undefined, "diff-line");
     yours.append(node("strong", "Your first transcription"), document.createTextNode(answer.heard));

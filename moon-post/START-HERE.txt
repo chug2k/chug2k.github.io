@@ -3,7 +3,7 @@ A listening workshop by Charles Lee
 
 Unzip the whole folder, then open index.html in a browser. Keep audio, fonts and sources beside index.html. The players, ratings, reveals, answer files and worksheet work locally.
 
-Play the reference once. For each dispatch, play A and B all the way through and give each two scores, from 1 to 5. Naturalness rates how the words flow. Voice similarity rates how much the speaker sounds like the clerk. You can also type the words you heard. Open the written order after all four scores. Your first impressions are now filed. Choose A, B or a tie, and write one sentence about your decision.
+Play the reference once. For each dispatch, play A and B all the way through and give each two scores, from 1 to 5. Naturalness rates how the words flow. Voice similarity rates how much the speaker sounds like the clerk. You can also type the words you heard. Open the written order after all four scores. Your first impressions are now filed. Compare the synthesis script with Whisper’s transcript to check transcription accuracy. Compare the written order with the script to see whether the wrong words went into the voice. Choose A, B or a tie, and write one sentence about your decision.
 
 After three decisions, download the Markdown worksheet. Save answers (.json) also works partway through. Restore that file to move between a browser and an offline copy. Browser storage for local files depends on your browser and folder location.
 

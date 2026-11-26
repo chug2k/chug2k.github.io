@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f3e7">
+  <meta name="description" content="Pop a 42-bubble sheet, measure your speed and accuracy, replay the route and print a souvenir from your browser.">
+  <title>Bubble Wrap Club</title>
+  <link rel="icon" href="data:,"><link rel="stylesheet" href="./tokens.css"><script defer src="./app.js"></script>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="dispatch"><span>REWRAP <b>/</b> GAMES</span><span>PACKING DEPARTMENT</span></div>
+      <h1>Bubble Wrap Club<span aria-hidden="true">.</span></h1>
+      <p>One sheet. Forty-two little pops. The clock starts with your first.</p>
+    </header>
+    <div class="bench">
+      <section class="sheet-panel" aria-labelledby="sheet-title">
+        <div class="sheet-head"><h2 id="sheet-title">The pop sheet</h2><span id="stock">42 sealed</span></div>
+        <div class="wrapper">
+          <div class="tape tape-a" aria-hidden="true"></div><div class="tape tape-b" aria-hidden="true"></div>
+          <div id="sheet" role="group" aria-label="Bubble sheet, six rows by seven columns" aria-describedby="controls"></div>
+        </div>
+        <div class="sheet-foot"><span id="grid-mode">7 across × 6 down</span><button type="button" id="sound" aria-pressed="false">Sound off</button></div>
+        <details id="controls"><summary>Touch &amp; keyboard controls</summary><p>Tap or drag across the sheet. Press Tab to enter it, arrow keys to move and Space or Enter to pop. Home and End jump across a row. A second press on a burst bubble counts as a miss. Gliding over it is free.</p></details>
+      </section>
+
+      <section class="slip" aria-labelledby="slip-title">
+        <div class="ticket-top"><span>RUN RECEIPT</span><span id="ticket-tag">UNSTAMPED</span></div>
+        <h2 id="slip-title" tabindex="-1">Ready to pop.</h2>
+        <p id="blurb">Start anywhere. Swipe a row in one stroke, or aim for 42 hits in 42 presses.</p>
+        <dl class="metrics">
+          <div><dt>First to last</dt><dd id="time">0.00 s</dd></div>
+          <div><dt>Accuracy</dt><dd id="accuracy">—</dd></div>
+          <div><dt>Pops</dt><dd id="pops">0 / 42</dd></div>
+          <div><dt>Misses</dt><dd id="misses">0</dd></div>
+        </dl>
+        <p id="best">A clean sheet earns a personal time to beat.</p>
+        <div id="finish-actions" hidden>
+          <div class="actions"><button id="replay" type="button">Replay run</button>
+            <label class="pace">Speed <select id="speed"><option value="1">1×</option><option value="4">4×</option><option value="16">16×</option></select></label>
+            <button type="button" id="step">Step replay</button></div>
+          <p id="replay-status" aria-live="polite"></p>
+          <div class="actions"><button id="card" type="button">Save souvenir PNG</button>
+            <button id="fresh" type="button">Fresh sheet</button></div>
+        </div>
+        <button type="button" id="view-last" hidden>View last run</button>
+        <p id="storage-note">Runs and souvenirs stay on this device.</p>
+      </section>
+    </div>
+    <div class="sr-only" id="announce" role="status"></div>
+    <footer><p>A standalone edition of the founding-member game tucked inside Rewrap in July 2026.</p><span id="portable"><a href="./bubble-wrap-club.zip" download>Download offline game</a></span></footer>
+  </main>
+</body></html>
