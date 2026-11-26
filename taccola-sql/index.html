@@ -1,0 +1,23 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#102c32"><meta name="description" content="Follow a jackdaw through three real SQLite clues to recover a missing concert bell.">
+<title>Taccola · The Missing Rain Bell</title><link rel="icon" href="data:,"><link rel="stylesheet" href="tokens.css">
+<script defer src="case.js"></script><script defer src="sqlite-engine.js"></script><script defer src="engine-runner.js"></script><script defer src="quest.js"></script>
+</head><body>
+<div class="cover">
+ <header class="wrap mast"><div>Taccola <span>An SQL adventure</span></div><a id="download" href="taccola-sql.zip" download>Download offline kit ↓</a></header>
+ <div class="wrap jacket"><div class="blurb"><h1>The Missing Rain Bell</h1><p>The noon concert is hours away, and the rain bell has vanished into the instrument stores. Follow Rill, the bell house jackdaw, through the records to its case.</p></div><figure><img src="rill.webp" width="600" height="360" alt="Rill, a slate-necked jackdaw, holds an inventory slip at the archive desk."></figure></div>
+</div>
+<main class="wrap spread">
+  <aside class="casebook"><h2>Casebook</h2><p class="progress" id="progress">0 of 3 clues recorded</p><nav id="chapters" aria-label="Quest chapters"></nav><ul id="journal" aria-label="Confirmed evidence"></ul></aside>
+  <section class="desk" aria-labelledby="heading">
+    <div class="leaf"><p id="chapter" class="kicker"></p><h2 id="heading" tabindex="-1"></h2><div class="companion"><strong>Rill</strong><p id="voice"></p></div><p id="ask"></p><p class="columns">Return columns <span id="required"></span></p></div>
+    <div class="query"><label for="sql">SQL notebook</label><textarea id="sql" spellcheck="false" rows="6" maxlength="12000" autocapitalize="off" autocomplete="off"></textarea><div class="actionbar"><button class="primary" id="run" type="button">Run query</button><button id="hint" class="quiet" type="button">Ask Rill</button><span id="activity" role="status"></span></div><div id="hintbox" hidden></div></div>
+    <section id="finding" aria-label="Query result" aria-live="polite" hidden><h3 id="finding-title"></h3><p id="finding-message"></p><div id="output"></div><button id="next" type="button" class="primary" hidden>Next clue</button></section>
+    <details class="worked" id="worked"><summary>View worked query</summary><pre id="worked-code"></pre><button id="load" class="quiet" type="button">Load worked query</button></details>
+  </section>
+  <aside class="register"><details id="guide" open><summary>Table guide</summary><label for="register-select">Register</label><select id="register-select"></select><p id="table-note"></p><p id="schema"></p><div id="table-preview"></div></details></aside>
+</main>
+<footer class="wrap"><details><summary>About this edition</summary><p>In October 2023 Charles Lee’s CoderSchool Qwik prototype asked a model to invent a companion and plan three SQL levels. Its interface generated the opening level. This edition keeps the companion-led quest structure. Rill, the mystery, all records, the art and the playable casebook were made for this game. Queries run locally with sql.js 1.17.0, using the SQLite build packaged for Three Cheapest Crossings.</p><a href="sqlite-LICENSE.txt">SQLite runtime notices</a></details><details id="restart-menu"><summary>Restart case</summary><p>Clear this casebook and its saved queries.</p><button type="button" id="restart" class="quiet">Start over</button></details></footer>
+<noscript>This mystery requires JavaScript and WebAssembly to run the SQL notebook.</noscript>
+</body></html>

@@ -89,6 +89,14 @@
   ],
   "apps": [
     {
+      "title": "Taccola · The Missing Rain Bell",
+      "description": "Follow a jackdaw through three SQLite clues to locate a missing concert bell in its packing case.",
+      "url": "/taccola-sql/",
+      "kind": "Game",
+      "status": "Project",
+      "notes": ""
+    },
+    {
       "title": "Bubble Wrap Club",
       "description": "Pop 42 bubbles, replay your exact route and save a numbered souvenir card showing your time and accuracy.",
       "url": "/bubble-wrap-club/",
