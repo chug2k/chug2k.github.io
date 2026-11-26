@@ -52,12 +52,12 @@
   "projects": [
     {
       "title": "YouTube Music, lighter",
-      "description": "A small desktop app built with Tauri and Rust, with native media keys and track notifications.",
+      "description": "YTM Yagami is a small YouTube Music player for the desktop, built with Tauri and Rust. It supports native media keys and track notifications.",
       "detail": "The write-up follows the webview, IPC, and macOS integration problems behind a roughly 3 MB installer.",
       "url": "/youtube-music-3mb/",
       "link_label": "Read the build notes",
-      "secondary_url": "https://github.com/chug2k/ytmdesktop",
-      "secondary_label": "Source code",
+      "secondary_url": "https://github.com/chug2k/ytmdesktop#install",
+      "secondary_label": "Install guide & source",
       "medium": "Desktop app · Rust / Tauri"
     },
     {

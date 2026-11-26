@@ -1,4 +1,13 @@
 <header class="page-heading"><p class="dispatch-label">Research &amp; questionable development</p><h1>Projects</h1><p class="intro">Small software, interactive stories, and experiments with AI. Here’s what I made and how it works.</p></header>
-<section class="section first-section" aria-labelledby="selected-work"><h2 id="selected-work">Selected work</h2><div class="case-studies">{{PROJECTS}}</div></section>
-<section class="section" aria-labelledby="apps"><div class="section-heading"><div><h2 id="apps">More from the workshop</h2><p>Apps to use. Games to play. Productivity sold separately.</p></div></div><div class="writing-list">{{APPS}}</div></section>
+<form class="project-search" role="search" aria-label="Published projects" hidden>
+  <label for="project-query">Find a project</label>
+  <div class="project-search-controls">
+    <input id="project-query" type="search" placeholder="Try salary, triathlon, or music" enterkeyhint="search">
+    <button type="button" hidden>Clear</button>
+  </div>
+  <p role="status" aria-atomic="true"></p>
+</form>
+<section class="section first-section" data-project-group aria-labelledby="selected-work"><h2 id="selected-work">Selected work</h2><div class="case-studies">{{PROJECTS}}</div></section>
+<section class="section" data-project-group aria-labelledby="apps"><div class="section-heading"><div><h2 id="apps">More from the workshop</h2><p>Apps to use. Games to play. Productivity sold separately.</p></div></div><div class="writing-list">{{APPS}}</div></section>
 <section class="section bench"><details><summary>Still on the workbench <span>{{BENCH_COUNT}} experiments</span></summary><p class="bench-intro">Unfinished or parked. These aren’t available to try yet, but the ideas are worth keeping.</p><div class="bench-grid">{{BENCH}}</div></details></section>
+<script src="/assets/workshop-search.js" defer></script>
