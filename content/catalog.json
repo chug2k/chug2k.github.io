@@ -89,6 +89,14 @@
   ],
   "apps": [
     {
+      "title": "The Chladni Table",
+      "description": "Predict where sand bands cross a modeled plate, reveal a second vibration mode and save the two patterns side by side.",
+      "url": "/chladni-lab/",
+      "kind": "Lesson",
+      "status": "Project",
+      "notes": ""
+    },
+    {
       "title": "Taccola · The Missing Rain Bell",
       "description": "Follow a jackdaw through three SQLite clues to locate a missing concert bell in its packing case.",
       "url": "/taccola-sql/",
@@ -320,7 +328,7 @@
     },
     {
       "title": "Voice Clone Lab",
-      "description": "A listening dashboard for comparing transcriptions and rating a voice. Its naturalness and similarity exercise became The Moon Post in the lesson library.",
+      "description": "The original Voice Clone WER Eval dashboard compared transcriptions, naturalness and speaker similarity. Its public listening exercise uses seven new recordings.",
       "url": "",
       "status": "Parked",
       "notes": "Python · OmniVoice · Speech evaluation"
@@ -343,17 +351,29 @@
   "collections": [
     {
       "title": "Hands-on lessons",
-      "description": "Try a ten-minute fiction revision or audition a voice for the night mail. The collection also has exercises in agents, film, Ruby, SQL and measurement.",
+      "description": "Evaluate a synthetic voice, revise a scene, or trace what an agent does. The collection also has exercises in film, Ruby, SQL and measurement.",
       "url": "/blog/2026-11-25-what-is-an-agent/",
       "link_label": "What is an agent?",
       "links": [
         { "title": "Who gets the spare key? · Fiction", "url": "/blog/2026-11-26-who-gets-the-spare-key/" },
-        { "title": "Who gets to read the night mail? · Listening", "url": "/blog/2026-11-26-who-gets-to-read-the-night-mail/" },
+        { "title": "How to evaluate a synthetic voice · Listening", "url": "/blog/2026-11-26-who-gets-to-read-the-night-mail/" },
         { "title": "Right Total, Wrong Door", "url": "/right-total-wrong-door/" },
         { "title": "The Last Tram · Ruby", "url": "/last-tram-ruby/" },
         { "title": "Three Cheapest Crossings · SQL", "url": "https://clpanic.com/three-cheapest-crossings/" },
         { "title": "The Coastline Problem · Prízrak", "url": "https://offerings-eight.vercel.app/the-coastline-problem" },
         { "title": "Read the three-lesson guide", "url": "/blog/2026-11-25-a-fare-a-film-and-a-coastline/" }
+      ]
+    },
+    {
+      "title": "From the project archive",
+      "description": "Ten browser projects recovered from lessons, games and unfinished tools. The earliest started as a CSS exercise in 2020.",
+      "url": "/blog/2026-11-26-ten-projects-from-the-archive/",
+      "link_label": "Explore the ten projects",
+      "links": [
+        { "title": "Branch Room · Git", "url": "/branch-room/" },
+        { "title": "Layout Workbench · CSS", "url": "/layout-workbench/" },
+        { "title": "Taccola · SQL", "url": "/taccola-sql/" },
+        { "title": "What does one notebook cost?", "url": "/blog/2026-11-26-what-does-one-notebook-cost/" }
       ]
     },
     {
