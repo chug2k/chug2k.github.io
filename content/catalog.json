@@ -89,6 +89,14 @@
   ],
   "apps": [
     {
+      "title": "Sammy’s Bork-o-Meter 9000",
+      "description": "Press Sammy’s bark button to log a patrol, undo a false alarm and check the neighborhood sploot forecast.",
+      "url": "/sammys-bork-meter/",
+      "kind": "Game",
+      "status": "Project",
+      "notes": ""
+    },
+    {
       "title": "Branch Room",
       "description": "Change a pull request’s base to keep an unannounced workshop out of a door-sign review.",
       "url": "/branch-room/",

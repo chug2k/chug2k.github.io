@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6edcf">
+  <meta name="description" content="Press Sammy the corgi’s BORK! button, log the neighborhood patrol and check an extremely official sploot forecast.">
+  <title>Sammy’s Bork-o-Meter 9000</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./tokens.css">
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <main>
+    <header class="mast">
+      <div class="byline"><span class="paw" aria-hidden="true">✣</span> Sammy the Corgi <span class="rule"></span> K-9 Instruments</div>
+      <h1>Sammy’s <span>Bork-o-Meter</span> <b>9000</b></h1>
+      <p>i coded this myself with my nose. took 47 tries.</p>
+    </header>
+
+    <section class="console" aria-label="Bark counter">
+      <i class="screw tl" aria-hidden="true"></i><i class="screw tr" aria-hidden="true"></i>
+      <div class="screen">
+        <div class="screen-head"><span><i></i> Sammy cam</span><span>K-9 / LIVE</span></div>
+        <div class="dog-stage">
+          <canvas id="dog" width="130" height="76" role="img" aria-label="A pixel-art corgi on neighborhood watch"></canvas>
+          <span id="callout" aria-hidden="true" hidden></span>
+        </div>
+        <div class="visor"><span class="micro">Total borks recorded</span><strong id="count">0</strong></div>
+      </div>
+      <div class="control-panel">
+        <div class="model">NOSE-ACTUATED <span>◉</span></div>
+        <button id="bork" type="button">BORK!</button>
+        <p id="reaction">Press the button. Sammy’s on patrol.</p>
+        <div class="secondary">
+          <button id="undo" type="button" disabled>Undo last bork</button>
+          <button id="sound" type="button" aria-pressed="false">Sound off</button>
+        </div>
+        <p class="shift">This shift <strong id="session">0 borks</strong></p>
+      </div>
+      <i class="screw bl" aria-hidden="true"></i><i class="screw br" aria-hidden="true"></i>
+    </section>
+    <p class="save-note" id="storage-note">Total saved in this browser. This shift belongs to this tab.</p>
+    <div class="sr-only" role="status" id="announce"></div>
+
+    <section class="forecasts" aria-labelledby="desk">
+      <div class="desk-head"><h2 id="desk">From the lookout desk</h2><span>this is science.</span></div>
+      <dl>
+        <div><dt>Mailman threat level</dt><dd id="mailman"></dd></div>
+        <div><dt>Is it treat time?</dt><dd id="treat">YES. it is always treat time. sammy verified this legally.</dd></div>
+        <div><dt>Sploot forecast</dt><dd id="sploot"></dd></div>
+        <div><dt>Leg length tracker</dt><dd><strong>still short.</strong> day 1,283 of measuring. no change.</dd></div>
+      </dl>
+    </section>
+    <footer>
+      <p>A pocket edition of Sammy’s July 2026 browser toy. Peer reviewed by two squirrels (they ran away, which counts as approval).</p>
+      <span id="portable"><a href="./sammys-bork-meter.zip" download>Download offline toy</a></span>
+    </footer>
+  </main>
+</body>
+</html>
