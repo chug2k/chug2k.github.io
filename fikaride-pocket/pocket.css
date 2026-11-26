@@ -100,7 +100,8 @@
 .pk-save-mark { width: 12px; height: 12px; display: inline-block; position: relative; border: 1px solid #637259; border-radius: 2px; }
 .pk-save-mark::after { content: ''; position: absolute; width: 6px; height: 3px; border-left: 1.5px solid #485e42; border-bottom: 1.5px solid #485e42; transform: rotate(-45deg); top: 3px; left: 2px; }
 .pk-links { display: inline-flex; gap: 21px; flex-wrap: wrap; }
-.pk-links a { display: inline-flex; align-items: center; min-height: 44px; color: var(--pk-muted); text-decoration: underline; text-underline-offset: 3px; }
+.pk-links :is(a, button) { display: inline-flex; align-items: center; min-height: 44px; color: var(--pk-muted); text-decoration: underline; text-underline-offset: 3px; }
+.pk-links button { padding: 0; border: 0; background: transparent; }
 .pk-guide { box-sizing: border-box; width: min(490px, calc(100vw - 28px)); max-height: 86dvh; overflow: auto; margin: auto; padding: 28px;
   color: var(--pk-ink); background: var(--pk-paper); border: 1px solid #b4bda7; border-radius: 18px; box-shadow: 0 15px 70px #14291a44; }
 .pk-guide::backdrop { background: #13271ec7; }
@@ -108,6 +109,14 @@
 .pk-guide h3 { font: 650 1rem/1.4 var(--pk-sans); margin: 18px 0 3px; }
 .pk-guide p { font-size: .98rem; margin: 0; color: #465647; }
 .pk-guide .pk-needs { margin-top: 8px; font: 550 .85rem/1.45 var(--pk-mono); }
+.pk-transfer-only .pk-transfer-title { margin: 0 50px 14px 0; font: 400 2rem/1.08 var(--pk-serif); letter-spacing: -.045em; }
+.pk-transfer-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 4px; }
+.pk-transfer-actions button { min-height: 44px; padding: 6px 12px; color: var(--pk-ink); font-size: .9rem; border: 1px solid #a1ab96; border-radius: 8px; background: var(--pk-paper); }
+.pk-transfer-actions .pk-confirm { color: white; background: var(--pk-green); }
+.pk-import-preview { padding: 11px 13px; margin-top: 12px; border: 1px solid var(--pk-rule); border-radius: 8px; }
+.pk-import-preview p + p { margin-top: 7px; }
+.pk-import-preview b, .pk-import-preview span { display: block; }
+.pk-guide .pk-transfer-status:not(:empty) { margin-top: 9px; }
 .pk-credit-link { display: inline-flex; min-height: 44px; align-items: center; margin-top: 10px; color: var(--pk-muted); text-underline-offset: 3px; }
 .pk-guide form { float: right; }
 .pocket-page .pk-close { width: 44px; padding: 0; font-size: 1.45rem; }
