@@ -89,6 +89,14 @@
   ],
   "apps": [
     {
+      "title": "Beatrice Room",
+      "description": "Run a timed planning exercise in facilitator and learner views, then download the shared reflection.",
+      "url": "/beatrice-room/",
+      "kind": "Tool",
+      "status": "Project",
+      "notes": ""
+    },
+    {
       "title": "The Chladni Table",
       "description": "Predict where sand bands cross a modeled plate, reveal a second vibration mode and save the two patterns side by side.",
       "url": "/chladni-lab/",
