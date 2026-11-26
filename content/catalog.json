@@ -89,6 +89,22 @@
   ],
   "apps": [
     {
+      "title": "Branch Room",
+      "description": "Change a pull request’s base to keep an unannounced workshop out of a door-sign review.",
+      "url": "/branch-room/",
+      "kind": "Lesson",
+      "status": "Project",
+      "notes": ""
+    },
+    {
+      "title": "Batch Ledger",
+      "description": "Price a run of candles or notebooks, trace the material and scrap into each lot, then reverse the entry and export the stock movements.",
+      "url": "/batch-ledger-lab/",
+      "kind": "Lesson",
+      "status": "Project",
+      "notes": ""
+    },
+    {
       "title": "Fikaride Pocket",
       "description": "Start a simulated ride to warm a moth egg. It hatches after ten seconds of pedaling. Come back for its first meal.",
       "url": "/fikaride-pocket/",

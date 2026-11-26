@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f5f3e9">
+  <meta name="description" content="Fix a pull request whose base branch includes an unrelated workshop announcement.">
+  <title>Branch Room · Morrow Print Room</title>
+  <link rel="stylesheet" href="tokens.css"><link rel="icon" href="data:,">
+  <script defer src="repository.js"></script><script defer src="room.js"></script>
+</head>
+<body>
+  <header><div class="top wrap"><span class="imprint"><span aria-hidden="true" class="mark">⑂</span> Morrow Print Room</span><a id="download" download href="branch-room.zip">Download offline kit ↓</a></div></header>
+  <main class="wrap">
+    <section class="lead" aria-labelledby="title">
+      <div><p class="eyebrow">A Git review exercise</p><h1 id="title">Branch Room</h1><p class="intro">The print room can admit visitors until <strong>17:30</strong>. Review the new door sign without sending an unannounced workshop to production.</p></div>
+      <aside class="history"><h2>Repository history</h2><p>Each dot is a commit. A branch name marks its current tip.</p><ol id="rail"></ol></aside>
+    </section>
+    <section aria-labelledby="review-heading" class="review">
+      <div class="review-head"><div><p class="eyebrow">Pull request #18</p><h2 id="review-heading">Extend last entry</h2></div><span id="status" class="status"></span></div>
+      <p class="policy">The team reviews features on <code>develop</code>. The public site follows <code>main</code>.</p>
+      <div class="controls">
+        <label for="base">Review base <select id="base"><option value="main">main</option><option value="develop">develop</option></select></label>
+        <span class="incoming">from <code>feature/last-entry</code></span>
+        <button type="button" id="check" class="primary">Run review check</button>
+      </div>
+      <div id="notice" role="status" aria-live="polite" hidden></div>
+      <button id="merge" type="button" class="primary" hidden>Merge into develop</button>
+      <div class="views" role="group" aria-label="Repository views">
+        <button type="button" data-view="changes">Changed files</button><button type="button" data-view="files">Browse repository</button><button type="button" data-view="log">Commit log</button>
+      </div>
+      <div id="panel"></div>
+    </section>
+  </main>
+  <footer class="wrap"><details><summary>About this edition</summary><p>Charles Lee introduced CoderSchool’s Git workflow chapter on June 17, 2021 (commit <code>6ee3fea</code>). It directs feature reviews to the development branch. This public exercise builds a new fictional print room around that decision. The files, commits, interface and writing were made for this edition. The kit includes a local Git replay.</p></details><button class="link" id="restart" type="button">Restart case</button></footer>
+  <noscript>This exercise needs JavaScript. The offline kit includes a local Git replay.</noscript>
+</body></html>

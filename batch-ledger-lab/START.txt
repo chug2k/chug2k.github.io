@@ -1,0 +1,10 @@
+Batch Ledger
+
+Open index.html in your browser. Start with Candle run and select Preview cost.
+Three thousand nine hundred grams of wax cost $23.40. Two hundred ten grams of fragrance cost $16.80. Twenty candles share $40.20 in material cost.
+
+Post the batch and inspect each lot. Reverse it and export the ledger. Each movement has an equal and opposite correction. A try-it-yourself notebook run is on the second tab.
+
+The engine stores practice data on the current browser. Each practice sheet can have one posted batch at a time. The CSV contains the complete movement history for that sheet. Materials only. The examples are fictional.
+
+Based on the October 2026 Batch Ledger demonstration from Charles Lee’s retired Outexecute project. The public teaching sheets, notebook scenario, cost engine and interface were written for this edition. Bricolage Grotesque is distributed with its SIL Open Font License in fonts/.
