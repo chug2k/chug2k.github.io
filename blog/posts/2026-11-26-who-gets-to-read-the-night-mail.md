@@ -1,6 +1,6 @@
 ---
 title: Who gets to read the night mail?
-description: Audition two voices for a fictional night clerk. Listen for phrasing and resemblance, then find where a message first went wrong.
+description: How natural does each reading sound? How much does it sound like the night clerk? Score both by ear, then check how accurately Whisper transcribed the script.
 date: 2026-11-26
 draft: false
 ---
@@ -13,7 +13,7 @@ At the Moon Post, you’re choosing a relief voice for the night clerk. Play the
 
 Try this with a line from an imaginary parcel slip. Say “on the bottom shelf” out loud, leaving a long pause between “bottom” and “shelf.” You still sound like yourself. If the clerk did that, I could give the reading a **5 for similarity and a 2 for naturalness**. A different speaker could say the same four words in one easy breath and earn a 4 for naturalness and a 2 for similarity. Which one would you put on the announcement system?
 
-Once you’ve listened, open the dispatch. You can trace a word from the written order to the script the voice was given, then to the transcript Whisper produced from the recording. Look for the first place the word changed. A recognizer can put a strange spelling on a perfectly good instruction. It can also transcribe a bad instruction perfectly. Those call for different fixes.
+Once you’ve listened, open the dispatch. You can trace a word from the written order to the script the voice was given, then to the transcript Whisper produced from the recording. Compare the script with Whisper to measure transcription accuracy. If a word was already wrong in the script, trace it back to the written order. A recognizer can put a strange spelling on a perfectly good instruction. It can also transcribe a bad instruction perfectly. Those call for different fixes.
 
 This little post office grew out of a listening dashboard I was working on in May 2026. You get three dispatches, six readings, and a worksheet you can take away. File one sentence about each choice. I’d much rather read “the pause split those two words” than another decimal point.
 

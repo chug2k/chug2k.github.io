@@ -99,7 +99,7 @@ function editText(score) {
 
 function sheetMarkdown(state) {
   const lines = ["# The Moon Post", "", "Listening worksheet · " + MOON.edition, "",
-    "Ratings use a 1–5 scale. The dispatch score compares each written order with Whisper’s transcription."];
+    "You rated naturalness and voice similarity from 1 to 5. Script → Whisper measures transcription accuracy. Order → Whisper measures delivery of the original dispatch."];
   let naturalness = 0, similarity = 0, count = 0;
   MOON.rounds.forEach((round, index) => {
     const answer = state.rounds[index];
@@ -114,7 +114,7 @@ function sheetMarkdown(state) {
         "- Synthesis script — " + clip.script, "- Whisper transcript — " + clip.whisper,
         "- Order → Whisper — " + scoreText(clip.order_to_whisper) + ". " + editText(clip.order_to_whisper) + ".",
         "- Order → script — " + editText(clip.order_to_script) + ".",
-        "- Script → Whisper — " + editText(clip.script_to_whisper) + ".");
+        "- Script → Whisper — " + scoreText(clip.script_to_whisper) + ". " + editText(clip.script_to_whisper) + ".");
       if (r.heard.trim()) lines.push("- My first transcription — " + r.heard.trim(),
         "- Order → my transcription — " + scoreText(learnerScore(round.target, r.heard)));
     });

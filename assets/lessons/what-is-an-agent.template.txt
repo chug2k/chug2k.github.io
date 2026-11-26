@@ -829,14 +829,24 @@
   .b-slot .b-sub { font-family: var(--mono); font-size: 9.5px; color: var(--faint); letter-spacing: 0.02em; }
   .b-slot .b-x {
     position: absolute; top: 4px; right: 6px;
-    width: 18px; height: 18px; border-radius: 50%;
+    width: 24px; height: 24px; border: 0; border-radius: 50%;
     background: rgba(0,0,0,0.08); color: var(--ink-soft);
     font-size: 12px; line-height: 1;
     display: flex; align-items: center; justify-content: center;
     cursor: pointer; opacity: 0;
     transition: opacity 0.15s ease, background 0.15s ease;
   }
-  .b-slot.filled:hover .b-x { opacity: 1; }
+  .b-slot-picker {
+    display: flex; align-items: center; gap: 10px; font: inherit; color: inherit;
+    padding: 0; border: 0; background: transparent; cursor: pointer;
+  }
+  .b-slot-picker::after { content: ""; position: absolute; inset: 0; }
+  .b-slot.filled { padding-right: 34px; }
+  .b-slot.filled:hover .b-x, .b-slot:focus-within .b-x { opacity: 1; }
+  @media (hover: none) { .b-slot.filled .b-x { opacity: 1; } }
+  .builder button:focus-visible, .vend-wrap button:focus-visible {
+    outline: 3px solid #f70; outline-offset: 2px;
+  }
   .b-slot .b-x:hover { background: var(--accent); color: #fff; }
   .b-slot .b-empty-plus { font-size: 16px; opacity: 0.6; }
   .b-slot .b-empty-label { font-family: var(--mono); font-size: 11px; opacity: 0.75; }
@@ -991,9 +1001,9 @@
 
     <div class="vend-wrap">
       <div class="vend-levels" id="vlevels">
-        <div class="vlevel active" data-lvl="1"><b>Level 1 · Task</b><span>you do everything</span></div>
-        <div class="vlevel" data-lvl="2"><b>Level 2 · Assisted</b><span class="lock">🔒 beat level 1</span></div>
-        <div class="vlevel" data-lvl="3"><b>Level 3 · Agent</b><span class="lock">🔒 beat level 2</span></div>
+        <button type="button" class="vlevel active" data-lvl="1" aria-pressed="true"><b>Level 1 · Task</b><span>you do everything</span></button>
+        <button type="button" class="vlevel" data-lvl="2" aria-pressed="false" disabled><b>Level 2 · Assisted</b><span class="lock">🔒 beat level 1</span></button>
+        <button type="button" class="vlevel" data-lvl="3" aria-pressed="false" disabled><b>Level 3 · Agent</b><span class="lock">🔒 beat level 2</span></button>
       </div>
 
       <div class="machine">
@@ -1523,7 +1533,7 @@
         </div>
       </div>
 
-      <div class="b-readout" id="b-readout">
+      <div class="b-readout" id="b-readout" role="log" aria-label="Agent run">
         <div class="ro-line ro-idle">click an empty slot, then pick something from the palette below — or load a preset and hit ▶</div>
       </div>
 
@@ -1531,8 +1541,8 @@
         <div class="palette-head">
           <span class="palette-title">Palette — <b id="b-palette-hint">click a slot first ↑</b></span>
           <div class="palette-tabs">
-            <button class="palette-tab active" data-cat="trigger">🔔 Triggers · 16</button>
-            <button class="palette-tab" data-cat="tool">🛠 Tools · 14</button>
+            <button class="palette-tab active" data-cat="trigger" aria-pressed="true">🔔 Triggers · 16</button>
+            <button class="palette-tab" data-cat="tool" aria-pressed="false">🛠 Tools · 14</button>
           </div>
         </div>
         <div class="palette-grid" id="b-palette"></div>
@@ -1608,7 +1618,8 @@
     function buildDrinks(){
       drinksEl.innerHTML='';
       DRINKS.forEach((d,idx)=>{
-        const el=document.createElement('div');
+        const el=document.createElement('button');
+        el.type='button';
         el.className='drink disabled';
         el.dataset.id=d.id;
         el.innerHTML=`<span class="slot">${String.fromCharCode(65+Math.floor(idx/3))}${idx%3+1}</span><span class="can">${d.can}</span><span class="dname">${d.name}</span>`;
@@ -1618,6 +1629,8 @@
     }
     function markDrinks(on){
       [...drinksEl.children].forEach(c=>{
+        c.tabIndex=on ? 0 : -1;
+        c.setAttribute('aria-disabled', String(!on));
         c.classList.toggle('selectable', on);
         c.classList.toggle('disabled', !on);
       });
@@ -1656,13 +1669,14 @@
       liveTimer=setInterval(()=>{ if(level===1||level===2) lcdClock(fmtNow()); }, 10000);
     }
     function stopLiveClock(){ if(liveTimer){ clearInterval(liveTimer); liveTimer=null; } }
-    coinbtn.addEventListener('click',()=>{
+    coinbtn.addEventListener('click',event=>{
       if(busy) return;
       if(level===1){
         hasCoin=true; coinbtn.disabled=true;
         lcdObs('coin accepted');
         lcdAct('Choose your drink →<span class="blink">_</span>');
         markDrinks(true);
+        if (event.detail === 0) drinksEl.firstElementChild.focus();
       } else if(level===2){
         coinbtn.disabled=true; lcdState('think');
         lcdObs('coin accepted'); lcdAct('Reading the room…');
@@ -1759,6 +1773,7 @@
       if(n>=unlocked && n<3){
         unlocked=n+1;
         const nxt=[...vlevels.children].find(c=>+c.dataset.lvl===unlocked);
+        nxt.disabled=false;
         nxt.classList.add('unlocked');
         nxt.querySelector('.lock').textContent='tap to play →';
         setTimeout(()=>{ if(level===n) lcdObs(`level ${unlocked} unlocked ↑`); },700);
@@ -1774,7 +1789,10 @@
 
     function setLevel(n){
       level=n; simToken++;
-      [...vlevels.children].forEach(c=>c.classList.toggle('active',+c.dataset.lvl===n));
+      [...vlevels.children].forEach(c=>{
+        c.classList.toggle('active', +c.dataset.lvl===n);
+        c.setAttribute('aria-pressed', String(+c.dataset.lvl===n));
+      });
       hasCoin=false; busy=false; dayIdx=0;
       tray.innerHTML='<span class="tray-label">collect drink below</span>';
       markDrinks(false); coinbtn.disabled=false; note.className='vend-note';
@@ -1974,6 +1992,16 @@
     let logRows = [];
     let pendingEscalations = []; // queued so we don't lose them
     let running = false;
+    let daysRemaining = 0;
+    const pendingTimers = new Set();
+
+    function schedule(callback, delay) {
+      const timer = setTimeout(() => {
+        pendingTimers.delete(timer);
+        callback();
+      }, delay);
+      pendingTimers.add(timer);
+    }
 
     function dateForDay(d) {
       const base = new Date(2026, 5, 1); // Jun 1
@@ -2078,13 +2106,13 @@
       const row = bookEl.querySelector(`[data-idx="${idx}"]`);
       if (!row) return;
       row.classList.add('scan');
-      setTimeout(() => row.classList.remove('scan'), dur);
+      schedule(() => row.classList.remove('scan'), dur);
     }
     function flagAccount(idx) {
       const row = bookEl.querySelector(`[data-idx="${idx}"]`);
       if (!row) return;
       row.classList.add('flag');
-      setTimeout(() => row.classList.remove('flag'), 4000);
+      schedule(() => row.classList.remove('flag'), 4000);
     }
 
     /* ---------- run one day ---------- */
@@ -2105,10 +2133,10 @@
       const sweepDuration = quick ? 80 : accounts.length * scanDelay + 100;
 
       accounts.forEach((a, i) => {
-        setTimeout(() => flashScan(i, quick? 30 : 90), i * scanDelay);
+        schedule(() => flashScan(i, quick? 30 : 90), i * scanDelay);
       });
 
-      setTimeout(() => {
+      schedule(() => {
         swept += accounts.length;
         sweptEl.textContent = swept.toLocaleString();
 
@@ -2127,7 +2155,7 @@
           const e = events[idx++];
           processEvent(e);
           flagAccount(e.acct);
-          setTimeout(next, quick ? 30 : 380);
+          schedule(next, quick ? 30 : 380);
         };
         next();
       }, sweepDuration);
@@ -2239,11 +2267,16 @@
       renderBook();
       renderLog();
       running = false;
-      advBtn.disabled = false; run30Btn.disabled = false;
+      if (daysRemaining > 0) {
+        daysRemaining--;
+        schedule(() => runDay(true), 80);
+      } else {
+        advBtn.disabled = false; run30Btn.disabled = false;
+      }
       updateNarration();
       // surface any queued escalation
       if (pendingEscalations.length) {
-        setTimeout(showNextEscalation, 380);
+        schedule(showNextEscalation, 380);
       }
     }
 
@@ -2284,7 +2317,7 @@
         pushLog('escalate', e.day, `✗ Rejected · ${e.name}`, `You rejected: ${e.title}. AM noted, will revisit on next signal.`);
       }
       currentEsc = null;
-      setTimeout(showNextEscalation, 250);
+      schedule(showNextEscalation, 250);
     }
     escApprove.addEventListener('click', () => resolveEsc(true));
     escReject.addEventListener('click', () => resolveEsc(false));
@@ -2294,16 +2327,14 @@
     advBtn.addEventListener('click', () => runDay(false));
     run30Btn.addEventListener('click', () => {
       if (running) return;
-      let n = 30;
-      const tick = () => {
-        if (n <= 0 || running) return;
-        n--;
-        runDay(true);
-        setTimeout(tick, 180);
-      };
-      tick();
+      daysRemaining = 29;
+      runDay(true);
     });
     resetBtn.addEventListener('click', () => {
+      pendingTimers.forEach(clearTimeout);
+      pendingTimers.clear();
+      daysRemaining = 0; running = false;
+      advBtn.disabled = false; run30Btn.disabled = false;
       day = 1; swept = 0; acted = 0; logRows = []; pendingEscalations = []; currentEsc = null;
       escModal.classList.remove('show');
       sweptEl.textContent = '0'; actedEl.textContent = '0';
@@ -2440,11 +2471,14 @@
       const slot = canvas.querySelector(`.b-slot[data-slot="${slotId}"]`);
       const itemId = wired[slotId];
       const isTrigger = slotId.startsWith('t');
+      const slotName = (isTrigger ? 'trigger' : 'tool') + ' slot ' + slotId.slice(1);
       if (!itemId) {
         slot.className = 'b-slot' + (activeSlot === slotId ? ' target' : '');
         slot.innerHTML = `
-          <span class="b-empty-plus">+</span>
-          <span class="b-empty-label">empty ${isTrigger?'trigger':'tool'} slot</span>`;
+          <button type="button" class="b-slot-picker" aria-label="Choose for ${slotName}">
+            <span class="b-empty-plus">+</span>
+            <span class="b-empty-label">empty ${isTrigger?'trigger':'tool'} slot</span>
+          </button>`;
         return;
       }
       const item = (isTrigger ? TRIGGERS : TOOLS).find(x => x.id === itemId);
@@ -2459,7 +2493,7 @@
           <span class="b-name">${item.name}</span>
           <span class="b-sub">${item.sub}</span>
         </span>
-        <span class="b-x" data-action="remove">×</span>`;
+        <button type="button" class="b-x" data-action="remove" aria-label="Remove ${item.name} from ${slotName}">×</button>`;
     }
 
     function renderAllSlots() {
@@ -2515,7 +2549,9 @@
       palette.innerHTML = '';
       items.forEach(item => {
         const placed = placedIds.includes(item.id);
-        const el = document.createElement('div');
+        const el = document.createElement('button');
+        el.type = 'button';
+        el.disabled = placed;
         el.className = 'pal-item' + (placed ? ' placed' : '');
         el.innerHTML = `
           <span class="p-icon">${item.icon}</span>
@@ -2523,19 +2559,19 @@
             <span class="p-name">${item.name}</span>
             <span class="p-sub">${item.sub}</span>
           </span>`;
-        if (!placed) el.addEventListener('click', () => placeItem(item));
+        el.addEventListener('click', event => placeItem(item, event.detail === 0));
         palette.appendChild(el);
       });
     }
 
-    function placeItem(item) {
+    function placeItem(item, fromKeyboard) {
       const isTrigger = TRIGGERS.some(t => t.id === item.id);
       let targetSlot = activeSlot;
       if (!targetSlot || (targetSlot.startsWith('t') !== isTrigger)) {
         const pool = isTrigger ? ['t1','t2','t3'] : ['x1','x2','x3','x4','x5'];
         targetSlot = pool.find(s => !wired[s]);
         if (!targetSlot) {
-          flashReadout('miss', `All ${isTrigger?'trigger':'tool'} slots are full — remove one first (× on hover).`);
+          flashReadout('miss', `All ${isTrigger?'trigger':'tool'} slots are full — remove one first (×).`);
           return;
         }
       }
@@ -2544,6 +2580,7 @@
       clearTargets();
       renderAllSlots();
       updateHint();
+      if (fromKeyboard) canvas.querySelector(`[data-slot="${targetSlot}"] button`).focus();
     }
 
     function clearTargets() {
@@ -2565,6 +2602,7 @@
       activeCat = cat;
       document.querySelectorAll('.palette-tab').forEach(b => {
         b.classList.toggle('active', b.dataset.cat === cat);
+        b.setAttribute('aria-pressed', String(b.dataset.cat === cat));
       });
       renderPalette();
     }
@@ -2684,6 +2722,7 @@
         wired[slot.dataset.slot] = null;
         renderAllSlots();
         updateHint();
+        if (e.detail === 0) slot.querySelector('button').focus();
         return;
       }
       const slot = e.target.closest('.b-slot');
@@ -2693,6 +2732,7 @@
       activeSlot = slot.dataset.slot;
       slot.classList.add('target');
       updateHint();
+      if (e.detail === 0) palette.querySelector('button:not(:disabled)')?.focus();
     });
 
     document.querySelectorAll('.palette-tab').forEach(b => {

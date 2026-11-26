@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Audition two voices for a lunar post office. Score how they speak, compare what Whisper wrote, and carry your listening notes away.">
+  <meta name="description" content="Rate the naturalness of a synthesized reading and its resemblance to the night clerk. Then check how accurately Whisper transcribed its script.">
   <meta name="theme-color" content="#182c40">
   <title>The Moon Post · A listening lesson by Charles Lee</title>
   <link rel="icon" href="data:,">
@@ -23,7 +23,7 @@
     <div class="opening">
       <p class="kicker"><i aria-hidden="true"></i> Listening workshop</p>
       <h1 id="title">The Moon <em>Post</em></h1>
-      <p class="lead">The night clerk needs a relief voice. Listen to the clerk, audition two readings of each dispatch, and decide which one you’d send.</p>
+      <p class="lead">The night clerk needs a relief voice. Listen for two things. Does the phrasing sound natural? Does the speaker sound like the clerk? Give each a score before you see how accurately Whisper transcribed the words.</p>
       <p class="length">Three dispatches <span>·</span> About six minutes</p>
     </div>
     <section class="reference" aria-labelledby="reference-title">
@@ -46,10 +46,10 @@
     <section id="enclosure" aria-labelledby="written-title" hidden>
       <div class="order"><p class="eyebrow">The written order</p><h3 id="written-title" tabindex="-1"></h3></div>
       <h3 class="section-sub">What came through?</h3>
-      <p class="instructions">The script went into the synthesizer. Whisper listened to the resulting audio. Word error rate counts words replaced, missing or added, divided by the number of words in the written order.</p>
+      <p class="instructions">The script went into the synthesizer. Whisper listened to the resulting audio. The word error rate (WER) counts changed, missing or extra words. Compare Whisper with the script to check transcription accuracy. Compare Whisper with the written order to see whether the dispatch arrived intact.</p>
       <div id="results" class="pair"></div>
       <p class="field-note" id="debrief"></p>
-      <details class="method"><summary>How the words are counted</summary><p>We lowercase English words, replace punctuation with spaces, and align the two word lists using the fewest edits. A change in punctuation alone costs zero. The dispatch score compares the order with Whisper. Comparing the script with Whisper isolates the transcription step.</p></details>
+      <details class="method"><summary>How the words are counted</summary><p>We lowercase English words, replace punctuation with spaces, and align the two word lists using the fewest edits. A change in punctuation alone costs zero. Word error rate (WER) counts words replaced, missing or added. For transcription WER, divide by the words in the synthesis script. For dispatch WER, divide by the words in the written order.</p></details>
       <div class="decision"><fieldset><legend id="decision-question"></legend><div id="choices"></div></fieldset>
         <label for="reason">What decided it?</label><textarea id="reason" maxlength="900" rows="2" placeholder="Name a pause, a word, or a detail of the voice."></textarea>
         <div class="next-row"><button type="button" class="button primary" id="next" disabled>Next dispatch</button><span id="decision-status" class="status" role="status"></span></div>
