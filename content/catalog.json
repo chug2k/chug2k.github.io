@@ -89,6 +89,22 @@
   ],
   "apps": [
     {
+      "title": "Bubble Wrap Club",
+      "description": "Pop 42 bubbles, replay your exact route and save a numbered souvenir card showing your time and accuracy.",
+      "url": "/bubble-wrap-club/",
+      "kind": "Game",
+      "status": "Project",
+      "notes": ""
+    },
+    {
+      "title": "Tiny Hermes — The Briefing Room",
+      "description": "Save a briefing preference and compare how a fresh session rewrites three fictional project notes.",
+      "url": "/tiny-hermes/",
+      "kind": "Lesson",
+      "status": "Project",
+      "notes": ""
+    },
+    {
       "title": "Subtitle Desk",
       "description": "Trim overlapping subtitle cues, hear the silent gaps, and export the corrected SRT.",
       "url": "/subtitle-desk/",
