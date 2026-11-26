@@ -160,6 +160,20 @@
     p.delay = p.ritual ? 0 : limit(saved.delay, 120, 4);
     return p;
   }
+  function readMothFile(text, now) {
+    const saved = JSON.parse(text);
+    if (saved?.kind !== "pocket-moth" || saved.version !== 1 ||
+        !Number.isInteger(saved.seed) || saved.seed < 0 || saved.seed > 0xffffffff) return null;
+    const pet = restorePet(saved, saved.seed, now);
+    // A save file replaces a moth only if it contains a complete, valid v1 pet.
+    // Need deadlines can be capped when the destination clock is behind.
+    for (const key of Object.keys(pet)) {
+      if (key === "foodUntil" || key === "companyUntil") {
+        if (!Number.isFinite(saved[key]) || saved[key] < 0) return null;
+      } else if (pet[key] !== saved[key]) return null;
+    }
+    return pet;
+  }
   function newRide() {
     return { moving: false, continuous: 0, high: 0, armed: true, bounce: 0, reunion: 0 };
   }
@@ -513,12 +527,29 @@
   var GUIDE = `
   <dialog class="pk-guide" aria-labelledby="pk-guide-title">
     <form method="dialog"><button type="submit" class="pk-close" aria-label="Close field guide">×</button></form>
-    <p class="pk-eyebrow">Fikaride Pocket</p><h2 id="pk-guide-title">Field guide</h2>
+    <div class="pk-field-notes"><p class="pk-eyebrow">Fikaride Pocket</p><h2 id="pk-guide-title">Field guide</h2>
     <h3>Hatching</h3><p>Start the on-screen pedals and ride for 10 seconds. You can pause and finish warming the same egg later.</p>
     <h3>Care</h3><p>After hatching, keep pedaling to share a first meal. Your moth will also ask for a bath, a game or fresh bedding. Any positive power helps. Food and company slowly run down between visits.</p>
     <p class="pk-needs" hidden></p>
     <h3>Growing up</h3><p>A hatchling becomes a fledgling after 8 minutes of total riding. At 45 minutes and 3 riding days it can take its adult form. Ride for 30 seconds in a day to count it. Brisk bursts can spark a somersault and influence its wings.</p>
-    <h3>Saving</h3><p>Your moth and care progress save in this browser. After a reload, use Start riding to pick up where you left off.</p>
+    </div>
+    <h3 id="pk-transfer-title" class="pk-transfer-title" tabindex="-1">Move your moth</h3>
+    <p>Your progress saves in this browser. Download a save file to continue in another browser or the offline game.</p>
+    <div class="pk-transfer-actions">
+      <button type="button" class="pk-export">Download moth save</button>
+      <button type="button" class="pk-import">Open moth save</button>
+      <input class="pk-file" type="file" accept=".json,application/json" hidden>
+    </div>
+    <section class="pk-import-preview" aria-label="Choose which moth to keep" hidden>
+      <p><b>In this browser</b><span class="pk-local-pet"></span></p>
+      <p><b>From the file</b><span class="pk-file-pet"></span></p>
+      <p>Replace this browser’s moth with the one from the file?</p>
+      <div class="pk-transfer-actions">
+        <button type="button" class="pk-confirm">Use this moth</button>
+        <button type="button" class="pk-cancel">Keep current moth</button>
+      </div>
+    </section>
+    <p role="status" class="pk-transfer-status"></p>
   </dialog>`;
   var ICON = ["###.......###", "#####...#####", ".#####.#####.", "..####.####..", ".....###.....", "...#######...", "..###.#.###..", ".###..#..###."];
   function drawMark(canvas) {
@@ -571,7 +602,7 @@
       </div>
     </section>
     <footer class="pk-footer"><span class="pk-save"><span class="pk-save-mark" aria-hidden="true"></span><span class="pk-save-text">Saved in this browser</span></span>
-      <span class="pk-links"></span></footer>
+      <span class="pk-links"><button type="button" class="pk-transfer-open" aria-haspopup="dialog">Move your moth</button></span></footer>
     ` + GUIDE + `</div>`;
     const pick = (cls) => root.querySelector(".pk-" + cls);
     const ui = Object.fromEntries(["name", "state", "time", "power", "power-label", "stage", "caption", "task-name", "count", "ride", "ride-label", "input-note", "record", "days", "completed", "save-text", "guide", "guide-open", "paces", "case", "screen", "needs"].map((key) => [key, pick(key)]));
@@ -593,8 +624,88 @@
       link.textContent = "Art and code credits";
       ui.guide.append(link);
     }
-    ui["guide-open"].onclick = () => ui.guide.showModal();
-    ui.guide.addEventListener("close", () => ui["guide-open"].focus());
+    let returnFocus = ui["guide-open"], candidate, previous;
+    const fileInput = pick("file"), preview = pick("import-preview"), message = pick("transfer-status");
+    function clearPreview() {
+      candidate = previous = null;
+      preview.hidden = true;
+      fileInput.value = "";
+    }
+    function summary(p) {
+      const name = stage(p) === "Egg" ? "Egg" : genes(p.seed).name + " · " + stage(p);
+      return name + " · " + formatClock(p.seconds) + " ridden · " + p.completed + (p.completed === 1 ? " care ritual" : " care rituals");
+    }
+    function showGuide(button, transferOnly) {
+      returnFocus = button;
+      pick("field-notes").hidden = transferOnly;
+      ui.guide.classList.toggle("pk-transfer-only", transferOnly);
+      ui.guide.setAttribute("aria-labelledby", transferOnly ? "pk-transfer-title" : "pk-guide-title");
+      pick("close").setAttribute("aria-label", transferOnly ? "Close moth transfer" : "Close field guide");
+      ui.guide.showModal();
+      if (transferOnly) pick("transfer-title").focus();
+    }
+    ui["guide-open"].onclick = (event) => showGuide(event.currentTarget, false);
+    pick("transfer-open").onclick = (event) => showGuide(event.currentTarget, true);
+    ui.guide.addEventListener("close", () => {
+      clearPreview();
+      message.textContent = "";
+      returnFocus.focus();
+    });
+    pick("export").onclick = () => {
+      const file = new Blob([JSON.stringify(actions.snapshot())], { type: "application/json" });
+      const url = URL.createObjectURL(file), link = document.createElement("a");
+      link.href = url;
+      link.download = "fikaride-pocket-moth.json";
+      ui.guide.append(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 60000);
+    };
+    pick("import").onclick = () => fileInput.click();
+    fileInput.onchange = async () => {
+      const file = fileInput.files[0];
+      if (!file) return;
+      let pet;
+      try {
+        if (file.size <= 16384) pet = readMothFile(await file.text(), Date.now());
+      } catch {}
+      if (!ui.guide.open || fileInput.files[0] !== file) return;
+      clearPreview();
+      if (!pet) {
+        message.textContent = "Choose a valid Pocket moth save. Your current moth is safe.";
+        return;
+      }
+      candidate = pet;
+      previous = actions.snapshot();
+      pick("local-pet").textContent = summary(previous);
+      pick("file-pet").textContent = summary(candidate);
+      message.textContent = "";
+      preview.hidden = false;
+      pick("cancel").focus();
+    };
+    pick("cancel").onclick = () => {
+      clearPreview();
+      message.textContent = "Current moth kept.";
+      pick("import").focus();
+    };
+    pick("confirm").onclick = async () => {
+      const selected = candidate;
+      if (!selected) return;
+      const result = await env.withPausedRide(() => {
+        if (candidate !== selected || !ui.guide.open) return;
+        const current = actions.snapshot();
+        if (JSON.stringify(current) !== JSON.stringify(previous)) {
+          previous = current;
+          pick("local-pet").textContent = summary(current);
+          return "Your current moth changed. Check the updated progress and choose again.";
+        }
+        const saved = actions.restore(selected);
+        clearPreview();
+        pick("import").focus();
+        return saved ? "Moth restored. Close to ride." : "Moth restored for this session. Keep the save file.";
+      });
+      if (result && ui.guide.open) message.textContent = result;
+    };
     ui.guide.addEventListener("click", (event) => {
       if (event.target === ui.guide) {
         const r = ui.guide.getBoundingClientRect();
@@ -674,14 +785,17 @@
       watts2 = 0;
       lastDraw = -Infinity;
     }
-    function refresh() {
-      const current = load();
-      if (!current) return;
+    function replacePet(current) {
       pet = restorePet(current, seed, now());
       identity = genes(pet.seed);
-      dirty = false;
       heartUntil = -1;
       reset();
+    }
+    function refresh() {
+      const current = durable && load();
+      if (!current) return;
+      replacePet(current);
+      dirty = false;
     }
     function state() {
       return { ...observe(pet, ride, now(), identity), moving: ride.moving };
@@ -694,6 +808,17 @@
       lastDraw = t;
     }
     const ui = env.ui && !preview ? mountPocket(env, {
+      snapshot() {
+        const latest = durable && !dirty && !ride.moving && load();
+        return latest ? restorePet(latest, seed, now()) : structuredClone(pet);
+      },
+      restore(saved) {
+        replacePet(saved);
+        dirty = true;
+        save();
+        render(clock);
+        return durable;
+      },
       toggle() {
         if (sensor) {
           env.demo?.start();
@@ -818,12 +943,20 @@
       changePower(next);
     });
   }
+  function withPausedRide(change) {
+    if (watts || requesting) return "Pause your ride before restoring a moth.";
+    if (!navigator.locks) return change();
+    return navigator.locks.request(saveKey, { ifAvailable: true }, lock =>
+      lock ? change() : "Pause the ride in the other tab before restoring a moth."
+    ).catch(() => "Could not check for another ride. Your current moth is safe.");
+  }
   game = pocket_default.create({
     ui: app,
     profile: "sim",
     session: () => session,
     demo: { watts: () => watts, set: setPower },
     inputNote: () => note,
+    withPausedRide,
     shellUrl: "./shell.webp",
     creditsUrl: "./CREDITS.txt",
     links,
