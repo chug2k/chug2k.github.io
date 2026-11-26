@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f1e9">
+  <meta name="description" content="Predict how a second vibration mode will change a sand pattern, then compare two modeled plates and save an annotated figure.">
+  <title>The Chladni Table · Compare two modes</title>
+  <link rel="icon" href="data:,"><link rel="stylesheet" href="./tokens.css">
+  <script defer src="./plate.js"></script><script defer src="./app.js"></script>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="imprint"><span>Prízrak’s Offerings</span><span>Plate studies</span></div>
+      <h1>The Chladni Table</h1>
+      <p class="lede">Sand gathers where a vibrating plate is quiet. Follow the blue guide across plate A, then predict what a different mode will draw on plate B.</p>
+    </header>
+    <section class="decision" aria-labelledby="question">
+        <div class="prompt"><h2 id="question">How many crossings will B have?</h2>
+        <p>Inspect A below. Each blue dot marks a quiet line crossing the guide.</p></div>
+        <div class="answer">
+        <fieldset id="choices"><legend class="sr-only">Predict plate B relative to A</legend>
+          <label><input type="radio" name="prediction" value="fewer"> Fewer</label>
+          <label><input type="radio" name="prediction" value="same"> Same number</label>
+          <label><input type="radio" name="prediction" value="more"> More</label>
+        </fieldset>
+        <button type="button" id="reveal" class="primary" disabled>Reveal plate B</button>
+        <p class="hint" id="hint">Choose a prediction to reveal the sand.</p></div>
+    </section>
+    <section class="plates" aria-label="Two settings on the same modeled plate">
+      <figure>
+        <figcaption><span class="letter">A</span><h2>Reference</h2><span class="phase" id="phase-a">Settled</span></figcaption>
+        <canvas id="plate-a" width="560" height="560" role="img" aria-label="Reference plate"></canvas>
+        <p class="reading" id="reading-a">Preparing reference…</p>
+        <div class="dial"><label for="dial-a">Mode dial A</label><output id="value-a" for="dial-a">150</output></div>
+        <input id="dial-a" type="range" min="0" max="1000" step="5" value="150" aria-describedby="params-a">
+        <p class="params" id="params-a"></p>
+      </figure>
+      <figure>
+        <figcaption><span class="letter">B</span><h2>Comparison</h2><span class="phase" id="phase-b">Loose sand</span></figcaption>
+        <canvas id="plate-b" width="560" height="560" role="img" aria-label="Comparison plate with loose sand"></canvas>
+        <p class="reading" id="reading-b">Loose sand · awaiting prediction</p>
+        <div class="dial"><label for="dial-b">Mode dial B</label><output id="value-b" for="dial-b">720</output></div>
+        <input id="dial-b" type="range" min="0" max="1000" step="5" value="720" aria-describedby="params-b">
+        <p class="params" id="params-b"></p>
+      </figure>
+    </section>
+    <p class="legend"><span class="dot sand" aria-hidden="true"></span>Sand grains <span class="line" aria-hidden="true"></span>Midline guide <span class="dot node" aria-hidden="true"></span>Quiet-line crossing</p>
+
+    <section class="observation" aria-labelledby="observed">
+        <div><h2 id="observed">Observation</h2>
+        <div id="feedback" role="status" aria-live="polite">The same starting grains are scattered over both plates. A is already settled.</div></div>
+        <div>
+        <div class="more"><button type="button" id="save" disabled>Save comparison PNG</button>
+          <button type="button" id="swap">Swap modes</button><button type="button" id="new-plate">New plate</button></div>
+        <p class="seed" id="seed"></p>
+        </div>
+    </section>
+    <details>
+      <summary>How the model works</summary>
+      <p>The dial changes two parameters, <i>n</i> and <i>m</i>, in Prízrak’s standing-wave model. Two cosine patterns overlap on a gently warped square. Each grain moves downhill in vibration amplitude and collects near a nodal line, where the modeled amplitude crosses zero.</p>
+      <p>The cyan dots locate sign changes along one horizontal cut. A closed loop can miss that cut entirely. A “quiet” grain is one whose absolute field value falls below 0.08 in model units.</p>
+      <p>The dial is unitless. A physical plate has its own resonant frequencies, set by its material, shape and mounting. See a real plate in <a href="https://sciencedemonstrations.fas.harvard.edu/presentations/chladni-plates">Harvard’s lecture demonstration</a>.</p>
+    </details>
+    <footer><p>Lesson adapted from <a href="https://offerings-eight.vercel.app/the-chladni-table">Prízrak’s original Chladni Table</a>. <a href="https://github.com/chug2k/prizrak-offerings/blob/3f3ee59736617cffa15dba7a12dc12580de5a374/the-chladni-table/index.html">Original source</a></p>
+      <span id="portable"><a href="./chladni-lab.zip" download>Download offline lesson</a></span></footer>
+  </main>
+</body></html>

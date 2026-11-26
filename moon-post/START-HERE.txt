@@ -1,5 +1,7 @@
-THE MOON POST
-A listening workshop by Charles Lee
+HOW TO EVALUATE A SYNTHETIC VOICE
+The Moon Post · A listening workshop by Charles Lee
+
+Try the listening test from Voice Clone WER Eval with the night clerk as your reference speaker.
 
 Unzip the whole folder, then open index.html in a browser. Keep audio, fonts and sources beside index.html. The players, ratings, reveals, answer files and worksheet work locally.
 

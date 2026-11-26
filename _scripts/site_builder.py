@@ -113,7 +113,8 @@ def render_hubs(posts: list[dict], output: Path, *, preview: bool = False) -> No
     bench = ''.join(f'<article><span class="bench-status">{escape(p["status"])}</span><h3>{escape(p["title"])}</h3><p>{escape(p["description"])}</p><p class="row-meta">{escape(p["notes"])}</p></article>' for p in catalog['bench'])
     projects = template('projects.html', PROJECTS=''.join(project_card(p, full=True) for p in catalog['projects']),
                         APPS=''.join(reading_row(p) for p in catalog['apps']), BENCH=bench, BENCH_COUNT=str(len(catalog['bench'])))
-    write_page(output, '/making/', page('Projects — Charles Lee', 'Selected apps, interactive stories, and experiments with AI, with build notes and working demos.', '/making/', projects, active='projects', preview=preview))
+    write_page(output, '/making/', page('Projects — Charles Lee', 'Selected apps, interactive stories, and experiments with AI, with build notes and working demos.', '/making/', projects,
+                                      active='projects', preview=preview, extra_head='<link rel="stylesheet" href="/assets/workshop-search.css?v=1">'))
     collections = ''
     for item in catalog['collections']:
         links = ''.join(f'<a class="text-link" href="{safe_url(p["url"])}">{escape(p["title"])} →</a>' for p in item.get('links', []))
