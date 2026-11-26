@@ -89,6 +89,22 @@
   ],
   "apps": [
     {
+      "title": "Fikaride Pocket",
+      "description": "Start a simulated ride to warm a moth egg. It hatches after ten seconds of pedaling. Come back for its first meal.",
+      "url": "/fikaride-pocket/",
+      "kind": "Game",
+      "status": "Project",
+      "notes": ""
+    },
+    {
+      "title": "Race Readiness",
+      "description": "Follow each leg of a sprint triathlon forecast back to the fictional swim, ride or run that supplied the number. Swap training blocks to see which estimates still hold.",
+      "url": "/race-readiness/",
+      "kind": "Interactive dashboard",
+      "status": "Project",
+      "notes": ""
+    },
+    {
       "title": "The Rillwake Ferry",
       "description": "The island’s mail is due on the first ferry. Type “hold the red plate” to give Mica the lampkeeper her first order, then find a way through two tide gates together.",
       "url": "https://clpanic.com/rillwake-ferry/",
@@ -240,10 +256,10 @@
     },
     {
       "title": "Voice Clone Lab",
-      "description": "A small rig for benchmarking what actually makes a cloned voice sound like you — word-error-rate, real-time speed, and a dashboard for rating naturalness. Built for a workshop; would make a good essay on what's hard about voice cloning.",
+      "description": "A listening dashboard for comparing transcriptions and rating a voice. Its naturalness and similarity exercise became The Moon Post in the lesson library.",
       "url": "",
       "status": "Parked",
-      "notes": "Python · OmniVoice · WER/RTF eval  —  could become: an essay + the dashboard"
+      "notes": "Python · OmniVoice · Speech evaluation"
     },
     {
       "title": "Bittersweet Symphony, humanized",
@@ -263,10 +279,12 @@
   "collections": [
     {
       "title": "Hands-on lessons",
-      "description": "Supervise an agent, repair a film, write a Ruby iterator, query ferry fares, or measure a coastline. Each exercise lets you make a prediction and check it.",
+      "description": "Try a ten-minute fiction revision or audition a voice for the night mail. The collection also has exercises in agents, film, Ruby, SQL and measurement.",
       "url": "/blog/2026-11-25-what-is-an-agent/",
       "link_label": "What is an agent?",
       "links": [
+        { "title": "Who gets the spare key? · Fiction", "url": "/blog/2026-11-26-who-gets-the-spare-key/" },
+        { "title": "Who gets to read the night mail? · Listening", "url": "/blog/2026-11-26-who-gets-to-read-the-night-mail/" },
         { "title": "Right Total, Wrong Door", "url": "/right-total-wrong-door/" },
         { "title": "The Last Tram · Ruby", "url": "/last-tram-ruby/" },
         { "title": "Three Cheapest Crossings · SQL", "url": "https://clpanic.com/three-cheapest-crossings/" },

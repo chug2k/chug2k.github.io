@@ -1,0 +1,7 @@
+Fikaride Pocket
+
+The original Fikaride Pocket prototype supplied the seeded moth, growth and care rules, power-sample accounting, local progress helpers and the translucent red handheld. The shell was generated for Pocket from an original product-design brief in November 2026. This edition uses the original WebP.
+
+The Pages edition adds the pixel creatures and scenery, live LCD, controls, field guide and standalone browser host. All graphics are local. The interface uses the device's fonts. The Fikaride contributors' MIT software notice is included in LICENSE.txt.
+
+To play the offline copy, extract the whole folder and open index.html. Keep using the same browser and file location for your save. Some browsers limit local storage for file URLs. The footer shows whether progress can be saved.

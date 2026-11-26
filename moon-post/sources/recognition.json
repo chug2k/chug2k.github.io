@@ -1,0 +1,71 @@
+{
+  "engine": "whisper.cpp version: 1.9.4",
+  "model": "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-base.en.bin",
+  "model_sha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+  "flags": [
+    "-l",
+    "en",
+    "-t",
+    "4",
+    "-ng",
+    "-nf",
+    "-tp",
+    "0",
+    "-bs",
+    "5",
+    "-bo",
+    "5",
+    "-oj"
+  ],
+  "clips": {
+    "1-a": {
+      "audio_sha256": "2fd17fd97eccb6aad1f47dfd3276372c3e93a43148ac64ce6d248035a5f0d507",
+      "segments": [
+        " Keep the door. Open until the bell rings."
+      ],
+      "text": "Keep the door. Open until the bell rings."
+    },
+    "1-b": {
+      "audio_sha256": "8bd5d16f731c7e061ed572f667422e0f428784b130082c1d2cc1b9117e4b82d4",
+      "segments": [
+        " Keep the door open until the bell rings."
+      ],
+      "text": "Keep the door open until the bell rings."
+    },
+    "2-a": {
+      "audio_sha256": "a1a9cbd81359759214c9c5a9db060d9e8861b2f626cf8e12d8ce9a74e9c67fea",
+      "segments": [
+        " Send the red parcel on the night fairy."
+      ],
+      "text": "Send the red parcel on the night fairy."
+    },
+    "2-b": {
+      "audio_sha256": "2d49dea385a231072a6b027b496608fc57c270f0186bab0fa92e6172f1ec6d7e",
+      "segments": [
+        " Send the red parcel on the noon ferry."
+      ],
+      "text": "Send the red parcel on the noon ferry."
+    },
+    "3-a": {
+      "audio_sha256": "09c252623cd153d31e70953a4f830289100abd5cfeda4973fa3c1fdbe0173873",
+      "segments": [
+        " Right quill lane on the return label."
+      ],
+      "text": "Right quill lane on the return label."
+    },
+    "3-b": {
+      "audio_sha256": "41da5e934f4e94b92a6755d09eded7558fe430d53ef65d96932c1b359b525b1e",
+      "segments": [
+        " Right quill lane on the blue return label"
+      ],
+      "text": "Right quill lane on the blue return label"
+    },
+    "reference": {
+      "audio_sha256": "49b04d72b89151e77d0c440c0559b1f9e9c9a0e9fc67c48f9ae14588540053b3",
+      "segments": [
+        " Please leave your letters on the counter, I will take them when the bell rings."
+      ],
+      "text": "Please leave your letters on the counter, I will take them when the bell rings."
+    }
+  }
+}
