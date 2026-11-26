@@ -1,0 +1,25 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f6f5ef"><meta name="description" content="Arrange a signal shelf and a swatch drawer with CSS, then compare their actual positions at two widths.">
+<title>Layout Workbench · CSS practice</title><link rel="icon" href="data:,"><link rel="stylesheet" href="tokens.css"><script src="bench.js" defer></script>
+</head><body>
+<header class="wrap"><div><p class="eyebrow">CSS practice</p><h1>Layout Workbench</h1></div><a id="download" download href="layout-workbench.zip">Download offline kit ↓</a></header>
+<main class="wrap bench">
+  <aside class="layouts"><h2>Layouts</h2><nav aria-label="Choose a layout"><button type="button" data-layout="shelf"><span>Signal shelf</span><small>Flexbox</small></button><button type="button" data-layout="drawer"><span>Swatch drawer</span><small>Grid</small></button></nav></aside>
+  <article>
+    <div class="brief"><div><h2 id="name">Signal shelf</h2><p id="brief"></p></div><fieldset><legend>Preview width</legend><button type="button" data-width="240">240 px</button><button type="button" data-width="440">440 px</button></fieldset></div>
+    <div class="boards">
+      <figure><figcaption>Target</figcaption><div class="frame" id="target-frame"><div class="stage" id="target"></div></div></figure>
+      <figure><figcaption>Your layout</figcaption><div class="frame" id="mine-frame"><div class="stage" id="mine"></div></div></figure>
+    </div>
+    <div class="work">
+      <section class="editor"><h3><label for="code">Edit the container CSS</label></h3><p class="small">Edit the declarations inside <code>.stage</code>, then apply them.</p><div class="codebox"><span aria-hidden="true">.stage {</span><textarea id="code" rows="6" spellcheck="false" autocapitalize="off" autocomplete="off" aria-describedby="error"></textarea><span aria-hidden="true">}</span></div><p id="error" role="alert" hidden></p><div class="actions"><button type="button" id="apply" class="primary">Apply CSS</button><button type="button" id="reset" class="quiet">Reset layout</button></div></section>
+      <section class="measure"><h3>Geometry check</h3><p id="grade" aria-live="polite" role="status"></p><table><caption class="sr-only">Measured piece positions and sizes compared with the target</caption><thead><tr><th scope="col">Viewport</th><th scope="col">Matched</th><th scope="col">Max offset</th></tr></thead><tbody id="scores"></tbody></table><p id="hint-offset" class="small"></p><p class="tolerance">Positions and sizes must be within 1 CSS pixel at both widths.</p></section>
+    </div>
+    <details class="help" id="help"><summary>Hint and worked CSS</summary><p id="hint"></p><pre id="solution"></pre><button type="button" id="load" class="quiet">Load worked CSS</button></details>
+    <details class="help"><summary>Editable properties</summary><p>Use flexbox or grid declarations for the container. You can change <code>display</code>, direction, wrapping, alignment, gaps, grid tracks, and auto-placement.</p><code id="allowed"></code></details>
+  </article>
+</main><footer class="wrap">Based on Minh’s Week 1 CSS layout exercise from CoderSchool CodeLabs, introduced December 8, 2020. Both arrangements, shapes and the measurement tool were created for this edition.</footer>
+<div id="measure-rig" aria-hidden="true" inert></div>
+<noscript>This practice workbench requires JavaScript to apply CSS and measure positions.</noscript>
+</body></html>

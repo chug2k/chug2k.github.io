@@ -89,6 +89,22 @@
   ],
   "apps": [
     {
+      "title": "Subtitle Desk",
+      "description": "Trim overlapping subtitle cues, hear the silent gaps, and export the corrected SRT.",
+      "url": "/subtitle-desk/",
+      "kind": "Tool",
+      "status": "Project",
+      "notes": ""
+    },
+    {
+      "title": "Layout Workbench",
+      "description": "Edit flexbox and grid CSS to match a signal shelf and a swatch drawer at two viewport widths.",
+      "url": "/layout-workbench/",
+      "kind": "Lesson",
+      "status": "Project",
+      "notes": ""
+    },
+    {
       "title": "Sammy’s Bork-o-Meter 9000",
       "description": "Press Sammy’s bark button to log a patrol, undo a false alarm and check the neighborhood sploot forecast.",
       "url": "/sammys-bork-meter/",

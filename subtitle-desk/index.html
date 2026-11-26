@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#182923"><meta name="description" content="Edit subtitle cues, hear their timing as tones, and export an SRT or WAV.">
+<title>Subtitle Desk</title><link rel="stylesheet" href="./tokens.css"><link rel="stylesheet" href="./desk.css"><script defer src="./desk.js"></script>
+</head><body>
+<header><div class="shell mast"><a class="brand" href="./index.html" aria-label="Subtitle Desk home"><span class="reels" aria-hidden="true">◉ ◉</span> Subtitle Desk</a><a class="offline" href="./subtitle-desk.zip" download>Download offline kit ↓</a></div></header>
+<main class="shell"><div class="intro"><div><h1>Subtitle Desk<span aria-hidden="true">.</span></h1><p>Hear where each line lands. Edit the timing, listen for the gaps and take the subtitle track with you.</p></div><button id="open-import" type="button">Import SRT</button></div>
+<section class="monitor" aria-label="Timing monitor">
+<div class="instrument-head"><div><span class="micro">Timing monitor</span><h2 id="track-name">Dawn radio check</h2></div><div class="readout"><output id="clock">00:00.000</output><span id="total"></span></div></div>
+<div id="scale" class="scale" aria-hidden="true"></div><div class="rail" id="rail" aria-label="Cue positions"><div id="segments"></div><span id="needle" aria-hidden="true"></span></div>
+<div class="monitor-foot"><button class="play" id="play" aria-label="Preview timeline">▷ Preview timeline</button><div class="caption"><span id="signal" class="micro"></span><span id="caption"></span></div></div>
+</section>
+<section class="workbench" aria-label="Cue editor"><div class="sheet">
+<div class="section-head"><h2>Cue sheet</h2><button id="add" class="small">Add cue</button></div><p class="note" id="stats"></p><div id="cues" class="cue-list" aria-label="Select a cue"></div>
+<div class="toolrow"><button id="trim" class="small">Trim overlaps</button><button id="undo" class="small">Undo edit</button></div>
+</div><div class="edit"><div class="section-head"><h2 id="edit-title">Edit cue</h2><button id="solo" class="small">Audition cue</button></div>
+<form id="edit-form"><div class="times"><label>Start (seconds)<input id="start" type="number" min="0" step="0.001" required></label><label>End (seconds)<input id="end" type="number" min="0.001" step="0.001" required></label></div>
+<label>Subtitle text<textarea id="line" rows="2" required></textarea></label><div class="toolrow"><button class="primary" type="submit">Apply cue</button><button type="button" id="remove" class="textbtn">Remove cue</button></div></form></div></section>
+<div class="results"><div><h2>Export track</h2><p id="save-state" class="note"></p></div><div class="toolrow"><button id="srt">Export SRT</button><button id="wav">Export tone WAV</button></div></div>
+<p role="status" id="message" aria-live="polite"></p>
+<details class="guide" id="importer"><summary>Import subtitles</summary><div class="detail-body"><p>Open a UTF-8 SRT or paste numbered cues below. Import replaces the cue sheet. Undo edit restores the previous sheet.</p>
+<label class="filelabel">Choose SRT file<input type="file" id="file" accept=".srt,text/plain,application/x-subrip"></label><label>Paste SRT<textarea id="paste" rows="5" placeholder="1&#10;00:00:00,250 --> 00:00:01,250&#10;Antenna ready."></textarea></label>
+<div class="toolrow"><button id="import-text">Import pasted SRT</button><button id="sample">Load radio example</button></div><p id="import-msg" role="status"></p></div></details>
+<details class="guide"><summary>Try the timing check</summary><div class="detail-body"><ol><li>Choose <b>Load radio example</b> under Import subtitles. Select cue 01 and set <b>End (seconds)</b> to <b>2.250</b>. Choose <b>Apply cue</b>. The sheet now reports one overlap.</li><li>Choose <b>Trim overlaps</b>. Cue 01 ends at 2.000 seconds, exactly when cue 02 starts. <b>Undo edit</b> restores the overlap.</li><li>Choose <b>Preview timeline</b> to hear the tones and see the active lines. <b>Export SRT</b> saves UTF-8 subtitles. <b>Export tone WAV</b> saves the matching mono track.</li></ol><p>This browser adaptation revisits the 2025 Whisper Dubber SRT timeline. The Python project assembled Vietnamese speech segments. Here, each cue receives a generated pitch and a short fade. The radio lines are original examples.</p></div></details>
+</main><footer class="shell">Subtitle Desk <span>Local subtitle editor</span></footer></body></html>
