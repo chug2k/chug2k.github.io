@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f5f0e7">
+  <meta name="description" content="Price two production batches, see where each cent goes, and reverse the stock movements. A free materials-costing lesson and practice ledger.">
+  <title>Batch Ledger · Materials costing</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="ledger.css">
+  <script src="engine.js" defer></script>
+  <script src="ledger.js" defer></script>
+</head>
+<body>
+<main>
+  <header>
+    <a class="back" href="https://clpanic.com/library/">Charles Lee’s library</a>
+    <h1>Batch Ledger</h1>
+    <p class="lead">What does one finished item cost in materials? Price a run, post it to stock, then reverse it to see where every cent goes.</p>
+  </header>
+  <nav class="cases" aria-label="Choose a batch">
+    <button type="button" id="candles" aria-pressed="true">Candle run</button>
+    <button type="button" id="notebooks" aria-pressed="false">Notebook run</button>
+  </nav>
+  <p id="brief" class="brief"></p>
+  <div class="workspace">
+    <section class="paper" aria-labelledby="sheet-title">
+      <h2 id="sheet-title">Batch sheet</h2>
+      <form id="sheet">
+        <fieldset id="fields">
+          <legend class="visually-hidden">Batch quantities</legend>
+          <label class="out" for="output"><span>Finished units</span><input id="output" type="number" step="1" min="1" max="100000" required inputmode="numeric"></label>
+          <table class="inputs">
+            <caption>Record what went into the finished goods and what was lost.</caption>
+            <thead><tr><th scope="col">Material</th><th scope="col">In goods</th><th scope="col">Scrap</th></tr></thead>
+            <tbody id="materials"></tbody>
+          </table>
+        </fieldset>
+        <button class="primary" id="preview" type="submit">Preview cost</button>
+      </form>
+      <p class="message" id="notice" role="status" aria-live="polite"></p>
+      <section id="preview-panel" class="receipt" aria-labelledby="receipt-title" hidden>
+        <h3 id="receipt-title">Cost preview</h3>
+        <dl id="cost-lines"></dl>
+        <dl class="result-math"><div><dt>Total materials</dt><dd id="total"></dd></div><div><dt>Per finished unit</dt><dd id="per-unit"></dd></div></dl>
+        <p id="rounding" class="hint"></p>
+        <button type="button" id="post" class="primary">Post batch</button>
+      </section>
+    </section>
+    <section class="paper stock" aria-labelledby="stock-title">
+      <h2 id="stock-title">Stock on hand</h2>
+      <p id="stock-state" class="sub"></p>
+      <div id="lots"></div>
+      <div id="undo" hidden>
+        <button type="button" id="reverse">Reverse this batch</button>
+      </div>
+      <section class="journal">
+        <h3>Movement history</h3>
+        <p id="empty-history">Previewing a cost leaves stock on the shelf. Posting it adds the first entry here.</p>
+        <ol id="events"></ol>
+        <button type="button" id="download" hidden>Download ledger CSV</button>
+      </section>
+    </section>
+  </div>
+  <details id="guide"><summary>How the costing works</summary>
+    <p>Each lot has an opening quantity and a purchase cost. The share of that lot used in a batch is <strong>(in goods + scrap) ÷ opening quantity</strong>. Multiply that share by the lot’s cost and round it to a whole cent. Add the lot costs and divide by finished units to get the average.</p>
+    <p>A reversal puts back the quantities and the exact cents from the posted entry. This is a materials-only exercise. Labor, tax and selling price are outside the calculation. Each practice sheet can have one posted batch at a time.</p>
+  </details>
+  <footer><span id="storage-note">Practice data stays in this browser.</span><a id="offline" href="batch-ledger.zip" download>Offline edition</a></footer>
+  <noscript>The practice sheets need JavaScript. The <a href="https://clpanic.com/blog/2026-11-26-what-does-one-notebook-cost/">written lesson</a> includes the calculation.</noscript>
+</main></body></html>

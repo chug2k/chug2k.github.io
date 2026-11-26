@@ -1,0 +1,61 @@
+@font-face{font-family:Bricolage;src:url("fonts/bricolage-grotesque.woff2") format("woff2");font-weight:200 800;font-display:swap}
+:root{--ink:#20332c;--muted:#465951;--paper:#fffdf7;--line:#c9c4b6;--green:#1e5142;--copper:#954323;--background:#f5f0e7;--heading:Bricolage,"Trebuchet MS",sans-serif}
+*{box-sizing:border-box}
+body{background:var(--background);color:var(--ink);font:1rem/1.5 system-ui,sans-serif;margin:0}
+main{max-width:66rem;margin:auto;padding:2.2rem clamp(1rem,4vw,3rem) 1.5rem}
+header{border-top:4px solid var(--green);padding:1rem 0 1.15rem}
+.back,footer a{color:var(--green);text-underline-offset:.2em;font-weight:600}
+h1,h2,h3,summary{font-family:var(--heading);line-height:1.1}
+h1{font-size:clamp(3.4rem,9vw,6.8rem);letter-spacing:-.065em;font-weight:680;margin:.7rem 0 .65rem}
+.lead{max-width:40rem;font-size:clamp(1.05rem,2vw,1.3rem);line-height:1.45;margin:.6rem 0}
+.cases{display:flex;gap:.4rem;border-bottom:1px solid var(--line);padding:.35rem 0 .8rem}
+button{border:1px solid var(--green);border-radius:.25rem;background:var(--paper);color:var(--green);padding:.62rem .9rem;min-height:44px;font:600 .96rem/1.25 system-ui,sans-serif;cursor:pointer}
+button[aria-pressed="true"],button.primary{background:var(--green);color:#fff}
+button:hover:enabled{box-shadow:0 0 0 1px var(--green) inset}
+button:disabled,fieldset:disabled input{opacity:.65;cursor:default}
+:focus-visible{outline:3px solid #ab571d;outline-offset:3px}
+.brief{max-width:47rem;color:var(--muted);min-height:2em;margin:.95rem 0}
+.workspace{display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:start}
+.paper{min-width:0;background:var(--paper);padding:clamp(1rem,2.7vw,1.8rem);border:1px solid var(--line);border-top:3px solid var(--green)}
+h2{font-size:1.8rem;letter-spacing:-.035em;margin:0 0 1rem}
+h3{font-size:1.2rem;letter-spacing:-.015em;margin:.25rem 0 .7rem}
+fieldset{border:0;padding:0;margin:0;min-width:0}
+input{font:inherit;font-variant-numeric:tabular-nums;width:100%;min-width:0;min-height:44px;padding:.42rem .45rem;border:1px solid #859487;border-radius:.18rem;background:white;color:var(--ink)}
+.out{display:flex;justify-content:space-between;gap:1rem;align-items:center;font-weight:650}
+.out input{max-width:6rem}
+table{border-collapse:collapse;width:100%;margin:1.2rem 0}
+table caption{text-align:left;color:var(--muted);font-size:.94rem;margin-bottom:.55rem}
+thead th{text-align:left;color:var(--muted);font-size:.85rem}
+.inputs th,.inputs td{padding:.4rem .3rem;border-bottom:1px solid var(--line)}
+.inputs th:first-child{text-align:left;width:46%;padding-left:0}
+.inputs td{width:27%}
+fieldset:disabled{color:var(--muted)}
+.message:empty{display:none}
+.message{border-left:3px solid #ae5d32;padding-left:.7rem}
+.receipt{border-top:1px dashed var(--line);margin-top:1.1rem;padding-top:1rem}
+dl{margin:.55rem 0}
+dl div,.lot-head,.journal-head{display:flex;justify-content:space-between;align-items:baseline;gap:.7rem}
+dd{margin:0;text-align:right;font-variant-numeric:tabular-nums}
+.result-math{border-top:1px solid var(--line);padding-top:.6rem;font-weight:650}
+.result-math dd{font:700 1.25rem var(--heading)}
+.hint,.sub,.lot-foot,#empty-history,.journal li small,footer{color:var(--muted);font-size:.92rem}
+.stock{border-top-color:var(--copper)}
+.lot{margin:1rem 0}
+.lot-head strong{font-family:var(--heading);font-size:1.12rem}
+.lot-head span{font-variant-numeric:tabular-nums}
+.track{height:.52rem;margin:.45rem 0;background:#e5dece;border:1px solid #c7c1ad}
+.fill{height:100%;background:var(--green)}
+.lot-foot{margin:0}
+#undo{margin:1rem 0}
+.journal{border-top:1px solid var(--line);padding-top:.85rem;margin-top:1.3rem}
+.journal ol{padding-left:1.4rem}
+.journal li{margin-bottom:.7rem}
+.journal li small{display:block}
+details{margin:1.25rem 0;border-bottom:1px solid var(--line);padding:.7rem 0}
+summary{cursor:pointer;font-weight:600;min-height:36px}
+details p{max-width:55rem}
+footer{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.visually-hidden{position:absolute;clip-path:inset(50%);width:1px;height:1px;overflow:hidden}
+[hidden]{display:none!important}
+@media(max-width:650px){main{padding-top:1rem}.workspace{grid-template-columns:1fr}.brief{min-height:0}}
+@media print{body{background:white}main{padding:0}.back,.cases,button,footer,.hint,details{display:none}.workspace{display:block}.paper{border:0}.journal li{break-inside:avoid}}
