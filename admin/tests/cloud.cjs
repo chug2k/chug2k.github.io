@@ -183,6 +183,39 @@ async function run(name, fn) {
   browser = await chromium.launch({ headless: true });
   await run("the visual lesson survives reload, syncs privately and publishes its prose", () =>
     require("./lesson.cjs")({ root, base, model, context }));
+  await run("a dated article link opens the right text and recovers edits before the next cloud save", async () => {
+    const m = model(), c = await context(m), p = await c.newPage();
+    const slug = "2026-11-26-spare-key-fixture", file = "blog/posts/" + slug + ".md";
+    const source = "---\ntitle: Spare key fixture\ndescription: A fictional paragraph.\ndate: 2026-11-26\ndraft: false\n---\n\nA key lay on the counter.\n";
+    let reads = 0;
+    await c.route("**/admin/api/github/read?**", async (route) => {
+      assert.equal(new URL(route.request().url()).searchParams.get("path"), file);
+      reads++;
+      return route.fulfill({json:{sha:"fixture",content:Buffer.from(source).toString("base64")}});
+    });
+    p.on("dialog", dialog => dialog.accept());
+    await p.goto(base + "/admin/");
+    await p.waitForFunction(() => window.writerBoot?.ready);
+    await p.locator("#title").fill("Keep this other draft");
+    await p.waitForFunction(() => document.querySelector("#status").textContent === "Saved to cloud");
+    await p.goto(base + "/admin/?edit=" + slug);
+    await p.waitForFunction(() => window.writerBoot?.ready);
+    const writer = p.locator("#editor [contenteditable=true]");
+    assert.match(await writer.innerText(), /A key lay on the counter/);
+    await writer.press("Control+End");
+    await p.keyboard.insertText(" The envelope was still open.");
+    await p.reload({waitUntil:"domcontentloaded"});
+    await p.waitForFunction(() => window.writerBoot?.ready);
+    assert.match(await writer.innerText(), /The envelope was still open/);
+    await p.waitForFunction(() => document.querySelector("#status").textContent === "Saved to cloud");
+    assert.equal(reads, 1);
+    assert.ok([...m.drafts.values()].some(d => d.title === "Keep this other draft"));
+    assert.ok([...m.drafts.values()].some(d => d.path === file && d.markdown.includes("The envelope was still open.")));
+    await p.goto(base + "/admin/?edit=invalid-link");
+    await p.waitForFunction(() => window.writerBoot?.ready);
+    assert.equal(reads, 1);
+    await c.close();
+  });
   await run("drafts and private photos open on a separate device", async () => {
     const m = model(),
       a = await context(m),

@@ -115,20 +115,29 @@ const on = (id, fn, event = "click") =>
   $(id).addEventListener(event, action(fn));
 const snapshot = () => structuredClone(active);
 const isLesson = (draft) => draft?.path === lessonPath;
-const journalKey = (id) => "writing-room:lesson-pending:" + id;
-function journalLesson(draft) {
-  const { markdown, title, dek, date, slug, revision } = draft;
-  try { sessionStorage.setItem(journalKey(draft.id), JSON.stringify({ markdown, title, dek, date, slug, revision })); } catch {}
+const datedPost = /^\d{4}-\d{2}-\d{2}-[a-z0-9][a-z0-9-]*$/;
+function postFromLink(key) {
+  if (key === "what-is-an-agent") return lessonPath;
+  return datedPost.test(key || "") ? "blog/posts/" + key + ".md" : null;
 }
-function restoreLesson(draft) {
+// Keep the original session key so an open lesson from the preceding release can recover.
+const journalKey = (id) => "writing-room:lesson-pending:" + id;
+function journalPost(draft) {
+  const { markdown, title, dek, date, slug, revision, sourceMode, bodyDirty } = draft;
+  const pending = { markdown, title, dek, date, slug, revision, sourceMode, bodyDirty };
+  if (bodyDirty && !sourceMode) pending.blocks = draft.blocks;
+  try { sessionStorage.setItem(journalKey(draft.id), JSON.stringify(pending)); } catch {}
+}
+function restorePost(draft) {
   try {
     const pending = JSON.parse(sessionStorage.getItem(journalKey(draft.id)) || "null");
     if (!pending) return false;
-    if (["markdown", "title", "dek", "date", "slug"].every((k) => draft[k] === pending[k])) {
+    const sameBlocks = !pending.bodyDirty || JSON.stringify(draft.blocks) === JSON.stringify(pending.blocks);
+    if (sameBlocks && ["markdown", "title", "dek", "date", "slug"].every((k) => draft[k] === pending[k])) {
       sessionStorage.removeItem(journalKey(draft.id));
       return false;
     }
-    Object.assign(draft, pending, { pristine: false });
+    Object.assign(draft, pending, { blocks: pending.blocks || null, pristine: false });
     return true;
   } catch { return false; }
 }
@@ -159,7 +168,7 @@ const publicationState = (d) =>
 function markChanged() {
   if (loading || !active) return;
   active.pristine = false;
-  if (isLesson(active)) journalLesson(active);
+  if (active.path) journalPost(active);
   if (active.attempt?.acceptedAt) active.unpublishedChanges = true;
   revision++;
   say("Saving…");
@@ -234,8 +243,8 @@ function persist() {
           active.updatedAt = result.draft.updatedAt;
           active.recoveryOf = result.draft.recoveryOf;
           active.recoveryLabel = result.draft.recoveryLabel;
-          if (isLesson(active)) {
-            if (revision !== version) journalLesson(active);
+          if (active.path) {
+            if (revision !== version) journalPost(active);
             if (revision === version || active.id !== priorId) {
               try { sessionStorage.removeItem(journalKey(priorId)); } catch {}
             }
@@ -313,7 +322,7 @@ async function installDraft(d, nav = navVersion) {
   try {
     d = structuredClone(d);
     const lesson = isLesson(d);
-    const recovered = lesson && restoreLesson(d);
+    const recovered = d.path && restorePost(d);
     let mountLesson;
     if (lesson) {
       d.sourceMode = false;
@@ -341,7 +350,7 @@ async function installDraft(d, nav = navVersion) {
       sourceMode: !!d.sourceMode,
       assetIds: d.assetIds || [],
       blocks,
-      bodyDirty: false,
+      bodyDirty: !!(recovered && d.bodyDirty),
     };
     if (
       d.legacyBlocks ||
@@ -380,8 +389,10 @@ async function installDraft(d, nav = navVersion) {
     savedRevision = 0;
     remember("bn.activeDraft", active.id);
     const url = new URL(location.href);
+    const file = active.path?.split("/").pop()?.replace(/\.md$/, "");
     if (lesson) url.searchParams.set("edit", "what-is-an-agent");
-    else if (url.searchParams.get("edit") === "what-is-an-agent") url.searchParams.delete("edit");
+    else if (file && postFromLink(file) === active.path) url.searchParams.set("edit", file);
+    else url.searchParams.delete("edit");
     if (url.href !== location.href) history.replaceState(history.state, "", url);
     modeUI();
     publicationUI();
@@ -968,10 +979,8 @@ async function openPost(path, latest = false, startup = false) {
           repoKey(d.config || {}) === repoKey(c),
       )
       .sort((a, b) => b.updatedAt - a.updatedAt);
-    const existing = path === lessonPath
-      ? candidates.find((d) => d.id === stored("bn.activeDraft")) ||
-        candidates.find((d) => !d.recoveryLabel?.startsWith("Original source before editing")) || candidates[0]
-      : candidates[0];
+    const existing = candidates.find((d) => d.id === stored("bn.activeDraft")) ||
+      candidates.find((d) => !d.recoveryLabel?.startsWith("Original source before editing")) || candidates[0];
     if (existing && nav === navVersion) {
       await installDraft(existing, nav);
       return;
@@ -1664,8 +1673,8 @@ let initial =
   drafts
     .filter((d) => !d.archived)
     .sort((a, b) => b.updatedAt - a.updatedAt)[0];
-const directLesson = new URLSearchParams(location.search).get("edit") === "what-is-an-agent";
-if (!initial && !directLesson)
+const directPost = postFromLink(new URLSearchParams(location.search).get("edit"));
+if (!initial && !directPost)
   initial = (
     await storage.save(
       {
@@ -1683,12 +1692,12 @@ if (!initial && !directLesson)
       0,
     )
   ).draft;
-if (directLesson) {
+if (directPost) {
   try {
-    await openPost(lessonPath, false, true);
+    await openPost(directPost, false, true);
   } catch (error) {
     // Keep other drafts intact when a direct article link cannot be opened.
-    $("bootStatus").textContent = "Could not open the lesson. " + error.message + " Refresh to retry.";
+    $("bootStatus").textContent = "Could not open this post. " + error.message + " Refresh to retry.";
     throw error;
   }
 } else await installDraft(initial);
